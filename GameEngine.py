@@ -166,14 +166,35 @@ class GameEngine:
 		if xdist > move: or ydist > move:
 			return "the piece you are moving cannot move like that"
 
+		piece2 = self.board[coord2[0]][coord2[1]]
+		if piece.get_player() == piece2.get_player():
+			return "You cant move into your own piece"
+
 		return True
+
+
+	# Takes in 2 players and returns 0 for p1 winning and 1 for p2 winning.
+	# Something about revealing here.
+	def battle(self, p1, p2):
 
 
 
 	# Takes in coord1 [x1, y1] and coord2 [x2, y2], and player = (0 or 1)
 	# This assumes check_legal has been run.
 	def move(self, coord1, coord2):
-		pass
+		p1 = self.board[coord1[0]][coord1[1]]
+		if not isinstance(self.board[coord2[0]][coord2[1]], Piece):
+			self.board[coord2[0]][coord2[1]] = p1
+			self.board[coord1[0]][coord1[1]] = 0
+			return True
+
+		p2 = self.board[coord2[0]][coord2[1]]
+		winner = self.battle(p1, p2)
+		if winner == 0:
+			self.board[coord2[0]][coord2[1]] = p1
+
+		# Something about revealing here.
+		return True
 
 
 
