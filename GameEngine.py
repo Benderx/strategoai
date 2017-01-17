@@ -44,6 +44,10 @@ class Piece:
 		return self.name
 
 
+	def get_player(self):
+		return self.player
+
+
 class GameEngine:
 	def __init__(self):
 		self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
@@ -96,6 +100,81 @@ class GameEngine:
 				else:
 					arr_temp.append(self.board[y][x])
 			print(arr_temp)
+
+
+	# Takes in coord1 [x1, y1] and coord2 [x2, y2], and player = (0 or 1)
+	def check_legal(self, coord1, coord2, player)
+		if coord1[0] < 0  or coord1[0] > 9:
+			return "coord1 x is out of bounds"
+		if coord1[1] < 0  or coord1[1] > 9:
+			return "coord1 y is out of bounds"
+		if coord2[0] < 0  or coord2[0] > 9:
+			return "coord2 x is out of bounds"
+		if coord2[1] < 0  or coord2[1] > 9:
+			return "coord2 y is out of bounds"
+
+		if coord1[0] == 2 and coord1 == 4:
+			return "you cant move the lake silly."
+		if coord1[0] == 2 and coord1 == 5:
+			return "you cant move the lake silly."
+		if coord1[0] == 3 and coord1 == 4:
+			return "you cant move the lake silly."
+		if coord1[0] == 3 and coord1 == 5:
+			return "you cant move the lake silly."
+
+		if coord1[0] == 6 and coord1 == 4:
+			return "you cant move the lake silly."
+		if coord1[0] == 6 and coord1 == 5:
+			return "you cant move the lake silly."
+		if coord1[0] == 7 and coord1 == 4:
+			return "you cant move the lake silly."
+		if coord1[0] == 7 and coord1 == 5:
+			return "you cant move the lake silly."
+
+		if coord2[0] == 2 and coord2 == 4:
+			return "you cant move the lake silly."
+		if coord2[0] == 2 and coord2 == 5:
+			return "you cant move the lake silly."
+		if coord2[0] == 3 and coord2 == 4:
+			return "you cant move the lake silly."
+		if coord2[0] == 3 and coord2 == 5:
+			return "you cant move the lake silly."
+
+		if coord2[0] == 6 and coord2 == 4:
+			return "you cant move the lake silly."
+		if coord2[0] == 6 and coord2 == 5:
+			return "you cant move the lake silly."
+		if coord2[0] == 7 and coord2 == 4:
+			return "you cant move the lake silly."
+		if coord2[0] == 7 and coord2 == 5:
+			return "you cant move the lake silly."
+
+
+		if not isinstance(self.board[coord1[0]][coord1[1]], Piece):
+			return "coord1 is invalid, there is no piece there"
+		piece = self.board[coord1[0]][coord1[1]]
+		if piece.get_player() != player:
+			return "That is not your piece"
+
+		xdist = math.abs(coord1[0] - coord2[0])
+		ydist = math.abs(coord1[1] - coord2[1])
+
+		if xdist != 0 and ydist != 0:
+			return "you cannot move diagonally"
+
+		move = piece.get_movement()
+		if xdist > move: or ydist > move:
+			return "the piece you are moving cannot move like that"
+
+		return True
+
+
+
+	# Takes in coord1 [x1, y1] and coord2 [x2, y2], and player = (0 or 1)
+	# This assumes check_legal has been run.
+	def move(self, coord1, coord2):
+		pass
+
 
 
 	# Probably move this to a GameRenderer.py class
