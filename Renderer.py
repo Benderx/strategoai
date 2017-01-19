@@ -41,13 +41,35 @@ class Renderer:
 
     # Used for refreshing to save space and time.
     def refresh_board(self):
-        pass
+        for i in self.piece_arr:
+            i.undraw()
+        self.piece_arr = []
+
+        for i in range(len(self.board)):
+            for j in range(len(self.board[i])):
+                if type(0) == type(self.board[i][j]):
+                    continue
+
+                piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
+                                      self.box_length * j + self.offset + (self.box_length / 2)), "NO")
+                if self.board[i][j].get_value() == 0:
+                    piece.setText('F')
+                elif self.board[i][j].get_value() == 10:
+                    piece.setText('B')
+                elif self.board[i][j].get_value() == 11:
+                    piece.setText('S')
+                else:
+                    piece.setText(str(self.board[i][j].get_value()))
+
+
+                self.piece_arr.append(piece)
+                piece.draw(self.win)
+        
 
 
     # Takes in width and height and sets up the Graphical Window.
     def window_setup(self, width, height):
         if __name__ == 'Renderer':
-            print('ya')
             self.win = graphics.GraphWin("Stratego!", width, height)
             self.win.setBackground("tan2")
         else:
