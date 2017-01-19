@@ -1,6 +1,6 @@
 import Renderer as r
 import GameEngine as g
-
+import time
 
 
 
@@ -11,7 +11,7 @@ r.draw_board()
 
 
 while True:
-	pass
+	time.sleep(1)
 
 engine.board_setup()
 
