@@ -7,15 +7,12 @@ import time
 engine = g.GameEngine()
 r = r.Renderer(engine.get_board())
 r.window_setup(500, 500)
+
+engine.board_setup()
 r.draw_board()
 
 
-while True:
-	time.sleep(1)
-
-engine.board_setup()
-
-engine.print_board()
+time.sleep(2)
 
 l = engine.check_legal([0, 6], [0, 5], 1)
 if l == True:
@@ -24,5 +21,8 @@ if l == True:
 else:
     print(l)
 
+r.refresh_board()
 
 
+while True:
+	time.sleep(.1)
