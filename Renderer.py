@@ -14,8 +14,13 @@ class Renderer:
 
     # Only for initial draw
     def draw_board(self):
+        lakes = [(2,4), (2,5), (3,4), (3,5),
+                (6,4), (6,5), (7,4), (7,5)]
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
+                if (i, j) in lakes:
+                    continue
+
                 c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),
                           graphics.Point(self.box_length * (i+1) + self.offset, self.box_length * (j+1) + self.offset))
                 c.draw(self.win)
