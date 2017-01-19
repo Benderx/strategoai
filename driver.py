@@ -39,11 +39,9 @@ class Human:
                     continue
 
                 self.renderer.del_disp_moves()
-                given_move = [(coord1, coord2)]
-                print(given_move)
-                print(moves)
+                given_move = (coord1, coord2)
                 if given_move in moves:
-                    return given_move[0][0], given_move[0][1]
+                    return given_move[0], given_move[1]
 
 
 # humans = 0, 1, 2
@@ -69,8 +67,7 @@ def play_game(engine, humans = 1, gui = False, renderer = None):
     while playing:
         coord1, coord2 = players[turn].get_move()
 
-        print('YAY')
-        l, msg = engine.check_legal(coord1, coord2)
+        l, msg = engine.check_legal(coord1, coord2, turn)
         if l == True:
             engine.move(coord1, coord2)
         else:
@@ -80,7 +77,8 @@ def play_game(engine, humans = 1, gui = False, renderer = None):
 
         if gui:
             renderer.refresh_board()
-        engine.print_board()
+        else:
+            engine.print_board()
         turn = 1 - turn
 
 

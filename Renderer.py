@@ -53,7 +53,7 @@ class Renderer:
 
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
-                if type(0) == type(self.board[i][j]):
+                if type(-1) == type(self.board[i][j]):
                     continue
 
                 piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
@@ -64,6 +64,8 @@ class Renderer:
                     piece.setText('B')
                 elif self.board[i][j].get_value() == 11:
                     piece.setText('S')
+                elif self.board[i][j].get_value() == -1:
+                    continue
                 else:
                     piece.setText(str(self.board[i][j].get_value()))
 
