@@ -4,10 +4,10 @@ import inspect
 
 class Piece:
     # 0: Flag
-    # 1-7: normal 1 movers
+    # 1-7: normal 1 movers, piece 1 loses to spy
     # 8: normal mover, kills bombs
     # 9: super mover
-    # 10: bombs, no movement
+    # 10: bombs, no movement, only loses to miner
     # 11: Spy
 
     def __init__(self, p, v = None, n = None):
@@ -101,10 +101,22 @@ class GameEngine:
             arr_temp = []
             for y in range(0, 10):
                 if isinstance(self.board[y][x], Piece):
-                    arr_temp.append(self.board[y][x].get_value())
+                    val = self.board[y][x].get_value()
+                    if val == 0:
+                        name = 'F'
+                    elif val == 10:
+                        name = 'B'
+                    elif val == 11:
+                        name = 'S'
+                    else:
+                        name = val
+                    arr_temp.append(name)
                 else:
-                    arr_temp.append(self.board[y][x])
-            print(arr_temp)
+                    val = self.board[y][x]
+                    if val == -1:
+                        val = 'L'
+                    arr_temp.append(val)
+            print(' '.join(map(str, arr_temp)))
         print()
 
 
@@ -126,42 +138,6 @@ class GameEngine:
             return "coord1 is a lake"
         if (coord2[0], coord2[1]) in lakes:
             return "coord2 is a lake"
-
-        # if coord1[0] == 2 and coord1 == 4:
-        #     return "you cant move the lake silly."
-        # if coord1[0] == 2 and coord1 == 5:
-        #     return "you cant move the lake silly."
-        # if coord1[0] == 3 and coord1 == 4:
-        #     return "you cant move the lake silly."
-        # if coord1[0] == 3 and coord1 == 5:
-        #     return "you cant move the lake silly."
-
-        # if coord1[0] == 6 and coord1 == 4:
-        #     return "you cant move the lake silly."
-        # if coord1[0] == 6 and coord1 == 5:
-        #     return "you cant move the lake silly."
-        # if coord1[0] == 7 and coord1 == 4:
-        #     return "you cant move the lake silly."
-        # if coord1[0] == 7 and coord1 == 5:
-        #     return "you cant move the lake silly."
-
-        # if coord2[0] == 2 and coord2 == 4:
-        #     return "you cant move the lake silly."
-        # if coord2[0] == 2 and coord2 == 5:
-        #     return "you cant move the lake silly."
-        # if coord2[0] == 3 and coord2 == 4:
-        #     return "you cant move the lake silly."
-        # if coord2[0] == 3 and coord2 == 5:
-        #     return "you cant move the lake silly."
-
-        # if coord2[0] == 6 and coord2 == 4:
-        #     return "you cant move the lake silly."
-        # if coord2[0] == 6 and coord2 == 5:
-        #     return "you cant move the lake silly."
-        # if coord2[0] == 7 and coord2 == 4:
-        #     return "you cant move the lake silly."
-        # if coord2[0] == 7 and coord2 == 5:
-        #     return "you cant move the lake silly."
 
 
         if not isinstance(self.board[coord1[0]][coord1[1]], Piece):
