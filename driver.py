@@ -71,7 +71,7 @@ def play_game(engine, humans = 1, gui = False, renderer = None):
         if l == True:
             engine.move(coord1, coord2)
         else:
-            print("Illegal move, move again please.")
+            print('Illegal move, move again please.')
             print(msg)
             continue
 

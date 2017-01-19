@@ -31,6 +31,10 @@ class Renderer:
 
                 piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
                                       self.box_length * j + self.offset + (self.box_length / 2)), "NO")
+                if self.board[i][j].get_player() == 0:
+                    piece.setOutline('white')
+                else:
+                    piece.setOutline('black')
                 if self.board[i][j].get_value() == 0:
                     piece.setText('F')
                 elif self.board[i][j].get_value() == 10:
