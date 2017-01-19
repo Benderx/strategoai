@@ -69,7 +69,10 @@ class Renderer:
 
                 self.piece_arr.append(piece)
                 piece.draw(self.win)
-        
+    
+
+    def get_mouse(self):
+        return self.win.getMouse()
 
 
     # Takes in width and height and sets up the Graphical Window.
