@@ -55,7 +55,7 @@ class Piece:
 class GameEngine:
     def __init__(self):
         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
-
+        random.seed(0)
 
     def board_setup(self):
         for x in range(len(self.board)):
@@ -121,6 +121,7 @@ class GameEngine:
 
     # Takes in coord1 [x1, y1] and coord2 [x2, y2], and player = (0 or 1)
     def check_legal(self, coord1, coord2, player):
+        message = None
         if coord1[0] < 0  or coord1[0] > 9:
             message = "coord1 x is out of bounds"
         if coord1[1] < 0  or coord1[1] > 9:
@@ -141,28 +142,28 @@ class GameEngine:
 
         if not isinstance(self.board[coord1[0]][coord1[1]], Piece):
             message = "coord1 is invalid, there is no piece there"
-        piece = self.board[coord1[0]][coord1[1]]
-        if piece.get_player() != player:
-            message = "That is not your piece"
+        if not message:
+            piece = self.board[coord1[0]][coord1[1]]
+            if piece.get_player() != player:
+                message = "That is not your piece"
 
-        xdist = abs(coord1[0] - coord2[0])
-        ydist = abs(coord1[1] - coord2[1])
+            xdist = abs(coord1[0] - coord2[0])
+            ydist = abs(coord1[1] - coord2[1])
 
-        if xdist != 0 and ydist != 0:
-            message = "you cannot move diagonally"
+            if xdist != 0 and ydist != 0:
+                message = "you cannot move diagonally"
 
-        move = piece.get_movement()
-        if xdist > move or ydist > move:
-            message = "the piece you are moving cannot move like that"
+            move = piece.get_movement()
+            if xdist > move or ydist > move:
+                message = "the piece you are moving cannot move like that"
 
-        if isinstance(self.board[coord2[0]][coord2[1]], Piece):
-            piece2 = self.board[coord2[0]][coord2[1]]
-            if piece.get_player() == piece2.get_player():
-                message = "You cant move into your own piece"
-
+            if isinstance(self.board[coord2[0]][coord2[1]], Piece):
+                piece2 = self.board[coord2[0]][coord2[1]]
+                if piece.get_player() == piece2.get_player():
+                    message = "You cant move into your own piece"
         if message:
             return False, message
-        return True
+        return True, "legal move"
 
 
     # Only for the renderer and the AI
@@ -217,7 +218,7 @@ class GameEngine:
         return False
 
 
-    # Takes in coord1 [x1, y1] and coord2 [x2, y2], and player = (0 or 1)
+    # Takes in coord1 [x1, y1] and coord2 [x2, y2]
     # This assumes check_legal has been run.
     def move(self, coord1, coord2):
         p1 = self.board[coord1[0]][coord1[1]]
@@ -240,8 +241,20 @@ class GameEngine:
 
         return True
 
+    def legal_moves_for_piece(self, loc, player):
+        moves = [[loc[0]+1, loc[1]], [loc[0]-1, loc[1]], [loc[0], loc[1]+1], [loc[0], loc[1]-1]]
+        final = []
+        for move in moves:
+            if self.check_legal(loc, move, player)[0]:
+                final.append([loc, move])
+        return final
 
     def all_legal_moves(self, player):
-        for row in board:
-            for loc in row:
-                if isinstance(loc, Piece):
+        moves = []
+        for i in range(len(self.board)):
+            for j in range(len(self.board[i])):
+                moves += self.legal_moves_for_piece([i,j], player)
+        return moves
+
+
+
