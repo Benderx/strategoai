@@ -16,6 +16,10 @@ class Renderer:
     def draw_board(self):
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
+                c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),
+                          graphics.Point(self.box_length * (i+1) + self.offset, self.box_length * (j+1) + self.offset))
+                c.draw(self.win)
+
                 piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
                                       self.box_length * j + self.offset + (self.box_length / 2)), "NO")
                 self.piece_arr.append(piece)
