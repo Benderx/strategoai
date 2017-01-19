@@ -4,56 +4,64 @@ import time
 
 
 class Human:
-	def __init__(self, s, g = False, r = None):
-		self.side = s
-		self.gui = g
-		self.renderer = r
+    def __init__(self, s, g = False, r = None):
+        self.side = s
+        self.gui = g
+        self.renderer = r
 
 
-	def get_move(self):
-		# Implement console only functionality, need parser from command line.
-		if self.gui == False:
-			pass
-		else:
-			while True:
-				p = self.renderer.get_mouse()
-				# Program in mouse getting
+    def get_move(self):
+        # Implement console only functionality, need parser from command line.
+        if self.gui == False:
+            pass
+        else:
+            while True:
+                p = self.renderer.get_mouse()
+                # Program in mouse getting
 
 
 # humans = 0, 1, 2
-def play_game(humans = 1, gui = False, renderer = None):
-	players = []
-	if humans == 0:
-		players.append(YOURAIHERE(0, ARGS))
-		players.append(YOURAIHERE(1, ARGS))
-	elif humans == 1:
-		players.append(Human(0, gui, renderer))
-		players.append(YOURAIHERE(ARGS))
-	elif humans == 2:
-		players.append(Human(0, gui, renderer))
-		players.append(Human(1, gui, renderer))
-	else:
-		raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
+def play_game(engine, humans = 1, gui = False, renderer = None):
+    players = []
+    if humans == 0:
+        players.append(YOURAIHERE(0, ARGS))
+        players.append(YOURAIHERE(1, ARGS))
+    elif humans == 1:
+        players.append(Human(0, gui, renderer))
+        players.append(YOURAIHERE(1, ARGS))
+    elif humans == 2:
+        players.append(Human(0, gui, renderer))
+        players.append(Human(1, gui, renderer))
+    else:
+        raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
 
-	playing = True
-	turn = 0
-	while playing:
-		players[turn].get_move()
+    engine.board_setup()
+    r.draw_board()
 
+    playing = True
+    turn = 0
+    while playing:
+        coord1, coord2 = players[turn].get_move()
+        l = engine.check_legal(coord1, coord2)
+        if l == True:
+            engine.move(coord1, coord2)
+        else:
+            print("Illegal move, move again please.")
+            print(l)
+            continue
 
-		turn = 1 - turn
+        if gui:
+            renderer.refresh_board()
+        engine.print_board()
+        turn = 1 - turn
 
 
 def main():
-	engine = g.GameEngine()
-	r = r.Renderer(engine.get_board())
-	r.window_setup(500, 500)
+    engine = g.GameEngine()
+    r = r.Renderer(engine.get_board())
+    r.window_setup(500, 500)
 
-	engine.board_setup()
-	r.draw_board()
-
-
-	play_game(2, True, r)
+    play_game(engine, 2, True, r)
 
 
 main()
@@ -72,4 +80,4 @@ main()
 
 # # http://stackoverflow.com/questions/20340018/while-loop-is-taking-forever-and-freezing-screen
 # while True:
-# 	time.sleep(.1)
+#   time.sleep(.1)
