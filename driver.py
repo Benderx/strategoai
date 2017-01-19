@@ -67,6 +67,7 @@ def play_game(engine, humans = 1, gui = False, renderer = None):
     while playing:
         coord1, coord2 = players[turn].get_move()
 
+        # This checking doesnt need to happen probably
         l, msg = engine.check_legal(coord1, coord2, turn)
         if l == True:
             engine.move(coord1, coord2)

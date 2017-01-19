@@ -30,12 +30,16 @@ class Renderer:
                     continue
 
                 piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
-                                      self.box_length * j + self.offset + (self.box_length / 2)), "NO")
+                                      self.box_length * j + self.offset + (self.box_length / 2)), 'H')
+
                 if self.board[i][j].get_player() == 0:
                     piece.setOutline('white')
                 else:
                     piece.setOutline('black')
-                if self.board[i][j].get_value() == 0:
+
+                if self.board[i][j].get_visible() == False and self.board[i][j].get_player() == 1:
+                    pass
+                elif self.board[i][j].get_value() == 0:
                     piece.setText('F')
                 elif self.board[i][j].get_value() == 10:
                     piece.setText('B')
@@ -51,25 +55,36 @@ class Renderer:
 
     # Used for refreshing to save space and time.
     def refresh_board(self):
+        lakes = [(2,4), (2,5), (3,4), (3,5),
+                (6,4), (6,5), (7,4), (7,5)]
+
         for i in self.piece_arr:
             i.undraw()
         self.piece_arr = []
 
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
+                if (i, j) in lakes:
+                    continue
                 if type(-1) == type(self.board[i][j]):
                     continue
 
                 piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
-                                      self.box_length * j + self.offset + (self.box_length / 2)), "NO")
-                if self.board[i][j].get_value() == 0:
+                                      self.box_length * j + self.offset + (self.box_length / 2)), 'H')
+
+                if self.board[i][j].get_player() == 0:
+                    piece.setOutline('white')
+                else:
+                    piece.setOutline('black')
+
+                if self.board[i][j].get_visible() == False and self.board[i][j].get_player() == 1:
+                    pass
+                elif self.board[i][j].get_value() == 0:
                     piece.setText('F')
                 elif self.board[i][j].get_value() == 10:
                     piece.setText('B')
                 elif self.board[i][j].get_value() == 11:
                     piece.setText('S')
-                elif self.board[i][j].get_value() == -1:
-                    continue
                 else:
                     piece.setText(str(self.board[i][j].get_value()))
 

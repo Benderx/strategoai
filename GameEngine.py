@@ -32,7 +32,7 @@ class Piece:
             raise Exception('Piece value not found')
 
 
-    def get_visibility(self):
+    def get_visible(self):
         return self.visible
 
 
