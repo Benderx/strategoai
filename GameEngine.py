@@ -29,7 +29,7 @@ class Piece:
             return math.inf
 
         else:
-            return "Piece value not found"
+            raise Exception('Piece value not found')
 
 
     def get_visibility(self):
@@ -181,10 +181,10 @@ class GameEngine:
         p2.reveal()
 
         if v1 == 0:
-            return "p1 loses"
+            return 'p1 loses'
 
         if v2 == 0:
-            return "p2 loses"
+            return 'p2 loses'
 
         if v1 == 10:
             if v2 == 8:
@@ -214,7 +214,7 @@ class GameEngine:
         if v2 > v1:
             return 0
 
-        print("A case that was not thought of happened")
+        raise Exception('A case that was not thought of happened')
         return False
 
 
@@ -230,9 +230,9 @@ class GameEngine:
         p2 = self.board[coord2[0]][coord2[1]]
         winner = self.battle(p1, p2)
 
-        if type(winner) == type("this probably isnt how you should code this"):
+        if type(winner) == type('this probably isnt how you should code this'):
             # Add player win detection here.
-            return "Game over."
+            return 'Game over.'
 
         if winner == 0:
             self.board[coord2[0]][coord2[1]] = p1
@@ -257,4 +257,11 @@ class GameEngine:
         return moves
 
 
-
+    # Accidently started developing a function that already existed
+    # def get_piece_by_coords(coord, player)
+    #     msg = 'legal'
+    #     if not isinstance(self.board[coord[0]][coord[1]], Piece):
+    #         msg = 'No piece there'
+    #         return (False, msg)
+    #     piece = self.board[coord[0]][coord[1]]
+    #     return piece

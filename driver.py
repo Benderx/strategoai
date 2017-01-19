@@ -17,7 +17,25 @@ class Human:
         else:
             while True:
                 p = self.renderer.get_mouse_square()
-                print(p)
+                if p.x < 0 or p.x > 9 or p.y < 0 or p.y > 9
+                    print('Point selected is out of bounds, select again.')
+                    continue
+
+                moves = engine.legal_moves_for_piece(self, p, player):
+
+                if len(moves) == 0:
+                    print('You cant move that')
+                    continue
+
+                # populate arr with tuples of posible moves of the piece
+                arr = []
+                renderer.disp_pos_moves(arr)
+
+                p = self.renderer.get_mouse_square()
+                if p.x < 0 or p.x > 9 or p.y < 0 or p.y > 9
+                    print('Point selected is out of bounds, select again.')
+                    renderer.del_pos_moves(arr)
+                    continue
 
 
 # humans = 0, 1, 2

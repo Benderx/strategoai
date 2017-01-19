@@ -10,6 +10,7 @@ class Renderer:
         self.offset = o
         self.piece_arr = []
         self.win = None
+        self.highlighted = None
 
 
     # Only for initial draw
@@ -80,6 +81,14 @@ class Renderer:
 
     # takes in array of tuples and highlights those on the board.
     def disp_pos_moves(self, arr)
+
+
+        self.highlighted = []
+        pass
+
+
+    # deletes all highlited squares.
+    def disp_pos_moves(self)
         pass
 
 
