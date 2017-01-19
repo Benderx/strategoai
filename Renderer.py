@@ -24,7 +24,9 @@ class Renderer:
     # Takes in width and height and sets up the Graphical Window.
     def window_setup(self, width, height):
         if __name__ == '__main__':
+            print('ya')
             self.win = graphics.GraphWin("Stratego!", width, height)
             self.win.setBackground("tan2")
         else:
-            return "Not the main thread/proccess!"
+            print("Not the main thread/proccess!")
+            return 
