@@ -29,8 +29,6 @@ class Human:
                     print('You cant move that')
                     continue
 
-                print('drawing moves')
-
                 # populate arr with tuples of posible moves of the piece
                 self.renderer.disp_pos_moves(moves)
 
@@ -42,6 +40,8 @@ class Human:
 
                 self.renderer.del_disp_moves()
                 given_move = [(coord1, coord2)]
+                print(given_move)
+                print(moves)
                 if given_move in moves:
                     return given_move[0][0], given_move[0][1]
 
@@ -68,6 +68,7 @@ def play_game(engine, humans = 1, gui = False, renderer = None):
     turn = 0
     while playing:
         coord1, coord2 = players[turn].get_move()
+
         print('YAY')
         l, msg = engine.check_legal(coord1, coord2)
         if l == True:

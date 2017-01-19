@@ -246,7 +246,7 @@ class GameEngine:
         final = []
         for move in moves:
             if self.check_legal(loc, move, player)[0]:
-                final.append([loc, move])
+                final.append((loc, move))
         return final
 
     def all_legal_moves(self, player):
