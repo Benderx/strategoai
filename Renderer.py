@@ -10,7 +10,7 @@ class Renderer:
         self.offset = o
         self.piece_arr = []
         self.win = None
-        self.highlighted = None
+        self.highlighted = []
 
 
     # Only for initial draw
@@ -81,15 +81,20 @@ class Renderer:
 
     # takes in array of tuples and highlights those on the board.
     def disp_pos_moves(self, arr):
-
-
-        self.highlighted = []
-        pass
+        for i in arr:
+            c = graphics.Rectangle(graphics.Point(self.box_length * i[1][0] + self.offset, self.box_length * i[1][1] + self.offset),
+                          graphics.Point(self.box_length * (i[1][0]+1) + self.offset, self.box_length * (i[1][1]+1) + self.offset))
+            c.setFill('red')
+            c.draw(self.win)
+            self.highlighted.append(c)
 
 
     # deletes all highlited squares.
-    def disp_pos_moves(self):
-        pass
+    def del_disp_moves(self):
+        for i in self.highlighted:
+            i.undraw()
+        self.highlighted = []
+        return
 
 
     # Takes in width and height and sets up the Graphical Window.

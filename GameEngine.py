@@ -242,7 +242,7 @@ class GameEngine:
         return True
 
     def legal_moves_for_piece(self, loc, player):
-        moves = [[loc[0]+1, loc[1]], [loc[0]-1, loc[1]], [loc[0], loc[1]+1], [loc[0], loc[1]-1]]
+        moves = [(loc[0]+1, loc[1]), (loc[0]-1, loc[1]), (loc[0], loc[1]+1), (loc[0], loc[1]-1)]
         final = []
         for move in moves:
             if self.check_legal(loc, move, player)[0]:

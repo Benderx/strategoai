@@ -17,27 +17,33 @@ class Human:
             pass
         else:
             while True:
-                piece = self.renderer.get_mouse_square()
-                if piece[0] < 0 or piece[0] > 9 or piece[1] < 0 or piece[1] > 9:
+                coord1 = self.renderer.get_mouse_square()
+                if coord1[0] < 0 or coord1[0] > 9 or coord1[1] < 0 or coord1[1] > 9:
                     print('Point selected is out of bounds, select again.')
                     continue
 
-                moves = self.engine.legal_moves_for_piece(piece, self.side)
+                moves = self.engine.legal_moves_for_piece(coord1, self.side)
+
 
                 if len(moves) == 0:
                     print('You cant move that')
                     continue
 
-                # populate arr with tuples of posible moves of the piece
-                self.renderer.disp_pos_moves()
+                print('drawing moves')
 
-                piece = self.renderer.get_mouse_square()
-                if piece[0] < 0 or piece[0] > 9 or piece[1] < 0 or piece[1] > 9:
+                # populate arr with tuples of posible moves of the piece
+                self.renderer.disp_pos_moves(moves)
+
+                coord2 = self.renderer.get_mouse_square()
+                if coord2[0] < 0 or coord2[0] > 9 or coord2[1] < 0 or coord2[1] > 9:
                     print('Point selected is out of bounds, select again.')
-                    renderer.del_pos_moves(arr)
+                    self.renderer.del_disp_moves()
                     continue
 
-                print(moves)
+                self.renderer.del_disp_moves()
+                given_move = [(coord1, coord2)]
+                if given_move in moves:
+                    return given_move[0][0], given_move[0][1]
 
 
 # humans = 0, 1, 2
@@ -62,6 +68,7 @@ def play_game(engine, humans = 1, gui = False, renderer = None):
     turn = 0
     while playing:
         coord1, coord2 = players[turn].get_move()
+        print('YAY')
         l, msg = engine.check_legal(coord1, coord2)
         if l == True:
             engine.move(coord1, coord2)
