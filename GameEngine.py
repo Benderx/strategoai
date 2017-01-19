@@ -176,7 +176,40 @@ class GameEngine:
 	# Takes in 2 players and returns 0 for p1 winning and 1 for p2 winning.
 	# Something about revealing here.
 	def battle(self, p1, p2):
+		v1 = p1.get_value()
+		v2 = p2.get_value()
 
+		if v1 == 0:
+			return "p1 loses"
+
+		if v2 == 0:
+			return "p2 loses"
+
+		if v1 == 10:
+			if v2 == 8:
+				return p2
+			return p1
+
+		if v2 == 10:
+			if v1 == 8:
+				return p1
+			return p2
+
+		if v1 == 11:
+			if v2 == 1:
+				return p1
+			return p2
+
+		if v2 == 11:
+			if v1 == 1:
+				return p2
+			return p1
+
+		if v1 == v2:
+			return 0
+
+		if v1 < v2:
+			
 
 
 	# Takes in coord1 [x1, y1] and coord2 [x2, y2], and player = (0 or 1)
