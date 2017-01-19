@@ -8,10 +8,13 @@ class Renderer:
         pass
 
 
+    def draw_board(self, board):
+        pass
 
-    # Probably move this to a GameRenderer.py class
-    def window_setup(self):
+
+    # Takes in width and height and sets up the Graphical Window.
+    def window_setup(self, width, height):
         if __name__ == '__main__':
-            win = GraphWin("Chess", width, height)
+            win = graphics.GraphWin("Chess", width, height)
         else:
             return "Not the main thread/proccess!"

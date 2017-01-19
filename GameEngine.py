@@ -257,25 +257,3 @@ class GameEngine:
             self.board[coord2[0]][coord2[1]] = 0
 
         return True
-
-
-
-    # Probably move this to a GameRenderer.py class
-    def window_setup(self):
-        if __name__ == '__main__':
-            win = GraphWin("Chess", width, height)
-        else:
-            return "Not the main thread/proccess!"
-
-
-p = GameEngine()
-p.board_setup()
-
-p.print_board()
-
-l = p.check_legal([0, 6], [0, 5], 1)
-if l == True:
-    p.move([0, 6], [0, 5])
-    p.print_board()
-else:
-    print(l)
