@@ -24,5 +24,6 @@ else:
 r.refresh_board()
 
 
+# http://stackoverflow.com/questions/20340018/while-loop-is-taking-forever-and-freezing-screen
 while True:
 	time.sleep(.1)
