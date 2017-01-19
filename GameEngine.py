@@ -63,15 +63,15 @@ class GameEngine:
                 self.board[x][y] = 0
 
         # Rivers
-        self.board[2][4] = -1
-        self.board[2][5] = -1
-        self.board[3][4] = -1
-        self.board[3][5] = -1
+        self.board[2][4] = Piece(None, -1, 'L')
+        self.board[2][5] = Piece(None, -1, 'L')
+        self.board[3][4] = Piece(None, -1, 'L')
+        self.board[3][5] = Piece(None, -1, 'L')
 
-        self.board[6][4] = -1
-        self.board[6][5] = -1
-        self.board[7][4] = -1
-        self.board[7][5] = -1
+        self.board[6][4] = Piece(None, -1, 'L')
+        self.board[6][5] = Piece(None, -1, 'L')
+        self.board[7][4] = Piece(None, -1, 'L')
+        self.board[7][5] = Piece(None, -1, 'L')
 
         for i in range(0, 2):
             starting_pieces = [[0, 'Flag', 1], [10, 'Bomb', 6], [11, 'Spy', 1], [9, 'Scout', 8], [9, 'Miner', 5], [7, 'Sergeant', 4], [6, 'Lieutenent', 4], [5, 'Captain', 4], [4, 'Major', 3], [3, 'Colonel', 2], [2, 'General', 1], [1, 'Marshall', 1]]
@@ -108,14 +108,13 @@ class GameEngine:
                         name = 'B'
                     elif val == 11:
                         name = 'S'
+                    elif val == -1:
+                        name = 'L'
                     else:
                         name = val
                     arr_temp.append(name)
                 else:
-                    val = self.board[y][x]
-                    if val == -1:
-                        val = 'L'
-                    arr_temp.append(val)
+                    arr_temp.append(self.board[y][x])
             print(' '.join(map(str, arr_temp)))
         print()
 
