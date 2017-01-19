@@ -19,7 +19,7 @@ if l == True:
     engine.move([0, 6], [0, 5])
     engine.print_board()
 else:
-    print(l)
+    print(l[1])
 
 r.refresh_board()
 
