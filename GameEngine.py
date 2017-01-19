@@ -188,6 +188,11 @@ class GameEngine:
         return True
 
 
+    # Only for the renderer and the AI
+    def get_board(self):
+        return self.board
+
+
     # Takes in 2 players and returns 0 for p1 winning and 1 for p2 winning, 2 for tie.
     # Something about revealing here.
     def battle(self, p1, p2):

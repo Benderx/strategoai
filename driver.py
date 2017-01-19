@@ -2,18 +2,27 @@ import Renderer as r
 import GameEngine as g
 
 
-r = r.Renderer()
+
+
+engine = g.GameEngine()
+r = r.Renderer(engine.get_board())
 r.window_setup(500, 500)
+r.draw_board()
 
 
-p = g.GameEngine()
-p.board_setup()
+while True:
+	pass
 
-p.print_board()
+engine.board_setup()
 
-l = p.check_legal([0, 6], [0, 5], 1)
+engine.print_board()
+
+l = engine.check_legal([0, 6], [0, 5], 1)
 if l == True:
-    p.move([0, 6], [0, 5])
-    p.print_board()
+    engine.move([0, 6], [0, 5])
+    engine.print_board()
 else:
     print(l)
+
+
+
