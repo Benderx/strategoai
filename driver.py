@@ -24,11 +24,14 @@ class Human:
 def play_game(humans = 1, gui = False, renderer = None):
 	players = []
 	if humans == 0:
-		players.append(Human(0, gui, renderer))
+		players.append(YOURAIHERE(0, ARGS))
+		players.append(YOURAIHERE(1, ARGS))
 	elif humans == 1:
-
+		players.append(Human(0, gui, renderer))
+		players.append(YOURAIHERE(ARGS))
 	elif humans == 2:
-		players.append(Human(0))
+		players.append(Human(0, gui, renderer))
+		players.append(Human(1, gui, renderer))
 	else:
 		raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
 
