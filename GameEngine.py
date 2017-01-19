@@ -48,6 +48,10 @@ class Piece:
         return self.player
 
 
+    def reveal(self):
+        self.visible = True
+
+
 class GameEngine:
     def __init__(self):
         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
@@ -92,6 +96,7 @@ class GameEngine:
                     starting_pieces.pop(r1)
 
     def print_board(self):
+        print()
         for x in range(0, 10):
             arr_temp = []
             for y in range(0, 10):
@@ -100,6 +105,7 @@ class GameEngine:
                 else:
                     arr_temp.append(self.board[y][x])
             print(arr_temp)
+        print()
 
 
     # Takes in coord1 [x1, y1] and coord2 [x2, y2], and player = (0 or 1)
@@ -164,8 +170,8 @@ class GameEngine:
         if piece.get_player() != player:
             return "That is not your piece"
 
-        xdist = math.abs(coord1[0] - coord2[0])
-        ydist = math.abs(coord1[1] - coord2[1])
+        xdist = abs(coord1[0] - coord2[0])
+        ydist = abs(coord1[1] - coord2[1])
 
         if xdist != 0 and ydist != 0:
             return "you cannot move diagonally"
@@ -174,34 +180,82 @@ class GameEngine:
         if xdist > move or ydist > move:
             return "the piece you are moving cannot move like that"
 
-        piece2 = self.board[coord2[0]][coord2[1]]
-        if piece.get_player() == piece2.get_player():
-            return "You cant move into your own piece"
+        if isinstance(self.board[coord2[0]][coord2[1]], Piece):
+            piece2 = self.board[coord2[0]][coord2[1]]
+            if piece.get_player() == piece2.get_player():
+                return "You cant move into your own piece"
 
         return True
 
 
-    # Takes in 2 players and returns 0 for p1 winning and 1 for p2 winning.
+    # Takes in 2 players and returns 0 for p1 winning and 1 for p2 winning, 2 for tie.
     # Something about revealing here.
     def battle(self, p1, p2):
-        return
+        v1 = p1.get_value()
+        v2 = p2.get_value()
+
+        p1.reveal()
+        p2.reveal()
+
+        if v1 == 0:
+            return "p1 loses"
+
+        if v2 == 0:
+            return "p2 loses"
+
+        if v1 == 10:
+            if v2 == 8:
+                return 1
+            return 0
+
+        if v2 == 10:
+            if v1 == 8:
+                return 0
+            return 1
+
+        if v1 == 11:
+            if v2 == 1:
+                return 0
+            return 1
+
+        if v2 == 11:
+            if v1 == 1:
+                return 1
+            return 0
+
+        if v1 == v2:
+            return 2
+
+        if v1 < v2:
+            return 0
+        if v2 > v1:
+            return 0
+
+        print("A case that was not thought of happened")
+        return False
 
 
     # Takes in coord1 [x1, y1] and coord2 [x2, y2], and player = (0 or 1)
     # This assumes check_legal has been run.
     def move(self, coord1, coord2):
         p1 = self.board[coord1[0]][coord1[1]]
+        self.board[coord1[0]][coord1[1]] = 0
         if not isinstance(self.board[coord2[0]][coord2[1]], Piece):
             self.board[coord2[0]][coord2[1]] = p1
-            self.board[coord1[0]][coord1[1]] = 0
             return True
 
         p2 = self.board[coord2[0]][coord2[1]]
         winner = self.battle(p1, p2)
+
+        if type(winner) == type("this probably isnt how you should code this"):
+            # Add player win detection here.
+            return "Game over."
+
         if winner == 0:
             self.board[coord2[0]][coord2[1]] = p1
+        elif winner == 2:
+            self.board[coord2[0]][coord2[1]] = 0
 
-        # Something about revealing here.
         return True
 
 
@@ -216,4 +270,12 @@ class GameEngine:
 
 p = GameEngine()
 p.board_setup()
+
 p.print_board()
+
+l = p.check_legal([0, 6], [0, 5], 1)
+if l == True:
+    p.move([0, 6], [0, 5])
+    p.print_board()
+else:
+    print(l)
