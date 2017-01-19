@@ -4,10 +4,11 @@ import time
 
 
 class Human:
-    def __init__(self, s, g = False, r = None):
-        self.side = s
-        self.gui = g
-        self.renderer = r
+    def __init__(self, engine, side, gui = False, renderer = None):
+        self.side = side
+        self.gui = gui
+        self.renderer = renderer
+        self.engine = engine
 
 
     def get_move(self):
@@ -16,26 +17,27 @@ class Human:
             pass
         else:
             while True:
-                p = self.renderer.get_mouse_square()
-                if p.x < 0 or p.x > 9 or p.y < 0 or p.y > 9
+                piece = self.renderer.get_mouse_square()
+                if piece[0] < 0 or piece[0] > 9 or piece[1] < 0 or piece[1] > 9:
                     print('Point selected is out of bounds, select again.')
                     continue
 
-                moves = engine.legal_moves_for_piece(self, p, player):
+                moves = self.engine.legal_moves_for_piece(piece, self.side)
 
                 if len(moves) == 0:
                     print('You cant move that')
                     continue
 
                 # populate arr with tuples of posible moves of the piece
-                arr = []
-                renderer.disp_pos_moves(arr)
+                self.renderer.disp_pos_moves()
 
-                p = self.renderer.get_mouse_square()
-                if p.x < 0 or p.x > 9 or p.y < 0 or p.y > 9
+                piece = self.renderer.get_mouse_square()
+                if piece[0] < 0 or piece[0] > 9 or piece[1] < 0 or piece[1] > 9:
                     print('Point selected is out of bounds, select again.')
                     renderer.del_pos_moves(arr)
                     continue
+
+                print(moves)
 
 
 # humans = 0, 1, 2
@@ -45,11 +47,11 @@ def play_game(engine, humans = 1, gui = False, renderer = None):
         players.append(YOURAIHERE(0, ARGS))
         players.append(YOURAIHERE(1, ARGS))
     elif humans == 1:
-        players.append(Human(0, gui, renderer))
+        players.append(Human(engine, 0, gui, renderer))
         players.append(YOURAIHERE(1, ARGS))
     elif humans == 2:
-        players.append(Human(0, gui, renderer))
-        players.append(Human(1, gui, renderer))
+        players.append(Human(engine, 0, gui, renderer))
+        players.append(Human(engine, 1, gui, renderer))
     else:
         raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
 

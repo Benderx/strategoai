@@ -80,7 +80,7 @@ class Renderer:
 
 
     # takes in array of tuples and highlights those on the board.
-    def disp_pos_moves(self, arr)
+    def disp_pos_moves(self, arr):
 
 
         self.highlighted = []
@@ -88,7 +88,7 @@ class Renderer:
 
 
     # deletes all highlited squares.
-    def disp_pos_moves(self)
+    def disp_pos_moves(self):
         pass
 
 
