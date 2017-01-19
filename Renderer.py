@@ -20,8 +20,21 @@ class Renderer:
                           graphics.Point(self.box_length * (i+1) + self.offset, self.box_length * (j+1) + self.offset))
                 c.draw(self.win)
 
+                if type(0) == type(self.board[i][j]):
+                    continue
+
                 piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
                                       self.box_length * j + self.offset + (self.box_length / 2)), "NO")
+                if self.board[i][j].get_value() == 0:
+                    piece.setText('F')
+                elif self.board[i][j].get_value() == 10:
+                    piece.setText('B')
+                elif self.board[i][j].get_value() == 11:
+                    piece.setText('S')
+                else:
+                    piece.setText(str(self.board[i][j].get_value()))
+
+
                 self.piece_arr.append(piece)
                 piece.draw(self.win)
 
