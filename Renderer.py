@@ -71,8 +71,16 @@ class Renderer:
                 piece.draw(self.win)
     
 
-    def get_mouse(self):
-        return self.win.getMouse()
+    def get_mouse_square(self):
+        p = self.win.getMouse()
+        width = int(p.x / self.box_length)
+        height = int(p.y / self.box_length)
+        return (width, height)
+
+
+    # takes in array of tuples and highlights those on the board.
+    def disp_pos_moves(self, arr)
+        pass
 
 
     # Takes in width and height and sets up the Graphical Window.

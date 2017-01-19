@@ -16,8 +16,8 @@ class Human:
             pass
         else:
             while True:
-                p = self.renderer.get_mouse()
-                # Program in mouse getting
+                p = self.renderer.get_mouse_square()
+                print(p)
 
 
 # humans = 0, 1, 2
@@ -36,18 +36,18 @@ def play_game(engine, humans = 1, gui = False, renderer = None):
         raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
 
     engine.board_setup()
-    r.draw_board()
+    renderer.draw_board()
 
     playing = True
     turn = 0
     while playing:
         coord1, coord2 = players[turn].get_move()
-        l = engine.check_legal(coord1, coord2)
+        l, msg = engine.check_legal(coord1, coord2)
         if l == True:
             engine.move(coord1, coord2)
         else:
             print("Illegal move, move again please.")
-            print(l)
+            print(msg)
             continue
 
         if gui:
@@ -58,10 +58,10 @@ def play_game(engine, humans = 1, gui = False, renderer = None):
 
 def main():
     engine = g.GameEngine()
-    r = r.Renderer(engine.get_board())
-    r.window_setup(500, 500)
+    re = r.Renderer(engine.get_board())
+    re.window_setup(500, 500)
 
-    play_game(engine, 2, True, r)
+    play_game(engine, 2, True, re)
 
 
 main()
