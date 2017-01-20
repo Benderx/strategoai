@@ -10,10 +10,10 @@ class Piece:
     # 10: bombs, no movement, only loses to miner
     # 11: Spy
 
-    def __init__(self, p, v = None, n = None):
+    def __init__(self, p, v = None, a = None):
         self.player = p
         self.value = v
-        self.name = n
+        self.abbrev = a
         self.visible = False
 
 
@@ -40,8 +40,8 @@ class Piece:
         return self.value
 
 
-    def get_name(self):
-        return self.name
+    def get_abbrev(self):
+        return self.abbrev
 
 
     def get_player(self):
@@ -55,6 +55,7 @@ class Piece:
 class GameEngine:
     def __init__(self):
         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
+        self.flags = ([-1, -1], [-1, -1])
         random.seed(0)
 
     def board_setup(self):
@@ -63,18 +64,18 @@ class GameEngine:
                 self.board[x][y] = 0
 
         # Rivers
-        self.board[2][4] = Piece(None, -1, 'L')
-        self.board[2][5] = Piece(None, -1, 'L')
-        self.board[3][4] = Piece(None, -1, 'L')
-        self.board[3][5] = Piece(None, -1, 'L')
+        self.board[2][4] = Piece(None, -1, 'K')
+        self.board[2][5] = Piece(None, -1, 'K')
+        self.board[3][4] = Piece(None, -1, 'K')
+        self.board[3][5] = Piece(None, -1, 'K')
 
-        self.board[6][4] = Piece(None, -1, 'L')
-        self.board[6][5] = Piece(None, -1, 'L')
-        self.board[7][4] = Piece(None, -1, 'L')
-        self.board[7][5] = Piece(None, -1, 'L')
+        self.board[6][4] = Piece(None, -1, 'K')
+        self.board[6][5] = Piece(None, -1, 'K')
+        self.board[7][4] = Piece(None, -1, 'K')
+        self.board[7][5] = Piece(None, -1, 'K')
 
         for i in range(0, 2):
-            starting_pieces = [[0, 'Flag', 1], [10, 'Bomb', 6], [11, 'Spy', 1], [9, 'Scout', 8], [9, 'Miner', 5], [7, 'Sergeant', 4], [6, 'Lieutenent', 4], [5, 'Captain', 4], [4, 'Major', 3], [3, 'Colonel', 2], [2, 'General', 1], [1, 'Marshall', 1]]
+            starting_pieces = [[0, 'Flag F', 1], [10, 'Bomb B', 6], [11, 'Spy Y', 1], [9, 'Scout S', 8], [9, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
             starting_locations = []
             for x in range(0, 10):
                 for y in range(0 + i*6, 4 + i*6):
@@ -84,9 +85,11 @@ class GameEngine:
                 r1 = int(random.random()*(len(starting_pieces)))
                 r2 = int(random.random()*(len(starting_locations)))
 
-                p = Piece(starting_locations[r2][2], starting_pieces[r1][0])
-                
+                p = Piece(starting_locations[r2][2], starting_pieces[r1][0], starting_pieces[r1][1][-1])
                 self.board[starting_locations[r2][0]][starting_locations[r2][1]] = p
+                if starting_pieces[r1][0] == 0:
+                    self.flags[i][0] = starting_locations[r2][0]
+                    self.flags[i][1] = starting_locations[r2][1]
 
 
 
@@ -172,7 +175,7 @@ class GameEngine:
 
 
     # Takes in 2 players and returns 0 for p1 winning and 1 for p2 winning, 2 for tie.
-    # Something about revealing here.
+    # Also reveals.
     def battle(self, p1, p2):
         v1 = p1.get_value()
         v2 = p2.get_value()
@@ -181,10 +184,10 @@ class GameEngine:
         p2.reveal()
 
         if v1 == 0:
-            return 'p1 loses'
+            return 1
 
         if v2 == 0:
-            return 'p2 loses'
+            return 0
 
         if v1 == 10:
             if v2 == 8:
@@ -241,6 +244,7 @@ class GameEngine:
 
         return True
 
+
     def legal_moves_for_piece(self, loc, player):
         moves = [(loc[0]+1, loc[1]), (loc[0]-1, loc[1]), (loc[0], loc[1]+1), (loc[0], loc[1]-1)]
         final = []
@@ -248,6 +252,7 @@ class GameEngine:
             if self.check_legal(loc, move, player)[0]:
                 final.append((loc, move))
         return final
+
 
     def all_legal_moves(self, player):
         moves = []
@@ -260,12 +265,39 @@ class GameEngine:
     # Takes in player to see if stalemate or something, might be able to removed
     # Returns True or False for if game is over, second is for result
     def check_winner(self, player):
-        return None, None
+        if not self.board[self.flags[0][0]][self.flags[0][1]].get_value() == 0:
+            return True, 1
+        if not self.board[self.flags[1][0]][self.flags[1][1]].get_value() == 0:
+            return True, 0
+        return False, None
 
 
     # Returns representation of the board. Only for db storage atm.
-    def get_board_state(self):
-        pass
+    def get_compacted_board_state(self):
+        prev = ''
+        counter = 1
+        whole = []
+        for i in range(len(self.board)):
+            for j in range(len(self.board[i])):
+                piece = self.board[i][j]
+                if isinstance(piece, Piece):
+                    abbrev = self.board[i][j].get_abbrev()
+                    if abbrev == 'K':
+                        continue
+                else:
+                    abbrev = 'E'
+
+                if prev == abbrev:
+                    counter += 1
+                else:
+                    if not counter == 1:
+                        whole.append(str(counter) + str(abbrev))
+                    else:
+                        whole.append(abbrev)
+                    counter = 1
+                    prev = abbrev
+        return ''.join(whole)
+
 
 
     # Accidently started developing a function that already existed

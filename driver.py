@@ -33,10 +33,11 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
         engine.print_board()
 
     state_tracker = []
-    state_tracker.append(engine.get_board_state())
-
     turn = 0
     while True:
+        print(engine.get_compacted_board_state())
+        state_tracker.append(engine.get_compacted_board_state())
+
         game_over, winner = engine.check_winner(turn)
         if game_over:
             break
@@ -77,7 +78,6 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
                                 VALUES (%s, %s);
                             """
         db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
-
         db_stuff[0].commit()
 
 
