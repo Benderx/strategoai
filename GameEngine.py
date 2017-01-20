@@ -56,6 +56,7 @@ class GameEngine:
     def __init__(self):
         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
         self.flags = ([-1, -1], [-1, -1])
+        self.move_history = []
         random.seed(1)
 
     def board_setup(self):
@@ -223,12 +224,13 @@ class GameEngine:
 
     # Takes in coord1 [x1, y1] and coord2 [x2, y2]
     # This assumes check_legal has been run.
+    # The return is whether or not battle() was run
     def move(self, coord1, coord2):
         p1 = self.board[coord1[0]][coord1[1]]
         self.board[coord1[0]][coord1[1]] = 0
         if not isinstance(self.board[coord2[0]][coord2[1]], Piece):
             self.board[coord2[0]][coord2[1]] = p1
-            return True
+            return False
 
         p2 = self.board[coord2[0]][coord2[1]]
         winner = self.battle(p1, p2)
@@ -260,12 +262,11 @@ class GameEngine:
 
     # Takes in player to see if stalemate or something, might be able to removed
     # Returns True or False for if game is over, second is for result
-    def check_winner(self, player):
+    def check_winner(self, player, moves = self.all_legal_moves(player)):
         if not self.board[self.flags[0][0]][self.flags[0][1]].get_value() == 0:
             return True, 1
         if not self.board[self.flags[1][0]][self.flags[1][1]].get_value() == 0:
             return True, 0
-        m = self.all_legal_moves(player)
         if len(m) == 0:
             return True, 2
         return False, None
@@ -301,9 +302,6 @@ class GameEngine:
                     else:
                         whole.append(player + str(val))
 
-
-
-
                 # This was compact but it got confusing to code, work on it later
                 # if isinstance(piece, Piece):
                 #     abbrev = self.board[i][j].get_abbrev()
@@ -321,7 +319,20 @@ class GameEngine:
                 #         whole.append(prev)
                 #     counter = 1
                 #     prev = abbrev
+
         return ''.join(whole)
+
+
+    # Functions for minimax
+    def push_move(self, coord1, coord2):
+        self.move(coord1, coord2)
+        self.move_history.append((coord1, coord2))
+
+
+    def pop_move(self):
+        c = self.move_history.pop()
+        self.move(c[1], c[0])
+
 
 
 
