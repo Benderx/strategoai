@@ -19,13 +19,12 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
         players.append(gauss.GaussianAI(1, engine))
     elif humans == 1:
         players.append(h.Human(engine, 0, gui, renderer))
-        players.append(mini.MinimaxAI(1, engine))
+        players.append(gauss.GaussianAI(1, engine))
     elif humans == 2:
         players.append(h.Human(engine, 0, gui, renderer))
         players.append(h.Human(engine, 1, gui, renderer))
     else:
         raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
-
 
     engine.board_setup()
     if gui:
@@ -38,14 +37,18 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
     while True:
         # print(engine.get_compacted_board_state())
         state_tracker.append(engine.get_compacted_board_state())
+        moves = engine.all_legal_moves(turn)
 
-        game_over, winner = engine.check_winner(turn)
+        game_over, winner = engine.check_winner(turn, moves)
         if game_over:
             break
 
         # We assume all player classes return valid moves.
-        coord1, coord2 = players[turn].get_move()
-        engine.move(coord1, coord2)
+        curr = players[turn]
+        move = curr.get_move()
+        
+        print(move)
+        engine.move(move[0], move[1])
 
         # l, msg = engine.check_legal(coord1, coord2, turn)
         # if l == True:
@@ -124,7 +127,7 @@ def main():
     re.window_setup(500, 500)
 
     db_stuff = init_db('games.db', True)
-    play_game(engine, 0, db_stuff, False, re)
+    play_game(engine, 1, db_stuff, True, re)
     db_stuff[0].close()
 main()
 

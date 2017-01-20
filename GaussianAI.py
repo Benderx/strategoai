@@ -13,4 +13,6 @@ class GaussianAI:
         all_moves = self.engine.all_legal_moves(self.player)
         if len(all_moves) == 0:
         	raise Exception('Computer has no moves')
-        return random.choice(all_moves)
+        c = random.choice(all_moves)
+        print(c)
+        return c

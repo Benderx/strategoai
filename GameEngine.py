@@ -262,12 +262,12 @@ class GameEngine:
 
     # Takes in player to see if stalemate or something, might be able to removed
     # Returns True or False for if game is over, second is for result
-    def check_winner(self, player, moves = self.all_legal_moves(player)):
+    def check_winner(self, player, moves):
         if not self.board[self.flags[0][0]][self.flags[0][1]].get_value() == 0:
             return True, 1
         if not self.board[self.flags[1][0]][self.flags[1][1]].get_value() == 0:
             return True, 0
-        if len(m) == 0:
+        if len(moves) == 0:
             return True, 2
         return False, None
 

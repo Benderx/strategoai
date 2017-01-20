@@ -9,7 +9,7 @@ class Human:
     def get_move(self):
         # Implement console only functionality, need parser from command line.
         if self.gui == False:
-            pass
+            return False
         else:
             while True:
                 coord1 = self.renderer.get_mouse_square()
@@ -18,6 +18,7 @@ class Human:
                     continue
 
                 moves = self.engine.legal_moves_for_piece(coord1, self.side)
+                print(moves, 'moves')
 
 
                 if len(moves) == 0:
@@ -36,4 +37,4 @@ class Human:
                 self.renderer.del_disp_moves()
                 given_move = (coord1, coord2)
                 if given_move in moves:
-                    return given_move[0], given_move[1]
+                    return given_move
