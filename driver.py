@@ -1,6 +1,7 @@
 import Renderer as r
 import GameEngine as g
 import Human as h
+import GaussianAI as gauss
 import time
 import sqlite3
 import os
@@ -14,8 +15,8 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
 
     players = []
     if humans == 0:
-        players.append(YOURAIHERE(0, ARGS))
-        players.append(YOURAIHERE(1, ARGS))
+        players.append(gauss.GaussianAI(0, engine))
+        players.append(gauss.GaussianAI(1, engine))
     elif humans == 1:
         players.append(h.Human(engine, 0, gui, renderer))
         players.append(YOURAIHERE(1, ARGS))
@@ -58,6 +59,9 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
             renderer.refresh_board()
         else:
             engine.print_board()
+
+        # So i can watch the AI's
+        time.sleep(.5)
 
         turn = 1 - turn
 

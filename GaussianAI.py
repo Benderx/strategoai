@@ -3,9 +3,10 @@
 import random
 
 class GaussianAI:
-    def __init__(self, engine):
+    def __init__(self, player, engine):
         self.engine = engine
-    def get_move(self, board, player):
-        all_moves = self.engine.all_legal_moves(player)
+        self.player = player
+    def get_move(self, board):
+        all_moves = self.engine.all_legal_moves(self.player)
         print(all_moves)
         return random.choice(all_moves)
