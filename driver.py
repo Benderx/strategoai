@@ -1,5 +1,6 @@
 import Renderer as r
 import GameEngine as g
+import Human as h
 import time
 import sqlite3
 import os
@@ -16,11 +17,11 @@ def play_game(engine, humans = 1, db_conn = None, gui = False, renderer = None):
         players.append(YOURAIHERE(0, ARGS))
         players.append(YOURAIHERE(1, ARGS))
     elif humans == 1:
-        players.append(Human(engine, 0, gui, renderer))
+        players.append(h.Human(engine, 0, gui, renderer))
         players.append(YOURAIHERE(1, ARGS))
     elif humans == 2:
-        players.append(Human(engine, 0, gui, renderer))
-        players.append(Human(engine, 1, gui, renderer))
+        players.append(h.Human(engine, 0, gui, renderer))
+        players.append(h.Human(engine, 1, gui, renderer))
     else:
         raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
 
@@ -58,9 +59,9 @@ def play_game(engine, humans = 1, db_conn = None, gui = False, renderer = None):
 
 # Takes in database name and if you want to overwrite current, or add to it. Probably change in future for streamlined data creation
 # Returns sqlite3 db connection
-def init_db(dbname = 'test.db', overwrite = True):
+def init_db(dbpath = 'test.db', overwrite = True):
     exist = False
-    if os.fileexists(dbpath)
+    if os.path.isfile(dbpath):
         exist = True
 
     if overwrite and exist:
@@ -71,17 +72,18 @@ def init_db(dbname = 'test.db', overwrite = True):
     if overwrite or exist == False:
         create_game_sql = """
                         CREATE TABLE Game (
-                       ID INT PRIMARY KEY AUTOINCREMENT,
-                       WINNER INT);
+                       ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                       WINNER INTEGER NOT NULL);
                     """
         conn.execute(create_game_sql)
 
         # How should we store the board?
         create_state_sql = """
                         CREATE TABLE State (
-                       ID INT PRIMARY KEY AUTOINCREMENT,
-                       GAME_ID INT FOREIGN KEY NOT NULL,
-                       BOARD CHAR(500) NOT NULL);
+                       ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                       GAME_ID INTEGER NOT NULL,
+                       BOARD CHAR(500) NOT NULL,
+                       FOREIGN KEY (GAME_ID) REFERENCES Game(ID));
                     """
         conn.execute(create_state_sql)
     return conn
