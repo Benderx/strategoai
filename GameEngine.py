@@ -257,6 +257,17 @@ class GameEngine:
         return moves
 
 
+    # Takes in player to see if stalemate or something, might be able to removed
+    # Returns True or False for if game is over, second is for result
+    def check_winner(self, player):
+        return None, None
+
+
+    # Returns representation of the board. Only for db storage atm.
+    def get_board_state(self):
+        pass
+
+
     # Accidently started developing a function that already existed
     # def get_piece_by_coords(coord, player)
     #     msg = 'legal'
