@@ -325,13 +325,32 @@ class GameEngine:
 
     # Functions for minimax
     def push_move(self, coord1, coord2):
-        self.move(coord1, coord2)
-        self.move_history.append((coord1, coord2))
+        p1, p2 = self.move_track(coord1, coord2)
+        self.move_history.append((coord1, coord2, p1, p2))
 
 
     def pop_move(self):
         c = self.move_history.pop()
-        self.move(c[1], c[0])
+        self.board[c[0][0]][c[0][1]] = c[2]
+        self.board[c[1][0]][c[1][1]] = c[3]
+
+
+    def move_track(self, coord1, coord2):
+        p1 = self.board[coord1[0]][coord1[1]]
+        self.board[coord1[0]][coord1[1]] = 0
+        if not isinstance(self.board[coord2[0]][coord2[1]], Piece):
+            self.board[coord2[0]][coord2[1]] = p1
+            return p1, 0
+
+        p2 = self.board[coord2[0]][coord2[1]]
+        winner = self.battle(p1, p2)
+
+        if winner == 0:
+            self.board[coord2[0]][coord2[1]] = p1
+        elif winner == 2:
+            self.board[coord2[0]][coord2[1]] = 0
+
+        return p1, p2
 
 
 

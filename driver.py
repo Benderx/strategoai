@@ -2,6 +2,7 @@ import Renderer as r
 import GameEngine as g
 import Human as h
 import GaussianAI as gauss
+import MinimaxAI as mini
 import time
 import sqlite3
 import os
@@ -19,7 +20,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
         players.append(gauss.GaussianAI(1, engine))
     elif humans == 1:
         players.append(h.Human(engine, 0, gui, renderer))
-        players.append(gauss.GaussianAI(1, engine))
+        players.append(mini.MinimaxAI(1, engine))
     elif humans == 2:
         players.append(h.Human(engine, 0, gui, renderer))
         players.append(h.Human(engine, 1, gui, renderer))
