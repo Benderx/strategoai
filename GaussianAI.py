@@ -7,6 +7,8 @@ class GaussianAI:
         self.engine = engine
         self.player = player
         self.board = engine.get_board()
+    
+
     def get_move(self):
         all_moves = self.engine.all_legal_moves(self.player)
         if len(all_moves) == 0:
