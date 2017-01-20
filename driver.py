@@ -36,7 +36,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
     state_tracker = []
     turn = 0
     while True:
-        print(engine.get_compacted_board_state())
+        # print(engine.get_compacted_board_state())
         state_tracker.append(engine.get_compacted_board_state())
 
         game_over, winner = engine.check_winner(turn)
@@ -61,14 +61,14 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
             engine.print_board()
 
         # So i can watch the AI's
-        time.sleep(.5)
+        # time.sleep(.1)
 
         turn = 1 - turn
 
     if tracking:
         sql_game_insert =   """
                                 INSERT INTO Game (WINNER)
-                                VALUES (%s);
+                                VALUES (?);
                             """
         db_stuff[1].execute(sql_game_insert, str(winner))
 
@@ -79,7 +79,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
 
         sql_state_insert =  """
                                 INSERT INTO State (GAME_ID, BOARD)
-                                VALUES (%s, %s);
+                                VALUES (?, ?);
                             """
         db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
         db_stuff[0].commit()
@@ -124,7 +124,7 @@ def main():
     re.window_setup(500, 500)
 
     db_stuff = init_db('games.db', True)
-    play_game(engine, 0, db_stuff, True, re)
+    play_game(engine, 0, db_stuff, False, re)
     db_stuff[0].close()
 main()
 

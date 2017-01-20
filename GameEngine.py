@@ -56,7 +56,7 @@ class GameEngine:
     def __init__(self):
         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
         self.flags = ([-1, -1], [-1, -1])
-        random.seed(0)
+        random.seed(1)
 
     def board_setup(self):
         for x in range(len(self.board)):
@@ -265,6 +265,9 @@ class GameEngine:
             return True, 1
         if not self.board[self.flags[1][0]][self.flags[1][1]].get_value() == 0:
             return True, 0
+        m = self.all_legal_moves(player)
+        if len(m) == 0:
+            return True, 2
         return False, None
 
 

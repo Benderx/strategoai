@@ -9,5 +9,6 @@ class GaussianAI:
         self.board = engine.get_board()
     def get_move(self):
         all_moves = self.engine.all_legal_moves(self.player)
-        print(all_moves)
+        if len(all_moves) == 0:
+        	raise Exception('Computer has no moves')
         return random.choice(all_moves)
