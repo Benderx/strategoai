@@ -6,7 +6,8 @@ class GaussianAI:
     def __init__(self, player, engine):
         self.engine = engine
         self.player = player
-    def get_move(self, board):
+        self.board = engine.get_board()
+    def get_move(self):
         all_moves = self.engine.all_legal_moves(self.player)
         print(all_moves)
         return random.choice(all_moves)

@@ -214,8 +214,8 @@ class GameEngine:
 
         if v1 < v2:
             return 0
-        if v2 > v1:
-            return 0
+        if v1 > v2:
+            return 1
 
         raise Exception('A case that was not thought of happened')
         return False
@@ -232,10 +232,6 @@ class GameEngine:
 
         p2 = self.board[coord2[0]][coord2[1]]
         winner = self.battle(p1, p2)
-
-        if type(winner) == type('this probably isnt how you should code this'):
-            # Add player win detection here.
-            return 'Game over.'
 
         if winner == 0:
             self.board[coord2[0]][coord2[1]] = p1

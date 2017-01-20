@@ -124,7 +124,7 @@ def main():
     re.window_setup(500, 500)
 
     db_stuff = init_db('games.db', True)
-    play_game(engine, 2, db_stuff, True, re)
+    play_game(engine, 0, db_stuff, True, re)
     db_stuff[0].close()
 main()
 
