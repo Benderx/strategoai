@@ -75,7 +75,7 @@ class GameEngine:
         self.board[7][5] = Piece(None, -1, 'K')
 
         for i in range(0, 2):
-            starting_pieces = [[0, 'Flag F', 1], [10, 'Bomb B', 6], [11, 'Spy Y', 1], [9, 'Scout S', 8], [9, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
+            starting_pieces = [[0, 'Flag F', 1], [10, 'Bomb B', 6], [11, 'Spy Y', 1], [9, 'Scout S', 8], [8, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
             starting_locations = []
             for x in range(0, 10):
                 for y in range(0 + i*6, 4 + i*6):
@@ -281,21 +281,47 @@ class GameEngine:
             for j in range(len(self.board[i])):
                 piece = self.board[i][j]
                 if isinstance(piece, Piece):
-                    abbrev = self.board[i][j].get_abbrev()
-                    if abbrev == 'K':
-                        continue
+                    val = piece.get_value()
+                    if not val == -1:
+                        player = piece.get_player()
+                        if player == 0:
+                            player = 'W'
+                        else:
+                            player = 'B'
+                        visible = piece.get_visible()
                 else:
-                    abbrev = 'E'
+                    val = 12
 
-                if prev == abbrev:
-                    counter += 1
+                if val == -1:
+                    whole.append('L')
+                elif val == 12:
+                    whole.append('E')
                 else:
-                    if not counter == 1:
-                        whole.append(str(counter) + str(abbrev))
+                    if visible:
+                        whole.append(player + 'V' + str(val))
                     else:
-                        whole.append(abbrev)
-                    counter = 1
-                    prev = abbrev
+                        whole.append(player + str(val))
+
+
+
+
+                # This was compact but it got confusing to code, work on it later
+                # if isinstance(piece, Piece):
+                #     abbrev = self.board[i][j].get_abbrev()
+                #     if abbrev == 'K':
+                #         continue
+                # else:
+                #     abbrev = 'E'
+
+                # if prev == abbrev:
+                #     counter += 1
+                # else:
+                #     if not counter == 1:
+                #         whole.append(str(counter) + str(prev))
+                #     else:
+                #         whole.append(prev)
+                #     counter = 1
+                #     prev = abbrev
         return ''.join(whole)
 
 

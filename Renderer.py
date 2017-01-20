@@ -39,7 +39,7 @@ class Renderer:
 
                 if self.board[i][j].get_visible() == False and self.board[i][j].get_player() == 1:
                     pass
-                elif self.board[i][j].get_value() == 0:
+                if self.board[i][j].get_value() == 0:
                     piece.setText('F')
                 elif self.board[i][j].get_value() == 10:
                     piece.setText('B')
@@ -79,7 +79,7 @@ class Renderer:
 
                 if self.board[i][j].get_visible() == False and self.board[i][j].get_player() == 1:
                     pass
-                elif self.board[i][j].get_value() == 0:
+                if self.board[i][j].get_value() == 0:
                     piece.setText('F')
                 elif self.board[i][j].get_value() == 10:
                     piece.setText('B')
