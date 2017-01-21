@@ -16,11 +16,13 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
 
     players = []
     if humans == 0:
-        players.append(gauss.GaussianAI(0, engine))
-        players.append(gauss.GaussianAI(1, engine))
+        # players.append(gauss.GaussianAI(0, engine))
+        # players.append(gauss.GaussianAI(1, engine))
+        players.append(mini.MinimaxAI(0, engine, 4))
+        players.append(mini.MinimaxAI(1, engine, 4))
     elif humans == 1:
         players.append(h.Human(engine, 0, gui, renderer))
-        players.append(mini.MinimaxAI(1, engine))
+        players.append(mini.MinimaxAI(1, engine, 4))
     elif humans == 2:
         players.append(h.Human(engine, 0, gui, renderer))
         players.append(h.Human(engine, 1, gui, renderer))
@@ -128,7 +130,7 @@ def main():
     re.window_setup(500, 500)
 
     db_stuff = init_db('games.db', True)
-    play_game(engine, 1, db_stuff, True, re)
+    play_game(engine, 0, db_stuff, True, re)
     db_stuff[0].close()
 main()
 
