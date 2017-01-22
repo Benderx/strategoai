@@ -244,7 +244,12 @@ class GameEngine:
 
 
     def legal_moves_for_piece(self, loc, player):
-        moves = [(loc[0]+1, loc[1]), (loc[0]-1, loc[1]), (loc[0], loc[1]+1), (loc[0], loc[1]-1)]
+        moves = []
+        if isinstance(self.board[loc[0]][loc[1]], Piece) and self.board[loc[0]][loc[1]].value == 9:
+            for i in range(1, len(self.board)):
+                moves += [(loc[0]+i, loc[1]), (loc[0]-i, loc[1]), (loc[0], loc[1]+i), (loc[0], loc[1]-i)]
+        else:
+            moves = [(loc[0]+1, loc[1]), (loc[0]-1, loc[1]), (loc[0], loc[1]+1), (loc[0], loc[1]-1)]
         final = []
         for move in moves:
             if self.check_legal(loc, move, player)[0]:

@@ -1,12 +1,16 @@
 import Renderer as r
 import GameEngine as g
 import Human as h
-import GaussianAI as gauss
-import MinimaxAI as mini
+import GaussianAI
+import MinimaxAI
+import RandomAI
 import time
 import sqlite3
 import os
+import argparse
 
+AI1 = RandomAI.RandomAI #RandomAI, GaussianAI, MinimaxAI
+AI2 = RandomAI.RandomAI
 
 # humans = 0, 1, 2
 def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None):
@@ -16,13 +20,11 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
 
     players = []
     if humans == 0:
-        # players.append(gauss.GaussianAI(0, engine))
-        # players.append(gauss.GaussianAI(1, engine))
-        players.append(mini.MinimaxAI(0, engine, 4))
-        players.append(mini.MinimaxAI(1, engine, 4))
+        players.append(AI1(0, engine, 4))
+        players.append(AI2(1, engine, 4))
     elif humans == 1:
         players.append(h.Human(engine, 0, gui, renderer))
-        players.append(mini.MinimaxAI(1, engine, 4))
+        players.append(AI1(1, engine, 4))
     elif humans == 2:
         players.append(h.Human(engine, 0, gui, renderer))
         players.append(h.Human(engine, 1, gui, renderer))
@@ -32,8 +34,8 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
     engine.board_setup()
     if gui:
         renderer.draw_board()
-    else:
-        engine.print_board()
+    # else:
+    #     engine.print_board()
 
     state_tracker = []
     turn = 0
@@ -50,7 +52,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
         curr = players[turn]
         move = curr.get_move()
         
-        print(move)
+        # print(move)
         engine.move(move[0], move[1])
 
         # l, msg = engine.check_legal(coord1, coord2, turn)
@@ -63,8 +65,8 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
 
         if gui:
             renderer.refresh_board()
-        else:
-            engine.print_board()
+        # else:
+        #     engine.print_board()
 
         # So i can watch the AI's
         # time.sleep(.1)
@@ -89,6 +91,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
                             """
         db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
         db_stuff[0].commit()
+    return engine.check_winner(turn, moves)
 
 
 # Takes in database name and if you want to overwrite current, or add to it. Probably change in future for streamlined data creation
@@ -126,12 +129,26 @@ def init_db(dbpath = 'test.db', overwrite = True):
 
 def main():
     engine = g.GameEngine()
-    re = r.Renderer(engine.get_board())
-    re.window_setup(500, 500)
-
     db_stuff = init_db('games.db', True)
-    play_game(engine, 0, db_stuff, True, re)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('graphical', default=1)
+    parser.add_argument('number', default=1)
+    args = parser.parse_args()
+    if args.graphical == 1:
+        re = r.Renderer(engine.get_board())
+        re.window_setup(500, 500)
+        gui = True
+    else:
+        re = None
+        gui = False
+
+    num_games = int(args.number)
+
+    for i in range(num_games):
+        winner = play_game(engine, 0, db_stuff, gui, re)[1]
+        print('game ', i, ': ', winner, ' won')
     db_stuff[0].close()
+
 main()
 
 
