@@ -57,7 +57,6 @@ class GameEngine:
         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
         self.flags = ([-1, -1], [-1, -1])
         self.move_history = []
-        random.seed(1)
 
     def board_setup(self):
         for x in range(len(self.board)):

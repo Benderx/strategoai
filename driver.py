@@ -39,7 +39,9 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
 
     state_tracker = []
     turn = 0
+    counter = 0
     while True:
+        counter +=1
         # print(engine.get_compacted_board_state())
         state_tracker.append(engine.get_compacted_board_state())
         moves = engine.all_legal_moves(turn)
@@ -72,6 +74,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
         # time.sleep(.1)
 
         turn = 1 - turn
+    print(counter)
 
     if tracking:
         sql_game_insert =   """
@@ -134,7 +137,7 @@ def main():
     parser.add_argument('graphical', default=1)
     parser.add_argument('number', default=1)
     args = parser.parse_args()
-    if args.graphical == 1:
+    if int(args.graphical) == 1:
         re = r.Renderer(engine.get_board())
         re.window_setup(500, 500)
         gui = True
