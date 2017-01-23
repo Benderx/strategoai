@@ -67,6 +67,7 @@ class GameEngine:
         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
         self.flags = ([-1, -1], [-1, -1])
         self.move_history = []
+        self.lakes = [(2,4), (2,5), (3,4), (3,5), (6,4), (6,5), (7,4), (7,5)]
 
     def board_setup(self):
         for x in range(len(self.board)):
@@ -370,6 +371,10 @@ class GameEngine:
             self.board[coord2[0]][coord2[1]] = 0
 
         return p1, p2
+
+
+    def get_lakes():
+        return self.lakes
 
 
 

@@ -15,19 +15,21 @@ class Renderer:
 
     # Only for initial draw
     def draw_board(self):
-        lakes = [(2,4), (2,5), (3,4), (3,5),
-                (6,4), (6,5), (7,4), (7,5)]
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
-                if (i, j) in lakes:
+                if type(0) == type(self.board[i][j]):
+                    c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),
+                          graphics.Point(self.box_length * (i+1) + self.offset, self.box_length * (j+1) + self.offset))
+                    c.draw(self.win)
+                    continue
+                if self.board[i][j].get_value() == -1:
                     continue
 
                 c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),
                           graphics.Point(self.box_length * (i+1) + self.offset, self.box_length * (j+1) + self.offset))
                 c.draw(self.win)
 
-                if type(0) == type(self.board[i][j]):
-                    continue
+                
 
                 piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
                                       self.box_length * j + self.offset + (self.box_length / 2)), 'H')
@@ -55,18 +57,16 @@ class Renderer:
 
     # Used for refreshing to save space and time.
     def refresh_board(self):
-        lakes = [(2,4), (2,5), (3,4), (3,5),
-                (6,4), (6,5), (7,4), (7,5)]
-
         for i in self.piece_arr:
             i.undraw()
         self.piece_arr = []
 
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
-                if (i, j) in lakes:
-                    continue
                 if type(-1) == type(self.board[i][j]):
+                    continue
+
+                if self.board[i][j].get_value() == -1:
                     continue
 
                 piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
