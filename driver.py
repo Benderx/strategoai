@@ -37,7 +37,6 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
     tracking = True
     if db_stuff == None:
         tracking = False
-    engine.print_board()
     players = []
     if humans == 0:
         players.append(AI1(0, engine, 4))
@@ -163,8 +162,8 @@ def game_start(args):
     db_stuff = init_db('games.db', True)
 
     if int(args.graphical) == 1:
-        re = r.Renderer(engine.get_board())
-        re.window_setup(500, 500)
+        re = r.Renderer(engine.get_board(), 90, 10)
+        re.window_setup(700, 700)
         gui = True
     else:
         re = None

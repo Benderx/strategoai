@@ -172,8 +172,8 @@ class GameEngine:
         for x in range(len(self.board)):
             for y in range(len(self.board)):
                 piece = visible_board[x][y]
-                if piece and piece.player != player and not piece.visible:
-                    visible_board[x][y].value = 0
+                if piece and piece.player and piece.player != player and not piece.visible:
+                    visible_board[x][y].value = -2
                     piece_options.append(piece.value)
         return visible_board, piece_options
 
