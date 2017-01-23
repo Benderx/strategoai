@@ -51,7 +51,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
         start = time.time()
         moves = engine.all_legal_moves(turn)
         end = time.time()
-        
+
         game_over, winner = engine.check_winner(turn, moves)
         if game_over:
             break
