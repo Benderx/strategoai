@@ -1,7 +1,8 @@
+
+import MonteCarloAI
 import Renderer as r
 import GameEngine as g
 import Human as h
-import GaussianAI
 import MinimaxAI
 import RandomAI
 import time
@@ -10,10 +11,8 @@ import os
 import argparse
 import threading
 
-AI1 = RandomAI.RandomAI #RandomAI, GaussianAI, MinimaxAI
-AI2 = RandomAI.RandomAI
-
-
+FIRST_AI = RandomAI.RandomAI #RandomAI, MonteCarloAI, MinimaxAI
+SECOND_AI = MonteCarloAI.MonteCarloAI
 global moves_per_second; moves_per_second = 0
 
 
@@ -33,9 +32,8 @@ class CountThread (threading.Thread):
 
 
 # humans = 0, 1, 2
-def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None):
+def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None, AI1 = None, AI2 = None):
     global moves_per_second;
-
     tracking = True
     if db_stuff == None:
         tracking = False
@@ -53,7 +51,6 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
     else:
         raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
 
-    engine.board_setup()
     if gui:
         renderer.draw_board()
     # else:
@@ -83,6 +80,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
         
         if gui:
             renderer.refresh_board()
+            time.sleep(1)
         # else:
         #     engine.print_board()
 
@@ -93,6 +91,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
     # print('Moves: ' + str(moves_per_second))
     # print('Avg legal_move timing: ' + str(timing_total/float(moves_per_second)))
     
+
 
     if tracking:
         sql_game_insert =   """
@@ -112,7 +111,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
                             """
         db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
         db_stuff[0].commit()
-    return engine.check_winner(turn, moves)
+    return engine.check_winner(turn, moves)[1]
 
 
 # Takes in database name and if you want to overwrite current, or add to it. Probably change in future for streamlined data creation
@@ -161,6 +160,7 @@ def print_moves_per_second(thread_name, delay, c):
 
 def game_start(args):
     engine = g.GameEngine()
+    engine.board_setup()
     db_stuff = init_db('games.db', True)
 
     if int(args.graphical) == 1:
@@ -174,7 +174,8 @@ def game_start(args):
     num_games = int(args.number)
 
     for i in range(num_games):
-        winner = play_game(engine, int(args.humans), db_stuff, gui, re)[1]
+        engine.board_setup()
+        winner = play_game(engine, int(args.humans), db_stuff, gui, re, FIRST_AI, SECOND_AI)
         print('game ', i, ': ', winner, ' won')
     db_stuff[0].close()
 
@@ -196,4 +197,6 @@ def main():
 
     game_start(args)
 
-main()
+    
+if __name__ == '__main__':
+    main()
