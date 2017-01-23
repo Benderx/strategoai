@@ -9,11 +9,31 @@ import time
 import sqlite3
 import os
 import argparse
+import threading
 
 FIRST_AI = RandomAI.RandomAI #RandomAI, MonteCarloAI, MinimaxAI
 SECOND_AI = MonteCarloAI.MonteCarloAI
+global moves_per_second; moves_per_second = 0
+
+
+class CountThread (threading.Thread):
+    def __init__(self, thread_id, name, delay, count):
+        threading.Thread.__init__(self)
+        self.thread_id = thread_id
+        self.name = name
+        self.delay = delay
+        self.count = count
+
+
+    def run(self):
+        print("Starting " + self.name)
+        print_moves_per_second(self.name, self.delay, self.count)
+        print("Exiting " + self.name)
+
+
 # humans = 0, 1, 2
 def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None, AI1 = None, AI2 = None):
+    global moves_per_second;
     tracking = True
     if db_stuff == None:
         tracking = False
@@ -38,11 +58,9 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
 
     state_tracker = []
     turn = 0
-    game_counter = 0
-
     timing_total = 0
     while True:
-        game_counter +=1
+        moves_per_second += 1
 
         # print(engine.get_compacted_board_state())
         state_tracker.append(engine.get_compacted_board_state())
@@ -66,14 +84,13 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         # else:
         #     engine.print_board()
 
-
-
         timing_total += end - start
         turn = 1 - turn
 
     # print()
-    # print('Moves: ' + str(game_counter))
-    # print('Avg legal_move timing: ' + str(timing_total/float(game_counter)))
+    # print('Moves: ' + str(moves_per_second))
+    # print('Avg legal_move timing: ' + str(timing_total/float(moves_per_second)))
+    
 
 
     if tracking:
@@ -130,14 +147,22 @@ def init_db(dbpath = 'test.db', overwrite = True):
     return [conn, cursor]
 
 
-def main():
+def print_moves_per_second(thread_name, delay, c):
+    global moves_per_second;
+    count = 0
+    while count < c:
+        count += 1
+        time.sleep(delay)
+        print('Moves per second: ' + str(moves_per_second))
+        moves_per_second = 0
+
+
+
+def game_start(args):
     engine = g.GameEngine()
     engine.board_setup()
     db_stuff = init_db('games.db', True)
-    parser = argparse.ArgumentParser()
-    parser.add_argument('graphical', default=1)
-    parser.add_argument('number', default=1)
-    args = parser.parse_args()
+
     if int(args.graphical) == 1:
         re = r.Renderer(engine.get_board())
         re.window_setup(500, 500)
@@ -150,31 +175,28 @@ def main():
 
     for i in range(num_games):
         engine.board_setup()
-        winner = play_game(engine, 0, db_stuff, gui, re, FIRST_AI, SECOND_AI)
+        winner = play_game(engine, int(args.humans), db_stuff, gui, re, FIRST_AI, SECOND_AI)
         print('game ', i, ': ', winner, ' won')
     db_stuff[0].close()
 
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('graphical', default=1, help='whether or not to show the gui')
+    parser.add_argument('number', default=1, help='How many games to play')
+    parser.add_argument('humans', default=0, help='2 is two player, 1 is vs AI, 0 is both AI')
+    args = parser.parse_args()
+
+    run_event = threading.Event()
+    run_event.set()
+
+    thread1 = CountThread(1, 'counting thread', 1, 10)
+    thread1.setDaemon(True)
+    thread1.start()
+
+    game_start(args)
+
+    
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-# time.sleep(2)
-
-# l = engine.check_legal([0, 6], [0, 5], 1)
-# if l == True:
-#     engine.move([0, 6], [0, 5])
-#     engine.print_board()
-# else:
-#     print(l[1])
-
-# r.refresh_board()
-
-
-# # http://stackoverflow.com/questions/20340018/while-loop-is-taking-forever-and-freezing-screen
-# while True:
-#   time.sleep(.1)

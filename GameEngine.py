@@ -285,7 +285,7 @@ class GameEngine:
         if not self.board[self.flags[1][0]][self.flags[1][1]].get_value() == 0:
             return True, 0
         if len(moves) == 0:
-            return True, 2
+            return True, player
         return False, None
 
 
