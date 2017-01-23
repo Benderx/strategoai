@@ -66,6 +66,8 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
         # else:
         #     engine.print_board()
 
+        time.sleep(1)
+
         timing_total += end - start
         turn = 1 - turn
 

@@ -126,13 +126,15 @@ class GameEngine:
     def check_legal(self, coord1, coord2, player):
         piece = self.board[coord1[0]][coord1[1]]
         if piece.get_player() != player:
-            return False, "That is not your piece"
+            return False, 'That is not your piece'
 
         if self.board[coord2[0]][coord2[1]] != 0:
             piece2 = self.board[coord2[0]][coord2[1]]
-            if piece.get_player() == piece2.get_player():
-                return False, "You cant move into your own piece"
-        return True, "legal move"
+            if piece2.get_value() == -1:
+                return False, 'Cannot move into a lake'
+            if player == piece2.get_player():
+                return False, 'You cant move into your own piece'
+        return True, 'legal move'
 
 
     # Only for the renderer and the AI
@@ -217,20 +219,32 @@ class GameEngine:
         for i in range(1, speed+1):
             if loc[0]+i < 0  or loc[0]+i > 9:
                 break
+            if self.board[loc[0]+i][loc[1]] != 0:
+                moves.append((loc[0]+i, loc[1]))
+                break
             moves.append((loc[0]+i, loc[1]))
 
         for i in range(1, speed+1):
             if loc[0]-i < 0  or loc[0]-i > 9:
+                break
+            if self.board[loc[0]-i][loc[1]] != 0:
+                moves.append((loc[0]-i, loc[1]))
                 break
             moves.append((loc[0]-i, loc[1]))
 
         for i in range(1, speed+1):
             if loc[1]+i < 0  or loc[1]+i > 9:
                 break
+            if self.board[loc[0]][loc[1]+i] != 0:
+                moves.append((loc[0], loc[1]+i))
+                break
             moves.append((loc[0], loc[1]+i))
 
         for i in range(1, speed+1):
             if loc[1]-i < 0  or loc[1]-i > 9:
+                break
+            if self.board[loc[0]][loc[1]-i] != 0:
+                moves.append((loc[0], loc[1]-i))
                 break
             moves.append((loc[0], loc[1]-i))
 
