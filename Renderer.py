@@ -63,7 +63,7 @@ class Renderer:
 
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
-                if type(-1) == type(self.board[i][j]):
+                if not self.board[i][j]:
                     continue
 
                 if self.board[i][j].get_value() == -1:

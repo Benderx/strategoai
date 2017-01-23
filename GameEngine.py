@@ -1,6 +1,7 @@
 import math
 import random
 import inspect
+from copy import deepcopy
 
 class Piece:
     # 0: Flag
@@ -51,21 +52,12 @@ class Piece:
     def reveal(self):
         self.visible = True
 
-# maybe faster than a custom hash
-# class Board:
-#     def __init__(self):
-#         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
-#         self.flags = ([-1, -1], [-1, -1])
-#     def __iter__(self):
-#         return (x for x in self.board)
-#     def __getitem__(self):
-#         return (board[x])
 
 
 class GameEngine:
     def __init__(self, n):
         self.size = n
-        self.board = [[0 for x in range(0, n)] for y in range(0, n)]
+        self.board = [[None for x in range(0, n)] for y in range(0, n)]
         self.flags = [[-1, -1], [-1, -1]]
         self.move_history = []
 
@@ -130,10 +122,10 @@ class GameEngine:
 
     def print_board(self):
         print()
-        for x in range(0, 10):
+        for x in range(self.size):
             arr_temp = []
-            for y in range(0, 10):
-                if isinstance(self.board[y][x], Piece):
+            for y in range(self.size):
+                if self.board[y][x]:
                     val = self.board[y][x].get_value()
                     if val == 0:
                         name = 'F'
@@ -147,7 +139,7 @@ class GameEngine:
                         name = val
                     arr_temp.append(name)
                 else:
-                    arr_temp.append(self.board[y][x])
+                    arr_temp.append(0)
             print(' '.join(map(str, arr_temp)))
         print()
 
@@ -173,6 +165,18 @@ class GameEngine:
     # Only for the renderer and the AI
     def get_board(self):
         return self.board
+
+    def get_visible_board(self, player):
+        visible_board = deepcopy(self.board)
+        piece_options = []
+        for x in range(len(self.board)):
+            for y in range(len(self.board)):
+                piece = visible_board[x][y]
+                if piece and piece.player != player and not piece.visible:
+                    visible_board[x][y].value = 0
+                    piece_options.append(piece.value)
+        return visible_board, piece_options
+
 
 
     # Takes in 2 players and returns 0 for p1 winning and 1 for p2 winning, 2 for tie.

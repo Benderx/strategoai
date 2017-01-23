@@ -37,7 +37,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
     tracking = True
     if db_stuff == None:
         tracking = False
-
+    engine.print_board()
     players = []
     if humans == 0:
         players.append(AI1(0, engine, 4))
