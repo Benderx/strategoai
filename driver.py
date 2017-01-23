@@ -76,7 +76,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         # We assume all player classes return valid moves.
         
         move = players[turn].get_move(moves)
-        print('move:' + str(move))
+        # print('move:' + str(move))
         engine.move(move[0], move[1])
         moves_per_second += 1
         
@@ -191,7 +191,7 @@ def main():
     run_event = threading.Event()
     run_event.set()
 
-    thread1 = CountThread(1, 'counting thread', 1, 10)
+    thread1 = CountThread(1, 'counting thread', 1, 5)
     thread1.setDaemon(True)
     thread1.start()
 

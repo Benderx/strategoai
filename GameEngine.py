@@ -120,10 +120,6 @@ class GameEngine:
                 r1 = int(random.random()*(len(starting_pieces)))
                 r2 = int(random.random()*(len(starting_locations)))
 
-                print()
-                print(starting_pieces)
-                print(r1, r2, starting_locations)
-
                 p = Piece(starting_locations[r2][2], starting_pieces[r1][0], starting_pieces[r1][1][-1])
                 self.board[starting_locations[r2][0]][starting_locations[r2][1]] = p
 

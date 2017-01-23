@@ -4,7 +4,7 @@ from copy import deepcopy
 import RandomAI
 import time
 
-TOTAL_SAMPLES = 10
+TOTAL_SAMPLES = 100
 
 class MonteCarloAI:
     def __init__(self, player, engine, depth = 1):
@@ -23,10 +23,10 @@ class MonteCarloAI:
         while i < TOTAL_SAMPLES:
             loc = i%len(all_moves)
 
-            s = time.time()
+            # s = time.time()
             value = self.sample(all_moves[loc])
-            e = time.time()
-            print('total' + str(e-s))
+            # e = time.time()
+            # print('total' + str(e-s))
 
             if move_ratings[loc] != -1:
                 move_ratings[loc] = move_ratings[loc]*move_samples[loc]/(move_samples[loc]+1) + value / (move_samples[loc] + 1)
@@ -35,7 +35,7 @@ class MonteCarloAI:
                 move_ratings[loc] = value   
             i+=1
         # print('lol')
-        print(move_ratings)
+        # print(move_ratings)
         return all_moves[move_ratings.index(max(move_ratings))]
 
 
