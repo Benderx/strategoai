@@ -22,14 +22,11 @@ class Piece:
         if self.value > 0 and self.value < 9 or self.value == 11:
             return 1
 
-        elif self.value == 0 or self.value == 10:
-            return 0
-
         elif self.value == 9:
-            return math.inf
+            return 100
 
         else:
-            raise Exception('Piece value not found')
+            return 0
 
 
     def get_visible(self):
@@ -130,7 +127,7 @@ class GameEngine:
         piece = self.board[coord1[0]][coord1[1]]
         if piece.get_player() != player:
             return False, "That is not your piece"
-            
+
         if coord1[0] < 0  or coord1[0] > 9:
             return False, "coord1 x is out of bounds"
         if coord1[1] < 0  or coord1[1] > 9:
@@ -153,9 +150,6 @@ class GameEngine:
 
         xdist = abs(coord1[0] - coord2[0])
         ydist = abs(coord1[1] - coord2[1])
-
-        if xdist != 0 and ydist != 0:
-            return False, "you cannot move diagonally"
 
         move = piece.get_movement()
         if xdist > move or ydist > move:
@@ -242,16 +236,37 @@ class GameEngine:
 
 
     def legal_moves_for_piece(self, loc, player):
-        moves = []
-        
         if not isinstance(self.board[loc[0]][loc[1]], Piece):
             return []
+        moves = []
 
-        if isinstance(self.board[loc[0]][loc[1]], Piece) and self.board[loc[0]][loc[1]].value == 9:
-            for i in range(1, len(self.board)):
-                moves += [(loc[0]+i, loc[1]), (loc[0]-i, loc[1]), (loc[0], loc[1]+i), (loc[0], loc[1]-i)]
-        else:
-            moves = [(loc[0]+1, loc[1]), (loc[0]-1, loc[1]), (loc[0], loc[1]+1), (loc[0], loc[1]-1)]
+        speed = self.board[loc[0]][loc[1]].get_movement()
+        for i in range(1, speed+1):
+            if loc[0]+i < 0  or loc[0]+i > 9:
+                break
+            moves.append((loc[0]+i, loc[1]))
+
+        for i in range(1, speed+1):
+            if loc[0]-i < 0  or loc[0]-i > 9:
+                break
+            moves.append((loc[0]-i, loc[1]))
+
+        for i in range(1, speed+1):
+            if loc[1]+i < 0  or loc[1]+i > 9:
+                break
+            moves.append((loc[0], loc[1]+i))
+
+        for i in range(1, speed+1):
+            if loc[1]-i < 0  or loc[1]-i > 9:
+                break
+            moves.append((loc[0], loc[1]-i))
+
+
+        # if self.board[loc[0]][loc[1]].value == 9:
+        #     for i in range(1, len(self.board)):
+        #         moves += [(loc[0]+i, loc[1]), (loc[0]-i, loc[1]), (loc[0], loc[1]+i), (loc[0], loc[1]-i)]
+        # else:
+        #     moves = [(loc[0]+1, loc[1]), (loc[0]-1, loc[1]), (loc[0], loc[1]+1), (loc[0], loc[1]-1)]
         
         final = []
         for move in moves:
