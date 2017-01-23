@@ -3,7 +3,7 @@ import GameEngine
 from copy import deepcopy
 import RandomAI
 
-TOTAL_SAMPLES = 10
+TOTAL_SAMPLES = 50
 
 class MonteCarloAI:
     def __init__(self, player, engine, depth = 1):
@@ -23,10 +23,10 @@ class MonteCarloAI:
             value = self.sample(all_moves[loc])
             print(value)
             if move_ratings[loc] != -1:
-                move_ratings[loc] = (move_ratings[loc] + value) / (move_samples[loc] + 1)
+                move_ratings[loc] = move_ratings[loc]*move_samples[loc]/(move_samples[loc]+1) + value / (move_samples[loc] + 1)
                 move_samples[loc] += 1
             else:
-                move_ratings[loc] = value
+                move_ratings[loc] = value   
             i+=1
 
         print(move_ratings)
@@ -35,8 +35,9 @@ class MonteCarloAI:
 
     #repeatedly choose random move until win or loss
     def sample(self, move):
-        backup_board = deepcopy(self.engine.board)
+        temp_board = deepcopy(self.engine.board)
         sample_engine = self.engine
+        sample_engine.board = temp_board
 
         sample_engine.move(move[0], move[1])
         turn = 1 - self.player
@@ -54,7 +55,7 @@ class MonteCarloAI:
 
             turn = 1 - turn
 
-        self.engine.board = backup_board
+        self.engine.board = self.board
         if winner == self.player:
             return 1
         if winner == 2:
