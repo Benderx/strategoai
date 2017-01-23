@@ -35,7 +35,8 @@ class MonteCarloAI:
 
     #repeatedly choose random move until win or loss
     def sample(self, move):
-        sample_engine = deepcopy(self.engine)
+        backup_board = deepcopy(self.engine.board)
+        sample_engine = self.engine
 
         sample_engine.move(move[0], move[1])
         turn = 1 - self.player
@@ -53,6 +54,7 @@ class MonteCarloAI:
 
             turn = 1 - turn
 
+        self.engine.board = backup_board
         if winner == self.player:
             return 1
         if winner == 2:
