@@ -46,7 +46,6 @@ class MonteCarloAI:
 
             game_over, winner = sample_engine.check_winner(turn, moves)
             if game_over:
-                sample_engine.print_board()
                 break
             
             move = random.choice(moves)
