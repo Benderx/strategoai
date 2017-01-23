@@ -39,42 +39,41 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
 
     state_tracker = []
     turn = 0
-    counter = 0
+    game_counter = 0
+
+    timing_total = 0
     while True:
-        counter +=1
+        game_counter +=1
+
         # print(engine.get_compacted_board_state())
         state_tracker.append(engine.get_compacted_board_state())
+        
+        start = time.time()
         moves = engine.all_legal_moves(turn)
-
+        end = time.time()
+        
         game_over, winner = engine.check_winner(turn, moves)
         if game_over:
             break
 
         # We assume all player classes return valid moves.
-        curr = players[turn]
-        move = curr.get_move()
         
-        # print(move)
+        move = players[turn].get_move(moves)
         engine.move(move[0], move[1])
-
-        # l, msg = engine.check_legal(coord1, coord2, turn)
-        # if l == True:
-        #     engine.move(coord1, coord2)
-        # else:
-        #     print('Illegal move, move again please.')
-        #     print(msg)
-        #     continue
-
+        
         if gui:
             renderer.refresh_board()
         # else:
         #     engine.print_board()
 
-        # So i can watch the AI's
-        # time.sleep(.1)
-
+        timing_total += end - start
         turn = 1 - turn
-    print(counter)
+
+    print()
+    print('timing_total: ' + str(timing_total))
+    print('Moves: ' + str(game_counter))
+    print('Avg timing: ' + str(timing_total/float(game_counter)))
+    
 
     if tracking:
         sql_game_insert =   """

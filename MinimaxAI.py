@@ -85,8 +85,7 @@ class MinimaxAI:
                 total += piece_eval
         return total
 
-    def get_move(self):
-        moves = self.engine.all_legal_moves(self.player)
+    def get_move(self, all_moves):
         best_move = [0, None]
 
         if self.player == 0:
@@ -94,7 +93,7 @@ class MinimaxAI:
         else:
             best_move[0] = math.inf
 
-        for i in moves:
+        for i in all_moves:
             self.engine.push_move(i[0], i[1])
             if self.player == 0:
                 v = self.minimax(self.depth, -math.inf, math.inf, 1)
