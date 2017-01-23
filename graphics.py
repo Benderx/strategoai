@@ -1,5 +1,8 @@
 __version__ = "5.0"
 
+
+# JOHN ZEELE'S
+
 # Version 5 8/26/2016
 #     * update at bottom to fix MacOS issue causing askopenfile() to hang
 #     * update takes an optional parameter specifying update rate
