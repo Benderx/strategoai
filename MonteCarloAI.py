@@ -2,8 +2,9 @@ import random
 import GameEngine
 from copy import deepcopy
 import RandomAI
+import time
 
-TOTAL_SAMPLES = 50
+TOTAL_SAMPLES = 10
 
 class MonteCarloAI:
     def __init__(self, player, engine, depth = 1):
@@ -18,40 +19,45 @@ class MonteCarloAI:
         i = 0
         move_ratings = [-1 for x in range(len(all_moves))]
         move_samples = [1 for x in range(len(all_moves))]
+
         while i < TOTAL_SAMPLES:
             loc = i%len(all_moves)
+
+            s = time.time()
             value = self.sample(all_moves[loc])
-            print(value)
+            e = time.time()
+            print('total' + str(e-s))
+
             if move_ratings[loc] != -1:
                 move_ratings[loc] = move_ratings[loc]*move_samples[loc]/(move_samples[loc]+1) + value / (move_samples[loc] + 1)
                 move_samples[loc] += 1
             else:
                 move_ratings[loc] = value   
             i+=1
-
+        # print('lol')
         print(move_ratings)
         return all_moves[move_ratings.index(max(move_ratings))]
 
 
     #repeatedly choose random move until win or loss
     def sample(self, move):
-        temp_board = deepcopy(self.engine.board)
-        sample_engine = self.engine
-        sample_engine.board = temp_board
+        parent_board = deepcopy(self.engine.board)
 
-        sample_engine.move(move[0], move[1])
+        self.engine.board = parent_board
+
+        self.engine.move(move[0], move[1])
         turn = 1 - self.player
         winner = None
         while True:
             
-            moves = sample_engine.all_legal_moves(turn)
+            moves = self.engine.all_legal_moves(turn)
 
-            game_over, winner = sample_engine.check_winner(turn, moves)
+            game_over, winner = self.engine.check_winner(turn, moves)
             if game_over:
                 break
             
             move = random.choice(moves)
-            sample_engine.move(move[0], move[1])
+            self.engine.move(move[0], move[1])
 
             turn = 1 - turn
 

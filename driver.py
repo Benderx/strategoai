@@ -44,7 +44,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         players.append(AI2(1, engine, 4))
     elif humans == 1:
         players.append(h.Human(engine, 0, gui, renderer))
-        players.append(AI1(1, engine, 4))
+        players.append(AI2(1, engine, 4))
     elif humans == 2:
         players.append(h.Human(engine, 0, gui, renderer))
         players.append(h.Human(engine, 1, gui, renderer))
@@ -60,7 +60,6 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
     turn = 0
     timing_total = 0
     while True:
-        moves_per_second += 1
 
         # print(engine.get_compacted_board_state())
         state_tracker.append(engine.get_compacted_board_state())
@@ -73,16 +72,16 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         if game_over:
             break
 
+
         # We assume all player classes return valid moves.
         
         move = players[turn].get_move(moves)
+        print('move:' + str(move))
         engine.move(move[0], move[1])
+        moves_per_second += 1
         
         if gui:
             renderer.refresh_board()
-            time.sleep(1)
-        # else:
-        #     engine.print_board()
 
         timing_total += end - start
         turn = 1 - turn
@@ -159,7 +158,7 @@ def print_moves_per_second(thread_name, delay, c):
 
 
 def game_start(args):
-    engine = g.GameEngine()
+    engine = g.GameEngine(int(args.size))
     engine.board_setup()
     db_stuff = init_db('games.db', True)
 
@@ -186,6 +185,7 @@ def main():
     parser.add_argument('graphical', default=1, help='whether or not to show the gui')
     parser.add_argument('number', default=1, help='How many games to play')
     parser.add_argument('humans', default=0, help='2 is two player, 1 is vs AI, 0 is both AI')
+    parser.add_argument('size', default=10, help='How big the board is')
     args = parser.parse_args()
 
     run_event = threading.Event()

@@ -63,11 +63,11 @@ class Piece:
 
 
 class GameEngine:
-    def __init__(self):
-        self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
-        self.flags = ([-1, -1], [-1, -1])
+    def __init__(self, n):
+        self.size = n
+        self.board = [[0 for x in range(0, n)] for y in range(0, n)]
+        self.flags = [[-1, -1], [-1, -1]]
         self.move_history = []
-        self.lakes = [(2,4), (2,5), (3,4), (3,5), (6,4), (6,5), (7,4), (7,5)]
 
     def board_setup(self):
         for x in range(len(self.board)):
@@ -75,34 +75,57 @@ class GameEngine:
                 self.board[x][y] = 0
 
         # Rivers
-        self.board[2][4] = Piece(None, -1, 'K')
-        self.board[2][5] = Piece(None, -1, 'K')
-        self.board[3][4] = Piece(None, -1, 'K')
-        self.board[3][5] = Piece(None, -1, 'K')
+        if self.size == 10:
+            self.board[2][4] = Piece(None, -1, 'K')
+            self.board[2][5] = Piece(None, -1, 'K')
+            self.board[3][4] = Piece(None, -1, 'K')
+            self.board[3][5] = Piece(None, -1, 'K')
 
-        self.board[6][4] = Piece(None, -1, 'K')
-        self.board[6][5] = Piece(None, -1, 'K')
-        self.board[7][4] = Piece(None, -1, 'K')
-        self.board[7][5] = Piece(None, -1, 'K')
+            self.board[6][4] = Piece(None, -1, 'K')
+            self.board[6][5] = Piece(None, -1, 'K')
+            self.board[7][4] = Piece(None, -1, 'K')
+            self.board[7][5] = Piece(None, -1, 'K')
+        elif self.size == 6:
+            self.board[2][2] = Piece(None, -1, 'K')
+            self.board[2][3] = Piece(None, -1, 'K')
 
         for i in range(0, 2):
-            starting_pieces = [[0, 'Flag F', 1], [10, 'Bomb B', 6], [11, 'Spy Y', 1], [9, 'Scout S', 8], [8, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
+            if self.size == 10:
+                rows = 4
+                starting_pieces = [[0, 'Flag F', 1], [10, 'Bomb B', 6], [11, 'Spy Y', 1], [9, 'Scout S', 8], [8, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
+            elif self.size == 6:
+                rows = 2
+                starting_pieces = [[0, 'Flag F', 1], [10, 'Bomb B', 1], [11, 'Spy Y', 1], [9, 'Scout S', 1], [8, 'Miner R', 1], [7, 'Sergeant T', 1], [6, 'Lieutenent L', 1], [5, 'Captain C', 1], [4, 'Major J', 1], [3, 'Colonel O', 1], [2, 'General G', 1], [1, 'Marshall M', 1]]
+
+
             starting_locations = []
-            for x in range(0, 10):
-                for y in range(0 + i*6, 4 + i*6):
+            randy = random.randrange(0, self.size-1)
+            randy2 = random.randrange(0, self.size-1)
+
+            for x in range(0, self.size):
+                for y in range(0 + i*(self.size-rows), rows + i*(self.size-rows)):
+                    if y == 0 and x == randy and i == 0:
+                        self.board[x][y] = Piece(0, 0, 'F')
+                        self.flags[0] = [x, y]
+                        starting_pieces.pop(0)
+                        continue
+                    if y == rows + i*(self.size-rows)-1 and x == randy2 and i == 1:
+                        self.board[x][y] = Piece(1, 0, 'F')
+                        self.flags[1] = [x, y]
+                        starting_pieces.pop(0)
+                        continue
                     starting_locations.append((x, y, i))
 
             while len(starting_pieces) != 0:
                 r1 = int(random.random()*(len(starting_pieces)))
                 r2 = int(random.random()*(len(starting_locations)))
 
+                print()
+                print(starting_pieces)
+                print(r1, r2, starting_locations)
+
                 p = Piece(starting_locations[r2][2], starting_pieces[r1][0], starting_pieces[r1][1][-1])
                 self.board[starting_locations[r2][0]][starting_locations[r2][1]] = p
-                if starting_pieces[r1][0] == 0:
-                    self.flags[i][0] = starting_locations[r2][0]
-                    self.flags[i][1] = starting_locations[r2][1]
-
-
 
                 starting_locations.pop(r2)
                 starting_pieces[r1][2] -= 1
@@ -231,7 +254,7 @@ class GameEngine:
 
         speed = self.board[loc[0]][loc[1]].get_movement()
         for i in range(1, speed+1):
-            if loc[0]+i < 0  or loc[0]+i > 9:
+            if loc[0]+i < 0  or loc[0]+i > self.size-1:
                 break
             if self.board[loc[0]+i][loc[1]] != 0:
                 moves.append((loc[0]+i, loc[1]))
@@ -239,7 +262,7 @@ class GameEngine:
             moves.append((loc[0]+i, loc[1]))
 
         for i in range(1, speed+1):
-            if loc[0]-i < 0  or loc[0]-i > 9:
+            if loc[0]-i < 0  or loc[0]-i > self.size-1:
                 break
             if self.board[loc[0]-i][loc[1]] != 0:
                 moves.append((loc[0]-i, loc[1]))
@@ -247,7 +270,7 @@ class GameEngine:
             moves.append((loc[0]-i, loc[1]))
 
         for i in range(1, speed+1):
-            if loc[1]+i < 0  or loc[1]+i > 9:
+            if loc[1]+i < 0  or loc[1]+i > self.size-1:
                 break
             if self.board[loc[0]][loc[1]+i] != 0:
                 moves.append((loc[0], loc[1]+i))
@@ -255,7 +278,7 @@ class GameEngine:
             moves.append((loc[0], loc[1]+i))
 
         for i in range(1, speed+1):
-            if loc[1]-i < 0  or loc[1]-i > 9:
+            if loc[1]-i < 0  or loc[1]-i > self.size-1:
                 break
             if self.board[loc[0]][loc[1]-i] != 0:
                 moves.append((loc[0], loc[1]-i))
@@ -343,18 +366,6 @@ class GameEngine:
         return ''.join(whole)
 
 
-    # Functions for minimax
-    def push_move(self, coord1, coord2):
-        p1, p2 = self.move_track(coord1, coord2)
-        self.move_history.append((coord1, coord2, p1, p2))
-
-
-    def pop_move(self):
-        c = self.move_history.pop()
-        self.board[c[0][0]][c[0][1]] = c[2]
-        self.board[c[1][0]][c[1][1]] = c[3]
-
-
     def move_track(self, coord1, coord2):
         p1 = self.board[coord1[0]][coord1[1]]
         self.board[coord1[0]][coord1[1]] = 0
@@ -373,8 +384,19 @@ class GameEngine:
         return p1, p2
 
 
-    def get_lakes():
-        return self.lakes
+    # Functions for minimax
+    def push_move(self, coord1, coord2):
+        p1, p2 = self.move_track(coord1, coord2)
+        self.move_history.append((coord1, coord2, p1, p2))
+
+
+    def pop_move(self):
+        c = self.move_history.pop()
+        self.board[c[0][0]][c[0][1]] = c[2]
+        self.board[c[1][0]][c[1][1]] = c[3]
+
+
+    
 
 
 
