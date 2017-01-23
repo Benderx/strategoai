@@ -70,9 +70,8 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
         turn = 1 - turn
 
     print()
-    print('timing_total: ' + str(timing_total))
     print('Moves: ' + str(game_counter))
-    print('Avg timing: ' + str(timing_total/float(game_counter)))
+    print('Avg legal_move timing: ' + str(timing_total/float(game_counter)))
     
 
     if tracking:

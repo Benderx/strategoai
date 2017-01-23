@@ -122,8 +122,15 @@ class GameEngine:
         print()
 
 
+
+
     # Takes in coord1 [x1, y1] and coord2 [x2, y2], and player = (0 or 1)
+    # Assumes there is a piece ar coord1
     def check_legal(self, coord1, coord2, player):
+        piece = self.board[coord1[0]][coord1[1]]
+        if piece.get_player() != player:
+            return False, "That is not your piece"
+            
         if coord1[0] < 0  or coord1[0] > 9:
             return False, "coord1 x is out of bounds"
         if coord1[1] < 0  or coord1[1] > 9:
@@ -142,12 +149,7 @@ class GameEngine:
             return False, "coord2 is a lake"
 
 
-        if not isinstance(self.board[coord1[0]][coord1[1]], Piece):
-            return False, "coord1 is invalid, there is no piece there"
-
-        piece = self.board[coord1[0]][coord1[1]]
-        if piece.get_player() != player:
-            return False, "That is not your piece"
+        
 
         xdist = abs(coord1[0] - coord2[0])
         ydist = abs(coord1[1] - coord2[1])
@@ -241,13 +243,17 @@ class GameEngine:
 
     def legal_moves_for_piece(self, loc, player):
         moves = []
+        
+        if not isinstance(self.board[loc[0]][loc[1]], Piece):
+            return []
+
         if isinstance(self.board[loc[0]][loc[1]], Piece) and self.board[loc[0]][loc[1]].value == 9:
             for i in range(1, len(self.board)):
                 moves += [(loc[0]+i, loc[1]), (loc[0]-i, loc[1]), (loc[0], loc[1]+i), (loc[0], loc[1]-i)]
         else:
             moves = [(loc[0]+1, loc[1]), (loc[0]-1, loc[1]), (loc[0], loc[1]+1), (loc[0], loc[1]-1)]
+        
         final = []
-
         for move in moves:
             if self.check_legal(loc, move, player)[0]:
                 final.append((loc, move))
