@@ -10,12 +10,15 @@ class Piece:
     # 10: bombs, no movement, only loses to miner
     # 11: Spy
 
-    def __init__(self, p, v = None, a = None):
+    def __init__(self, p, v, a = None):
         self.player = p
         self.value = v
         self.abbrev = a
         self.visible = False
 
+    def __str__(self):
+        return str(self.value)
+    __repr__ = __str__
 
     # returns how many spaces the piece may move.
     def get_movement(self):
@@ -47,6 +50,16 @@ class Piece:
 
     def reveal(self):
         self.visible = True
+
+# maybe faster than a custom hash
+# class Board:
+#     def __init__(self):
+#         self.board = [[0 for x in range(0, 10)] for y in range(0, 10)]
+#         self.flags = ([-1, -1], [-1, -1])
+#     def __iter__(self):
+#         return (x for x in self.board)
+#     def __getitem__(self):
+#         return (board[x])
 
 
 class GameEngine:

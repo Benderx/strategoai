@@ -1,7 +1,8 @@
+
+import MonteCarloAI
 import Renderer as r
 import GameEngine as g
 import Human as h
-import GaussianAI
 import MinimaxAI
 import RandomAI
 import time
@@ -9,11 +10,10 @@ import sqlite3
 import os
 import argparse
 
-AI1 = RandomAI.RandomAI #RandomAI, GaussianAI, MinimaxAI
-AI2 = RandomAI.RandomAI
-
+FIRST_AI = RandomAI.RandomAI #RandomAI, MonteCarloAI, MinimaxAI
+SECOND_AI = MonteCarloAI.MonteCarloAI
 # humans = 0, 1, 2
-def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None):
+def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None, AI1 = None, AI2 = None):
     tracking = True
     if db_stuff == None:
         tracking = False
@@ -31,7 +31,6 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
     else:
         raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
 
-    engine.board_setup()
     if gui:
         renderer.draw_board()
     # else:
@@ -63,18 +62,19 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
         
         if gui:
             renderer.refresh_board()
+            time.sleep(1)
         # else:
         #     engine.print_board()
 
-        time.sleep(1)
+
 
         timing_total += end - start
         turn = 1 - turn
 
-    print()
-    print('Moves: ' + str(game_counter))
-    print('Avg legal_move timing: ' + str(timing_total/float(game_counter)))
-    
+    # print()
+    # print('Moves: ' + str(game_counter))
+    # print('Avg legal_move timing: ' + str(timing_total/float(game_counter)))
+
 
     if tracking:
         sql_game_insert =   """
@@ -94,7 +94,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None)
                             """
         db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
         db_stuff[0].commit()
-    return engine.check_winner(turn, moves)
+    return engine.check_winner(turn, moves)[1]
 
 
 # Takes in database name and if you want to overwrite current, or add to it. Probably change in future for streamlined data creation
@@ -132,6 +132,7 @@ def init_db(dbpath = 'test.db', overwrite = True):
 
 def main():
     engine = g.GameEngine()
+    engine.board_setup()
     db_stuff = init_db('games.db', True)
     parser = argparse.ArgumentParser()
     parser.add_argument('graphical', default=1)
@@ -148,11 +149,13 @@ def main():
     num_games = int(args.number)
 
     for i in range(num_games):
-        winner = play_game(engine, 0, db_stuff, gui, re)[1]
+        engine.board_setup()
+        winner = play_game(engine, 0, db_stuff, gui, re, FIRST_AI, SECOND_AI)
         print('game ', i, ': ', winner, ' won')
     db_stuff[0].close()
 
-main()
+if __name__ == '__main__':
+    main()
 
 
 
