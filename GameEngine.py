@@ -128,34 +128,7 @@ class GameEngine:
         if piece.get_player() != player:
             return False, "That is not your piece"
 
-        if coord1[0] < 0  or coord1[0] > 9:
-            return False, "coord1 x is out of bounds"
-        if coord1[1] < 0  or coord1[1] > 9:
-            return False, "coord1 y is out of bounds"
-        if coord2[0] < 0  or coord2[0] > 9:
-            return False, "coord2 x is out of bounds"
-        if coord2[1] < 0  or coord2[1] > 9:
-            return False, "coord2 y is out of bounds"
-
-
-        lakes = [(2,4), (2,5), (3,4), (3,5),
-                (6,4), (6,5), (7,4), (7,5)]
-        if (coord1[0], coord1[1]) in lakes:
-            return False, "coord1 is a lake"
-        if (coord2[0], coord2[1]) in lakes:
-            return False, "coord2 is a lake"
-
-
-        
-
-        xdist = abs(coord1[0] - coord2[0])
-        ydist = abs(coord1[1] - coord2[1])
-
-        move = piece.get_movement()
-        if xdist > move or ydist > move:
-            return False, "the piece you are moving cannot move like that"
-
-        if isinstance(self.board[coord2[0]][coord2[1]], Piece):
+        if self.board[coord2[0]][coord2[1]] != 0:
             piece2 = self.board[coord2[0]][coord2[1]]
             if piece.get_player() == piece2.get_player():
                 return False, "You cant move into your own piece"
@@ -261,12 +234,6 @@ class GameEngine:
                 break
             moves.append((loc[0], loc[1]-i))
 
-
-        # if self.board[loc[0]][loc[1]].value == 9:
-        #     for i in range(1, len(self.board)):
-        #         moves += [(loc[0]+i, loc[1]), (loc[0]-i, loc[1]), (loc[0], loc[1]+i), (loc[0], loc[1]-i)]
-        # else:
-        #     moves = [(loc[0]+1, loc[1]), (loc[0]-1, loc[1]), (loc[0], loc[1]+1), (loc[0], loc[1]-1)]
         
         final = []
         for move in moves:
