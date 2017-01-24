@@ -139,7 +139,7 @@ class GameEngine:
                         name = val
                     arr_temp.append(name)
                 else:
-                    arr_temp.append(0)
+                    arr_temp.append('E')
             print(' '.join(map(str, arr_temp)))
         print()
 
@@ -171,10 +171,10 @@ class GameEngine:
         piece_options = []
         for x in range(len(self.board)):
             for y in range(len(self.board)):
-                piece = visible_board[x][y]
-                if piece and piece.player and piece.player != player and not piece.visible:
-                    visible_board[x][y].value = -2
+                piece = visible_board[y][x]
+                if type(piece) == Piece and piece.player != None and piece.player != player and not piece.visible:
                     piece_options.append(piece.value)
+                    visible_board[y][x].value = -2
         return visible_board, piece_options
 
 
