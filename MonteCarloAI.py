@@ -10,7 +10,6 @@ class MonteCarloAI:
     def __init__(self, player, engine, depth = 1):
         self.engine = engine
         self.player = player
-        self.board = engine.get_board()
         self.trans_table = {} # tbd
     
 

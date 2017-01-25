@@ -3,83 +3,30 @@ import random
 import inspect
 import numpy
 from copy import deepcopy
-from libc.stdlib cimport malloc, free
 import c_bindings.get_moves as c_moves
-
-
-class Piece:
-    # 0: Flag
-    # 1-7: normal 1 movers, piece 1 loses to spy
-    # 8: normal mover, kills bombs
-    # 9: super mover
-    # 10: bombs, no movement, only loses to miner
-    # 11: Spy
-
-    def __init__(self, p, v, a = None):
-        self.player = p
-        self.value = v
-        self.abbrev = a
-        self.visible = False
-        self.movement = self.get_movement(v)
-
-    def __str__(self):
-        return str(self.value)
-    __repr__ = __str__
-
-    # returns how many spaces the piece may move.
-    def get_movement(self, val):
-        if val > 0 and val < 9 or val == 11:
-            return 1
-
-        elif val == 9:
-            return 100
-
-        else:
-            return 0
-
-
-    def get_visible(self):
-        return self.visible
-
-
-    def get_value(self):
-        return self.value
-
-
-    def get_abbrev(self):
-        return self.abbrev
-
-
-    def get_player(self):
-        return self.player
-
-
-    def reveal(self):
-        self.visible = True
-
 
 
 class GameEngine:
     def __init__(self, n):
         self.size = n
-        self.board = numpy.zeros(0, n * n)
-        self.owner = numpy.zeros(0, n * n)
-        self.visibility = numpy.zeros(0, n * n)
+        self.board = numpy.zeros((n * n,), dtype=numpy.int)
+        self.owner = numpy.zeros((n * n,), dtype=numpy.int)
+        self.visibility = numpy.zeros((n * n,), dtype=numpy.int)
         self.flags = [[-1, -1], [-1, -1]]
         self.move_history = []
 
 
-    def convert_to_numpy_1D(b, b2):
+    def convert_to_numpy_1D(self, b, b2):
         for x in range(self.size):
             for y in range(self.size):
-                b2[x + (x * y)] = b[x][y]
+                b2[y + (self.size * x)] = b[x][y]
 
 
-    def get_2D_array(b):
+    def get_2D_array(self, b):
         board_temp = [[0 for x in range(0, self.size)] for x in range(0, self.size)]
         for x in range(self.size):
             for y in range(self.size):
-                board_temp[x][y] = b[x + (x * y)]
+                board_temp[x][y] = b[y + (self.size * x)]
         return board_temp
 
 
@@ -90,18 +37,18 @@ class GameEngine:
 
         # Rivers
         if self.size == 10:
-            board_temp[2][4] = Piece(None, -1, 'K')
-            board_temp[2][5] = Piece(None, -1, 'K')
-            board_temp[3][4] = Piece(None, -1, 'K')
-            board_temp[3][5] = Piece(None, -1, 'K')
+            board_temp[2][4] = -1
+            board_temp[2][5] = -1
+            board_temp[3][4] = -1
+            board_temp[3][5] = -1
 
-            board_temp[6][4] = Piece(None, -1, 'K')
-            board_temp[6][5] = Piece(None, -1, 'K')
-            board_temp[7][4] = Piece(None, -1, 'K')
-            board_temp[7][5] = Piece(None, -1, 'K')
+            board_temp[6][4] = -1
+            board_temp[6][5] = -1
+            board_temp[7][4] = -1
+            board_temp[7][5] = -1
         elif self.size == 6:
-            board_temp[2][2] = Piece(None, -1, 'K')
-            board_temp[2][3] = Piece(None, -1, 'K')
+            board_temp[2][2] = -1
+            board_temp[2][3] = -1
 
         for i in range(0, 2):
             if self.size == 10:
@@ -143,9 +90,10 @@ class GameEngine:
                 starting_pieces[r1][2] -= 1
                 if starting_pieces[r1][2] == 0:
                     starting_pieces.pop(r1)
-        convert_to_numpy_1D(board_temp, self.visibility)
-        convert_to_numpy_1D(owner_temp, self.visibility)
-        convert_to_numpy_1D(visibility_temp, self.visibility)
+        self.convert_to_numpy_1D(board_temp, self.board)
+        self.convert_to_numpy_1D(owner_temp, self.owner)
+        self.convert_to_numpy_1D(visibility_temp, self.visibility)
+
 
     def print_board(self):
         board_to_print = self.get_2D_array(self.board)
@@ -155,7 +103,7 @@ class GameEngine:
             arr_temp = []
             for y in range(self.size):
                 if board_to_print[y][x]:
-                    val = board_to_print[y][x].get_value()
+                    val = board_to_print[y][x]
                     if val == 0:
                         name = 'F'
                     elif val == 10:
@@ -319,7 +267,9 @@ class GameEngine:
 
 
     def all_legal_moves(self, player):
-        return c_moves.all_legal_moves(player, self.board, self.owner)
+        moves = c_moves.all_legal_moves(player, self.board, self.owner)
+        print(moves)
+        exit()
         # else:
         #     moves = []
         #     for i in range(len(self.board)):
@@ -347,18 +297,19 @@ class GameEngine:
         prev = ''
         counter = 1
         whole = []
-        for i in range(len(self.board)):
-            for j in range(len(self.board[i])):
-                piece = self.board[i][j]
-                if isinstance(piece, Piece):
-                    val = piece.get_value()
-                    if not val == -1:
-                        player = piece.get_player()
-                        if player == 0:
-                            player = 'W'
-                        else:
-                            player = 'B'
-                        visible = piece.get_visible()
+        board = get_2D_array(self.board)
+        owner = get_2D_array(self.owner)
+        visible = get_2D_array(self.visible)
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                val = board[j][i]
+                if val != 0 and val != -1:
+                    player = owner[j][i]
+                    if player == 0:
+                        player = 'W'
+                    else:
+                        player = 'B'
+                    visible = visible[j][i]
                 else:
                     val = 12
 

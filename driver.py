@@ -82,6 +82,8 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         
         if gui:
             renderer.refresh_board()
+        else:
+            engine.print_board()
 
         timing_total += end - start
         turn = 1 - turn

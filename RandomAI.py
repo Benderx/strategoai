@@ -6,7 +6,6 @@ class RandomAI:
     def __init__(self, player, engine, *args):
         self.engine = engine
         self.player = player
-        self.board = engine.get_board()
     
 
     def get_move(self, all_moves):

@@ -1,6 +1,5 @@
 import random
 import math
-from GameEngine import Piece
 
 class MinimaxAI:
     def __init__(self, player, engine, depth = 1):
