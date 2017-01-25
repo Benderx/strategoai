@@ -6,8 +6,9 @@ class Human:
         self.engine = engine
 
 
-    def get_move(self, all_moves):
+    def get_move(self):
         # Implement console only functionality, need parser from command line.
+        all_moves = self.engine.moves
         if self.gui == False:
             return False
         else:

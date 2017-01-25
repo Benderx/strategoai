@@ -13,6 +13,7 @@ class GameEngine:
         self.board = numpy.zeros((n * n,), dtype=numpy.int8)
         self.owner = numpy.zeros((n * n,), dtype=numpy.int8)
         self.visible = numpy.zeros((n * n,), dtype=numpy.int8)
+        self.moves = numpy.zeros((401), dtype=numpy.int8)
         self.flags = [-1, -1]
         self.move_history = []
 
@@ -142,20 +143,19 @@ class GameEngine:
     # Takes in coord1 [x1, y1] and coord2 [x2, y2]
     # This assumes check_legal has been run.
     # The return is whether or not battle() was run
-    def move(self, move, moves):
-        c_bindings.move(move, moves, self.board, self.visible, self.owner, self.size)
+    def move(self, move):
+        c_bindings.move(move, self.moves, self.board, self.visible, self.owner, self.size)
         return
 
 
     def all_legal_moves(self, player):
-        moves = c_bindings.all_legal_moves(player, self.board, self.owner)
-        return moves
+        return c_bindings.all_legal_moves(player, self.board, self.owner, self.moves)
 
 
     # Takes in player to see if stalemate or something, might be able to removed
     # Returns True or False for if game is over, second is for result
-    def check_winner(self, player, moves):
-        return c_bindings.check_winner(self.board, moves, self.owner, self.flags[0], self.flags[1], player)
+    def check_winner(self, player):
+        return c_bindings.check_winner(self.board, self.moves, self.owner, self.flags[0], self.flags[1], player)
 
 
     # Returns representation of the board. Only for db storage atm.

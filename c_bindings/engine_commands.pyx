@@ -11,10 +11,10 @@ ctypedef np.int8_t DTYPE_t
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef check_legal(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] owner, int size, int x, int y, int player, np.ndarray[DTYPE_t] moves):
+cdef int check_legal(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] owner, int size, int x, int y, int player, np.ndarray[DTYPE_t] moves):
     if player == owner[x + size*y]:
-        return False
-    return True
+        return 0
+    return 1
 
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
@@ -32,6 +32,8 @@ cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] ow
     elif val == 10 or val == 12:
         speed = 0
 
+    cdef int p = 0
+
 
     for p in range(speed):
         i = p + 1
@@ -41,7 +43,7 @@ cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] ow
         if board[(x+i) + size*y] == -1:
             break
         elif board[(x+i) + size*y] != 0:
-            if check_legal(board, owner, size, x+i, y, player, moves):
+            if check_legal(board, owner, size, x+i, y, player, moves) == 1:
                 moves[counter] = x + 1
                 moves[counter+1] = y + 1
                 moves[counter+2] = x+i + 1
@@ -55,6 +57,8 @@ cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] ow
         moves[counter+3] = y + 1
         counter += 4
 
+    p = 0
+
     for p in range(speed):
         i = p + 1
         if x-i < 0  or x-i > size-1:
@@ -63,7 +67,7 @@ cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] ow
         if board[(x-i) + size*y] == -1:
             break
         elif board[(x-i) + size*y] != 0:
-            if check_legal(board, owner, size, x-i, y, player, moves):
+            if check_legal(board, owner, size, x-i, y, player, moves) == 1:
                 moves[counter] = x + 1
                 moves[counter+1] = y + 1
                 moves[counter+2] = x-i + 1
@@ -77,6 +81,8 @@ cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] ow
         moves[counter+3] = y + 1
         counter += 4
 
+    p = 0
+
     for p in range(speed):
         i = p + 1
         if y+i < 0  or y+i > size-1:
@@ -85,7 +91,7 @@ cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] ow
         if board[x + size*(y+i)] == -1:
             break
         elif board[x + size*(y+i)] != 0:
-            if check_legal(board, owner, size, x, y+i, player, moves):
+            if check_legal(board, owner, size, x, y+i, player, moves) == 1:
                 moves[counter] = x + 1
                 moves[counter+1] = y + 1
                 moves[counter+2] = x + 1
@@ -99,6 +105,8 @@ cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] ow
         moves[counter+3] = y+i + 1
         counter += 4
 
+    p = 0
+
     for p in range(speed):
         i = p + 1
         if y-i < 0  or y-i > size-1:
@@ -107,7 +115,7 @@ cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] ow
         if board[x + size*(y-i)] == -1:
             break
         elif board[x + size*(y-i)] != 0:
-            if check_legal(board, owner, size, x, y-i, player, moves):
+            if check_legal(board, owner, size, x, y-i, player, moves) == 1:
                 moves[counter] = x + 1
                 moves[counter+1] = y + 1
                 moves[counter+2] = x + 1
@@ -127,27 +135,34 @@ cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] ow
 
 
 
+@cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-def all_legal_moves(int player, np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] owner):
+def all_legal_moves(int player, np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] owner, np.ndarray[DTYPE_t] moves):
+    cdef int g = 0
+    for g in range(moves.shape[0]):
+        moves[g] = 0
+
+
     cdef int truesize = <int>sqrt(board.shape[0])
-    cdef np.ndarray moves = np.zeros([401], dtype=DTYPE)
     cdef int val = 0
-    cdef counter = 1
+    cdef int counter = 1
+    cdef int i = 0
+    cdef int c_x = 0
+    cdef int c_y = 0
 
     for i in range(board.shape[0]):
         c_x = i % truesize
-        c_y = i // truesize
+        c_y = i / truesize
         val = board[c_x + truesize*c_y]
         counter = legal_moves_for_piece(board, owner, truesize, val, c_x, c_y, player, moves, counter)
     moves[0] = (counter-1) / 4
-    return moves
 
 
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int battle(v1, v2):
+cdef int battle(int v1, int v2):
     if v1 == 0:
         return 1
 
@@ -195,29 +210,29 @@ def move(int move, np.ndarray[DTYPE_t] all_moves, np.ndarray[DTYPE_t] board, np.
 
 
 
-    p1 = board[x1 + size*y1]
+    cdef int p1 = board[x1 + size*y1]
     board[x1 + size*(y1)] = 0
 
-    p2 = board[x2 + size*y2]
+    cdef int p2 = board[x2 + size*y2]
+
+    cdef int winner = 0
 
     if p2 == 0:
         board[x2 + size*y2] = p1
         visible[x2 + size*y2] = 1
         owner[x2 + size*y2] = owner[x1 + size*y1]
         owner[x1 + size*(y1)] = -1
-        return
+    else:
+        winner = battle(p1, p2)
 
-    winner = battle(p1, p2)
-
-    if winner == 0:
-        board[x2 + size*y2] = p1
-        visible[x2 + size*y2] = 0
-        owner[x2 + size*y2] = owner[x1 + size*y1]
-    elif winner == 2:
-        board[x2 + size*y2] = 0
-        owner[x2 + size*y2] = -1
-    owner[x1 + size*(y1)] = -1
-    return
+        if winner == 0:
+            board[x2 + size*y2] = p1
+            visible[x2 + size*y2] = 0
+            owner[x2 + size*y2] = owner[x1 + size*y1]
+        elif winner == 2:
+            board[x2 + size*y2] = 0
+            owner[x2 + size*y2] = -1
+        owner[x1 + size*(y1)] = -1
 
 
 
@@ -230,7 +245,8 @@ def check_winner(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] moves, np.ndarra
         return 1
 
     if moves[0] == 0:
-        if all_legal_moves(1-player, board, owner)[0] == 0:
+        all_legal_moves(1-player, board, owner, moves)
+        if moves[0] == 0:
             return 3
         return player + 1
     return 0

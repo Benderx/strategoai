@@ -62,15 +62,15 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
     timing_samples = 0
     moves_this_game = 0
     start = time.perf_counter()
-    dunnie = False
+
     while True:
         # state_tracker.append(engine.get_compacted_board_state())
         
-        start = time.perf_counter()
-        moves = engine.all_legal_moves(turn)
-        end = time.perf_counter()
+        # start = time.perf_counter()
+        engine.all_legal_moves(turn)
+        # end = time.perf_counter()
 
-        winner = engine.check_winner(turn, moves)
+        winner = engine.check_winner(turn)
         if winner != 0:
             break
 
@@ -78,10 +78,10 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         # We assume all player classes return valid moves.
         
 
-        
-        move = players[turn].get_move(moves)
+
+        move = players[turn].get_move()
         # start = time.perf_counter()
-        engine.move(move, moves)
+        engine.move(move)
         
 
 
@@ -94,11 +94,11 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         # else:
         #     engine.print_board()
 
-        timing_total += end - start
-        timing_samples += 1
+        # timing_total += end - start
+        # timing_samples += 1
         turn = 1 - turn
 
-    print(timing_total/timing_samples)
+    # print(timing_total/timing_samples)
 
 
     # end = time.perf_counter()
@@ -124,7 +124,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
                             """
         db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
         db_stuff[0].commit()
-    return engine.check_winner(turn, moves)
+    return engine.check_winner(turn)
 
 
 # Takes in database name and if you want to overwrite current, or add to it. Probably change in future for streamlined data creation

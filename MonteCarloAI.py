@@ -13,8 +13,9 @@ class MonteCarloAI:
         self.trans_table = {} # tbd
     
 
-    def get_move(self, all_moves):
-        
+    def get_move(self):
+        all_moves = self.engine.moves
+
         i = 0
         move_ratings = [-1 for x in range(len(all_moves))]
         move_samples = [1 for x in range(len(all_moves))]
