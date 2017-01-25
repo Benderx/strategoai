@@ -14,10 +14,14 @@ class Renderer:
         self.lines_drawn = False
 
 
-    # Only for initial draw
+
     def draw_board(self):
         board = self.engine.get_2D_array(self.engine.board)
         owner = self.engine.get_2D_array(self.engine.owner)
+
+        for i in self.piece_arr:
+            i.undraw()
+        self.piece_arr = []
 
         for i in range(len(board)):
             for j in range(len(board[i])):
@@ -25,9 +29,8 @@ class Renderer:
                     c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),
                           graphics.Point(self.box_length * (i+1) + self.offset, self.box_length * (j+1) + self.offset))
                     c.draw(self.win)
-                    continue
 
-                if self.board[i][j] == -1:
+                if board[i][j] == -1 or board[i][j] == 0:
                     continue
 
                 c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),
@@ -39,19 +42,19 @@ class Renderer:
                 piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
                                       self.box_length * j + self.offset + (self.box_length / 2)), 'ERROR')
 
-                if self.owner[i][j] == 0:
+                if owner[i][j] == 0:
                     piece.setOutline('white')
                 else:
                     piece.setOutline('black')
 
-                if self.board[i][j] == 0:
+                if board[i][j] == 12:
                     piece.setText('F')
-                elif self.board[i][j] == 10:
+                elif board[i][j] == 10:
                     piece.setText('B')
-                elif self.board[i][j] == 11:
+                elif board[i][j] == 11:
                     piece.setText('S')
                 else:
-                    piece.setText(str(self.board[i][j]))
+                    piece.setText(str(board[i][j]))
 
 
                 self.piece_arr.append(piece)
@@ -63,7 +66,7 @@ class Renderer:
         p = self.win.getMouse()
         width = int(p.x / self.box_length)
         height = int(p.y / self.box_length)
-        return (width, height)
+        return (width+1, height+1)
 
 
     # takes in array of tuples and highlights those on the board.

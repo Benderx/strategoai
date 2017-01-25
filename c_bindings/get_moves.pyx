@@ -115,15 +115,14 @@ cdef int legal_moves_for_piece(np.ndarray board, np.ndarray owner, int size, int
 
 
 def all_legal_moves(int player, int truesize, np.ndarray board, np.ndarray owner):
-    cdef np.ndarray moves = np.zeros([400], dtype=DTYPE)
+    cdef np.ndarray moves = np.zeros([401], dtype=DTYPE)
     cdef int val = 0
-    cdef counter = 0
+    cdef counter = 1
 
     for i in range(board.size):
         c_x = i % truesize
         c_y = i // truesize
-        print(c_x, c_y, truesize)
         val = board[c_x + truesize*c_y]
         counter = legal_moves_for_piece(board, owner, truesize, val, c_x, c_y, player, moves, counter)
-        print(counter)
+    moves[0] = (counter-1) / 4
     return moves

@@ -12,7 +12,7 @@ import argparse
 import threading
 
 FIRST_AI = RandomAI.RandomAI #RandomAI, MonteCarloAI, MinimaxAI
-SECOND_AI = MonteCarloAI.MonteCarloAI
+SECOND_AI = RandomAI.RandomAI
 global moves_per_second; moves_per_second = 0
 
 
@@ -37,7 +37,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
     tracking = True
     if db_stuff == None:
         tracking = False
-    engine.print_board()
+    # engine.print_board()
     players = []
     if humans == 0:
         players.append(AI1(0, engine, 4))
@@ -77,13 +77,13 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         
         move = players[turn].get_move(moves)
         # print('move:' + str(move))
-        engine.move(move[0], move[1])
+        engine.move(move, moves)
         moves_per_second += 1
         
         if gui:
             renderer.draw_board()
-        else:
-            engine.print_board()
+        # else:
+        #     engine.print_board()
 
         timing_total += end - start
         turn = 1 - turn
@@ -162,7 +162,10 @@ def print_moves_per_second(thread_name, delay, c):
 def game_start(args):
     engine = g.GameEngine(int(args.size))
     engine.board_setup()
-    db_stuff = init_db('games.db', True)
+    if int(args.track):
+        db_stuff = init_db('games.db', True)
+    else:
+        db_stuff = None
 
     if int(args.graphical) == 1:
         re = r.Renderer(engine)
@@ -178,7 +181,8 @@ def game_start(args):
         engine.board_setup()
         winner = play_game(engine, int(args.humans), db_stuff, gui, re, FIRST_AI, SECOND_AI)
         print('game ', i, ': ', winner, ' won')
-    db_stuff[0].close()
+    if int(args.track):
+        db_stuff[0].close()
 
 
 
@@ -188,6 +192,7 @@ def main():
     parser.add_argument('number', default=1, help='How many games to play')
     parser.add_argument('humans', default=0, help='2 is two player, 1 is vs AI, 0 is both AI')
     parser.add_argument('size', default=10, help='How big the board is')
+    parser.add_argument('track', default=1, help='If database tracking happens')
     args = parser.parse_args()
 
     run_event = threading.Event()

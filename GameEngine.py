@@ -12,7 +12,7 @@ class GameEngine:
         self.board = numpy.zeros((n * n,), dtype=numpy.int)
         self.owner = numpy.zeros((n * n,), dtype=numpy.int)
         self.visible = numpy.zeros((n * n,), dtype=numpy.int)
-        self.flags = [[-1, -1], [-1, -1]]
+        self.flags = [-1, -1]
         self.move_history = []
 
 
@@ -37,18 +37,18 @@ class GameEngine:
 
         # Rivers
         if self.size == 10:
-            board_temp[2][4] = -1
-            board_temp[2][5] = -1
-            board_temp[3][4] = -1
-            board_temp[3][5] = -1
+            board_temp[4][2] = -1
+            board_temp[5][2] = -1
+            board_temp[4][3] = -1
+            board_temp[5][3] = -1
 
-            board_temp[6][4] = -1
-            board_temp[6][5] = -1
-            board_temp[7][4] = -1
-            board_temp[7][5] = -1
+            board_temp[4][6] = -1
+            board_temp[5][6] = -1
+            board_temp[4][7] = -1
+            board_temp[5][7] = -1
         elif self.size == 6:
             board_temp[2][2] = -1
-            board_temp[2][3] = -1
+            board_temp[3][2] = -1
 
         for i in range(0, 2):
             if self.size == 10:
@@ -66,15 +66,15 @@ class GameEngine:
             for x in range(0, self.size):
                 for y in range(0 + i*(self.size-rows), rows + i*(self.size-rows)):
                     if y == 0 and x == randy and i == 0:
-                        owner_temp[x][y] = 0
-                        board_temp[x][y] = 12
-                        self.flags[0] = [x, y]
+                        owner_temp[y][x] = 0
+                        board_temp[y][x] = 12
+                        self.flags[0] = x + (self.size * y)
                         starting_pieces.pop(0)
                         continue
                     if y == rows + i*(self.size-rows)-1 and x == randy2 and i == 1:
-                        owner_temp[x][y] = 1
-                        board_temp[x][y] = 12
-                        self.flags[1] = [x, y]
+                        owner_temp[y][x] = 1
+                        board_temp[y][x] = 12
+                        self.flags[1] = x + (self.size * y)
                         starting_pieces.pop(0)
                         continue
                     starting_locations.append((x, y, i))
@@ -83,8 +83,8 @@ class GameEngine:
                 r1 = int(random.random()*(len(starting_pieces)))
                 r2 = int(random.random()*(len(starting_locations)))
 
-                owner_temp[starting_locations[r2][0]][starting_locations[r2][1]] = starting_locations[r2][2]
-                board_temp[starting_locations[r2][0]][starting_locations[r2][1]] = starting_pieces[r1][0]
+                owner_temp[starting_locations[r2][1]][starting_locations[r2][0]] = starting_locations[r2][2]
+                board_temp[starting_locations[r2][1]][starting_locations[r2][0]] = starting_pieces[r1][0]
 
                 starting_locations.pop(r2)
                 starting_pieces[r1][2] -= 1
@@ -154,68 +154,75 @@ class GameEngine:
 
     # Takes in 2 players and returns 0 for p1 winning and 1 for p2 winning, 2 for tie.
     # Also reveals.
-    # def battle(self, p1, p2):
-    #     v1 = p1.get_value()
-    #     v2 = p2.get_value()
+    def battle(self, v1, v2):
+        if v1 == 0:
+            return 1
 
-    #     p1.reveal()
-    #     p2.reveal()
+        if v2 == 0:
+            return 0
 
-    #     if v1 == 0:
-    #         return 1
+        if v1 == 10:
+            if v2 == 8:
+                return 1
+            return 0
 
-    #     if v2 == 0:
-    #         return 0
+        if v2 == 10:
+            if v1 == 8:
+                return 0
+            return 1
 
-    #     if v1 == 10:
-    #         if v2 == 8:
-    #             return 1
-    #         return 0
+        if v1 == 11:
+            if v2 == 1:
+                return 0
+            return 1
 
-    #     if v2 == 10:
-    #         if v1 == 8:
-    #             return 0
-    #         return 1
+        if v2 == 11:
+            if v1 == 1:
+                return 1
+            return 0
 
-    #     if v1 == 11:
-    #         if v2 == 1:
-    #             return 0
-    #         return 1
+        if v1 == v2:
+            return 2
 
-    #     if v2 == 11:
-    #         if v1 == 1:
-    #             return 1
-    #         return 0
+        if v1 < v2:
+            return 0
+        if v1 > v2:
+            return 1
 
-    #     if v1 == v2:
-    #         return 2
-
-    #     if v1 < v2:
-    #         return 0
-    #     if v1 > v2:
-    #         return 1
-
-    #     raise Exception('A case that was not thought of happened')
-    #     return False
+        raise Exception('A case that was not thought of happened')
+        return False
 
 
     # Takes in coord1 [x1, y1] and coord2 [x2, y2]
     # This assumes check_legal has been run.
     # The return is whether or not battle() was run
-    def move(self, coord1, coord2):
-        p1 = self.board[coord1[0]][coord1[1]]
-        self.board[coord1[0]][coord1[1]] = 0
-        if not isinstance(self.board[coord2[0]][coord2[1]], Piece):
-            self.board[coord2[0]][coord2[1]] = p1
+    def move(self, move, moves):
+        x1 = moves[(move*4)+1] - 1
+        y1 = moves[(move*4)+2] - 1
+        x2 = moves[(move*4)+3] - 1
+        y2 = moves[(move*4)+4] - 1
+
+
+
+        p1 = self.board[x1 + self.size*y1]
+        self.board[x1 + self.size*(y1)] = 0
+
+        p2 = self.board[x2 + self.size*y2]
+
+        if p2 == 0:
+            self.board[x2 + self.size*y2] = p1
+            self.visible[x2 + self.size*y2] = 1
+            self.owner[x2 + self.size*y2] = self.owner[x1 + self.size*y1]
             return False
 
-        p2 = self.board[coord2[0]][coord2[1]]
         winner = self.battle(p1, p2)
 
         if winner == 0:
-            self.board[coord2[0]][coord2[1]] = p1
+            self.board[x2 + self.size*y2] = p1
+            self.visible[x2 + self.size*y2] = 0
+            self.owner[x2 + self.size*y2] = self.owner[x1 + self.size*y1]
         elif winner == 2:
-            self.board[coord2[0]][coord2[1]] = 0
+            self.board[x2 + self.size*y2] = 0
 
         return True
 
@@ -268,8 +275,6 @@ class GameEngine:
 
     def all_legal_moves(self, player):
         moves = c_moves.all_legal_moves(player, self.size, self.board, self.owner)
-        print(moves)
-        exit()
         # else:
         #     moves = []
         #     for i in range(len(self.board)):
@@ -281,12 +286,13 @@ class GameEngine:
     # Takes in player to see if stalemate or something, might be able to removed
     # Returns True or False for if game is over, second is for result
     def check_winner(self, player, moves):
-        if not self.board[self.flags[0][0]][self.flags[0][1]].get_value() == 0:
+        if not self.board[self.flags[0]] == 12:
             return True, 1
-        if not self.board[self.flags[1][0]][self.flags[1][1]].get_value() == 0:
+        if not self.board[self.flags[1]] == 12:
             return True, 0
-        if len(moves) == 0:
-            if len(self.all_legal_moves(1-player)) == 0:
+
+        if moves[0] == 0:
+            if self.all_legal_moves(1-player)[0] == 0:
                 return True, 2
             return True, player
         return False, None

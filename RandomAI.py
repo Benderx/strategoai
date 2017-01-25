@@ -9,5 +9,6 @@ class RandomAI:
     
 
     def get_move(self, all_moves):
-        c = random.choice(all_moves)
+        number_of_moves = all_moves[0]
+        c = random.randrange(0, number_of_moves)
         return c
