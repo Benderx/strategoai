@@ -15,13 +15,12 @@ cdef check_legal(np.ndarray board, np.ndarray owner, int x, int y, int player, n
     return True
 
 
-cdef legal_moves_for_piece(np.ndarray board, np.ndarray owner, int val, int x, int y, int player, np.ndarray moves):
+cdef legal_moves_for_piece(np.ndarray board, np.ndarray owner, int size, int val, int x, int y, int player, np.ndarray moves):
     if val == -1 or val == 0:
         return
-    if player != owner[x + board.size*y]:
+    if player != owner[x + size*y]:
         return 
 
-    cdef int size = board.size / board.size
     cdef int speed = 1
     if val == 9:
         speed = size
@@ -33,9 +32,9 @@ cdef legal_moves_for_piece(np.ndarray board, np.ndarray owner, int val, int x, i
         if x+i < 0  or x+i > size-1:
             break
 
-        if board[(x+i) + board.size*y] == -1:
+        if board[(x+i) + size*y] == -1:
             break
-        elif board[(x+i) + board.size*y] != 0:
+        elif board[(x+i) + size*y] != 0:
             if check_legal(board, owner, x+i, y, player, moves):
                 moves.append(x+i)
                 moves.append(y)
@@ -48,9 +47,9 @@ cdef legal_moves_for_piece(np.ndarray board, np.ndarray owner, int val, int x, i
         if x-i < 0  or x-i > size-1:
             break
 
-        if board[(x-i) + board.size*y] == -1:
+        if board[(x-i) + size*y] == -1:
             break
-        elif board[(x-i) + board.size*y] != 0:
+        elif board[(x-i) + size*y] != 0:
             if check_legal(board, owner, x-i, y, player, moves):
                 moves.append(x-i)
                 moves.append(y)
@@ -63,9 +62,9 @@ cdef legal_moves_for_piece(np.ndarray board, np.ndarray owner, int val, int x, i
         if y+i < 0  or y+i > size-1:
             break
 
-        if board[(x) + board.size*(y+1)] == -1:
+        if board[x + size*(y+1)] == -1:
             break
-        elif board[(x) + board.size*(y+1)] != 0:
+        elif board[x + size*(y+1)] != 0:
             if check_legal(board, owner, x, y+1, player, moves):
                 moves.append(x)
                 moves.append(y+i)
@@ -78,9 +77,9 @@ cdef legal_moves_for_piece(np.ndarray board, np.ndarray owner, int val, int x, i
         if y-i < 0  or y-i > size-1:
             break
 
-        if board[(x) + board.size*(y-1)] == -1:
+        if board[x + size*(y-1)] == -1:
             break
-        elif board[(x) + board.size*(y-1)] != 0:
+        elif board[x + size*(y-1)] != 0:
             if check_legal(board, owner, x, y-1, player, moves):
                 moves.append(x)
                 moves.append(y-i)
@@ -92,13 +91,14 @@ cdef legal_moves_for_piece(np.ndarray board, np.ndarray owner, int val, int x, i
     return
 
 
-cdef all_legal_moves(self, int player, np.ndarray board, np.ndarray owner):
+def all_legal_moves(int player, int truesize, np.ndarray board, np.ndarray owner):
     cdef np.ndarray moves = np.zeros([0, 400], dtype=DTYPE)
     cdef int val = 0
 
     for i in range(board.size):
-        c_x = i % board.size
-        c_y = i // board.size
-        val = board[c_x + board.size*c_y]
-        legal_moves_for_piece(board, owner, val, c_x, c_y, player, moves)
+        c_x = i % truesize
+        c_y = i // truesize
+        print(c_x, c_y, truesize)
+        val = board[c_x + truesize*c_y]
+        legal_moves_for_piece(board, owner, truesize, val, c_x, c_y, player, moves)
     return moves

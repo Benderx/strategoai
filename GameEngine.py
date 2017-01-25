@@ -11,7 +11,7 @@ class GameEngine:
         self.size = n
         self.board = numpy.zeros((n * n,), dtype=numpy.int)
         self.owner = numpy.zeros((n * n,), dtype=numpy.int)
-        self.visibility = numpy.zeros((n * n,), dtype=numpy.int)
+        self.visible = numpy.zeros((n * n,), dtype=numpy.int)
         self.flags = [[-1, -1], [-1, -1]]
         self.move_history = []
 
@@ -26,7 +26,7 @@ class GameEngine:
         board_temp = [[0 for x in range(0, self.size)] for x in range(0, self.size)]
         for x in range(self.size):
             for y in range(self.size):
-                board_temp[x][y] = b[y + (self.size * x)]
+                board_temp[x][y] = b[x + (self.size * y)]
         return board_temp
 
 
@@ -92,7 +92,7 @@ class GameEngine:
                     starting_pieces.pop(r1)
         self.convert_to_numpy_1D(board_temp, self.board)
         self.convert_to_numpy_1D(owner_temp, self.owner)
-        self.convert_to_numpy_1D(visibility_temp, self.visibility)
+        self.convert_to_numpy_1D(visibility_temp, self.visible)
 
 
     def print_board(self):
@@ -102,9 +102,9 @@ class GameEngine:
         for x in range(self.size):
             arr_temp = []
             for y in range(self.size):
-                if board_to_print[y][x]:
-                    val = board_to_print[y][x]
-                    if val == 0:
+                if board_to_print[x][y]:
+                    val = board_to_print[x][y]
+                    if val == 12:
                         name = 'F'
                     elif val == 10:
                         name = 'B'
@@ -267,7 +267,7 @@ class GameEngine:
 
 
     def all_legal_moves(self, player):
-        moves = c_moves.all_legal_moves(player, self.board, self.owner)
+        moves = c_moves.all_legal_moves(player, self.size, self.board, self.owner)
         print(moves)
         exit()
         # else:
@@ -297,9 +297,9 @@ class GameEngine:
         prev = ''
         counter = 1
         whole = []
-        board = get_2D_array(self.board)
-        owner = get_2D_array(self.owner)
-        visible = get_2D_array(self.visible)
+        board = self.get_2D_array(self.board)
+        owner = self.get_2D_array(self.owner)
+        visible = self.get_2D_array(self.visible)
         for i in range(len(board)):
             for j in range(len(board[i])):
                 val = board[j][i]
@@ -309,16 +309,16 @@ class GameEngine:
                         player = 'W'
                     else:
                         player = 'B'
-                    visible = visible[j][i]
-                else:
-                    val = 12
+                    v = visible[j][i]
 
                 if val == -1:
                     whole.append('L')
                 elif val == 12:
-                    whole.append('E')
+                    whole.append('F')
+                elif val == 0:
+                    whole.append('0')
                 else:
-                    if visible:
+                    if v:
                         whole.append(player + 'V' + str(val))
                     else:
                         whole.append(player + str(val))
