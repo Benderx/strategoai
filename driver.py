@@ -90,14 +90,13 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         
         # else:
         #     engine.print_board()
-
         
         turn = 1 - turn    # 1.1 x 10 ^ -7       10x10
         timing_samples += 1   # 1.1 x 10 ^ -7       10x10
-        timing_total += end - start   # 1.1 x 10 ^ -7       10x10
+        # timing_total += end - start   # 1.1 x 10 ^ -7       10x10
 
-    print('avg:', timing_total/timing_samples)
-    time.sleep(.5)
+    # print('avg:', timing_total/timing_samples)
+    # time.sleep(.5)
 
     # end = time.perf_counter()
     # print(moves_this_game/(end-start))
