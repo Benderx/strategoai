@@ -60,26 +60,33 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
     turn = 0
     timing_total = 0
     timing_samples = 0
+    moves_this_game = 0
+    start = time.perf_counter()
+    dunnie = False
     while True:
         # state_tracker.append(engine.get_compacted_board_state())
         
-        # start = time.perf_counter()
+        start = time.perf_counter()
         moves = engine.all_legal_moves(turn)
-        # end = time.perf_counter()
+        end = time.perf_counter()
 
-        game_over, winner = engine.check_winner(turn, moves)
-        if game_over:
+        winner = engine.check_winner(turn, moves)
+        if winner != 0:
             break
 
 
         # We assume all player classes return valid moves.
         
 
+        
         move = players[turn].get_move(moves)
         # start = time.perf_counter()
         engine.move(move, moves)
-        # end = time.perf_counter()
+        
 
+
+        # end = time.perf_counter()
+        moves_this_game += 1
         moves_per_second += 1
         
         if gui:
@@ -92,7 +99,11 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         turn = 1 - turn
 
     print(timing_total/timing_samples)
-    exit()    
+
+
+    # end = time.perf_counter()
+    # print(moves_this_game/(end-start))
+    # exit()    
 
 
     if tracking:
@@ -113,7 +124,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
                             """
         db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
         db_stuff[0].commit()
-    return engine.check_winner(turn, moves)[1]
+    return engine.check_winner(turn, moves)
 
 
 # Takes in database name and if you want to overwrite current, or add to it. Probably change in future for streamlined data creation
@@ -152,10 +163,13 @@ def init_db(dbpath = 'test.db', overwrite = True):
 def print_moves_per_second(thread_name, delay, c):
     global moves_per_second;
     count = 0
+    last = time.perf_counter()
     while count < c:
         count += 1
-        time.sleep(delay)
-        print('Moves per second: ' + str(moves_per_second))
+        while not time.perf_counter() - last > 1:
+            time.sleep(.05)
+        last = time.perf_counter()
+        print('Moves per perf: ' + str(moves_per_second))
         moves_per_second = 0
 
 

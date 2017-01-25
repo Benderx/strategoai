@@ -4,14 +4,15 @@ import inspect
 import numpy
 from copy import deepcopy
 import c_bindings.engine_commands as c_bindings
+import time
 
 
 class GameEngine:
     def __init__(self, n):
         self.size = n
-        self.board = numpy.zeros((n * n,), dtype=numpy.int)
-        self.owner = numpy.zeros((n * n,), dtype=numpy.int)
-        self.visible = numpy.zeros((n * n,), dtype=numpy.int)
+        self.board = numpy.zeros((n * n,), dtype=numpy.int8)
+        self.owner = numpy.zeros((n * n,), dtype=numpy.int8)
+        self.visible = numpy.zeros((n * n,), dtype=numpy.int8)
         self.flags = [-1, -1]
         self.move_history = []
 
@@ -31,7 +32,7 @@ class GameEngine:
 
 
     def board_setup(self):
-        owner_temp = [[0 for x in range(0, self.size)] for x in range(0, self.size)]
+        owner_temp = [[-1 for x in range(0, self.size)] for x in range(0, self.size)]
         visibility_temp = [[0 for x in range(0, self.size)] for x in range(0, self.size)]
         board_temp = [[0 for x in range(0, self.size)] for x in range(0, self.size)]
 
@@ -95,6 +96,7 @@ class GameEngine:
         self.convert_to_numpy_1D(visibility_temp, self.visible)
 
 
+
     def print_board(self):
         board_to_print = self.get_2D_array(self.board)
         # owner_board = self.get_2D_array(self.owner)
@@ -123,22 +125,6 @@ class GameEngine:
 
 
 
-    # Takes in coord1 [x1, y1] and coord2 [x2, y2], and player = (0 or 1)
-    # Assumes there is a piece ar coord1
-    # def check_legal(self, coord1, coord2, player):
-    #     piece = self.board[coord1[0]][coord1[1]]
-    #     if piece.get_player() != player:
-    #         return False, 'That is not your piece'
-
-    #     if self.board[coord2[0]][coord2[1]] != 0:
-    #         piece2 = self.board[coord2[0]][coord2[1]]
-    #         if piece2.get_value() == -1:
-    #             return False, 'Cannot move into a lake'
-    #         if player == piece2.get_player():
-    #             return False, 'You cant move into your own piece'
-    #     return True, 'legal move'
-
-
     # def get_visible_board(self, player):
     #     visible_board = deepcopy(self.board)
     #     piece_options = []
@@ -152,150 +138,24 @@ class GameEngine:
 
 
 
-    # Takes in 2 players and returns 0 for p1 winning and 1 for p2 winning, 2 for tie.
-    # Also reveals.
-    def battle(self, v1, v2):
-        if v1 == 0:
-            return 1
-
-        if v2 == 0:
-            return 0
-
-        if v1 == 10:
-            if v2 == 8:
-                return 1
-            return 0
-
-        if v2 == 10:
-            if v1 == 8:
-                return 0
-            return 1
-
-        if v1 == 11:
-            if v2 == 1:
-                return 0
-            return 1
-
-        if v2 == 11:
-            if v1 == 1:
-                return 1
-            return 0
-
-        if v1 == v2:
-            return 2
-
-        if v1 < v2:
-            return 0
-        if v1 > v2:
-            return 1
-
-        raise Exception('A case that was not thought of happened')
-        return False
-
 
     # Takes in coord1 [x1, y1] and coord2 [x2, y2]
     # This assumes check_legal has been run.
     # The return is whether or not battle() was run
     def move(self, move, moves):
-        x1 = moves[(move*4)+1] - 1
-        y1 = moves[(move*4)+2] - 1
-        x2 = moves[(move*4)+3] - 1
-        y2 = moves[(move*4)+4] - 1
-
-
-
-        p1 = self.board[x1 + self.size*y1]
-        self.board[x1 + self.size*(y1)] = 0
-
-        p2 = self.board[x2 + self.size*y2]
-
-        if p2 == 0:
-            self.board[x2 + self.size*y2] = p1
-            self.visible[x2 + self.size*y2] = 1
-            self.owner[x2 + self.size*y2] = self.owner[x1 + self.size*y1]
-            return False
-
-        winner = self.battle(p1, p2)
-
-        if winner == 0:
-            self.board[x2 + self.size*y2] = p1
-            self.visible[x2 + self.size*y2] = 0
-            self.owner[x2 + self.size*y2] = self.owner[x1 + self.size*y1]
-        elif winner == 2:
-            self.board[x2 + self.size*y2] = 0
-
-        return True
-
-
-    # def legal_moves_for_piece(self, loc, player):
-    #     if not isinstance(self.board[loc[0]][loc[1]], Piece):
-    #         return []
-    #     moves = []
-
-    #     speed = self.board[loc[0]][loc[1]].movement
-    #     for i in range(1, speed+1):
-    #         if loc[0]+i < 0  or loc[0]+i > self.size-1:
-    #             break
-    #         if self.board[loc[0]+i][loc[1]] != 0:
-    #             moves.append((loc[0]+i, loc[1]))
-    #             break
-    #         moves.append((loc[0]+i, loc[1]))
-
-    #     for i in range(1, speed+1):
-    #         if loc[0]-i < 0  or loc[0]-i > self.size-1:
-    #             break
-    #         if self.board[loc[0]-i][loc[1]] != 0:
-    #             moves.append((loc[0]-i, loc[1]))
-    #             break
-    #         moves.append((loc[0]-i, loc[1]))
-
-    #     for i in range(1, speed+1):
-    #         if loc[1]+i < 0  or loc[1]+i > self.size-1:
-    #             break
-    #         if self.board[loc[0]][loc[1]+i] != 0:
-    #             moves.append((loc[0], loc[1]+i))
-    #             break
-    #         moves.append((loc[0], loc[1]+i))
-
-    #     for i in range(1, speed+1):
-    #         if loc[1]-i < 0  or loc[1]-i > self.size-1:
-    #             break
-    #         if self.board[loc[0]][loc[1]-i] != 0:
-    #             moves.append((loc[0], loc[1]-i))
-    #             break
-    #         moves.append((loc[0], loc[1]-i))
-
-        
-    #     final = []
-    #     for move in moves:
-    #         if self.check_legal(loc, move, player)[0]:
-    #             final.append((loc, move))
-    #     return final
+        c_bindings.move(move, moves, self.board, self.visible, self.owner, self.size)
+        return
 
 
     def all_legal_moves(self, player):
-        moves = c_bindings.all_legal_moves(player, self.size, self.board, self.owner)
-        # else:
-        #     moves = []
-        #     for i in range(len(self.board)):
-        #         for j in range(len(self.board[i])):
-        #             moves += self.legal_moves_for_piece([i,j], player)
+        moves = c_bindings.all_legal_moves(player, self.board, self.owner)
         return moves
 
 
     # Takes in player to see if stalemate or something, might be able to removed
     # Returns True or False for if game is over, second is for result
     def check_winner(self, player, moves):
-        if not self.board[self.flags[0]] == 12:
-            return True, 1
-        if not self.board[self.flags[1]] == 12:
-            return True, 0
-
-        if moves[0] == 0:
-            if self.all_legal_moves(1-player)[0] == 0:
-                return True, 2
-            return True, player
-        return False, None
+        return c_bindings.check_winner(self.board, moves, self.owner, self.flags[0], self.flags[1], player)
 
 
     # Returns representation of the board. Only for db storage atm.
@@ -328,25 +188,6 @@ class GameEngine:
                         whole.append(player + 'V' + str(val))
                     else:
                         whole.append(player + str(val))
-
-                # This was compact but it got confusing to code, work on it later
-                # if isinstance(piece, Piece):
-                #     abbrev = self.board[i][j].get_abbrev()
-                #     if abbrev == 'K':
-                #         continue
-                # else:
-                #     abbrev = 'E'
-
-                # if prev == abbrev:
-                #     counter += 1
-                # else:
-                #     if not counter == 1:
-                #         whole.append(str(counter) + str(prev))
-                #     else:
-                #         whole.append(prev)
-                #     counter = 1
-                #     prev = abbrev
-
         return ''.join(whole)
 
 
@@ -379,17 +220,3 @@ class GameEngine:
         self.board[c[0][0]][c[0][1]] = c[2]
         self.board[c[1][0]][c[1][1]] = c[3]
 
-
-    
-
-
-
-
-    # Accidently started developing a function that already existed
-    # def get_piece_by_coords(coord, player)
-    #     msg = 'legal'
-    #     if not isinstance(self.board[coord[0]][coord[1]], Piece):
-    #         msg = 'No piece there'
-    #         return (False, msg)
-    #     piece = self.board[coord[0]][coord[1]]
-    #     return piece
