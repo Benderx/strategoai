@@ -59,14 +59,13 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
     state_tracker = []
     turn = 0
     timing_total = 0
+    timing_samples = 0
     while True:
-
-        # print(engine.get_compacted_board_state())
-        state_tracker.append(engine.get_compacted_board_state())
+        # state_tracker.append(engine.get_compacted_board_state())
         
-        start = time.time()
+        # start = time.perf_counter()
         moves = engine.all_legal_moves(turn)
-        end = time.time()
+        # end = time.perf_counter()
 
         game_over, winner = engine.check_winner(turn, moves)
         if game_over:
@@ -75,9 +74,12 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
 
         # We assume all player classes return valid moves.
         
+
         move = players[turn].get_move(moves)
-        # print('move:' + str(move))
+        # start = time.perf_counter()
         engine.move(move, moves)
+        # end = time.perf_counter()
+
         moves_per_second += 1
         
         if gui:
@@ -86,12 +88,11 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         #     engine.print_board()
 
         timing_total += end - start
+        timing_samples += 1
         turn = 1 - turn
 
-    # print()
-    # print('Moves: ' + str(moves_per_second))
-    # print('Avg legal_move timing: ' + str(timing_total/float(moves_per_second)))
-    
+    print(timing_total/timing_samples)
+    exit()    
 
 
     if tracking:

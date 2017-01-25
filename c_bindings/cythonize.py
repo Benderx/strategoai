@@ -3,7 +3,7 @@ from Cython.Build import cythonize
 import numpy
 
 setup(
-    ext_modules=cythonize("get_moves.pyx"),
+    ext_modules=cythonize("engine_commands.pyx"),
     include_dirs=[numpy.get_include()]
 )
 

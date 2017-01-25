@@ -3,7 +3,7 @@ import random
 import inspect
 import numpy
 from copy import deepcopy
-import c_bindings.get_moves as c_moves
+import c_bindings.engine_commands as c_bindings
 
 
 class GameEngine:
@@ -274,7 +274,7 @@ class GameEngine:
 
 
     def all_legal_moves(self, player):
-        moves = c_moves.all_legal_moves(player, self.size, self.board, self.owner)
+        moves = c_bindings.all_legal_moves(player, self.size, self.board, self.owner)
         # else:
         #     moves = []
         #     for i in range(len(self.board)):
