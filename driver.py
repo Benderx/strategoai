@@ -81,7 +81,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         moves_per_second += 1
         
         if gui:
-            renderer.refresh_board()
+            renderer.draw_board()
         else:
             engine.print_board()
 
@@ -165,7 +165,7 @@ def game_start(args):
     db_stuff = init_db('games.db', True)
 
     if int(args.graphical) == 1:
-        re = r.Renderer(engine.get_board())
+        re = r.Renderer(engine)
         re.window_setup(500, 500)
         gui = True
     else:

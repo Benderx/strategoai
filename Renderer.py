@@ -4,25 +4,30 @@ import graphics
 
 class Renderer:
 
-    def __init__(self, b, l = 40, o = 5):
-        self.board = b
+    def __init__(self, engine, l = 40, o = 5):
+        self.engine = engine
         self.box_length = l
         self.offset = o
         self.piece_arr = []
         self.win = None
         self.highlighted = []
+        self.lines_drawn = False
 
 
     # Only for initial draw
     def draw_board(self):
-        for i in range(len(self.board)):
-            for j in range(len(self.board[i])):
-                if type(0) == type(self.board[i][j]):
+        board = self.engine.get_2D_array(self.engine.board)
+        owner = self.engine.get_2D_array(self.engine.owner)
+
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                if board[i][j] != -1 and self.lines_drawn == False:
                     c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),
                           graphics.Point(self.box_length * (i+1) + self.offset, self.box_length * (j+1) + self.offset))
                     c.draw(self.win)
                     continue
-                if self.board[i][j].get_value() == -1:
+
+                if self.board[i][j] == -1:
                     continue
 
                 c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),
@@ -32,66 +37,27 @@ class Renderer:
                 
 
                 piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
-                                      self.box_length * j + self.offset + (self.box_length / 2)), 'H')
+                                      self.box_length * j + self.offset + (self.box_length / 2)), 'ERROR')
 
-                if self.board[i][j].get_player() == 0:
+                if self.owner[i][j] == 0:
                     piece.setOutline('white')
                 else:
                     piece.setOutline('black')
 
-                if self.board[i][j].get_visible() == False and self.board[i][j].get_player() == 1:
-                    pass
-                if self.board[i][j].get_value() == 0:
+                if self.board[i][j] == 0:
                     piece.setText('F')
-                elif self.board[i][j].get_value() == 10:
+                elif self.board[i][j] == 10:
                     piece.setText('B')
-                elif self.board[i][j].get_value() == 11:
+                elif self.board[i][j] == 11:
                     piece.setText('S')
                 else:
-                    piece.setText(str(self.board[i][j].get_value()))
+                    piece.setText(str(self.board[i][j]))
 
 
                 self.piece_arr.append(piece)
                 piece.draw(self.win)
+        self.lines_drawn = True
 
-
-    # Used for refreshing to save space and time.
-    def refresh_board(self):
-        for i in self.piece_arr:
-            i.undraw()
-        self.piece_arr = []
-
-        for i in range(len(self.board)):
-            for j in range(len(self.board[i])):
-                if not self.board[i][j]:
-                    continue
-
-                if self.board[i][j].get_value() == -1:
-                    continue
-
-                piece = graphics.Text(graphics.Point(self.box_length * i + self.offset + (self.box_length / 2),
-                                      self.box_length * j + self.offset + (self.box_length / 2)), 'H')
-
-                if self.board[i][j].get_player() == 0:
-                    piece.setOutline('white')
-                else:
-                    piece.setOutline('black')
-
-                if self.board[i][j].get_visible() == False and self.board[i][j].get_player() == 1:
-                    pass
-                if self.board[i][j].get_value() == 0:
-                    piece.setText('F')
-                elif self.board[i][j].get_value() == 10:
-                    piece.setText('B')
-                elif self.board[i][j].get_value() == 11:
-                    piece.setText('S')
-                else:
-                    piece.setText(str(self.board[i][j].get_value()))
-
-
-                self.piece_arr.append(piece)
-                piece.draw(self.win)
-    
 
     def get_mouse_square(self):
         p = self.win.getMouse()
