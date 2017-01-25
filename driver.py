@@ -12,7 +12,7 @@ import argparse
 import threading
 
 FIRST_AI = RandomAI.RandomAI #RandomAI, MonteCarloAI, MinimaxAI
-SECOND_AI = RandomAI.RandomAI
+SECOND_AI = MonteCarloAI.MonteCarloAI
 global moves_per_second; moves_per_second = 0
 
 
@@ -67,39 +67,37 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         # state_tracker.append(engine.get_compacted_board_state())
         
         # start = time.perf_counter()
-        engine.all_legal_moves(turn)
+        engine.all_legal_moves(turn)    # 5.4 x 10 ^ -6       10x10
         # end = time.perf_counter()
 
-        winner = engine.check_winner(turn)
-        if winner != 0:
+        winner = engine.check_winner(turn)     # 5.3 x 10 ^ -6       10x10
+
+        
+        if winner != 0:     # 1.4 x 10 ^ -7       10x10
             break
-
-
-        # We assume all player classes return valid moves.
         
 
+        move = players[turn].get_move()     # 5.0 x 10 ^ -6       10x10
+        engine.move(move)     # 2.51 x 10 ^ -6       10x10
 
-        move = players[turn].get_move()
-        # start = time.perf_counter()
-        engine.move(move)
+        
+        moves_this_game += 1    #1.2 x 10 ^ -7       10x10
+        moves_per_second += 1    #1.2 x 10 ^ -7       10x10
         
 
-
-        # end = time.perf_counter()
-        moves_this_game += 1
-        moves_per_second += 1
-        
         if gui:
-            renderer.draw_board()
+            renderer.draw_board()   # 1.4 x 10 ^ -7       10x10
+        
         # else:
         #     engine.print_board()
 
-        # timing_total += end - start
-        # timing_samples += 1
-        turn = 1 - turn
+        
+        turn = 1 - turn    # 1.1 x 10 ^ -7       10x10
+        timing_samples += 1   # 1.1 x 10 ^ -7       10x10
+        timing_total += end - start   # 1.1 x 10 ^ -7       10x10
 
-    # print(timing_total/timing_samples)
-
+    print('avg:', timing_total/timing_samples)
+    time.sleep(.5)
 
     # end = time.perf_counter()
     # print(moves_this_game/(end-start))
