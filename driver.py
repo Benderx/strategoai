@@ -228,7 +228,7 @@ def game_start(args):
     num_games = int(args.number)
 
     for i in range(num_games):
-        winner = play_c_game(engine, int(args.humans), db_stuff, gui, re, FIRST_AI, SECOND_AI)
+        winner = play_c_game(engine, int(args.humans), db_stuff, gui, re, FIRST_AI, SECOND_AI, args.size)
         print('game ', i, ': ', winner, ' won')
     if int(args.track):
         db_stuff[0].close()
