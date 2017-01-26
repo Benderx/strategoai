@@ -1,0 +1,8 @@
+
+*.xml
+
+\.idea/
+
+*.pyc
+
+games\.db

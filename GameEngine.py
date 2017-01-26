@@ -139,7 +139,7 @@ class GameEngine:
                         name = val
                     arr_temp.append(name)
                 else:
-                    arr_temp.append('E')
+                    arr_temp.append('□')
             print(' '.join(map(str, arr_temp)))
         print()
 

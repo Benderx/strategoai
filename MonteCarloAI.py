@@ -58,20 +58,19 @@ class MonteCarloAI:
 
         # shuffle unknown board pieces, flag first
         if self.player == 1:
-            backrank = 0
+            back_rank = 0
         else:
-            backrank = len(parent_board)-1
+            back_rank = len(parent_board)-1
         flag_options = []
         for x in range(len(parent_board)):
-            if type(parent_board[x][backrank]) == GameEngine.Piece and parent_board[x][backrank].value == -2:
+            if type(parent_board[x][back_rank]) == GameEngine.Piece and parent_board[x][back_rank].value == -2:
                 flag_options.append(x)
 
         flag_loc = random.choice(flag_options)
-        parent_board[flag_loc][backrank].value = 0
+        parent_board[flag_loc][back_rank].value = 0
         remaining_pieces.remove(0)
         old_flag = self.engine.flags[self.player]
-        self.engine.flags[self.player] = [flag_loc, backrank]
-
+        self.engine.flags[1-self.player] = [flag_loc, back_rank]
 
 
         for x in range(len(parent_board)):
@@ -79,9 +78,9 @@ class MonteCarloAI:
                 piece = parent_board[y][x]
                 if type(piece) == GameEngine.Piece and piece.value == -2:
                     parent_board[y][x].value = remaining_pieces.pop()
-
+        self.engine.print_board()
+        input()
         self.engine.move(move[0], move[1])
-        # self.engine.print_board()
         turn = 1 - self.player
         winner = None
         while True:
@@ -89,15 +88,12 @@ class MonteCarloAI:
 
             game_over, winner = self.engine.check_winner(turn, moves)
             if game_over:
-                self.engine.print_board()
                 break
-            print('hella')
             move = random.choice(moves)
             self.engine.move(move[0], move[1])
 
             turn = 1 - turn
-        self.engine.flags[self.player] = old_flag
-        print(winner)
+        self.engine.flags[1-self.player] = old_flag
         self.engine.board = self.board
         if winner == self.player:
             return 1

@@ -80,6 +80,7 @@ def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None,
         moves_per_second += 1
         
         if gui:
+            # time.sleep(1)
             renderer.refresh_board()
 
         timing_total += end - start
