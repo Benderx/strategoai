@@ -444,6 +444,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include <stdio.h>
 #include "numpy/arrayobject.h"
 #include "numpy/ufuncobject.h"
+#include "limits.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
@@ -702,7 +703,7 @@ typedef struct {
 } __Pyx_BufFmt_Context;
 
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":725
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":725
  * # in Cython to enable them only on the right systems.
  * 
  * ctypedef npy_int8       int8_t             # <<<<<<<<<<<<<<
@@ -711,7 +712,7 @@ typedef struct {
  */
 typedef npy_int8 __pyx_t_5numpy_int8_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":726
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":726
  * 
  * ctypedef npy_int8       int8_t
  * ctypedef npy_int16      int16_t             # <<<<<<<<<<<<<<
@@ -720,7 +721,7 @@ typedef npy_int8 __pyx_t_5numpy_int8_t;
  */
 typedef npy_int16 __pyx_t_5numpy_int16_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":727
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":727
  * ctypedef npy_int8       int8_t
  * ctypedef npy_int16      int16_t
  * ctypedef npy_int32      int32_t             # <<<<<<<<<<<<<<
@@ -729,7 +730,7 @@ typedef npy_int16 __pyx_t_5numpy_int16_t;
  */
 typedef npy_int32 __pyx_t_5numpy_int32_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":728
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":728
  * ctypedef npy_int16      int16_t
  * ctypedef npy_int32      int32_t
  * ctypedef npy_int64      int64_t             # <<<<<<<<<<<<<<
@@ -738,7 +739,7 @@ typedef npy_int32 __pyx_t_5numpy_int32_t;
  */
 typedef npy_int64 __pyx_t_5numpy_int64_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":732
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":732
  * #ctypedef npy_int128     int128_t
  * 
  * ctypedef npy_uint8      uint8_t             # <<<<<<<<<<<<<<
@@ -747,7 +748,7 @@ typedef npy_int64 __pyx_t_5numpy_int64_t;
  */
 typedef npy_uint8 __pyx_t_5numpy_uint8_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":733
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":733
  * 
  * ctypedef npy_uint8      uint8_t
  * ctypedef npy_uint16     uint16_t             # <<<<<<<<<<<<<<
@@ -756,7 +757,7 @@ typedef npy_uint8 __pyx_t_5numpy_uint8_t;
  */
 typedef npy_uint16 __pyx_t_5numpy_uint16_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":734
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":734
  * ctypedef npy_uint8      uint8_t
  * ctypedef npy_uint16     uint16_t
  * ctypedef npy_uint32     uint32_t             # <<<<<<<<<<<<<<
@@ -765,7 +766,7 @@ typedef npy_uint16 __pyx_t_5numpy_uint16_t;
  */
 typedef npy_uint32 __pyx_t_5numpy_uint32_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":735
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":735
  * ctypedef npy_uint16     uint16_t
  * ctypedef npy_uint32     uint32_t
  * ctypedef npy_uint64     uint64_t             # <<<<<<<<<<<<<<
@@ -774,7 +775,7 @@ typedef npy_uint32 __pyx_t_5numpy_uint32_t;
  */
 typedef npy_uint64 __pyx_t_5numpy_uint64_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":739
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":739
  * #ctypedef npy_uint128    uint128_t
  * 
  * ctypedef npy_float32    float32_t             # <<<<<<<<<<<<<<
@@ -783,7 +784,7 @@ typedef npy_uint64 __pyx_t_5numpy_uint64_t;
  */
 typedef npy_float32 __pyx_t_5numpy_float32_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":740
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":740
  * 
  * ctypedef npy_float32    float32_t
  * ctypedef npy_float64    float64_t             # <<<<<<<<<<<<<<
@@ -792,7 +793,7 @@ typedef npy_float32 __pyx_t_5numpy_float32_t;
  */
 typedef npy_float64 __pyx_t_5numpy_float64_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":749
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":749
  * # The int types are mapped a bit surprising --
  * # numpy.int corresponds to 'l' and numpy.long to 'q'
  * ctypedef npy_long       int_t             # <<<<<<<<<<<<<<
@@ -801,7 +802,7 @@ typedef npy_float64 __pyx_t_5numpy_float64_t;
  */
 typedef npy_long __pyx_t_5numpy_int_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":750
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":750
  * # numpy.int corresponds to 'l' and numpy.long to 'q'
  * ctypedef npy_long       int_t
  * ctypedef npy_longlong   long_t             # <<<<<<<<<<<<<<
@@ -810,7 +811,7 @@ typedef npy_long __pyx_t_5numpy_int_t;
  */
 typedef npy_longlong __pyx_t_5numpy_long_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":751
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":751
  * ctypedef npy_long       int_t
  * ctypedef npy_longlong   long_t
  * ctypedef npy_longlong   longlong_t             # <<<<<<<<<<<<<<
@@ -819,7 +820,7 @@ typedef npy_longlong __pyx_t_5numpy_long_t;
  */
 typedef npy_longlong __pyx_t_5numpy_longlong_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":753
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":753
  * ctypedef npy_longlong   longlong_t
  * 
  * ctypedef npy_ulong      uint_t             # <<<<<<<<<<<<<<
@@ -828,7 +829,7 @@ typedef npy_longlong __pyx_t_5numpy_longlong_t;
  */
 typedef npy_ulong __pyx_t_5numpy_uint_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":754
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":754
  * 
  * ctypedef npy_ulong      uint_t
  * ctypedef npy_ulonglong  ulong_t             # <<<<<<<<<<<<<<
@@ -837,7 +838,7 @@ typedef npy_ulong __pyx_t_5numpy_uint_t;
  */
 typedef npy_ulonglong __pyx_t_5numpy_ulong_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":755
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":755
  * ctypedef npy_ulong      uint_t
  * ctypedef npy_ulonglong  ulong_t
  * ctypedef npy_ulonglong  ulonglong_t             # <<<<<<<<<<<<<<
@@ -846,7 +847,7 @@ typedef npy_ulonglong __pyx_t_5numpy_ulong_t;
  */
 typedef npy_ulonglong __pyx_t_5numpy_ulonglong_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":757
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":757
  * ctypedef npy_ulonglong  ulonglong_t
  * 
  * ctypedef npy_intp       intp_t             # <<<<<<<<<<<<<<
@@ -855,7 +856,7 @@ typedef npy_ulonglong __pyx_t_5numpy_ulonglong_t;
  */
 typedef npy_intp __pyx_t_5numpy_intp_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":758
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":758
  * 
  * ctypedef npy_intp       intp_t
  * ctypedef npy_uintp      uintp_t             # <<<<<<<<<<<<<<
@@ -864,7 +865,7 @@ typedef npy_intp __pyx_t_5numpy_intp_t;
  */
 typedef npy_uintp __pyx_t_5numpy_uintp_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":760
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":760
  * ctypedef npy_uintp      uintp_t
  * 
  * ctypedef npy_double     float_t             # <<<<<<<<<<<<<<
@@ -873,7 +874,7 @@ typedef npy_uintp __pyx_t_5numpy_uintp_t;
  */
 typedef npy_double __pyx_t_5numpy_float_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":761
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":761
  * 
  * ctypedef npy_double     float_t
  * ctypedef npy_double     double_t             # <<<<<<<<<<<<<<
@@ -882,7 +883,7 @@ typedef npy_double __pyx_t_5numpy_float_t;
  */
 typedef npy_double __pyx_t_5numpy_double_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":762
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":762
  * ctypedef npy_double     float_t
  * ctypedef npy_double     double_t
  * ctypedef npy_longdouble longdouble_t             # <<<<<<<<<<<<<<
@@ -891,12 +892,12 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
-/* "engine_commands.pyx":11
+/* "engine_commands.pyx":12
  * np.import_array()
  * 
  * ctypedef np.int8_t DTYPE_t             # <<<<<<<<<<<<<<
  * 
- * 
+ * cdef extern from "limits.h":
  */
 typedef __pyx_t_5numpy_int8_t __pyx_t_15engine_commands_DTYPE_t;
 /* Declarations.proto */
@@ -926,7 +927,7 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
 
 /*--- Type declarations ---*/
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":764
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":764
  * ctypedef npy_longdouble longdouble_t
  * 
  * ctypedef npy_cfloat      cfloat_t             # <<<<<<<<<<<<<<
@@ -935,7 +936,7 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
  */
 typedef npy_cfloat __pyx_t_5numpy_cfloat_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":765
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":765
  * 
  * ctypedef npy_cfloat      cfloat_t
  * ctypedef npy_cdouble     cdouble_t             # <<<<<<<<<<<<<<
@@ -944,7 +945,7 @@ typedef npy_cfloat __pyx_t_5numpy_cfloat_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_cdouble_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":766
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":766
  * ctypedef npy_cfloat      cfloat_t
  * ctypedef npy_cdouble     cdouble_t
  * ctypedef npy_clongdouble clongdouble_t             # <<<<<<<<<<<<<<
@@ -953,7 +954,7 @@ typedef npy_cdouble __pyx_t_5numpy_cdouble_t;
  */
 typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":768
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":768
  * ctypedef npy_clongdouble clongdouble_t
  * 
  * ctypedef npy_cdouble     complex_t             # <<<<<<<<<<<<<<
@@ -1045,19 +1046,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject
 /* GetBuiltinName.proto */
 static PyObject *__Pyx_GetBuiltinName(PyObject *name);
 
-/* None.proto */
-static CYTHON_INLINE int __Pyx_mod_int(int, int);
-
-/* None.proto */
-static CYTHON_INLINE int __Pyx_div_int(int, int);
-
-/* UnaryNegOverflows.proto */
-#define UNARY_NEG_WOULD_OVERFLOW(x)\
-        (((x) < 0) & ((unsigned long)(x) == 0-(unsigned long)(x)))
-
-/* None.proto */
-static CYTHON_INLINE long __Pyx_div_long(long, long);
-
 /* ExtTypeTest.proto */
 static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
@@ -1094,37 +1082,15 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 #define __Pyx_ErrFetch(type, value, tb)  PyErr_Fetch(type, value, tb)
 #endif
 
+/* GetModuleGlobalName.proto */
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
+
 /* PyObjectCall.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
 #else
 #define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
-
-/* GetModuleGlobalName.proto */
-static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
-
-/* GetItemInt.proto */
-#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
-    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
-               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
-#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
-    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
-    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
-                                                     int is_list, int wraparound, int boundscheck);
 
 /* SetItemInt.proto */
 #define __Pyx_SetItemInt(o, i, v, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
@@ -1165,6 +1131,33 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
 /* PyObjectCallOneArg.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
+/* GetItemInt.proto */
+#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
+    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
+               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
+#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
+                                                     int is_list, int wraparound, int boundscheck);
+
+/* WriteUnraisableException.proto */
+static void __Pyx_WriteUnraisable(const char *name, int clineno,
+                                  int lineno, const char *filename,
+                                  int full_traceback, int nogil);
+
 /* RaiseArgTupleInvalid.proto */
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
@@ -1176,13 +1169,6 @@ static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_n
 static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
-
-/* PyObjectCallNoArg.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
-#else
-#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
-#endif
 
 /* RaiseException.proto */
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
@@ -1299,8 +1285,15 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
+/* Print.proto */
+static int __Pyx_Print(PyObject*, PyObject *, int);
+#if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
+static PyObject* __pyx_print = 0;
+static PyObject* __pyx_print_kwargs = 0;
+#endif
+
 /* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_npy_int8(npy_int8 value);
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_npy_int16(npy_int16 value);
 
 /* RealImag.proto */
 #if CYTHON_CCOMPLEX
@@ -1409,6 +1402,9 @@ static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 /* CIntFromPy.proto */
 static CYTHON_INLINE npy_int8 __Pyx_PyInt_As_npy_int8(PyObject *);
 
+/* PrintOne.proto */
+static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
+
 /* CIntFromPy.proto */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
@@ -1471,13 +1467,15 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void); /*proto*/
 /* Module declarations from 'engine_commands' */
 static int __pyx_f_15engine_commands_check_legal(__pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int, int, int, int, __pyx_t_15engine_commands_DTYPE_t *); /*proto*/
 static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int, int, int, int, int, __pyx_t_15engine_commands_DTYPE_t *, int); /*proto*/
-static PyObject *__pyx_f_15engine_commands_all_legal_moves(int, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int, int); /*proto*/
+static void __pyx_f_15engine_commands_all_legal_moves(int, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int, int); /*proto*/
 static int __pyx_f_15engine_commands_battle(int, int); /*proto*/
-static PyObject *__pyx_f_15engine_commands_move_piece(int, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int); /*proto*/
-static PyObject *__pyx_f_15engine_commands_check_winner(__pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int, int, int); /*proto*/
+static void __pyx_f_15engine_commands_move_piece(int, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int); /*proto*/
+static int __pyx_f_15engine_commands_check_winner(__pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int, int, int); /*proto*/
 static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *, npy_intp, int); /*proto*/
-static PyObject *__pyx_f_15engine_commands_set_to(__pyx_t_15engine_commands_DTYPE_t *, int, int); /*proto*/
-static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int); /*proto*/
+static void __pyx_f_15engine_commands_set_to(__pyx_t_15engine_commands_DTYPE_t *, int, int); /*proto*/
+static void __pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int); /*proto*/
+static int __pyx_f_15engine_commands_get_random_move(__pyx_t_15engine_commands_DTYPE_t *, int); /*proto*/
+static void __pyx_f_15engine_commands_write_init_return_board(__pyx_t_5numpy_int16_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int, int); /*proto*/
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_15engine_commands_DTYPE_t = { "DTYPE_t", NULL, sizeof(__pyx_t_15engine_commands_DTYPE_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_15engine_commands_DTYPE_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_15engine_commands_DTYPE_t), 0 };
 #define __Pyx_MODULE_NAME "engine_commands"
 int __pyx_module_is_main_engine_commands = 0;
@@ -1487,16 +1485,20 @@ static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
+static const char __pyx_k_i[] = "i";
 static const char __pyx_k_k[] = "k";
 static const char __pyx_k_p[] = "p";
+static const char __pyx_k_q[] = "q";
 static const char __pyx_k_np[] = "np";
 static const char __pyx_k_AI1[] = "AI1";
 static const char __pyx_k_AI2[] = "AI2";
 static const char __pyx_k_arr[] = "arr";
+static const char __pyx_k_end[] = "end";
+static const char __pyx_k_tmp[] = "tmp";
+static const char __pyx_k_file[] = "file";
 static const char __pyx_k_int8[] = "int8";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_move[] = "move";
-static const char __pyx_k_size[] = "size";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_time[] = "time";
 static const char __pyx_k_turn[] = "turn";
@@ -1507,29 +1509,33 @@ static const char __pyx_k_empty[] = "empty";
 static const char __pyx_k_flags[] = "flags";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_owner[] = "owner";
+static const char __pyx_k_print[] = "print";
 static const char __pyx_k_range[] = "range";
+static const char __pyx_k_sleep[] = "sleep";
 static const char __pyx_k_up_to[] = "up_to";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_primes[] = "primes";
 static const char __pyx_k_random[] = "random";
 static const char __pyx_k_winner[] = "winner";
 static const char __pyx_k_players[] = "players";
-static const char __pyx_k_randint[] = "randint";
 static const char __pyx_k_visible[] = "visible";
 static const char __pyx_k_all_moves[] = "all_moves";
 static const char __pyx_k_move_size[] = "move_size";
+static const char __pyx_k_num_moves[] = "num_moves";
 static const char __pyx_k_play_game[] = "play_game";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_board_size[] = "board_size";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_permutation[] = "permutation";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
+static const char __pyx_k_return_stuff[] = "return_stuff";
+static const char __pyx_k_write_counter[] = "write_counter";
 static const char __pyx_k_engine_commands[] = "engine_commands";
-static const char __pyx_k_get_random_move[] = "get_random_move";
+static const char __pyx_k_max_return_size[] = "max_return_size";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
+static const char __pyx_k_C_Programming_Python_strategoai[] = "C:\\Programming\\Python\\strategoai\\c_bindings\\engine_commands.pyx";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
-static const char __pyx_k_C_PythonProjects_strategoai_c_bi[] = "C:\\PythonProjects\\strategoai\\c_bindings\\engine_commands.pyx";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
@@ -1537,7 +1543,7 @@ static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
 static PyObject *__pyx_n_s_AI1;
 static PyObject *__pyx_n_s_AI2;
-static PyObject *__pyx_kp_s_C_PythonProjects_strategoai_c_bi;
+static PyObject *__pyx_kp_s_C_Programming_Python_strategoai;
 static PyObject *__pyx_n_s_DTYPE;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
@@ -1551,18 +1557,22 @@ static PyObject *__pyx_n_s_board;
 static PyObject *__pyx_n_s_board_size;
 static PyObject *__pyx_n_s_dtype;
 static PyObject *__pyx_n_s_empty;
+static PyObject *__pyx_n_s_end;
 static PyObject *__pyx_n_s_engine_commands;
+static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_flags;
-static PyObject *__pyx_n_s_get_random_move;
+static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_int8;
 static PyObject *__pyx_n_s_k;
 static PyObject *__pyx_n_s_main;
+static PyObject *__pyx_n_s_max_return_size;
 static PyObject *__pyx_n_s_move;
 static PyObject *__pyx_n_s_move_size;
 static PyObject *__pyx_kp_u_ndarray_is_not_C_contiguous;
 static PyObject *__pyx_kp_u_ndarray_is_not_Fortran_contiguou;
 static PyObject *__pyx_n_s_np;
+static PyObject *__pyx_n_s_num_moves;
 static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
@@ -1572,22 +1582,25 @@ static PyObject *__pyx_n_s_permutation;
 static PyObject *__pyx_n_s_play_game;
 static PyObject *__pyx_n_s_players;
 static PyObject *__pyx_n_s_primes;
-static PyObject *__pyx_n_s_randint;
+static PyObject *__pyx_n_s_print;
+static PyObject *__pyx_n_s_q;
 static PyObject *__pyx_n_s_random;
 static PyObject *__pyx_n_s_range;
-static PyObject *__pyx_n_s_size;
+static PyObject *__pyx_n_s_return_stuff;
+static PyObject *__pyx_n_s_sleep;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_time;
+static PyObject *__pyx_n_s_tmp;
 static PyObject *__pyx_n_s_turn;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_up_to;
 static PyObject *__pyx_n_s_visible;
 static PyObject *__pyx_n_s_winner;
+static PyObject *__pyx_n_s_write_counter;
 static PyObject *__pyx_pf_15engine_commands_primes(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_up_to); /* proto */
 static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_AI1, int __pyx_v_AI2, int __pyx_v_board_size); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
-static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_2;
 static PyObject *__pyx_int_3;
@@ -1599,6 +1612,7 @@ static PyObject *__pyx_int_8;
 static PyObject *__pyx_int_9;
 static PyObject *__pyx_int_10;
 static PyObject *__pyx_int_11;
+static PyObject *__pyx_int_100;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
@@ -1609,13 +1623,14 @@ static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__9;
 static PyObject *__pyx_tuple__10;
-static PyObject *__pyx_tuple__12;
-static PyObject *__pyx_codeobj__11;
-static PyObject *__pyx_codeobj__13;
+static PyObject *__pyx_tuple__11;
+static PyObject *__pyx_tuple__13;
+static PyObject *__pyx_codeobj__12;
+static PyObject *__pyx_codeobj__14;
 
-/* "engine_commands.pyx":16
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+/* "engine_commands.pyx":19
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int player, DTYPE_t *moves):             # <<<<<<<<<<<<<<
  *     if player == owner[x + size*y]:
  *         return 0
@@ -1627,8 +1642,8 @@ static int __pyx_f_15engine_commands_check_legal(CYTHON_UNUSED __pyx_t_15engine_
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("check_legal", 0);
 
-  /* "engine_commands.pyx":17
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+  /* "engine_commands.pyx":20
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int player, DTYPE_t *moves):
  *     if player == owner[x + size*y]:             # <<<<<<<<<<<<<<
  *         return 0
@@ -1637,7 +1652,7 @@ static int __pyx_f_15engine_commands_check_legal(CYTHON_UNUSED __pyx_t_15engine_
   __pyx_t_1 = ((__pyx_v_player == (__pyx_v_owner[(__pyx_v_x + (__pyx_v_size * __pyx_v_y))])) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":18
+    /* "engine_commands.pyx":21
  * cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int player, DTYPE_t *moves):
  *     if player == owner[x + size*y]:
  *         return 0             # <<<<<<<<<<<<<<
@@ -1647,8 +1662,8 @@ static int __pyx_f_15engine_commands_check_legal(CYTHON_UNUSED __pyx_t_15engine_
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":17
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+    /* "engine_commands.pyx":20
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int player, DTYPE_t *moves):
  *     if player == owner[x + size*y]:             # <<<<<<<<<<<<<<
  *         return 0
@@ -1656,7 +1671,7 @@ static int __pyx_f_15engine_commands_check_legal(CYTHON_UNUSED __pyx_t_15engine_
  */
   }
 
-  /* "engine_commands.pyx":19
+  /* "engine_commands.pyx":22
  *     if player == owner[x + size*y]:
  *         return 0
  *     return 1             # <<<<<<<<<<<<<<
@@ -1666,9 +1681,9 @@ static int __pyx_f_15engine_commands_check_legal(CYTHON_UNUSED __pyx_t_15engine_
   __pyx_r = 1;
   goto __pyx_L0;
 
-  /* "engine_commands.pyx":16
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+  /* "engine_commands.pyx":19
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int player, DTYPE_t *moves):             # <<<<<<<<<<<<<<
  *     if player == owner[x + size*y]:
  *         return 0
@@ -1680,9 +1695,9 @@ static int __pyx_f_15engine_commands_check_legal(CYTHON_UNUSED __pyx_t_15engine_
   return __pyx_r;
 }
 
-/* "engine_commands.pyx":24
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+/* "engine_commands.pyx":27
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int counter):             # <<<<<<<<<<<<<<
  *     if val == 13 or val == 0:
  *         return counter
@@ -1700,8 +1715,8 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("legal_moves_for_piece", 0);
 
-  /* "engine_commands.pyx":25
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+  /* "engine_commands.pyx":28
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int counter):
  *     if val == 13 or val == 0:             # <<<<<<<<<<<<<<
  *         return counter
@@ -1711,7 +1726,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     case 13:
     case 0:
 
-    /* "engine_commands.pyx":26
+    /* "engine_commands.pyx":29
  * cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int counter):
  *     if val == 13 or val == 0:
  *         return counter             # <<<<<<<<<<<<<<
@@ -1721,8 +1736,8 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_r = __pyx_v_counter;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":25
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+    /* "engine_commands.pyx":28
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int counter):
  *     if val == 13 or val == 0:             # <<<<<<<<<<<<<<
  *         return counter
@@ -1732,7 +1747,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     default: break;
   }
 
-  /* "engine_commands.pyx":27
+  /* "engine_commands.pyx":30
  *     if val == 13 or val == 0:
  *         return counter
  *     if player != owner[x + size*y]:             # <<<<<<<<<<<<<<
@@ -1742,7 +1757,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   __pyx_t_1 = ((__pyx_v_player != (__pyx_v_owner[(__pyx_v_x + (__pyx_v_size * __pyx_v_y))])) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":28
+    /* "engine_commands.pyx":31
  *         return counter
  *     if player != owner[x + size*y]:
  *         return counter             # <<<<<<<<<<<<<<
@@ -1752,7 +1767,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_r = __pyx_v_counter;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":27
+    /* "engine_commands.pyx":30
  *     if val == 13 or val == 0:
  *         return counter
  *     if player != owner[x + size*y]:             # <<<<<<<<<<<<<<
@@ -1761,7 +1776,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
   }
 
-  /* "engine_commands.pyx":30
+  /* "engine_commands.pyx":33
  *         return counter
  * 
  *     cdef int speed = 1             # <<<<<<<<<<<<<<
@@ -1770,7 +1785,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
   __pyx_v_speed = 1;
 
-  /* "engine_commands.pyx":31
+  /* "engine_commands.pyx":34
  * 
  *     cdef int speed = 1
  *     cdef int i = 0             # <<<<<<<<<<<<<<
@@ -1779,7 +1794,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
   __pyx_v_i = 0;
 
-  /* "engine_commands.pyx":32
+  /* "engine_commands.pyx":35
  *     cdef int speed = 1
  *     cdef int i = 0
  *     if val == 9:             # <<<<<<<<<<<<<<
@@ -1789,7 +1804,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   switch (__pyx_v_val) {
     case 9:
 
-    /* "engine_commands.pyx":33
+    /* "engine_commands.pyx":36
  *     cdef int i = 0
  *     if val == 9:
  *         speed = size             # <<<<<<<<<<<<<<
@@ -1798,7 +1813,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     __pyx_v_speed = __pyx_v_size;
 
-    /* "engine_commands.pyx":32
+    /* "engine_commands.pyx":35
  *     cdef int speed = 1
  *     cdef int i = 0
  *     if val == 9:             # <<<<<<<<<<<<<<
@@ -1807,7 +1822,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     break;
 
-    /* "engine_commands.pyx":34
+    /* "engine_commands.pyx":37
  *     if val == 9:
  *         speed = size
  *     elif val == 10 or val == 12:             # <<<<<<<<<<<<<<
@@ -1817,7 +1832,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     case 10:
     case 12:
 
-    /* "engine_commands.pyx":35
+    /* "engine_commands.pyx":38
  *         speed = size
  *     elif val == 10 or val == 12:
  *         speed = 0             # <<<<<<<<<<<<<<
@@ -1826,7 +1841,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     __pyx_v_speed = 0;
 
-    /* "engine_commands.pyx":34
+    /* "engine_commands.pyx":37
  *     if val == 9:
  *         speed = size
  *     elif val == 10 or val == 12:             # <<<<<<<<<<<<<<
@@ -1837,7 +1852,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     default: break;
   }
 
-  /* "engine_commands.pyx":37
+  /* "engine_commands.pyx":40
  *         speed = 0
  * 
  *     cdef int p = 0             # <<<<<<<<<<<<<<
@@ -1846,7 +1861,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
   __pyx_v_p = 0;
 
-  /* "engine_commands.pyx":40
+  /* "engine_commands.pyx":43
  * 
  * 
  *     for p in range(speed):             # <<<<<<<<<<<<<<
@@ -1857,7 +1872,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_p = __pyx_t_3;
 
-    /* "engine_commands.pyx":41
+    /* "engine_commands.pyx":44
  * 
  *     for p in range(speed):
  *         i = p + 1             # <<<<<<<<<<<<<<
@@ -1866,7 +1881,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     __pyx_v_i = (__pyx_v_p + 1);
 
-    /* "engine_commands.pyx":42
+    /* "engine_commands.pyx":45
  *     for p in range(speed):
  *         i = p + 1
  *         if x+i < 0  or x+i > size-1:             # <<<<<<<<<<<<<<
@@ -1884,7 +1899,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_L7_bool_binop_done:;
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":43
+      /* "engine_commands.pyx":46
  *         i = p + 1
  *         if x+i < 0  or x+i > size-1:
  *             break             # <<<<<<<<<<<<<<
@@ -1893,7 +1908,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L5_break;
 
-      /* "engine_commands.pyx":42
+      /* "engine_commands.pyx":45
  *     for p in range(speed):
  *         i = p + 1
  *         if x+i < 0  or x+i > size-1:             # <<<<<<<<<<<<<<
@@ -1902,7 +1917,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":45
+    /* "engine_commands.pyx":48
  *             break
  * 
  *         if board[(x+i) + size*y] == 13:             # <<<<<<<<<<<<<<
@@ -1912,7 +1927,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_t_1 = (((__pyx_v_board[((__pyx_v_x + __pyx_v_i) + (__pyx_v_size * __pyx_v_y))]) == 13) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":46
+      /* "engine_commands.pyx":49
  * 
  *         if board[(x+i) + size*y] == 13:
  *             break             # <<<<<<<<<<<<<<
@@ -1921,7 +1936,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L5_break;
 
-      /* "engine_commands.pyx":45
+      /* "engine_commands.pyx":48
  *             break
  * 
  *         if board[(x+i) + size*y] == 13:             # <<<<<<<<<<<<<<
@@ -1930,7 +1945,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":47
+    /* "engine_commands.pyx":50
  *         if board[(x+i) + size*y] == 13:
  *             break
  *         elif board[(x+i) + size*y] != 0:             # <<<<<<<<<<<<<<
@@ -1940,7 +1955,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_t_1 = (((__pyx_v_board[((__pyx_v_x + __pyx_v_i) + (__pyx_v_size * __pyx_v_y))]) != 0) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":48
+      /* "engine_commands.pyx":51
  *             break
  *         elif board[(x+i) + size*y] != 0:
  *             if check_legal(board, owner, size, x+i, y, player, moves) == 1:             # <<<<<<<<<<<<<<
@@ -1950,7 +1965,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
       __pyx_t_1 = ((__pyx_f_15engine_commands_check_legal(__pyx_v_board, __pyx_v_owner, __pyx_v_size, (__pyx_v_x + __pyx_v_i), __pyx_v_y, __pyx_v_player, __pyx_v_moves) == 1) != 0);
       if (__pyx_t_1) {
 
-        /* "engine_commands.pyx":49
+        /* "engine_commands.pyx":52
  *         elif board[(x+i) + size*y] != 0:
  *             if check_legal(board, owner, size, x+i, y, player, moves) == 1:
  *                 moves[counter] = x + 1             # <<<<<<<<<<<<<<
@@ -1959,7 +1974,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[__pyx_v_counter]) = (__pyx_v_x + 1);
 
-        /* "engine_commands.pyx":50
+        /* "engine_commands.pyx":53
  *             if check_legal(board, owner, size, x+i, y, player, moves) == 1:
  *                 moves[counter] = x + 1
  *                 moves[counter+1] = y + 1             # <<<<<<<<<<<<<<
@@ -1968,7 +1983,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 1)]) = (__pyx_v_y + 1);
 
-        /* "engine_commands.pyx":51
+        /* "engine_commands.pyx":54
  *                 moves[counter] = x + 1
  *                 moves[counter+1] = y + 1
  *                 moves[counter+2] = x+i + 1             # <<<<<<<<<<<<<<
@@ -1977,7 +1992,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 2)]) = ((__pyx_v_x + __pyx_v_i) + 1);
 
-        /* "engine_commands.pyx":52
+        /* "engine_commands.pyx":55
  *                 moves[counter+1] = y + 1
  *                 moves[counter+2] = x+i + 1
  *                 moves[counter+3] = y + 1             # <<<<<<<<<<<<<<
@@ -1986,7 +2001,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 3)]) = (__pyx_v_y + 1);
 
-        /* "engine_commands.pyx":53
+        /* "engine_commands.pyx":56
  *                 moves[counter+2] = x+i + 1
  *                 moves[counter+3] = y + 1
  *                 counter += 4             # <<<<<<<<<<<<<<
@@ -1995,7 +2010,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         __pyx_v_counter = (__pyx_v_counter + 4);
 
-        /* "engine_commands.pyx":48
+        /* "engine_commands.pyx":51
  *             break
  *         elif board[(x+i) + size*y] != 0:
  *             if check_legal(board, owner, size, x+i, y, player, moves) == 1:             # <<<<<<<<<<<<<<
@@ -2004,7 +2019,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       }
 
-      /* "engine_commands.pyx":54
+      /* "engine_commands.pyx":57
  *                 moves[counter+3] = y + 1
  *                 counter += 4
  *             break             # <<<<<<<<<<<<<<
@@ -2013,7 +2028,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L5_break;
 
-      /* "engine_commands.pyx":47
+      /* "engine_commands.pyx":50
  *         if board[(x+i) + size*y] == 13:
  *             break
  *         elif board[(x+i) + size*y] != 0:             # <<<<<<<<<<<<<<
@@ -2022,7 +2037,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":56
+    /* "engine_commands.pyx":59
  *             break
  * 
  *         moves[counter] = x + 1             # <<<<<<<<<<<<<<
@@ -2031,7 +2046,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[__pyx_v_counter]) = (__pyx_v_x + 1);
 
-    /* "engine_commands.pyx":57
+    /* "engine_commands.pyx":60
  * 
  *         moves[counter] = x + 1
  *         moves[counter+1] = y + 1             # <<<<<<<<<<<<<<
@@ -2040,7 +2055,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 1)]) = (__pyx_v_y + 1);
 
-    /* "engine_commands.pyx":58
+    /* "engine_commands.pyx":61
  *         moves[counter] = x + 1
  *         moves[counter+1] = y + 1
  *         moves[counter+2] = x+i + 1             # <<<<<<<<<<<<<<
@@ -2049,7 +2064,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 2)]) = ((__pyx_v_x + __pyx_v_i) + 1);
 
-    /* "engine_commands.pyx":59
+    /* "engine_commands.pyx":62
  *         moves[counter+1] = y + 1
  *         moves[counter+2] = x+i + 1
  *         moves[counter+3] = y + 1             # <<<<<<<<<<<<<<
@@ -2058,7 +2073,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 3)]) = (__pyx_v_y + 1);
 
-    /* "engine_commands.pyx":60
+    /* "engine_commands.pyx":63
  *         moves[counter+2] = x+i + 1
  *         moves[counter+3] = y + 1
  *         counter += 4             # <<<<<<<<<<<<<<
@@ -2069,7 +2084,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   }
   __pyx_L5_break:;
 
-  /* "engine_commands.pyx":62
+  /* "engine_commands.pyx":65
  *         counter += 4
  * 
  *     p = 0             # <<<<<<<<<<<<<<
@@ -2078,7 +2093,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
   __pyx_v_p = 0;
 
-  /* "engine_commands.pyx":64
+  /* "engine_commands.pyx":67
  *     p = 0
  * 
  *     for p in range(speed):             # <<<<<<<<<<<<<<
@@ -2089,7 +2104,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_p = __pyx_t_3;
 
-    /* "engine_commands.pyx":65
+    /* "engine_commands.pyx":68
  * 
  *     for p in range(speed):
  *         i = p + 1             # <<<<<<<<<<<<<<
@@ -2098,7 +2113,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     __pyx_v_i = (__pyx_v_p + 1);
 
-    /* "engine_commands.pyx":66
+    /* "engine_commands.pyx":69
  *     for p in range(speed):
  *         i = p + 1
  *         if x-i < 0  or x-i > size-1:             # <<<<<<<<<<<<<<
@@ -2116,7 +2131,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_L14_bool_binop_done:;
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":67
+      /* "engine_commands.pyx":70
  *         i = p + 1
  *         if x-i < 0  or x-i > size-1:
  *             break             # <<<<<<<<<<<<<<
@@ -2125,7 +2140,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L12_break;
 
-      /* "engine_commands.pyx":66
+      /* "engine_commands.pyx":69
  *     for p in range(speed):
  *         i = p + 1
  *         if x-i < 0  or x-i > size-1:             # <<<<<<<<<<<<<<
@@ -2134,7 +2149,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":69
+    /* "engine_commands.pyx":72
  *             break
  * 
  *         if board[(x-i) + size*y] == 13:             # <<<<<<<<<<<<<<
@@ -2144,7 +2159,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_t_1 = (((__pyx_v_board[((__pyx_v_x - __pyx_v_i) + (__pyx_v_size * __pyx_v_y))]) == 13) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":70
+      /* "engine_commands.pyx":73
  * 
  *         if board[(x-i) + size*y] == 13:
  *             break             # <<<<<<<<<<<<<<
@@ -2153,7 +2168,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L12_break;
 
-      /* "engine_commands.pyx":69
+      /* "engine_commands.pyx":72
  *             break
  * 
  *         if board[(x-i) + size*y] == 13:             # <<<<<<<<<<<<<<
@@ -2162,7 +2177,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":71
+    /* "engine_commands.pyx":74
  *         if board[(x-i) + size*y] == 13:
  *             break
  *         elif board[(x-i) + size*y] != 0:             # <<<<<<<<<<<<<<
@@ -2172,7 +2187,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_t_1 = (((__pyx_v_board[((__pyx_v_x - __pyx_v_i) + (__pyx_v_size * __pyx_v_y))]) != 0) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":72
+      /* "engine_commands.pyx":75
  *             break
  *         elif board[(x-i) + size*y] != 0:
  *             if check_legal(board, owner, size, x-i, y, player, moves) == 1:             # <<<<<<<<<<<<<<
@@ -2182,7 +2197,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
       __pyx_t_1 = ((__pyx_f_15engine_commands_check_legal(__pyx_v_board, __pyx_v_owner, __pyx_v_size, (__pyx_v_x - __pyx_v_i), __pyx_v_y, __pyx_v_player, __pyx_v_moves) == 1) != 0);
       if (__pyx_t_1) {
 
-        /* "engine_commands.pyx":73
+        /* "engine_commands.pyx":76
  *         elif board[(x-i) + size*y] != 0:
  *             if check_legal(board, owner, size, x-i, y, player, moves) == 1:
  *                 moves[counter] = x + 1             # <<<<<<<<<<<<<<
@@ -2191,7 +2206,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[__pyx_v_counter]) = (__pyx_v_x + 1);
 
-        /* "engine_commands.pyx":74
+        /* "engine_commands.pyx":77
  *             if check_legal(board, owner, size, x-i, y, player, moves) == 1:
  *                 moves[counter] = x + 1
  *                 moves[counter+1] = y + 1             # <<<<<<<<<<<<<<
@@ -2200,7 +2215,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 1)]) = (__pyx_v_y + 1);
 
-        /* "engine_commands.pyx":75
+        /* "engine_commands.pyx":78
  *                 moves[counter] = x + 1
  *                 moves[counter+1] = y + 1
  *                 moves[counter+2] = x-i + 1             # <<<<<<<<<<<<<<
@@ -2209,7 +2224,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 2)]) = ((__pyx_v_x - __pyx_v_i) + 1);
 
-        /* "engine_commands.pyx":76
+        /* "engine_commands.pyx":79
  *                 moves[counter+1] = y + 1
  *                 moves[counter+2] = x-i + 1
  *                 moves[counter+3] = y + 1             # <<<<<<<<<<<<<<
@@ -2218,7 +2233,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 3)]) = (__pyx_v_y + 1);
 
-        /* "engine_commands.pyx":77
+        /* "engine_commands.pyx":80
  *                 moves[counter+2] = x-i + 1
  *                 moves[counter+3] = y + 1
  *                 counter += 4             # <<<<<<<<<<<<<<
@@ -2227,7 +2242,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         __pyx_v_counter = (__pyx_v_counter + 4);
 
-        /* "engine_commands.pyx":72
+        /* "engine_commands.pyx":75
  *             break
  *         elif board[(x-i) + size*y] != 0:
  *             if check_legal(board, owner, size, x-i, y, player, moves) == 1:             # <<<<<<<<<<<<<<
@@ -2236,7 +2251,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       }
 
-      /* "engine_commands.pyx":78
+      /* "engine_commands.pyx":81
  *                 moves[counter+3] = y + 1
  *                 counter += 4
  *             break             # <<<<<<<<<<<<<<
@@ -2245,7 +2260,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L12_break;
 
-      /* "engine_commands.pyx":71
+      /* "engine_commands.pyx":74
  *         if board[(x-i) + size*y] == 13:
  *             break
  *         elif board[(x-i) + size*y] != 0:             # <<<<<<<<<<<<<<
@@ -2254,7 +2269,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":80
+    /* "engine_commands.pyx":83
  *             break
  * 
  *         moves[counter] = x + 1             # <<<<<<<<<<<<<<
@@ -2263,7 +2278,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[__pyx_v_counter]) = (__pyx_v_x + 1);
 
-    /* "engine_commands.pyx":81
+    /* "engine_commands.pyx":84
  * 
  *         moves[counter] = x + 1
  *         moves[counter+1] = y + 1             # <<<<<<<<<<<<<<
@@ -2272,7 +2287,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 1)]) = (__pyx_v_y + 1);
 
-    /* "engine_commands.pyx":82
+    /* "engine_commands.pyx":85
  *         moves[counter] = x + 1
  *         moves[counter+1] = y + 1
  *         moves[counter+2] = x-i + 1             # <<<<<<<<<<<<<<
@@ -2281,7 +2296,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 2)]) = ((__pyx_v_x - __pyx_v_i) + 1);
 
-    /* "engine_commands.pyx":83
+    /* "engine_commands.pyx":86
  *         moves[counter+1] = y + 1
  *         moves[counter+2] = x-i + 1
  *         moves[counter+3] = y + 1             # <<<<<<<<<<<<<<
@@ -2290,7 +2305,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 3)]) = (__pyx_v_y + 1);
 
-    /* "engine_commands.pyx":84
+    /* "engine_commands.pyx":87
  *         moves[counter+2] = x-i + 1
  *         moves[counter+3] = y + 1
  *         counter += 4             # <<<<<<<<<<<<<<
@@ -2301,7 +2316,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   }
   __pyx_L12_break:;
 
-  /* "engine_commands.pyx":86
+  /* "engine_commands.pyx":89
  *         counter += 4
  * 
  *     p = 0             # <<<<<<<<<<<<<<
@@ -2310,7 +2325,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
   __pyx_v_p = 0;
 
-  /* "engine_commands.pyx":88
+  /* "engine_commands.pyx":91
  *     p = 0
  * 
  *     for p in range(speed):             # <<<<<<<<<<<<<<
@@ -2321,7 +2336,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_p = __pyx_t_3;
 
-    /* "engine_commands.pyx":89
+    /* "engine_commands.pyx":92
  * 
  *     for p in range(speed):
  *         i = p + 1             # <<<<<<<<<<<<<<
@@ -2330,7 +2345,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     __pyx_v_i = (__pyx_v_p + 1);
 
-    /* "engine_commands.pyx":90
+    /* "engine_commands.pyx":93
  *     for p in range(speed):
  *         i = p + 1
  *         if y+i < 0  or y+i > size-1:             # <<<<<<<<<<<<<<
@@ -2348,7 +2363,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_L21_bool_binop_done:;
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":91
+      /* "engine_commands.pyx":94
  *         i = p + 1
  *         if y+i < 0  or y+i > size-1:
  *             break             # <<<<<<<<<<<<<<
@@ -2357,7 +2372,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L19_break;
 
-      /* "engine_commands.pyx":90
+      /* "engine_commands.pyx":93
  *     for p in range(speed):
  *         i = p + 1
  *         if y+i < 0  or y+i > size-1:             # <<<<<<<<<<<<<<
@@ -2366,7 +2381,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":93
+    /* "engine_commands.pyx":96
  *             break
  * 
  *         if board[x + size*(y+i)] == 13:             # <<<<<<<<<<<<<<
@@ -2376,7 +2391,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_t_1 = (((__pyx_v_board[(__pyx_v_x + (__pyx_v_size * (__pyx_v_y + __pyx_v_i)))]) == 13) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":94
+      /* "engine_commands.pyx":97
  * 
  *         if board[x + size*(y+i)] == 13:
  *             break             # <<<<<<<<<<<<<<
@@ -2385,7 +2400,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L19_break;
 
-      /* "engine_commands.pyx":93
+      /* "engine_commands.pyx":96
  *             break
  * 
  *         if board[x + size*(y+i)] == 13:             # <<<<<<<<<<<<<<
@@ -2394,7 +2409,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":95
+    /* "engine_commands.pyx":98
  *         if board[x + size*(y+i)] == 13:
  *             break
  *         elif board[x + size*(y+i)] != 0:             # <<<<<<<<<<<<<<
@@ -2404,7 +2419,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_t_1 = (((__pyx_v_board[(__pyx_v_x + (__pyx_v_size * (__pyx_v_y + __pyx_v_i)))]) != 0) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":96
+      /* "engine_commands.pyx":99
  *             break
  *         elif board[x + size*(y+i)] != 0:
  *             if check_legal(board, owner, size, x, y+i, player, moves) == 1:             # <<<<<<<<<<<<<<
@@ -2414,7 +2429,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
       __pyx_t_1 = ((__pyx_f_15engine_commands_check_legal(__pyx_v_board, __pyx_v_owner, __pyx_v_size, __pyx_v_x, (__pyx_v_y + __pyx_v_i), __pyx_v_player, __pyx_v_moves) == 1) != 0);
       if (__pyx_t_1) {
 
-        /* "engine_commands.pyx":97
+        /* "engine_commands.pyx":100
  *         elif board[x + size*(y+i)] != 0:
  *             if check_legal(board, owner, size, x, y+i, player, moves) == 1:
  *                 moves[counter] = x + 1             # <<<<<<<<<<<<<<
@@ -2423,7 +2438,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[__pyx_v_counter]) = (__pyx_v_x + 1);
 
-        /* "engine_commands.pyx":98
+        /* "engine_commands.pyx":101
  *             if check_legal(board, owner, size, x, y+i, player, moves) == 1:
  *                 moves[counter] = x + 1
  *                 moves[counter+1] = y + 1             # <<<<<<<<<<<<<<
@@ -2432,7 +2447,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 1)]) = (__pyx_v_y + 1);
 
-        /* "engine_commands.pyx":99
+        /* "engine_commands.pyx":102
  *                 moves[counter] = x + 1
  *                 moves[counter+1] = y + 1
  *                 moves[counter+2] = x + 1             # <<<<<<<<<<<<<<
@@ -2441,7 +2456,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 2)]) = (__pyx_v_x + 1);
 
-        /* "engine_commands.pyx":100
+        /* "engine_commands.pyx":103
  *                 moves[counter+1] = y + 1
  *                 moves[counter+2] = x + 1
  *                 moves[counter+3] = y+i + 1             # <<<<<<<<<<<<<<
@@ -2450,7 +2465,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 3)]) = ((__pyx_v_y + __pyx_v_i) + 1);
 
-        /* "engine_commands.pyx":101
+        /* "engine_commands.pyx":104
  *                 moves[counter+2] = x + 1
  *                 moves[counter+3] = y+i + 1
  *                 counter += 4             # <<<<<<<<<<<<<<
@@ -2459,7 +2474,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         __pyx_v_counter = (__pyx_v_counter + 4);
 
-        /* "engine_commands.pyx":96
+        /* "engine_commands.pyx":99
  *             break
  *         elif board[x + size*(y+i)] != 0:
  *             if check_legal(board, owner, size, x, y+i, player, moves) == 1:             # <<<<<<<<<<<<<<
@@ -2468,7 +2483,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       }
 
-      /* "engine_commands.pyx":102
+      /* "engine_commands.pyx":105
  *                 moves[counter+3] = y+i + 1
  *                 counter += 4
  *             break             # <<<<<<<<<<<<<<
@@ -2477,7 +2492,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L19_break;
 
-      /* "engine_commands.pyx":95
+      /* "engine_commands.pyx":98
  *         if board[x + size*(y+i)] == 13:
  *             break
  *         elif board[x + size*(y+i)] != 0:             # <<<<<<<<<<<<<<
@@ -2486,7 +2501,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":104
+    /* "engine_commands.pyx":107
  *             break
  * 
  *         moves[counter] = x + 1             # <<<<<<<<<<<<<<
@@ -2495,7 +2510,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[__pyx_v_counter]) = (__pyx_v_x + 1);
 
-    /* "engine_commands.pyx":105
+    /* "engine_commands.pyx":108
  * 
  *         moves[counter] = x + 1
  *         moves[counter+1] = y + 1             # <<<<<<<<<<<<<<
@@ -2504,7 +2519,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 1)]) = (__pyx_v_y + 1);
 
-    /* "engine_commands.pyx":106
+    /* "engine_commands.pyx":109
  *         moves[counter] = x + 1
  *         moves[counter+1] = y + 1
  *         moves[counter+2] = x + 1             # <<<<<<<<<<<<<<
@@ -2513,7 +2528,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 2)]) = (__pyx_v_x + 1);
 
-    /* "engine_commands.pyx":107
+    /* "engine_commands.pyx":110
  *         moves[counter+1] = y + 1
  *         moves[counter+2] = x + 1
  *         moves[counter+3] = y+i + 1             # <<<<<<<<<<<<<<
@@ -2522,7 +2537,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 3)]) = ((__pyx_v_y + __pyx_v_i) + 1);
 
-    /* "engine_commands.pyx":108
+    /* "engine_commands.pyx":111
  *         moves[counter+2] = x + 1
  *         moves[counter+3] = y+i + 1
  *         counter += 4             # <<<<<<<<<<<<<<
@@ -2533,7 +2548,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   }
   __pyx_L19_break:;
 
-  /* "engine_commands.pyx":110
+  /* "engine_commands.pyx":113
  *         counter += 4
  * 
  *     p = 0             # <<<<<<<<<<<<<<
@@ -2542,7 +2557,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
   __pyx_v_p = 0;
 
-  /* "engine_commands.pyx":112
+  /* "engine_commands.pyx":115
  *     p = 0
  * 
  *     for p in range(speed):             # <<<<<<<<<<<<<<
@@ -2553,7 +2568,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_p = __pyx_t_3;
 
-    /* "engine_commands.pyx":113
+    /* "engine_commands.pyx":116
  * 
  *     for p in range(speed):
  *         i = p + 1             # <<<<<<<<<<<<<<
@@ -2562,7 +2577,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     __pyx_v_i = (__pyx_v_p + 1);
 
-    /* "engine_commands.pyx":114
+    /* "engine_commands.pyx":117
  *     for p in range(speed):
  *         i = p + 1
  *         if y-i < 0  or y-i > size-1:             # <<<<<<<<<<<<<<
@@ -2580,7 +2595,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_L28_bool_binop_done:;
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":115
+      /* "engine_commands.pyx":118
  *         i = p + 1
  *         if y-i < 0  or y-i > size-1:
  *             break             # <<<<<<<<<<<<<<
@@ -2589,7 +2604,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L26_break;
 
-      /* "engine_commands.pyx":114
+      /* "engine_commands.pyx":117
  *     for p in range(speed):
  *         i = p + 1
  *         if y-i < 0  or y-i > size-1:             # <<<<<<<<<<<<<<
@@ -2598,7 +2613,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":117
+    /* "engine_commands.pyx":120
  *             break
  * 
  *         if board[x + size*(y-i)] == 13:             # <<<<<<<<<<<<<<
@@ -2608,7 +2623,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_t_1 = (((__pyx_v_board[(__pyx_v_x + (__pyx_v_size * (__pyx_v_y - __pyx_v_i)))]) == 13) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":118
+      /* "engine_commands.pyx":121
  * 
  *         if board[x + size*(y-i)] == 13:
  *             break             # <<<<<<<<<<<<<<
@@ -2617,7 +2632,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L26_break;
 
-      /* "engine_commands.pyx":117
+      /* "engine_commands.pyx":120
  *             break
  * 
  *         if board[x + size*(y-i)] == 13:             # <<<<<<<<<<<<<<
@@ -2626,7 +2641,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":119
+    /* "engine_commands.pyx":122
  *         if board[x + size*(y-i)] == 13:
  *             break
  *         elif board[x + size*(y-i)] != 0:             # <<<<<<<<<<<<<<
@@ -2636,7 +2651,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
     __pyx_t_1 = (((__pyx_v_board[(__pyx_v_x + (__pyx_v_size * (__pyx_v_y - __pyx_v_i)))]) != 0) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":120
+      /* "engine_commands.pyx":123
  *             break
  *         elif board[x + size*(y-i)] != 0:
  *             if check_legal(board, owner, size, x, y-i, player, moves) == 1:             # <<<<<<<<<<<<<<
@@ -2646,7 +2661,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
       __pyx_t_1 = ((__pyx_f_15engine_commands_check_legal(__pyx_v_board, __pyx_v_owner, __pyx_v_size, __pyx_v_x, (__pyx_v_y - __pyx_v_i), __pyx_v_player, __pyx_v_moves) == 1) != 0);
       if (__pyx_t_1) {
 
-        /* "engine_commands.pyx":121
+        /* "engine_commands.pyx":124
  *         elif board[x + size*(y-i)] != 0:
  *             if check_legal(board, owner, size, x, y-i, player, moves) == 1:
  *                 moves[counter] = x + 1             # <<<<<<<<<<<<<<
@@ -2655,7 +2670,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[__pyx_v_counter]) = (__pyx_v_x + 1);
 
-        /* "engine_commands.pyx":122
+        /* "engine_commands.pyx":125
  *             if check_legal(board, owner, size, x, y-i, player, moves) == 1:
  *                 moves[counter] = x + 1
  *                 moves[counter+1] = y + 1             # <<<<<<<<<<<<<<
@@ -2664,7 +2679,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 1)]) = (__pyx_v_y + 1);
 
-        /* "engine_commands.pyx":123
+        /* "engine_commands.pyx":126
  *                 moves[counter] = x + 1
  *                 moves[counter+1] = y + 1
  *                 moves[counter+2] = x + 1             # <<<<<<<<<<<<<<
@@ -2673,7 +2688,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 2)]) = (__pyx_v_x + 1);
 
-        /* "engine_commands.pyx":124
+        /* "engine_commands.pyx":127
  *                 moves[counter+1] = y + 1
  *                 moves[counter+2] = x + 1
  *                 moves[counter+3] = y-i + 1             # <<<<<<<<<<<<<<
@@ -2682,7 +2697,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         (__pyx_v_moves[(__pyx_v_counter + 3)]) = ((__pyx_v_y - __pyx_v_i) + 1);
 
-        /* "engine_commands.pyx":125
+        /* "engine_commands.pyx":128
  *                 moves[counter+2] = x + 1
  *                 moves[counter+3] = y-i + 1
  *                 counter += 4             # <<<<<<<<<<<<<<
@@ -2691,7 +2706,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
         __pyx_v_counter = (__pyx_v_counter + 4);
 
-        /* "engine_commands.pyx":120
+        /* "engine_commands.pyx":123
  *             break
  *         elif board[x + size*(y-i)] != 0:
  *             if check_legal(board, owner, size, x, y-i, player, moves) == 1:             # <<<<<<<<<<<<<<
@@ -2700,7 +2715,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       }
 
-      /* "engine_commands.pyx":126
+      /* "engine_commands.pyx":129
  *                 moves[counter+3] = y-i + 1
  *                 counter += 4
  *             break             # <<<<<<<<<<<<<<
@@ -2709,7 +2724,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
       goto __pyx_L26_break;
 
-      /* "engine_commands.pyx":119
+      /* "engine_commands.pyx":122
  *         if board[x + size*(y-i)] == 13:
  *             break
  *         elif board[x + size*(y-i)] != 0:             # <<<<<<<<<<<<<<
@@ -2718,7 +2733,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     }
 
-    /* "engine_commands.pyx":128
+    /* "engine_commands.pyx":131
  *             break
  * 
  *         moves[counter] = x + 1             # <<<<<<<<<<<<<<
@@ -2727,7 +2742,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[__pyx_v_counter]) = (__pyx_v_x + 1);
 
-    /* "engine_commands.pyx":129
+    /* "engine_commands.pyx":132
  * 
  *         moves[counter] = x + 1
  *         moves[counter+1] = y + 1             # <<<<<<<<<<<<<<
@@ -2736,7 +2751,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 1)]) = (__pyx_v_y + 1);
 
-    /* "engine_commands.pyx":130
+    /* "engine_commands.pyx":133
  *         moves[counter] = x + 1
  *         moves[counter+1] = y + 1
  *         moves[counter+2] = x + 1             # <<<<<<<<<<<<<<
@@ -2745,7 +2760,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 2)]) = (__pyx_v_x + 1);
 
-    /* "engine_commands.pyx":131
+    /* "engine_commands.pyx":134
  *         moves[counter+1] = y + 1
  *         moves[counter+2] = x + 1
  *         moves[counter+3] = y-i + 1             # <<<<<<<<<<<<<<
@@ -2754,7 +2769,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
  */
     (__pyx_v_moves[(__pyx_v_counter + 3)]) = ((__pyx_v_y - __pyx_v_i) + 1);
 
-    /* "engine_commands.pyx":132
+    /* "engine_commands.pyx":135
  *         moves[counter+2] = x + 1
  *         moves[counter+3] = y-i + 1
  *         counter += 4             # <<<<<<<<<<<<<<
@@ -2765,7 +2780,7 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   }
   __pyx_L26_break:;
 
-  /* "engine_commands.pyx":136
+  /* "engine_commands.pyx":139
  *     # print(counter)
  *     # print(moves)
  *     return counter             # <<<<<<<<<<<<<<
@@ -2775,9 +2790,9 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   __pyx_r = __pyx_v_counter;
   goto __pyx_L0;
 
-  /* "engine_commands.pyx":24
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+  /* "engine_commands.pyx":27
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int counter):             # <<<<<<<<<<<<<<
  *     if val == 13 or val == 0:
  *         return counter
@@ -2789,38 +2804,37 @@ static int __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_t_15engine_comm
   return __pyx_r;
 }
 
-/* "engine_commands.pyx":143
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
- * cdef all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size):             # <<<<<<<<<<<<<<
+/* "engine_commands.pyx":146
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size):             # <<<<<<<<<<<<<<
  *     cdef int g = 0
  *     for g in range(move_size):
  */
 
-static PyObject *__pyx_f_15engine_commands_all_legal_moves(int __pyx_v_player, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_board, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_owner, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_moves, int __pyx_v_move_size, int __pyx_v_board_size) {
+static void __pyx_f_15engine_commands_all_legal_moves(int __pyx_v_player, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_board, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_owner, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_moves, int __pyx_v_move_size, int __pyx_v_board_size) {
   int __pyx_v_g;
   int __pyx_v_val;
   int __pyx_v_counter;
   int __pyx_v_i;
   int __pyx_v_c_x;
   int __pyx_v_c_y;
-  PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
   __Pyx_RefNannySetupContext("all_legal_moves", 0);
 
-  /* "engine_commands.pyx":144
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
- * cdef all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size):
+  /* "engine_commands.pyx":147
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size):
  *     cdef int g = 0             # <<<<<<<<<<<<<<
  *     for g in range(move_size):
  *         moves[g] = 0
  */
   __pyx_v_g = 0;
 
-  /* "engine_commands.pyx":145
- * cdef all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size):
+  /* "engine_commands.pyx":148
+ * cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size):
  *     cdef int g = 0
  *     for g in range(move_size):             # <<<<<<<<<<<<<<
  *         moves[g] = 0
@@ -2830,7 +2844,7 @@ static PyObject *__pyx_f_15engine_commands_all_legal_moves(int __pyx_v_player, _
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_g = __pyx_t_2;
 
-    /* "engine_commands.pyx":146
+    /* "engine_commands.pyx":149
  *     cdef int g = 0
  *     for g in range(move_size):
  *         moves[g] = 0             # <<<<<<<<<<<<<<
@@ -2840,7 +2854,7 @@ static PyObject *__pyx_f_15engine_commands_all_legal_moves(int __pyx_v_player, _
     (__pyx_v_moves[__pyx_v_g]) = 0;
   }
 
-  /* "engine_commands.pyx":149
+  /* "engine_commands.pyx":152
  * 
  * 
  *     cdef int val = 0             # <<<<<<<<<<<<<<
@@ -2849,7 +2863,7 @@ static PyObject *__pyx_f_15engine_commands_all_legal_moves(int __pyx_v_player, _
  */
   __pyx_v_val = 0;
 
-  /* "engine_commands.pyx":150
+  /* "engine_commands.pyx":153
  * 
  *     cdef int val = 0
  *     cdef int counter = 1             # <<<<<<<<<<<<<<
@@ -2858,7 +2872,7 @@ static PyObject *__pyx_f_15engine_commands_all_legal_moves(int __pyx_v_player, _
  */
   __pyx_v_counter = 1;
 
-  /* "engine_commands.pyx":151
+  /* "engine_commands.pyx":154
  *     cdef int val = 0
  *     cdef int counter = 1
  *     cdef int i = 0             # <<<<<<<<<<<<<<
@@ -2867,7 +2881,7 @@ static PyObject *__pyx_f_15engine_commands_all_legal_moves(int __pyx_v_player, _
  */
   __pyx_v_i = 0;
 
-  /* "engine_commands.pyx":152
+  /* "engine_commands.pyx":155
  *     cdef int counter = 1
  *     cdef int i = 0
  *     cdef int c_x = 0             # <<<<<<<<<<<<<<
@@ -2876,7 +2890,7 @@ static PyObject *__pyx_f_15engine_commands_all_legal_moves(int __pyx_v_player, _
  */
   __pyx_v_c_x = 0;
 
-  /* "engine_commands.pyx":153
+  /* "engine_commands.pyx":156
  *     cdef int i = 0
  *     cdef int c_x = 0
  *     cdef int c_y = 0             # <<<<<<<<<<<<<<
@@ -2885,7 +2899,7 @@ static PyObject *__pyx_f_15engine_commands_all_legal_moves(int __pyx_v_player, _
  */
   __pyx_v_c_y = 0;
 
-  /* "engine_commands.pyx":155
+  /* "engine_commands.pyx":158
  *     cdef int c_y = 0
  * 
  *     for i in range(board_size*board_size):             # <<<<<<<<<<<<<<
@@ -2896,87 +2910,67 @@ static PyObject *__pyx_f_15engine_commands_all_legal_moves(int __pyx_v_player, _
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "engine_commands.pyx":156
+    /* "engine_commands.pyx":159
  * 
  *     for i in range(board_size*board_size):
  *         c_x = i % board_size             # <<<<<<<<<<<<<<
  *         c_y = i / board_size
  *         val = board[c_x + board_size*c_y]
  */
-    if (unlikely(__pyx_v_board_size == 0)) {
-      PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-      __PYX_ERR(0, 156, __pyx_L1_error)
-    }
-    __pyx_v_c_x = __Pyx_mod_int(__pyx_v_i, __pyx_v_board_size);
+    __pyx_v_c_x = (__pyx_v_i % __pyx_v_board_size);
 
-    /* "engine_commands.pyx":157
+    /* "engine_commands.pyx":160
  *     for i in range(board_size*board_size):
  *         c_x = i % board_size
  *         c_y = i / board_size             # <<<<<<<<<<<<<<
  *         val = board[c_x + board_size*c_y]
  *         counter = legal_moves_for_piece(board, owner, board_size, val, c_x, c_y, player, moves, counter)
  */
-    if (unlikely(__pyx_v_board_size == 0)) {
-      PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-      __PYX_ERR(0, 157, __pyx_L1_error)
-    }
-    else if (sizeof(int) == sizeof(long) && (!(((int)-1) > 0)) && unlikely(__pyx_v_board_size == (int)-1)  && unlikely(UNARY_NEG_WOULD_OVERFLOW(__pyx_v_i))) {
-      PyErr_SetString(PyExc_OverflowError, "value too large to perform division");
-      __PYX_ERR(0, 157, __pyx_L1_error)
-    }
-    __pyx_v_c_y = __Pyx_div_int(__pyx_v_i, __pyx_v_board_size);
+    __pyx_v_c_y = (__pyx_v_i / __pyx_v_board_size);
 
-    /* "engine_commands.pyx":158
+    /* "engine_commands.pyx":161
  *         c_x = i % board_size
  *         c_y = i / board_size
  *         val = board[c_x + board_size*c_y]             # <<<<<<<<<<<<<<
  *         counter = legal_moves_for_piece(board, owner, board_size, val, c_x, c_y, player, moves, counter)
- *     moves[0] = (counter-1) / 4
+ *     moves[0] = <int> ((counter-1) / 4)
  */
     __pyx_v_val = (__pyx_v_board[(__pyx_v_c_x + (__pyx_v_board_size * __pyx_v_c_y))]);
 
-    /* "engine_commands.pyx":159
+    /* "engine_commands.pyx":162
  *         c_y = i / board_size
  *         val = board[c_x + board_size*c_y]
  *         counter = legal_moves_for_piece(board, owner, board_size, val, c_x, c_y, player, moves, counter)             # <<<<<<<<<<<<<<
- *     moves[0] = (counter-1) / 4
+ *     moves[0] = <int> ((counter-1) / 4)
  * 
  */
     __pyx_v_counter = __pyx_f_15engine_commands_legal_moves_for_piece(__pyx_v_board, __pyx_v_owner, __pyx_v_board_size, __pyx_v_val, __pyx_v_c_x, __pyx_v_c_y, __pyx_v_player, __pyx_v_moves, __pyx_v_counter);
   }
 
-  /* "engine_commands.pyx":160
+  /* "engine_commands.pyx":163
  *         val = board[c_x + board_size*c_y]
  *         counter = legal_moves_for_piece(board, owner, board_size, val, c_x, c_y, player, moves, counter)
- *     moves[0] = (counter-1) / 4             # <<<<<<<<<<<<<<
+ *     moves[0] = <int> ((counter-1) / 4)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  (__pyx_v_moves[0]) = __Pyx_div_long((__pyx_v_counter - 1), 4);
+  (__pyx_v_moves[0]) = ((int)((__pyx_v_counter - 1) / 4));
 
-  /* "engine_commands.pyx":143
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
- * cdef all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size):             # <<<<<<<<<<<<<<
+  /* "engine_commands.pyx":146
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size):             # <<<<<<<<<<<<<<
  *     cdef int g = 0
  *     for g in range(move_size):
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_AddTraceback("engine_commands.all_legal_moves", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
-  return __pyx_r;
 }
 
-/* "engine_commands.pyx":166
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+/* "engine_commands.pyx":169
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int battle(int v1, int v2):             # <<<<<<<<<<<<<<
  *     if v1 == 0:
  *         return 1
@@ -2988,8 +2982,8 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("battle", 0);
 
-  /* "engine_commands.pyx":167
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+  /* "engine_commands.pyx":170
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int battle(int v1, int v2):
  *     if v1 == 0:             # <<<<<<<<<<<<<<
  *         return 1
@@ -2998,7 +2992,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   __pyx_t_1 = ((__pyx_v_v1 == 0) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":168
+    /* "engine_commands.pyx":171
  * cdef int battle(int v1, int v2):
  *     if v1 == 0:
  *         return 1             # <<<<<<<<<<<<<<
@@ -3008,8 +3002,8 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_r = 1;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":167
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+    /* "engine_commands.pyx":170
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int battle(int v1, int v2):
  *     if v1 == 0:             # <<<<<<<<<<<<<<
  *         return 1
@@ -3017,7 +3011,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
   }
 
-  /* "engine_commands.pyx":170
+  /* "engine_commands.pyx":173
  *         return 1
  * 
  *     if v2 == 0:             # <<<<<<<<<<<<<<
@@ -3027,7 +3021,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   __pyx_t_1 = ((__pyx_v_v2 == 0) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":171
+    /* "engine_commands.pyx":174
  * 
  *     if v2 == 0:
  *         return 0             # <<<<<<<<<<<<<<
@@ -3037,7 +3031,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":170
+    /* "engine_commands.pyx":173
  *         return 1
  * 
  *     if v2 == 0:             # <<<<<<<<<<<<<<
@@ -3046,7 +3040,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
   }
 
-  /* "engine_commands.pyx":173
+  /* "engine_commands.pyx":176
  *         return 0
  * 
  *     if v1 == 10:             # <<<<<<<<<<<<<<
@@ -3056,7 +3050,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   __pyx_t_1 = ((__pyx_v_v1 == 10) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":174
+    /* "engine_commands.pyx":177
  * 
  *     if v1 == 10:
  *         if v2 == 8:             # <<<<<<<<<<<<<<
@@ -3066,7 +3060,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_t_1 = ((__pyx_v_v2 == 8) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":175
+      /* "engine_commands.pyx":178
  *     if v1 == 10:
  *         if v2 == 8:
  *             return 1             # <<<<<<<<<<<<<<
@@ -3076,7 +3070,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
       __pyx_r = 1;
       goto __pyx_L0;
 
-      /* "engine_commands.pyx":174
+      /* "engine_commands.pyx":177
  * 
  *     if v1 == 10:
  *         if v2 == 8:             # <<<<<<<<<<<<<<
@@ -3085,7 +3079,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
     }
 
-    /* "engine_commands.pyx":176
+    /* "engine_commands.pyx":179
  *         if v2 == 8:
  *             return 1
  *         return 0             # <<<<<<<<<<<<<<
@@ -3095,7 +3089,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":173
+    /* "engine_commands.pyx":176
  *         return 0
  * 
  *     if v1 == 10:             # <<<<<<<<<<<<<<
@@ -3104,7 +3098,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
   }
 
-  /* "engine_commands.pyx":178
+  /* "engine_commands.pyx":181
  *         return 0
  * 
  *     if v2 == 10:             # <<<<<<<<<<<<<<
@@ -3114,7 +3108,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   __pyx_t_1 = ((__pyx_v_v2 == 10) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":179
+    /* "engine_commands.pyx":182
  * 
  *     if v2 == 10:
  *         if v1 == 8:             # <<<<<<<<<<<<<<
@@ -3124,7 +3118,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_t_1 = ((__pyx_v_v1 == 8) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":180
+      /* "engine_commands.pyx":183
  *     if v2 == 10:
  *         if v1 == 8:
  *             return 0             # <<<<<<<<<<<<<<
@@ -3134,7 +3128,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
       __pyx_r = 0;
       goto __pyx_L0;
 
-      /* "engine_commands.pyx":179
+      /* "engine_commands.pyx":182
  * 
  *     if v2 == 10:
  *         if v1 == 8:             # <<<<<<<<<<<<<<
@@ -3143,7 +3137,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
     }
 
-    /* "engine_commands.pyx":181
+    /* "engine_commands.pyx":184
  *         if v1 == 8:
  *             return 0
  *         return 1             # <<<<<<<<<<<<<<
@@ -3153,7 +3147,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_r = 1;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":178
+    /* "engine_commands.pyx":181
  *         return 0
  * 
  *     if v2 == 10:             # <<<<<<<<<<<<<<
@@ -3162,7 +3156,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
   }
 
-  /* "engine_commands.pyx":183
+  /* "engine_commands.pyx":186
  *         return 1
  * 
  *     if v1 == 11:             # <<<<<<<<<<<<<<
@@ -3172,7 +3166,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   __pyx_t_1 = ((__pyx_v_v1 == 11) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":184
+    /* "engine_commands.pyx":187
  * 
  *     if v1 == 11:
  *         if v2 == 1:             # <<<<<<<<<<<<<<
@@ -3182,7 +3176,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_t_1 = ((__pyx_v_v2 == 1) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":185
+      /* "engine_commands.pyx":188
  *     if v1 == 11:
  *         if v2 == 1:
  *             return 0             # <<<<<<<<<<<<<<
@@ -3192,7 +3186,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
       __pyx_r = 0;
       goto __pyx_L0;
 
-      /* "engine_commands.pyx":184
+      /* "engine_commands.pyx":187
  * 
  *     if v1 == 11:
  *         if v2 == 1:             # <<<<<<<<<<<<<<
@@ -3201,7 +3195,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
     }
 
-    /* "engine_commands.pyx":186
+    /* "engine_commands.pyx":189
  *         if v2 == 1:
  *             return 0
  *         return 1             # <<<<<<<<<<<<<<
@@ -3211,7 +3205,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_r = 1;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":183
+    /* "engine_commands.pyx":186
  *         return 1
  * 
  *     if v1 == 11:             # <<<<<<<<<<<<<<
@@ -3220,7 +3214,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
   }
 
-  /* "engine_commands.pyx":188
+  /* "engine_commands.pyx":191
  *         return 1
  * 
  *     if v2 == 11:             # <<<<<<<<<<<<<<
@@ -3230,7 +3224,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   __pyx_t_1 = ((__pyx_v_v2 == 11) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":189
+    /* "engine_commands.pyx":192
  * 
  *     if v2 == 11:
  *         if v1 == 1:             # <<<<<<<<<<<<<<
@@ -3240,7 +3234,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_t_1 = ((__pyx_v_v1 == 1) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":190
+      /* "engine_commands.pyx":193
  *     if v2 == 11:
  *         if v1 == 1:
  *             return 1             # <<<<<<<<<<<<<<
@@ -3250,7 +3244,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
       __pyx_r = 1;
       goto __pyx_L0;
 
-      /* "engine_commands.pyx":189
+      /* "engine_commands.pyx":192
  * 
  *     if v2 == 11:
  *         if v1 == 1:             # <<<<<<<<<<<<<<
@@ -3259,7 +3253,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
     }
 
-    /* "engine_commands.pyx":191
+    /* "engine_commands.pyx":194
  *         if v1 == 1:
  *             return 1
  *         return 0             # <<<<<<<<<<<<<<
@@ -3269,7 +3263,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":188
+    /* "engine_commands.pyx":191
  *         return 1
  * 
  *     if v2 == 11:             # <<<<<<<<<<<<<<
@@ -3278,7 +3272,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
   }
 
-  /* "engine_commands.pyx":193
+  /* "engine_commands.pyx":196
  *         return 0
  * 
  *     if v1 == v2:             # <<<<<<<<<<<<<<
@@ -3288,7 +3282,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   __pyx_t_1 = ((__pyx_v_v1 == __pyx_v_v2) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":194
+    /* "engine_commands.pyx":197
  * 
  *     if v1 == v2:
  *         return 2             # <<<<<<<<<<<<<<
@@ -3298,7 +3292,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_r = 2;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":193
+    /* "engine_commands.pyx":196
  *         return 0
  * 
  *     if v1 == v2:             # <<<<<<<<<<<<<<
@@ -3307,7 +3301,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
   }
 
-  /* "engine_commands.pyx":196
+  /* "engine_commands.pyx":199
  *         return 2
  * 
  *     if v1 < v2:             # <<<<<<<<<<<<<<
@@ -3317,7 +3311,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   __pyx_t_1 = ((__pyx_v_v1 < __pyx_v_v2) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":197
+    /* "engine_commands.pyx":200
  * 
  *     if v1 < v2:
  *         return 0             # <<<<<<<<<<<<<<
@@ -3327,7 +3321,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":196
+    /* "engine_commands.pyx":199
  *         return 2
  * 
  *     if v1 < v2:             # <<<<<<<<<<<<<<
@@ -3336,7 +3330,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
   }
 
-  /* "engine_commands.pyx":198
+  /* "engine_commands.pyx":201
  *     if v1 < v2:
  *         return 0
  *     if v1 > v2:             # <<<<<<<<<<<<<<
@@ -3346,7 +3340,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   __pyx_t_1 = ((__pyx_v_v1 > __pyx_v_v2) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":199
+    /* "engine_commands.pyx":202
  *         return 0
  *     if v1 > v2:
  *         return 1             # <<<<<<<<<<<<<<
@@ -3356,7 +3350,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
     __pyx_r = 1;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":198
+    /* "engine_commands.pyx":201
  *     if v1 < v2:
  *         return 0
  *     if v1 > v2:             # <<<<<<<<<<<<<<
@@ -3365,7 +3359,7 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
  */
   }
 
-  /* "engine_commands.pyx":200
+  /* "engine_commands.pyx":203
  *     if v1 > v2:
  *         return 1
  *     return -1             # <<<<<<<<<<<<<<
@@ -3375,9 +3369,9 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   __pyx_r = -1;
   goto __pyx_L0;
 
-  /* "engine_commands.pyx":166
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
+  /* "engine_commands.pyx":169
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * cdef int battle(int v1, int v2):             # <<<<<<<<<<<<<<
  *     if v1 == 0:
  *         return 1
@@ -3389,15 +3383,15 @@ static int __pyx_f_15engine_commands_battle(int __pyx_v_v1, int __pyx_v_v2) {
   return __pyx_r;
 }
 
-/* "engine_commands.pyx":206
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
- * cdef move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size):             # <<<<<<<<<<<<<<
+/* "engine_commands.pyx":209
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size):             # <<<<<<<<<<<<<<
  *     cdef int x1 = all_moves[(move*4)+1] - 1
  *     cdef int y1 = all_moves[(move*4)+2] - 1
  */
 
-static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_all_moves, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_board, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_visible, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_owner, int __pyx_v_size) {
+static void __pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_all_moves, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_board, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_visible, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_owner, int __pyx_v_size) {
   int __pyx_v_x1;
   int __pyx_v_y1;
   int __pyx_v_x2;
@@ -3405,22 +3399,21 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
   int __pyx_v_p1;
   int __pyx_v_p2;
   int __pyx_v_winner;
-  PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("move_piece", 0);
 
-  /* "engine_commands.pyx":207
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
- * cdef move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size):
+  /* "engine_commands.pyx":210
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size):
  *     cdef int x1 = all_moves[(move*4)+1] - 1             # <<<<<<<<<<<<<<
  *     cdef int y1 = all_moves[(move*4)+2] - 1
  *     cdef int x2 = all_moves[(move*4)+3] - 1
  */
   __pyx_v_x1 = ((__pyx_v_all_moves[((__pyx_v_move * 4) + 1)]) - 1);
 
-  /* "engine_commands.pyx":208
- * cdef move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size):
+  /* "engine_commands.pyx":211
+ * cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size):
  *     cdef int x1 = all_moves[(move*4)+1] - 1
  *     cdef int y1 = all_moves[(move*4)+2] - 1             # <<<<<<<<<<<<<<
  *     cdef int x2 = all_moves[(move*4)+3] - 1
@@ -3428,7 +3421,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
   __pyx_v_y1 = ((__pyx_v_all_moves[((__pyx_v_move * 4) + 2)]) - 1);
 
-  /* "engine_commands.pyx":209
+  /* "engine_commands.pyx":212
  *     cdef int x1 = all_moves[(move*4)+1] - 1
  *     cdef int y1 = all_moves[(move*4)+2] - 1
  *     cdef int x2 = all_moves[(move*4)+3] - 1             # <<<<<<<<<<<<<<
@@ -3437,7 +3430,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
   __pyx_v_x2 = ((__pyx_v_all_moves[((__pyx_v_move * 4) + 3)]) - 1);
 
-  /* "engine_commands.pyx":210
+  /* "engine_commands.pyx":213
  *     cdef int y1 = all_moves[(move*4)+2] - 1
  *     cdef int x2 = all_moves[(move*4)+3] - 1
  *     cdef int y2 = all_moves[(move*4)+4] - 1             # <<<<<<<<<<<<<<
@@ -3446,7 +3439,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
   __pyx_v_y2 = ((__pyx_v_all_moves[((__pyx_v_move * 4) + 4)]) - 1);
 
-  /* "engine_commands.pyx":214
+  /* "engine_commands.pyx":217
  * 
  * 
  *     cdef int p1 = board[x1 + size*y1]             # <<<<<<<<<<<<<<
@@ -3455,7 +3448,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
   __pyx_v_p1 = (__pyx_v_board[(__pyx_v_x1 + (__pyx_v_size * __pyx_v_y1))]);
 
-  /* "engine_commands.pyx":215
+  /* "engine_commands.pyx":218
  * 
  *     cdef int p1 = board[x1 + size*y1]
  *     board[x1 + size*(y1)] = 0             # <<<<<<<<<<<<<<
@@ -3464,7 +3457,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
   (__pyx_v_board[(__pyx_v_x1 + (__pyx_v_size * __pyx_v_y1))]) = 0;
 
-  /* "engine_commands.pyx":217
+  /* "engine_commands.pyx":220
  *     board[x1 + size*(y1)] = 0
  * 
  *     cdef int p2 = board[x2 + size*y2]             # <<<<<<<<<<<<<<
@@ -3473,7 +3466,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
   __pyx_v_p2 = (__pyx_v_board[(__pyx_v_x2 + (__pyx_v_size * __pyx_v_y2))]);
 
-  /* "engine_commands.pyx":219
+  /* "engine_commands.pyx":222
  *     cdef int p2 = board[x2 + size*y2]
  * 
  *     cdef int winner = 0             # <<<<<<<<<<<<<<
@@ -3482,7 +3475,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
   __pyx_v_winner = 0;
 
-  /* "engine_commands.pyx":221
+  /* "engine_commands.pyx":224
  *     cdef int winner = 0
  * 
  *     if p2 == 0:             # <<<<<<<<<<<<<<
@@ -3492,7 +3485,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
   __pyx_t_1 = ((__pyx_v_p2 == 0) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":222
+    /* "engine_commands.pyx":225
  * 
  *     if p2 == 0:
  *         board[x2 + size*y2] = p1             # <<<<<<<<<<<<<<
@@ -3501,7 +3494,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
     (__pyx_v_board[(__pyx_v_x2 + (__pyx_v_size * __pyx_v_y2))]) = __pyx_v_p1;
 
-    /* "engine_commands.pyx":223
+    /* "engine_commands.pyx":226
  *     if p2 == 0:
  *         board[x2 + size*y2] = p1
  *         visible[x2 + size*y2] = 1             # <<<<<<<<<<<<<<
@@ -3510,7 +3503,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
     (__pyx_v_visible[(__pyx_v_x2 + (__pyx_v_size * __pyx_v_y2))]) = 1;
 
-    /* "engine_commands.pyx":224
+    /* "engine_commands.pyx":227
  *         board[x2 + size*y2] = p1
  *         visible[x2 + size*y2] = 1
  *         owner[x2 + size*y2] = owner[x1 + size*y1]             # <<<<<<<<<<<<<<
@@ -3519,7 +3512,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
     (__pyx_v_owner[(__pyx_v_x2 + (__pyx_v_size * __pyx_v_y2))]) = (__pyx_v_owner[(__pyx_v_x1 + (__pyx_v_size * __pyx_v_y1))]);
 
-    /* "engine_commands.pyx":225
+    /* "engine_commands.pyx":228
  *         visible[x2 + size*y2] = 1
  *         owner[x2 + size*y2] = owner[x1 + size*y1]
  *         owner[x1 + size*(y1)] = 2             # <<<<<<<<<<<<<<
@@ -3528,7 +3521,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
     (__pyx_v_owner[(__pyx_v_x1 + (__pyx_v_size * __pyx_v_y1))]) = 2;
 
-    /* "engine_commands.pyx":221
+    /* "engine_commands.pyx":224
  *     cdef int winner = 0
  * 
  *     if p2 == 0:             # <<<<<<<<<<<<<<
@@ -3538,7 +3531,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
     goto __pyx_L3;
   }
 
-  /* "engine_commands.pyx":227
+  /* "engine_commands.pyx":230
  *         owner[x1 + size*(y1)] = 2
  *     else:
  *         winner = battle(p1, p2)             # <<<<<<<<<<<<<<
@@ -3548,7 +3541,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
   /*else*/ {
     __pyx_v_winner = __pyx_f_15engine_commands_battle(__pyx_v_p1, __pyx_v_p2);
 
-    /* "engine_commands.pyx":229
+    /* "engine_commands.pyx":232
  *         winner = battle(p1, p2)
  * 
  *         if winner == 0:             # <<<<<<<<<<<<<<
@@ -3558,7 +3551,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
     switch (__pyx_v_winner) {
       case 0:
 
-      /* "engine_commands.pyx":230
+      /* "engine_commands.pyx":233
  * 
  *         if winner == 0:
  *             board[x2 + size*y2] = p1             # <<<<<<<<<<<<<<
@@ -3567,7 +3560,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
       (__pyx_v_board[(__pyx_v_x2 + (__pyx_v_size * __pyx_v_y2))]) = __pyx_v_p1;
 
-      /* "engine_commands.pyx":231
+      /* "engine_commands.pyx":234
  *         if winner == 0:
  *             board[x2 + size*y2] = p1
  *             visible[x2 + size*y2] = 0             # <<<<<<<<<<<<<<
@@ -3576,7 +3569,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
       (__pyx_v_visible[(__pyx_v_x2 + (__pyx_v_size * __pyx_v_y2))]) = 0;
 
-      /* "engine_commands.pyx":232
+      /* "engine_commands.pyx":235
  *             board[x2 + size*y2] = p1
  *             visible[x2 + size*y2] = 0
  *             owner[x2 + size*y2] = owner[x1 + size*y1]             # <<<<<<<<<<<<<<
@@ -3585,7 +3578,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
       (__pyx_v_owner[(__pyx_v_x2 + (__pyx_v_size * __pyx_v_y2))]) = (__pyx_v_owner[(__pyx_v_x1 + (__pyx_v_size * __pyx_v_y1))]);
 
-      /* "engine_commands.pyx":229
+      /* "engine_commands.pyx":232
  *         winner = battle(p1, p2)
  * 
  *         if winner == 0:             # <<<<<<<<<<<<<<
@@ -3594,7 +3587,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
       break;
 
-      /* "engine_commands.pyx":233
+      /* "engine_commands.pyx":236
  *             visible[x2 + size*y2] = 0
  *             owner[x2 + size*y2] = owner[x1 + size*y1]
  *         elif winner == 2:             # <<<<<<<<<<<<<<
@@ -3603,7 +3596,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
       case 2:
 
-      /* "engine_commands.pyx":234
+      /* "engine_commands.pyx":237
  *             owner[x2 + size*y2] = owner[x1 + size*y1]
  *         elif winner == 2:
  *             board[x2 + size*y2] = 0             # <<<<<<<<<<<<<<
@@ -3612,7 +3605,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
       (__pyx_v_board[(__pyx_v_x2 + (__pyx_v_size * __pyx_v_y2))]) = 0;
 
-      /* "engine_commands.pyx":235
+      /* "engine_commands.pyx":238
  *         elif winner == 2:
  *             board[x2 + size*y2] = 0
  *             owner[x2 + size*y2] = 2             # <<<<<<<<<<<<<<
@@ -3621,7 +3614,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
  */
       (__pyx_v_owner[(__pyx_v_x2 + (__pyx_v_size * __pyx_v_y2))]) = 2;
 
-      /* "engine_commands.pyx":233
+      /* "engine_commands.pyx":236
  *             visible[x2 + size*y2] = 0
  *             owner[x2 + size*y2] = owner[x1 + size*y1]
  *         elif winner == 2:             # <<<<<<<<<<<<<<
@@ -3632,7 +3625,7 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
       default: break;
     }
 
-    /* "engine_commands.pyx":236
+    /* "engine_commands.pyx":239
  *             board[x2 + size*y2] = 0
  *             owner[x2 + size*y2] = 2
  *         owner[x1 + size*(y1)] = 2             # <<<<<<<<<<<<<<
@@ -3643,39 +3636,35 @@ static PyObject *__pyx_f_15engine_commands_move_piece(int __pyx_v_move, __pyx_t_
   }
   __pyx_L3:;
 
-  /* "engine_commands.pyx":206
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
- * cdef move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size):             # <<<<<<<<<<<<<<
+  /* "engine_commands.pyx":209
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size):             # <<<<<<<<<<<<<<
  *     cdef int x1 = all_moves[(move*4)+1] - 1
  *     cdef int y1 = all_moves[(move*4)+2] - 1
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
-  return __pyx_r;
 }
 
-/* "engine_commands.pyx":242
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
- * cdef check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):             # <<<<<<<<<<<<<<
+/* "engine_commands.pyx":245
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):             # <<<<<<<<<<<<<<
  *     if not board[flags[0]] == 12:
  *         return 2
  */
 
-static PyObject *__pyx_f_15engine_commands_check_winner(__pyx_t_15engine_commands_DTYPE_t *__pyx_v_board, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_moves, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_owner, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_flags, int __pyx_v_player, int __pyx_v_move_size, int __pyx_v_board_size) {
-  PyObject *__pyx_r = NULL;
+static int __pyx_f_15engine_commands_check_winner(__pyx_t_15engine_commands_DTYPE_t *__pyx_v_board, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_moves, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_owner, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_flags, int __pyx_v_player, int __pyx_v_move_size, int __pyx_v_board_size) {
+  int __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
-  PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("check_winner", 0);
 
-  /* "engine_commands.pyx":243
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
- * cdef check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):
+  /* "engine_commands.pyx":246
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):
  *     if not board[flags[0]] == 12:             # <<<<<<<<<<<<<<
  *         return 2
  *     if not board[flags[1]] == 12:
@@ -3683,28 +3672,26 @@ static PyObject *__pyx_f_15engine_commands_check_winner(__pyx_t_15engine_command
   __pyx_t_1 = ((!(((__pyx_v_board[(__pyx_v_flags[0])]) == 12) != 0)) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":244
- * cdef check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):
+    /* "engine_commands.pyx":247
+ * cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):
  *     if not board[flags[0]] == 12:
  *         return 2             # <<<<<<<<<<<<<<
  *     if not board[flags[1]] == 12:
  *         return 1
  */
-    __Pyx_XDECREF(__pyx_r);
-    __Pyx_INCREF(__pyx_int_2);
-    __pyx_r = __pyx_int_2;
+    __pyx_r = 2;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":243
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
- * cdef check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):
+    /* "engine_commands.pyx":246
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):
  *     if not board[flags[0]] == 12:             # <<<<<<<<<<<<<<
  *         return 2
  *     if not board[flags[1]] == 12:
  */
   }
 
-  /* "engine_commands.pyx":245
+  /* "engine_commands.pyx":248
  *     if not board[flags[0]] == 12:
  *         return 2
  *     if not board[flags[1]] == 12:             # <<<<<<<<<<<<<<
@@ -3714,19 +3701,17 @@ static PyObject *__pyx_f_15engine_commands_check_winner(__pyx_t_15engine_command
   __pyx_t_1 = ((!(((__pyx_v_board[(__pyx_v_flags[1])]) == 12) != 0)) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":246
+    /* "engine_commands.pyx":249
  *         return 2
  *     if not board[flags[1]] == 12:
  *         return 1             # <<<<<<<<<<<<<<
  * 
  *     if moves[0] == 0:
  */
-    __Pyx_XDECREF(__pyx_r);
-    __Pyx_INCREF(__pyx_int_1);
-    __pyx_r = __pyx_int_1;
+    __pyx_r = 1;
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":245
+    /* "engine_commands.pyx":248
  *     if not board[flags[0]] == 12:
  *         return 2
  *     if not board[flags[1]] == 12:             # <<<<<<<<<<<<<<
@@ -3735,7 +3720,7 @@ static PyObject *__pyx_f_15engine_commands_check_winner(__pyx_t_15engine_command
  */
   }
 
-  /* "engine_commands.pyx":248
+  /* "engine_commands.pyx":251
  *         return 1
  * 
  *     if moves[0] == 0:             # <<<<<<<<<<<<<<
@@ -3745,18 +3730,16 @@ static PyObject *__pyx_f_15engine_commands_check_winner(__pyx_t_15engine_command
   __pyx_t_1 = (((__pyx_v_moves[0]) == 0) != 0);
   if (__pyx_t_1) {
 
-    /* "engine_commands.pyx":249
+    /* "engine_commands.pyx":252
  * 
  *     if moves[0] == 0:
  *         all_legal_moves(1-player, board, owner, moves, move_size, board_size)             # <<<<<<<<<<<<<<
  *         if moves[0] == 0:
  *             return 3
  */
-    __pyx_t_2 = __pyx_f_15engine_commands_all_legal_moves((1 - __pyx_v_player), __pyx_v_board, __pyx_v_owner, __pyx_v_moves, __pyx_v_move_size, __pyx_v_board_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_f_15engine_commands_all_legal_moves((1 - __pyx_v_player), __pyx_v_board, __pyx_v_owner, __pyx_v_moves, __pyx_v_move_size, __pyx_v_board_size);
 
-    /* "engine_commands.pyx":250
+    /* "engine_commands.pyx":253
  *     if moves[0] == 0:
  *         all_legal_moves(1-player, board, owner, moves, move_size, board_size)
  *         if moves[0] == 0:             # <<<<<<<<<<<<<<
@@ -3766,19 +3749,17 @@ static PyObject *__pyx_f_15engine_commands_check_winner(__pyx_t_15engine_command
     __pyx_t_1 = (((__pyx_v_moves[0]) == 0) != 0);
     if (__pyx_t_1) {
 
-      /* "engine_commands.pyx":251
+      /* "engine_commands.pyx":254
  *         all_legal_moves(1-player, board, owner, moves, move_size, board_size)
  *         if moves[0] == 0:
  *             return 3             # <<<<<<<<<<<<<<
  *         return player + 1
  *     return 0
  */
-      __Pyx_XDECREF(__pyx_r);
-      __Pyx_INCREF(__pyx_int_3);
-      __pyx_r = __pyx_int_3;
+      __pyx_r = 3;
       goto __pyx_L0;
 
-      /* "engine_commands.pyx":250
+      /* "engine_commands.pyx":253
  *     if moves[0] == 0:
  *         all_legal_moves(1-player, board, owner, moves, move_size, board_size)
  *         if moves[0] == 0:             # <<<<<<<<<<<<<<
@@ -3787,21 +3768,17 @@ static PyObject *__pyx_f_15engine_commands_check_winner(__pyx_t_15engine_command
  */
     }
 
-    /* "engine_commands.pyx":252
+    /* "engine_commands.pyx":255
  *         if moves[0] == 0:
  *             return 3
  *         return player + 1             # <<<<<<<<<<<<<<
  *     return 0
  * 
  */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_player + 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 252, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_r = __pyx_t_2;
-    __pyx_t_2 = 0;
+    __pyx_r = (__pyx_v_player + 1);
     goto __pyx_L0;
 
-    /* "engine_commands.pyx":248
+    /* "engine_commands.pyx":251
  *         return 1
  * 
  *     if moves[0] == 0:             # <<<<<<<<<<<<<<
@@ -3810,38 +3787,31 @@ static PyObject *__pyx_f_15engine_commands_check_winner(__pyx_t_15engine_command
  */
   }
 
-  /* "engine_commands.pyx":253
+  /* "engine_commands.pyx":256
  *             return 3
  *         return player + 1
  *     return 0             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(__pyx_int_0);
-  __pyx_r = __pyx_int_0;
+  __pyx_r = 0;
   goto __pyx_L0;
 
-  /* "engine_commands.pyx":242
- * # @cython.boundscheck(False) # turn off bounds-checking for entire function
- * # @cython.wraparound(False)  # turn off negative index wrapping for entire function
- * cdef check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):             # <<<<<<<<<<<<<<
+  /* "engine_commands.pyx":245
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):             # <<<<<<<<<<<<<<
  *     if not board[flags[0]] == 12:
  *         return 2
  */
 
   /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("engine_commands.check_winner", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
   __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "engine_commands.pyx":260
+/* "engine_commands.pyx":263
  * 
  * 
  * cdef data_to_numpy_array_with_spec(void * ptr, np.npy_intp N, int t):             # <<<<<<<<<<<<<<
@@ -3863,22 +3833,22 @@ static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *_
   __pyx_pybuffernd_arr.data = NULL;
   __pyx_pybuffernd_arr.rcbuffer = &__pyx_pybuffer_arr;
 
-  /* "engine_commands.pyx":261
+  /* "engine_commands.pyx":264
  * 
  * cdef data_to_numpy_array_with_spec(void * ptr, np.npy_intp N, int t):
  *     cdef np.ndarray[DTYPE_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)             # <<<<<<<<<<<<<<
  *     PyArray_ENABLEFLAGS(arr, np.NPY_OWNDATA)
  *     return arr
  */
-  __pyx_t_1 = PyArray_SimpleNewFromData(1, (&__pyx_v_N), __pyx_v_t, __pyx_v_ptr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_1 = PyArray_SimpleNewFromData(1, (&__pyx_v_N), __pyx_v_t, __pyx_v_ptr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 264, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 261, __pyx_L1_error)
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 264, __pyx_L1_error)
   __pyx_t_2 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_2, &__Pyx_TypeInfo_nn___pyx_t_15engine_commands_DTYPE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_arr.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 261, __pyx_L1_error)
+      __PYX_ERR(0, 264, __pyx_L1_error)
     } else {__pyx_pybuffernd_arr.diminfo[0].strides = __pyx_pybuffernd_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_arr.diminfo[0].shape = __pyx_pybuffernd_arr.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -3886,7 +3856,7 @@ static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *_
   __pyx_v_arr = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "engine_commands.pyx":262
+  /* "engine_commands.pyx":265
  * cdef data_to_numpy_array_with_spec(void * ptr, np.npy_intp N, int t):
  *     cdef np.ndarray[DTYPE_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
  *     PyArray_ENABLEFLAGS(arr, np.NPY_OWNDATA)             # <<<<<<<<<<<<<<
@@ -3895,7 +3865,7 @@ static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *_
  */
   PyArray_ENABLEFLAGS(((PyArrayObject *)__pyx_v_arr), NPY_OWNDATA);
 
-  /* "engine_commands.pyx":263
+  /* "engine_commands.pyx":266
  *     cdef np.ndarray[DTYPE_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
  *     PyArray_ENABLEFLAGS(arr, np.NPY_OWNDATA)
  *     return arr             # <<<<<<<<<<<<<<
@@ -3907,7 +3877,7 @@ static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *_
   __pyx_r = ((PyObject *)__pyx_v_arr);
   goto __pyx_L0;
 
-  /* "engine_commands.pyx":260
+  /* "engine_commands.pyx":263
  * 
  * 
  * cdef data_to_numpy_array_with_spec(void * ptr, np.npy_intp N, int t):             # <<<<<<<<<<<<<<
@@ -3936,7 +3906,7 @@ static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *_
   return __pyx_r;
 }
 
-/* "engine_commands.pyx":269
+/* "engine_commands.pyx":272
  * @cython.cdivision(True)
  * @cython.boundscheck(False)
  * def primes(int up_to):             # <<<<<<<<<<<<<<
@@ -3953,7 +3923,7 @@ static PyObject *__pyx_pw_15engine_commands_1primes(PyObject *__pyx_self, PyObje
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("primes (wrapper)", 0);
   assert(__pyx_arg_up_to); {
-    __pyx_v_up_to = __Pyx_PyInt_As_int(__pyx_arg_up_to); if (unlikely((__pyx_v_up_to == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 269, __pyx_L3_error)
+    __pyx_v_up_to = __Pyx_PyInt_As_int(__pyx_arg_up_to); if (unlikely((__pyx_v_up_to == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 272, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -3978,7 +3948,7 @@ static PyObject *__pyx_pf_15engine_commands_primes(CYTHON_UNUSED PyObject *__pyx
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("primes", 0);
 
-  /* "engine_commands.pyx":270
+  /* "engine_commands.pyx":273
  * @cython.boundscheck(False)
  * def primes(int up_to):
  *     cdef DTYPE_t k = 0             # <<<<<<<<<<<<<<
@@ -3987,7 +3957,7 @@ static PyObject *__pyx_pf_15engine_commands_primes(CYTHON_UNUSED PyObject *__pyx
  */
   __pyx_v_k = 0;
 
-  /* "engine_commands.pyx":271
+  /* "engine_commands.pyx":274
  * def primes(int up_to):
  *     cdef DTYPE_t k = 0
  *     cdef DTYPE_t *p = <DTYPE_t *>malloc(up_to * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -3996,7 +3966,7 @@ static PyObject *__pyx_pf_15engine_commands_primes(CYTHON_UNUSED PyObject *__pyx
  */
   __pyx_v_p = ((__pyx_t_15engine_commands_DTYPE_t *)malloc((__pyx_v_up_to * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":273
+  /* "engine_commands.pyx":276
  *     cdef DTYPE_t *p = <DTYPE_t *>malloc(up_to * sizeof(DTYPE_t))
  * 
  *     while k < up_to:             # <<<<<<<<<<<<<<
@@ -4007,7 +3977,7 @@ static PyObject *__pyx_pf_15engine_commands_primes(CYTHON_UNUSED PyObject *__pyx
     __pyx_t_1 = ((__pyx_v_k < __pyx_v_up_to) != 0);
     if (!__pyx_t_1) break;
 
-    /* "engine_commands.pyx":274
+    /* "engine_commands.pyx":277
  * 
  *     while k < up_to:
  *         p[k] = k             # <<<<<<<<<<<<<<
@@ -4016,7 +3986,7 @@ static PyObject *__pyx_pf_15engine_commands_primes(CYTHON_UNUSED PyObject *__pyx
  */
     (__pyx_v_p[__pyx_v_k]) = __pyx_v_k;
 
-    /* "engine_commands.pyx":275
+    /* "engine_commands.pyx":278
  *     while k < up_to:
  *         p[k] = k
  *         k += 1             # <<<<<<<<<<<<<<
@@ -4026,19 +3996,19 @@ static PyObject *__pyx_pf_15engine_commands_primes(CYTHON_UNUSED PyObject *__pyx
     __pyx_v_k = (__pyx_v_k + 1);
   }
 
-  /* "engine_commands.pyx":277
+  /* "engine_commands.pyx":280
  *         k += 1
  * 
  *     arr = data_to_numpy_array_with_spec(p, up_to, np.NPY_INT8)             # <<<<<<<<<<<<<<
  *     return arr
  * 
  */
-  __pyx_t_2 = __pyx_f_15engine_commands_data_to_numpy_array_with_spec(__pyx_v_p, __pyx_v_up_to, NPY_INT8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 277, __pyx_L1_error)
+  __pyx_t_2 = __pyx_f_15engine_commands_data_to_numpy_array_with_spec(__pyx_v_p, __pyx_v_up_to, NPY_INT8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 280, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_arr = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "engine_commands.pyx":278
+  /* "engine_commands.pyx":281
  * 
  *     arr = data_to_numpy_array_with_spec(p, up_to, np.NPY_INT8)
  *     return arr             # <<<<<<<<<<<<<<
@@ -4050,7 +4020,7 @@ static PyObject *__pyx_pf_15engine_commands_primes(CYTHON_UNUSED PyObject *__pyx
   __pyx_r = __pyx_v_arr;
   goto __pyx_L0;
 
-  /* "engine_commands.pyx":269
+  /* "engine_commands.pyx":272
  * @cython.cdivision(True)
  * @cython.boundscheck(False)
  * def primes(int up_to):             # <<<<<<<<<<<<<<
@@ -4070,177 +4040,101 @@ static PyObject *__pyx_pf_15engine_commands_primes(CYTHON_UNUSED PyObject *__pyx
   return __pyx_r;
 }
 
-/* "engine_commands.pyx":281
- * 
- * 
- * cdef set_to(DTYPE_t *to_set, int size, int to):             # <<<<<<<<<<<<<<
- *     cdef i = 0
+/* "engine_commands.pyx":287
+ * @cython.boundscheck(False)
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void set_to(DTYPE_t *to_set, int size, int to):             # <<<<<<<<<<<<<<
+ *     cdef int i = 0
  *     for i in range(size):
  */
 
-static PyObject *__pyx_f_15engine_commands_set_to(__pyx_t_15engine_commands_DTYPE_t *__pyx_v_to_set, int __pyx_v_size, int __pyx_v_to) {
-  PyObject *__pyx_v_i = 0;
-  PyObject *__pyx_r = NULL;
+static void __pyx_f_15engine_commands_set_to(__pyx_t_15engine_commands_DTYPE_t *__pyx_v_to_set, int __pyx_v_size, int __pyx_v_to) {
+  int __pyx_v_i;
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  Py_ssize_t __pyx_t_3;
-  PyObject *(*__pyx_t_4)(PyObject *);
-  Py_ssize_t __pyx_t_5;
+  int __pyx_t_1;
+  int __pyx_t_2;
   __Pyx_RefNannySetupContext("set_to", 0);
 
-  /* "engine_commands.pyx":282
- * 
- * cdef set_to(DTYPE_t *to_set, int size, int to):
- *     cdef i = 0             # <<<<<<<<<<<<<<
+  /* "engine_commands.pyx":288
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void set_to(DTYPE_t *to_set, int size, int to):
+ *     cdef int i = 0             # <<<<<<<<<<<<<<
  *     for i in range(size):
  *         to_set[i] = to
  */
-  __Pyx_INCREF(__pyx_int_0);
-  __pyx_v_i = __pyx_int_0;
+  __pyx_v_i = 0;
 
-  /* "engine_commands.pyx":283
- * cdef set_to(DTYPE_t *to_set, int size, int to):
- *     cdef i = 0
+  /* "engine_commands.pyx":289
+ * cdef void set_to(DTYPE_t *to_set, int size, int to):
+ *     cdef int i = 0
  *     for i in range(size):             # <<<<<<<<<<<<<<
  *         to_set[i] = to
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
-  __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
-    __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
-    __pyx_t_4 = NULL;
-  } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L1_error)
-  }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  for (;;) {
-    if (likely(!__pyx_t_4)) {
-      if (likely(PyList_CheckExact(__pyx_t_2))) {
-        if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 283, __pyx_L1_error)
-        #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        #endif
-      } else {
-        if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 283, __pyx_L1_error)
-        #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        #endif
-      }
-    } else {
-      __pyx_t_1 = __pyx_t_4(__pyx_t_2);
-      if (unlikely(!__pyx_t_1)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 283, __pyx_L1_error)
-        }
-        break;
-      }
-      __Pyx_GOTREF(__pyx_t_1);
-    }
-    __Pyx_DECREF_SET(__pyx_v_i, __pyx_t_1);
-    __pyx_t_1 = 0;
+  __pyx_t_1 = __pyx_v_size;
+  for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
+    __pyx_v_i = __pyx_t_2;
 
-    /* "engine_commands.pyx":284
- *     cdef i = 0
+    /* "engine_commands.pyx":290
+ *     cdef int i = 0
  *     for i in range(size):
  *         to_set[i] = to             # <<<<<<<<<<<<<<
  * 
  * 
  */
-    __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_v_i); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 284, __pyx_L1_error)
-    (__pyx_v_to_set[__pyx_t_5]) = __pyx_v_to;
-
-    /* "engine_commands.pyx":283
- * cdef set_to(DTYPE_t *to_set, int size, int to):
- *     cdef i = 0
- *     for i in range(size):             # <<<<<<<<<<<<<<
- *         to_set[i] = to
- * 
- */
+    (__pyx_v_to_set[__pyx_v_i]) = __pyx_v_to;
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "engine_commands.pyx":281
- * 
- * 
- * cdef set_to(DTYPE_t *to_set, int size, int to):             # <<<<<<<<<<<<<<
- *     cdef i = 0
+  /* "engine_commands.pyx":287
+ * @cython.boundscheck(False)
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void set_to(DTYPE_t *to_set, int size, int to):             # <<<<<<<<<<<<<<
+ *     cdef int i = 0
  *     for i in range(size):
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("engine_commands.set_to", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_i);
-  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
-  return __pyx_r;
 }
 
-/* "engine_commands.pyx":287
- * 
- * 
- * cdef fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):             # <<<<<<<<<<<<<<
+/* "engine_commands.pyx":296
+ * @cython.boundscheck(False)
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):             # <<<<<<<<<<<<<<
  *     # Rivers
  *     if board_size == 10:
  */
 
-static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands_DTYPE_t *__pyx_v_board, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_visible, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_owner, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_flags, int __pyx_v_board_size) {
+static void __pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands_DTYPE_t *__pyx_v_board, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_visible, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_owner, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_flags, int __pyx_v_board_size) {
   int __pyx_v_rows;
   int __pyx_v_piece_counter;
   int __pyx_v_i;
   int __pyx_v_x;
   int __pyx_v_y;
   int __pyx_v_calc_num;
-  PyObject *__pyx_v_pos = NULL;
+  int __pyx_v_pos0;
+  int __pyx_v_pos1;
   int __pyx_v_flag0;
   int __pyx_v_flag1;
   PyObject *__pyx_v_arr = NULL;
   PyObject *__pyx_v_rand_arr = NULL;
-  PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
-  Py_ssize_t __pyx_t_5;
-  __pyx_t_15engine_commands_DTYPE_t __pyx_t_6;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_6;
   int __pyx_t_7;
   int __pyx_t_8;
   int __pyx_t_9;
   int __pyx_t_10;
   int __pyx_t_11;
-  int __pyx_t_12;
-  int __pyx_t_13;
+  __pyx_t_15engine_commands_DTYPE_t __pyx_t_12;
   __Pyx_RefNannySetupContext("fill_boards", 0);
 
-  /* "engine_commands.pyx":289
- * cdef fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):
+  /* "engine_commands.pyx":298
+ * cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):
  *     # Rivers
  *     if board_size == 10:             # <<<<<<<<<<<<<<
  *         board[2 + board_size*4] = 13
@@ -4249,7 +4143,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
   switch (__pyx_v_board_size) {
     case 10:
 
-    /* "engine_commands.pyx":290
+    /* "engine_commands.pyx":299
  *     # Rivers
  *     if board_size == 10:
  *         board[2 + board_size*4] = 13             # <<<<<<<<<<<<<<
@@ -4258,7 +4152,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     (__pyx_v_board[(2 + (__pyx_v_board_size * 4))]) = 13;
 
-    /* "engine_commands.pyx":291
+    /* "engine_commands.pyx":300
  *     if board_size == 10:
  *         board[2 + board_size*4] = 13
  *         board[2 + board_size*5] = 13             # <<<<<<<<<<<<<<
@@ -4267,7 +4161,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     (__pyx_v_board[(2 + (__pyx_v_board_size * 5))]) = 13;
 
-    /* "engine_commands.pyx":292
+    /* "engine_commands.pyx":301
  *         board[2 + board_size*4] = 13
  *         board[2 + board_size*5] = 13
  *         board[3 + board_size*4] = 13             # <<<<<<<<<<<<<<
@@ -4276,7 +4170,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     (__pyx_v_board[(3 + (__pyx_v_board_size * 4))]) = 13;
 
-    /* "engine_commands.pyx":293
+    /* "engine_commands.pyx":302
  *         board[2 + board_size*5] = 13
  *         board[3 + board_size*4] = 13
  *         board[3 + board_size*5] = 13             # <<<<<<<<<<<<<<
@@ -4285,7 +4179,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     (__pyx_v_board[(3 + (__pyx_v_board_size * 5))]) = 13;
 
-    /* "engine_commands.pyx":295
+    /* "engine_commands.pyx":304
  *         board[3 + board_size*5] = 13
  * 
  *         board[6 + board_size*4] = 13             # <<<<<<<<<<<<<<
@@ -4294,7 +4188,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     (__pyx_v_board[(6 + (__pyx_v_board_size * 4))]) = 13;
 
-    /* "engine_commands.pyx":296
+    /* "engine_commands.pyx":305
  * 
  *         board[6 + board_size*4] = 13
  *         board[6 + board_size*5] = 13             # <<<<<<<<<<<<<<
@@ -4303,7 +4197,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     (__pyx_v_board[(6 + (__pyx_v_board_size * 5))]) = 13;
 
-    /* "engine_commands.pyx":297
+    /* "engine_commands.pyx":306
  *         board[6 + board_size*4] = 13
  *         board[6 + board_size*5] = 13
  *         board[7 + board_size*4] = 13             # <<<<<<<<<<<<<<
@@ -4312,7 +4206,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     (__pyx_v_board[(7 + (__pyx_v_board_size * 4))]) = 13;
 
-    /* "engine_commands.pyx":298
+    /* "engine_commands.pyx":307
  *         board[6 + board_size*5] = 13
  *         board[7 + board_size*4] = 13
  *         board[7 + board_size*5] = 13             # <<<<<<<<<<<<<<
@@ -4321,8 +4215,8 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     (__pyx_v_board[(7 + (__pyx_v_board_size * 5))]) = 13;
 
-    /* "engine_commands.pyx":289
- * cdef fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):
+    /* "engine_commands.pyx":298
+ * cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):
  *     # Rivers
  *     if board_size == 10:             # <<<<<<<<<<<<<<
  *         board[2 + board_size*4] = 13
@@ -4330,7 +4224,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     break;
 
-    /* "engine_commands.pyx":299
+    /* "engine_commands.pyx":308
  *         board[7 + board_size*4] = 13
  *         board[7 + board_size*5] = 13
  *     elif board_size == 6:             # <<<<<<<<<<<<<<
@@ -4339,7 +4233,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     case 6:
 
-    /* "engine_commands.pyx":300
+    /* "engine_commands.pyx":309
  *         board[7 + board_size*5] = 13
  *     elif board_size == 6:
  *         board[2 + board_size*2] = 13             # <<<<<<<<<<<<<<
@@ -4348,7 +4242,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     (__pyx_v_board[(2 + (__pyx_v_board_size * 2))]) = 13;
 
-    /* "engine_commands.pyx":301
+    /* "engine_commands.pyx":310
  *     elif board_size == 6:
  *         board[2 + board_size*2] = 13
  *         board[3 + board_size*3] = 13             # <<<<<<<<<<<<<<
@@ -4357,7 +4251,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     (__pyx_v_board[(3 + (__pyx_v_board_size * 3))]) = 13;
 
-    /* "engine_commands.pyx":299
+    /* "engine_commands.pyx":308
  *         board[7 + board_size*4] = 13
  *         board[7 + board_size*5] = 13
  *     elif board_size == 6:             # <<<<<<<<<<<<<<
@@ -4368,7 +4262,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
     default: break;
   }
 
-  /* "engine_commands.pyx":303
+  /* "engine_commands.pyx":312
  *         board[3 + board_size*3] = 13
  * 
  *     cdef int rows = 0             # <<<<<<<<<<<<<<
@@ -4377,7 +4271,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
   __pyx_v_rows = 0;
 
-  /* "engine_commands.pyx":304
+  /* "engine_commands.pyx":313
  * 
  *     cdef int rows = 0
  *     cdef int piece_counter = 0             # <<<<<<<<<<<<<<
@@ -4386,194 +4280,115 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
   __pyx_v_piece_counter = 0;
 
-  /* "engine_commands.pyx":309
+  /* "engine_commands.pyx":318
  * 
  *     # places flags on backrank
- *     pos = np.random.randint(board_size, size=2)             # <<<<<<<<<<<<<<
+ *     cdef int pos0 = rand() % board_size             # <<<<<<<<<<<<<<
+ *     cdef int pos1 = rand() % board_size
  * 
- *     board[pos[0]] = 12
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 309, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_randint); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_board_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 309, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 309, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
-  __pyx_t_2 = 0;
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 309, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_size, __pyx_int_2) < 0) __PYX_ERR(0, 309, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 309, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_v_pos = __pyx_t_4;
-  __pyx_t_4 = 0;
+  __pyx_v_pos0 = (rand() % __pyx_v_board_size);
 
-  /* "engine_commands.pyx":311
- *     pos = np.random.randint(board_size, size=2)
+  /* "engine_commands.pyx":319
+ *     # places flags on backrank
+ *     cdef int pos0 = rand() % board_size
+ *     cdef int pos1 = rand() % board_size             # <<<<<<<<<<<<<<
  * 
- *     board[pos[0]] = 12             # <<<<<<<<<<<<<<
- *     visible[pos[0]] = 0
- *     owner[pos[0]] = 0
+ *     board[pos0] = 12
  */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_pos, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 311, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_4); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 311, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  (__pyx_v_board[__pyx_t_5]) = 12;
-
-  /* "engine_commands.pyx":312
- * 
- *     board[pos[0]] = 12
- *     visible[pos[0]] = 0             # <<<<<<<<<<<<<<
- *     owner[pos[0]] = 0
- * 
- */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_pos, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 312, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_4); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 312, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  (__pyx_v_visible[__pyx_t_5]) = 0;
-
-  /* "engine_commands.pyx":313
- *     board[pos[0]] = 12
- *     visible[pos[0]] = 0
- *     owner[pos[0]] = 0             # <<<<<<<<<<<<<<
- * 
- *     board[pos[1] + board_size*(board_size-1)] = 12
- */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_pos, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 313, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_4); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 313, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  (__pyx_v_owner[__pyx_t_5]) = 0;
-
-  /* "engine_commands.pyx":315
- *     owner[pos[0]] = 0
- * 
- *     board[pos[1] + board_size*(board_size-1)] = 12             # <<<<<<<<<<<<<<
- *     visible[pos[1] + board_size*(board_size-1)] = 0
- *     owner[pos[1] + board_size*(board_size-1)] = 1
- */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_pos, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 315, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_board_size * (__pyx_v_board_size - 1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 315, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Add(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 315, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 315, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  (__pyx_v_board[__pyx_t_5]) = 12;
-
-  /* "engine_commands.pyx":316
- * 
- *     board[pos[1] + board_size*(board_size-1)] = 12
- *     visible[pos[1] + board_size*(board_size-1)] = 0             # <<<<<<<<<<<<<<
- *     owner[pos[1] + board_size*(board_size-1)] = 1
- * 
- */
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_pos, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_board_size * (__pyx_v_board_size - 1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 316, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 316, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_4); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 316, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  (__pyx_v_visible[__pyx_t_5]) = 0;
-
-  /* "engine_commands.pyx":317
- *     board[pos[1] + board_size*(board_size-1)] = 12
- *     visible[pos[1] + board_size*(board_size-1)] = 0
- *     owner[pos[1] + board_size*(board_size-1)] = 1             # <<<<<<<<<<<<<<
- * 
- * 
- */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_pos, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_board_size * (__pyx_v_board_size - 1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Add(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 317, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  (__pyx_v_owner[__pyx_t_5]) = 1;
-
-  /* "engine_commands.pyx":320
- * 
- * 
- *     flags[0] = pos[0]             # <<<<<<<<<<<<<<
- *     flags[1] = pos[1] + board_size*(board_size-1)
- * 
- */
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_pos, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 320, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_6 = __Pyx_PyInt_As_npy_int8(__pyx_t_3); if (unlikely((__pyx_t_6 == ((npy_int8)-1)) && PyErr_Occurred())) __PYX_ERR(0, 320, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  (__pyx_v_flags[0]) = __pyx_t_6;
+  __pyx_v_pos1 = (rand() % __pyx_v_board_size);
 
   /* "engine_commands.pyx":321
+ *     cdef int pos1 = rand() % board_size
  * 
- *     flags[0] = pos[0]
- *     flags[1] = pos[1] + board_size*(board_size-1)             # <<<<<<<<<<<<<<
- * 
- *     cdef int flag0 = pos[0]
+ *     board[pos0] = 12             # <<<<<<<<<<<<<<
+ *     visible[pos0] = 0
+ *     owner[pos0] = 0
  */
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_pos, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 321, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_board_size * (__pyx_v_board_size - 1))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 321, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_6 = __Pyx_PyInt_As_npy_int8(__pyx_t_4); if (unlikely((__pyx_t_6 == ((npy_int8)-1)) && PyErr_Occurred())) __PYX_ERR(0, 321, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  (__pyx_v_flags[1]) = __pyx_t_6;
+  (__pyx_v_board[__pyx_v_pos0]) = 12;
+
+  /* "engine_commands.pyx":322
+ * 
+ *     board[pos0] = 12
+ *     visible[pos0] = 0             # <<<<<<<<<<<<<<
+ *     owner[pos0] = 0
+ * 
+ */
+  (__pyx_v_visible[__pyx_v_pos0]) = 0;
 
   /* "engine_commands.pyx":323
- *     flags[1] = pos[1] + board_size*(board_size-1)
+ *     board[pos0] = 12
+ *     visible[pos0] = 0
+ *     owner[pos0] = 0             # <<<<<<<<<<<<<<
  * 
- *     cdef int flag0 = pos[0]             # <<<<<<<<<<<<<<
- *     cdef int flag1 = pos[1]
- * 
+ *     board[pos1 + board_size*(board_size-1)] = 12
  */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_pos, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 323, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 323, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_v_flag0 = __pyx_t_7;
+  (__pyx_v_owner[__pyx_v_pos0]) = 0;
 
-  /* "engine_commands.pyx":324
+  /* "engine_commands.pyx":325
+ *     owner[pos0] = 0
  * 
- *     cdef int flag0 = pos[0]
- *     cdef int flag1 = pos[1]             # <<<<<<<<<<<<<<
+ *     board[pos1 + board_size*(board_size-1)] = 12             # <<<<<<<<<<<<<<
+ *     visible[pos1 + board_size*(board_size-1)] = 0
+ *     owner[pos1 + board_size*(board_size-1)] = 1
+ */
+  (__pyx_v_board[(__pyx_v_pos1 + (__pyx_v_board_size * (__pyx_v_board_size - 1)))]) = 12;
+
+  /* "engine_commands.pyx":326
  * 
+ *     board[pos1 + board_size*(board_size-1)] = 12
+ *     visible[pos1 + board_size*(board_size-1)] = 0             # <<<<<<<<<<<<<<
+ *     owner[pos1 + board_size*(board_size-1)] = 1
  * 
  */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_pos, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 324, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 324, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_v_flag1 = __pyx_t_7;
+  (__pyx_v_visible[(__pyx_v_pos1 + (__pyx_v_board_size * (__pyx_v_board_size - 1)))]) = 0;
 
   /* "engine_commands.pyx":327
+ *     board[pos1 + board_size*(board_size-1)] = 12
+ *     visible[pos1 + board_size*(board_size-1)] = 0
+ *     owner[pos1 + board_size*(board_size-1)] = 1             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  (__pyx_v_owner[(__pyx_v_pos1 + (__pyx_v_board_size * (__pyx_v_board_size - 1)))]) = 1;
+
+  /* "engine_commands.pyx":330
+ * 
+ * 
+ *     flags[0] = pos0             # <<<<<<<<<<<<<<
+ *     flags[1] = pos1 + board_size*(board_size-1)
+ * 
+ */
+  (__pyx_v_flags[0]) = __pyx_v_pos0;
+
+  /* "engine_commands.pyx":331
+ * 
+ *     flags[0] = pos0
+ *     flags[1] = pos1 + board_size*(board_size-1)             # <<<<<<<<<<<<<<
+ * 
+ *     cdef int flag0 = pos0
+ */
+  (__pyx_v_flags[1]) = (__pyx_v_pos1 + (__pyx_v_board_size * (__pyx_v_board_size - 1)));
+
+  /* "engine_commands.pyx":333
+ *     flags[1] = pos1 + board_size*(board_size-1)
+ * 
+ *     cdef int flag0 = pos0             # <<<<<<<<<<<<<<
+ *     cdef int flag1 = pos1
+ * 
+ */
+  __pyx_v_flag0 = __pyx_v_pos0;
+
+  /* "engine_commands.pyx":334
+ * 
+ *     cdef int flag0 = pos0
+ *     cdef int flag1 = pos1             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_v_flag1 = __pyx_v_pos1;
+
+  /* "engine_commands.pyx":337
  * 
  * 
  *     i = 0             # <<<<<<<<<<<<<<
@@ -4582,17 +4397,17 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
   __pyx_v_i = 0;
 
-  /* "engine_commands.pyx":328
+  /* "engine_commands.pyx":338
  * 
  *     i = 0
  *     for i in range(0, 2):             # <<<<<<<<<<<<<<
  *         # All piece but flag
  * 
  */
-  for (__pyx_t_7 = 0; __pyx_t_7 < 2; __pyx_t_7+=1) {
-    __pyx_v_i = __pyx_t_7;
+  for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
+    __pyx_v_i = __pyx_t_1;
 
-    /* "engine_commands.pyx":331
+    /* "engine_commands.pyx":341
  *         # All piece but flag
  * 
  *         if board_size == 10:             # <<<<<<<<<<<<<<
@@ -4602,7 +4417,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
     switch (__pyx_v_board_size) {
       case 10:
 
-      /* "engine_commands.pyx":332
+      /* "engine_commands.pyx":342
  * 
  *         if board_size == 10:
  *             rows = 4             # <<<<<<<<<<<<<<
@@ -4611,396 +4426,396 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
       __pyx_v_rows = 4;
 
-      /* "engine_commands.pyx":333
+      /* "engine_commands.pyx":343
  *         if board_size == 10:
  *             rows = 4
  *             arr = np.empty([(rows * board_size) - 1], dtype=DTYPE)             # <<<<<<<<<<<<<<
  *             arr[0] = 11
  *             arr[1] = 10
  */
-      __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 333, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 333, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 343, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyInt_From_long(((__pyx_v_rows * __pyx_v_board_size) - 1)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 333, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 333, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 343, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_PyInt_From_long(((__pyx_v_rows * __pyx_v_board_size) - 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 343, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_4 = PyList_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 343, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_2);
+      PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
+      __pyx_t_2 = 0;
+      __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 343, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GIVEREF(__pyx_t_4);
-      PyList_SET_ITEM(__pyx_t_3, 0, __pyx_t_4);
+      PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 333, __pyx_L1_error)
+      __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 343, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_GIVEREF(__pyx_t_3);
-      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
-      __pyx_t_3 = 0;
-      __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 333, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 333, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_1) < 0) __PYX_ERR(0, 333, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 333, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 343, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 343, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 343, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_XDECREF_SET(__pyx_v_arr, __pyx_t_1);
-      __pyx_t_1 = 0;
+      __Pyx_XDECREF_SET(__pyx_v_arr, __pyx_t_5);
+      __pyx_t_5 = 0;
 
-      /* "engine_commands.pyx":334
+      /* "engine_commands.pyx":344
  *             rows = 4
  *             arr = np.empty([(rows * board_size) - 1], dtype=DTYPE)
  *             arr[0] = 11             # <<<<<<<<<<<<<<
  *             arr[1] = 10
  *             arr[2] = 10
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 0, __pyx_int_11, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 334, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 0, __pyx_int_11, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 344, __pyx_L1_error)
 
-      /* "engine_commands.pyx":335
+      /* "engine_commands.pyx":345
  *             arr = np.empty([(rows * board_size) - 1], dtype=DTYPE)
  *             arr[0] = 11
  *             arr[1] = 10             # <<<<<<<<<<<<<<
  *             arr[2] = 10
  *             arr[3] = 10
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 1, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 335, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 1, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 345, __pyx_L1_error)
 
-      /* "engine_commands.pyx":336
+      /* "engine_commands.pyx":346
  *             arr[0] = 11
  *             arr[1] = 10
  *             arr[2] = 10             # <<<<<<<<<<<<<<
  *             arr[3] = 10
  *             arr[4] = 10
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 2, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 336, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 2, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 346, __pyx_L1_error)
 
-      /* "engine_commands.pyx":337
+      /* "engine_commands.pyx":347
  *             arr[1] = 10
  *             arr[2] = 10
  *             arr[3] = 10             # <<<<<<<<<<<<<<
  *             arr[4] = 10
  *             arr[5] = 10
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 3, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 337, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 3, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 347, __pyx_L1_error)
 
-      /* "engine_commands.pyx":338
+      /* "engine_commands.pyx":348
  *             arr[2] = 10
  *             arr[3] = 10
  *             arr[4] = 10             # <<<<<<<<<<<<<<
  *             arr[5] = 10
  *             arr[6] = 10
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 4, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 338, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 4, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 348, __pyx_L1_error)
 
-      /* "engine_commands.pyx":339
+      /* "engine_commands.pyx":349
  *             arr[3] = 10
  *             arr[4] = 10
  *             arr[5] = 10             # <<<<<<<<<<<<<<
  *             arr[6] = 10
  *             arr[7] = 9
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 5, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 339, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 5, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 349, __pyx_L1_error)
 
-      /* "engine_commands.pyx":340
+      /* "engine_commands.pyx":350
  *             arr[4] = 10
  *             arr[5] = 10
  *             arr[6] = 10             # <<<<<<<<<<<<<<
  *             arr[7] = 9
  *             arr[8] = 9
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 6, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 340, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 6, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 350, __pyx_L1_error)
 
-      /* "engine_commands.pyx":341
+      /* "engine_commands.pyx":351
  *             arr[5] = 10
  *             arr[6] = 10
  *             arr[7] = 9             # <<<<<<<<<<<<<<
  *             arr[8] = 9
  *             arr[9] = 9
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 7, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 341, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 7, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 351, __pyx_L1_error)
 
-      /* "engine_commands.pyx":342
+      /* "engine_commands.pyx":352
  *             arr[6] = 10
  *             arr[7] = 9
  *             arr[8] = 9             # <<<<<<<<<<<<<<
  *             arr[9] = 9
  *             arr[10] = 9
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 8, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 342, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 8, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 352, __pyx_L1_error)
 
-      /* "engine_commands.pyx":343
+      /* "engine_commands.pyx":353
  *             arr[7] = 9
  *             arr[8] = 9
  *             arr[9] = 9             # <<<<<<<<<<<<<<
  *             arr[10] = 9
  *             arr[11] = 9
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 9, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 343, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 9, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 353, __pyx_L1_error)
 
-      /* "engine_commands.pyx":344
+      /* "engine_commands.pyx":354
  *             arr[8] = 9
  *             arr[9] = 9
  *             arr[10] = 9             # <<<<<<<<<<<<<<
  *             arr[11] = 9
  *             arr[12] = 9
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 10, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 344, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 10, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 354, __pyx_L1_error)
 
-      /* "engine_commands.pyx":345
+      /* "engine_commands.pyx":355
  *             arr[9] = 9
  *             arr[10] = 9
  *             arr[11] = 9             # <<<<<<<<<<<<<<
  *             arr[12] = 9
  *             arr[13] = 9
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 11, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 345, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 11, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 355, __pyx_L1_error)
 
-      /* "engine_commands.pyx":346
+      /* "engine_commands.pyx":356
  *             arr[10] = 9
  *             arr[11] = 9
  *             arr[12] = 9             # <<<<<<<<<<<<<<
  *             arr[13] = 9
  *             arr[14] = 9
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 12, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 346, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 12, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 356, __pyx_L1_error)
 
-      /* "engine_commands.pyx":347
+      /* "engine_commands.pyx":357
  *             arr[11] = 9
  *             arr[12] = 9
  *             arr[13] = 9             # <<<<<<<<<<<<<<
  *             arr[14] = 9
  *             arr[15] = 8
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 13, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 347, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 13, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 357, __pyx_L1_error)
 
-      /* "engine_commands.pyx":348
+      /* "engine_commands.pyx":358
  *             arr[12] = 9
  *             arr[13] = 9
  *             arr[14] = 9             # <<<<<<<<<<<<<<
  *             arr[15] = 8
  *             arr[16] = 8
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 14, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 348, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 14, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 358, __pyx_L1_error)
 
-      /* "engine_commands.pyx":349
+      /* "engine_commands.pyx":359
  *             arr[13] = 9
  *             arr[14] = 9
  *             arr[15] = 8             # <<<<<<<<<<<<<<
  *             arr[16] = 8
  *             arr[17] = 8
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 15, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 349, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 15, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 359, __pyx_L1_error)
 
-      /* "engine_commands.pyx":350
+      /* "engine_commands.pyx":360
  *             arr[14] = 9
  *             arr[15] = 8
  *             arr[16] = 8             # <<<<<<<<<<<<<<
  *             arr[17] = 8
  *             arr[18] = 8
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 16, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 350, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 16, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 360, __pyx_L1_error)
 
-      /* "engine_commands.pyx":351
+      /* "engine_commands.pyx":361
  *             arr[15] = 8
  *             arr[16] = 8
  *             arr[17] = 8             # <<<<<<<<<<<<<<
  *             arr[18] = 8
  *             arr[19] = 8
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 17, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 351, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 17, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 361, __pyx_L1_error)
 
-      /* "engine_commands.pyx":352
+      /* "engine_commands.pyx":362
  *             arr[16] = 8
  *             arr[17] = 8
  *             arr[18] = 8             # <<<<<<<<<<<<<<
  *             arr[19] = 8
  *             arr[20] = 7
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 18, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 352, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 18, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 362, __pyx_L1_error)
 
-      /* "engine_commands.pyx":353
+      /* "engine_commands.pyx":363
  *             arr[17] = 8
  *             arr[18] = 8
  *             arr[19] = 8             # <<<<<<<<<<<<<<
  *             arr[20] = 7
  *             arr[21] = 7
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 19, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 353, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 19, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 363, __pyx_L1_error)
 
-      /* "engine_commands.pyx":354
+      /* "engine_commands.pyx":364
  *             arr[18] = 8
  *             arr[19] = 8
  *             arr[20] = 7             # <<<<<<<<<<<<<<
  *             arr[21] = 7
  *             arr[22] = 7
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 20, __pyx_int_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 354, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 20, __pyx_int_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 364, __pyx_L1_error)
 
-      /* "engine_commands.pyx":355
+      /* "engine_commands.pyx":365
  *             arr[19] = 8
  *             arr[20] = 7
  *             arr[21] = 7             # <<<<<<<<<<<<<<
  *             arr[22] = 7
  *             arr[23] = 7
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 21, __pyx_int_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 355, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 21, __pyx_int_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 365, __pyx_L1_error)
 
-      /* "engine_commands.pyx":356
+      /* "engine_commands.pyx":366
  *             arr[20] = 7
  *             arr[21] = 7
  *             arr[22] = 7             # <<<<<<<<<<<<<<
  *             arr[23] = 7
  *             arr[24] = 6
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 22, __pyx_int_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 356, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 22, __pyx_int_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 366, __pyx_L1_error)
 
-      /* "engine_commands.pyx":357
+      /* "engine_commands.pyx":367
  *             arr[21] = 7
  *             arr[22] = 7
  *             arr[23] = 7             # <<<<<<<<<<<<<<
  *             arr[24] = 6
  *             arr[25] = 6
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 23, __pyx_int_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 357, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 23, __pyx_int_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 367, __pyx_L1_error)
 
-      /* "engine_commands.pyx":358
+      /* "engine_commands.pyx":368
  *             arr[22] = 7
  *             arr[23] = 7
  *             arr[24] = 6             # <<<<<<<<<<<<<<
  *             arr[25] = 6
  *             arr[26] = 6
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 24, __pyx_int_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 358, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 24, __pyx_int_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 368, __pyx_L1_error)
 
-      /* "engine_commands.pyx":359
+      /* "engine_commands.pyx":369
  *             arr[23] = 7
  *             arr[24] = 6
  *             arr[25] = 6             # <<<<<<<<<<<<<<
  *             arr[26] = 6
  *             arr[27] = 6
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 25, __pyx_int_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 359, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 25, __pyx_int_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 369, __pyx_L1_error)
 
-      /* "engine_commands.pyx":360
+      /* "engine_commands.pyx":370
  *             arr[24] = 6
  *             arr[25] = 6
  *             arr[26] = 6             # <<<<<<<<<<<<<<
  *             arr[27] = 6
  *             arr[28] = 5
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 26, __pyx_int_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 360, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 26, __pyx_int_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 370, __pyx_L1_error)
 
-      /* "engine_commands.pyx":361
+      /* "engine_commands.pyx":371
  *             arr[25] = 6
  *             arr[26] = 6
  *             arr[27] = 6             # <<<<<<<<<<<<<<
  *             arr[28] = 5
  *             arr[29] = 5
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 27, __pyx_int_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 361, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 27, __pyx_int_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 371, __pyx_L1_error)
 
-      /* "engine_commands.pyx":362
+      /* "engine_commands.pyx":372
  *             arr[26] = 6
  *             arr[27] = 6
  *             arr[28] = 5             # <<<<<<<<<<<<<<
  *             arr[29] = 5
  *             arr[30] = 5
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 28, __pyx_int_5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 362, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 28, __pyx_int_5, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 372, __pyx_L1_error)
 
-      /* "engine_commands.pyx":363
+      /* "engine_commands.pyx":373
  *             arr[27] = 6
  *             arr[28] = 5
  *             arr[29] = 5             # <<<<<<<<<<<<<<
  *             arr[30] = 5
  *             arr[31] = 5
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 29, __pyx_int_5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 363, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 29, __pyx_int_5, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 373, __pyx_L1_error)
 
-      /* "engine_commands.pyx":364
+      /* "engine_commands.pyx":374
  *             arr[28] = 5
  *             arr[29] = 5
  *             arr[30] = 5             # <<<<<<<<<<<<<<
  *             arr[31] = 5
  *             arr[32] = 4
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 30, __pyx_int_5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 364, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 30, __pyx_int_5, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 374, __pyx_L1_error)
 
-      /* "engine_commands.pyx":365
+      /* "engine_commands.pyx":375
  *             arr[29] = 5
  *             arr[30] = 5
  *             arr[31] = 5             # <<<<<<<<<<<<<<
  *             arr[32] = 4
  *             arr[33] = 4
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 31, __pyx_int_5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 365, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 31, __pyx_int_5, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 375, __pyx_L1_error)
 
-      /* "engine_commands.pyx":366
+      /* "engine_commands.pyx":376
  *             arr[30] = 5
  *             arr[31] = 5
  *             arr[32] = 4             # <<<<<<<<<<<<<<
  *             arr[33] = 4
  *             arr[34] = 4
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 32, __pyx_int_4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 366, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 32, __pyx_int_4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 376, __pyx_L1_error)
 
-      /* "engine_commands.pyx":367
+      /* "engine_commands.pyx":377
  *             arr[31] = 5
  *             arr[32] = 4
  *             arr[33] = 4             # <<<<<<<<<<<<<<
  *             arr[34] = 4
  *             arr[35] = 3
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 33, __pyx_int_4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 367, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 33, __pyx_int_4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 377, __pyx_L1_error)
 
-      /* "engine_commands.pyx":368
+      /* "engine_commands.pyx":378
  *             arr[32] = 4
  *             arr[33] = 4
  *             arr[34] = 4             # <<<<<<<<<<<<<<
  *             arr[35] = 3
  *             arr[36] = 3
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 34, __pyx_int_4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 368, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 34, __pyx_int_4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 378, __pyx_L1_error)
 
-      /* "engine_commands.pyx":369
+      /* "engine_commands.pyx":379
  *             arr[33] = 4
  *             arr[34] = 4
  *             arr[35] = 3             # <<<<<<<<<<<<<<
  *             arr[36] = 3
  *             arr[37] = 2
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 35, __pyx_int_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 369, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 35, __pyx_int_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 379, __pyx_L1_error)
 
-      /* "engine_commands.pyx":370
+      /* "engine_commands.pyx":380
  *             arr[34] = 4
  *             arr[35] = 3
  *             arr[36] = 3             # <<<<<<<<<<<<<<
  *             arr[37] = 2
  *             arr[38] = 1
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 36, __pyx_int_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 370, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 36, __pyx_int_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 380, __pyx_L1_error)
 
-      /* "engine_commands.pyx":371
+      /* "engine_commands.pyx":381
  *             arr[35] = 3
  *             arr[36] = 3
  *             arr[37] = 2             # <<<<<<<<<<<<<<
  *             arr[38] = 1
  *             # starting_pieces = [[[11, 'Spy Y', 1], [10, 'Bomb B', 6], [9, 'Scout S', 8], [8, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 37, __pyx_int_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 371, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 37, __pyx_int_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 381, __pyx_L1_error)
 
-      /* "engine_commands.pyx":372
+      /* "engine_commands.pyx":382
  *             arr[36] = 3
  *             arr[37] = 2
  *             arr[38] = 1             # <<<<<<<<<<<<<<
  *             # starting_pieces = [[[11, 'Spy Y', 1], [10, 'Bomb B', 6], [9, 'Scout S', 8], [8, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
  *         elif board_size == 6:
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 38, __pyx_int_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 372, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 38, __pyx_int_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 382, __pyx_L1_error)
 
-      /* "engine_commands.pyx":331
+      /* "engine_commands.pyx":341
  *         # All piece but flag
  * 
  *         if board_size == 10:             # <<<<<<<<<<<<<<
@@ -5009,7 +4824,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
       break;
 
-      /* "engine_commands.pyx":374
+      /* "engine_commands.pyx":384
  *             arr[38] = 1
  *             # starting_pieces = [[[11, 'Spy Y', 1], [10, 'Bomb B', 6], [9, 'Scout S', 8], [8, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
  *         elif board_size == 6:             # <<<<<<<<<<<<<<
@@ -5018,7 +4833,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
       case 6:
 
-      /* "engine_commands.pyx":375
+      /* "engine_commands.pyx":385
  *             # starting_pieces = [[[11, 'Spy Y', 1], [10, 'Bomb B', 6], [9, 'Scout S', 8], [8, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
  *         elif board_size == 6:
  *             rows = 2             # <<<<<<<<<<<<<<
@@ -5027,144 +4842,144 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
       __pyx_v_rows = 2;
 
-      /* "engine_commands.pyx":376
+      /* "engine_commands.pyx":386
  *         elif board_size == 6:
  *             rows = 2
  *             arr = np.empty([(rows * board_size) - 1], dtype=DTYPE)             # <<<<<<<<<<<<<<
  *             arr[0] = 11
  *             arr[1] = 10
  */
-      __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 376, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 376, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyInt_From_long(((__pyx_v_rows * __pyx_v_board_size) - 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 376, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_4 = PyList_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 376, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 386, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 386, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_GIVEREF(__pyx_t_1);
-      PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_1);
-      __pyx_t_1 = 0;
-      __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 376, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_GIVEREF(__pyx_t_4);
-      PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_4);
-      __pyx_t_4 = 0;
-      __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 376, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 376, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyInt_From_long(((__pyx_v_rows * __pyx_v_board_size) - 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 386, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 386, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_2) < 0) __PYX_ERR(0, 376, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 376, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_XDECREF_SET(__pyx_v_arr, __pyx_t_2);
+      __Pyx_GIVEREF(__pyx_t_5);
+      PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_5);
+      __pyx_t_5 = 0;
+      __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 386, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_GIVEREF(__pyx_t_2);
+      PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2);
       __pyx_t_2 = 0;
+      __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 386, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 386, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 386, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 386, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_XDECREF_SET(__pyx_v_arr, __pyx_t_3);
+      __pyx_t_3 = 0;
 
-      /* "engine_commands.pyx":377
+      /* "engine_commands.pyx":387
  *             rows = 2
  *             arr = np.empty([(rows * board_size) - 1], dtype=DTYPE)
  *             arr[0] = 11             # <<<<<<<<<<<<<<
  *             arr[1] = 10
  *             arr[2] = 9
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 0, __pyx_int_11, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 377, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 0, __pyx_int_11, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 387, __pyx_L1_error)
 
-      /* "engine_commands.pyx":378
+      /* "engine_commands.pyx":388
  *             arr = np.empty([(rows * board_size) - 1], dtype=DTYPE)
  *             arr[0] = 11
  *             arr[1] = 10             # <<<<<<<<<<<<<<
  *             arr[2] = 9
  *             arr[3] = 8
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 1, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 378, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 1, __pyx_int_10, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 388, __pyx_L1_error)
 
-      /* "engine_commands.pyx":379
+      /* "engine_commands.pyx":389
  *             arr[0] = 11
  *             arr[1] = 10
  *             arr[2] = 9             # <<<<<<<<<<<<<<
  *             arr[3] = 8
  *             arr[4] = 7
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 2, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 379, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 2, __pyx_int_9, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 389, __pyx_L1_error)
 
-      /* "engine_commands.pyx":380
+      /* "engine_commands.pyx":390
  *             arr[1] = 10
  *             arr[2] = 9
  *             arr[3] = 8             # <<<<<<<<<<<<<<
  *             arr[4] = 7
  *             arr[5] = 6
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 3, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 380, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 3, __pyx_int_8, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 390, __pyx_L1_error)
 
-      /* "engine_commands.pyx":381
+      /* "engine_commands.pyx":391
  *             arr[2] = 9
  *             arr[3] = 8
  *             arr[4] = 7             # <<<<<<<<<<<<<<
  *             arr[5] = 6
  *             arr[6] = 5
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 4, __pyx_int_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 381, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 4, __pyx_int_7, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 391, __pyx_L1_error)
 
-      /* "engine_commands.pyx":382
+      /* "engine_commands.pyx":392
  *             arr[3] = 8
  *             arr[4] = 7
  *             arr[5] = 6             # <<<<<<<<<<<<<<
  *             arr[6] = 5
  *             arr[7] = 4
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 5, __pyx_int_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 382, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 5, __pyx_int_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 392, __pyx_L1_error)
 
-      /* "engine_commands.pyx":383
+      /* "engine_commands.pyx":393
  *             arr[4] = 7
  *             arr[5] = 6
  *             arr[6] = 5             # <<<<<<<<<<<<<<
  *             arr[7] = 4
  *             arr[8] = 3
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 6, __pyx_int_5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 383, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 6, __pyx_int_5, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 393, __pyx_L1_error)
 
-      /* "engine_commands.pyx":384
+      /* "engine_commands.pyx":394
  *             arr[5] = 6
  *             arr[6] = 5
  *             arr[7] = 4             # <<<<<<<<<<<<<<
  *             arr[8] = 3
  *             arr[9] = 2
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 7, __pyx_int_4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 384, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 7, __pyx_int_4, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 394, __pyx_L1_error)
 
-      /* "engine_commands.pyx":385
+      /* "engine_commands.pyx":395
  *             arr[6] = 5
  *             arr[7] = 4
  *             arr[8] = 3             # <<<<<<<<<<<<<<
  *             arr[9] = 2
  *             arr[10] = 1
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 8, __pyx_int_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 385, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 8, __pyx_int_3, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 395, __pyx_L1_error)
 
-      /* "engine_commands.pyx":386
+      /* "engine_commands.pyx":396
  *             arr[7] = 4
  *             arr[8] = 3
  *             arr[9] = 2             # <<<<<<<<<<<<<<
  *             arr[10] = 1
  *             # starting_pieces = [[11, 'Spy Y', 1], [10, 'Bomb B', 1], [9, 'Scout S', 1], [8, 'Miner R', 1], [7, 'Sergeant T', 1], [6, 'Lieutenent L', 1], [5, 'Captain C', 1], [4, 'Major J', 1], [3, 'Colonel O', 1], [2, 'General G', 1], [1, 'Marshall M', 1]]
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 9, __pyx_int_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 386, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 9, __pyx_int_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 396, __pyx_L1_error)
 
-      /* "engine_commands.pyx":387
+      /* "engine_commands.pyx":397
  *             arr[8] = 3
  *             arr[9] = 2
  *             arr[10] = 1             # <<<<<<<<<<<<<<
  *             # starting_pieces = [[11, 'Spy Y', 1], [10, 'Bomb B', 1], [9, 'Scout S', 1], [8, 'Miner R', 1], [7, 'Sergeant T', 1], [6, 'Lieutenent L', 1], [5, 'Captain C', 1], [4, 'Major J', 1], [3, 'Colonel O', 1], [2, 'General G', 1], [1, 'Marshall M', 1]]
  * 
  */
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 10, __pyx_int_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 387, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_arr, 10, __pyx_int_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 397, __pyx_L1_error)
 
-      /* "engine_commands.pyx":374
+      /* "engine_commands.pyx":384
  *             arr[38] = 1
  *             # starting_pieces = [[[11, 'Spy Y', 1], [10, 'Bomb B', 6], [9, 'Scout S', 8], [8, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
  *         elif board_size == 6:             # <<<<<<<<<<<<<<
@@ -5175,7 +4990,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
       default: break;
     }
 
-    /* "engine_commands.pyx":390
+    /* "engine_commands.pyx":400
  *             # starting_pieces = [[11, 'Spy Y', 1], [10, 'Bomb B', 1], [9, 'Scout S', 1], [8, 'Miner R', 1], [7, 'Sergeant T', 1], [6, 'Lieutenent L', 1], [5, 'Captain C', 1], [4, 'Major J', 1], [3, 'Colonel O', 1], [2, 'General G', 1], [1, 'Marshall M', 1]]
  * 
  *         x = 0             # <<<<<<<<<<<<<<
@@ -5184,7 +4999,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     __pyx_v_x = 0;
 
-    /* "engine_commands.pyx":391
+    /* "engine_commands.pyx":401
  * 
  *         x = 0
  *         y = 0             # <<<<<<<<<<<<<<
@@ -5193,69 +5008,69 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     __pyx_v_y = 0;
 
-    /* "engine_commands.pyx":394
+    /* "engine_commands.pyx":404
  * 
  * 
  *         rand_arr = np.random.permutation(arr)             # <<<<<<<<<<<<<<
  *         piece_counter = 0
  * 
  */
-    __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 394, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_random); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 394, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_permutation); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 394, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_v_arr)) { __Pyx_RaiseUnboundLocalError("arr"); __PYX_ERR(0, 394, __pyx_L1_error) }
-    __pyx_t_1 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_1)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_1);
+    __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 404, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 404, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_permutation); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 404, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (unlikely(!__pyx_v_arr)) { __Pyx_RaiseUnboundLocalError("arr"); __PYX_ERR(0, 404, __pyx_L1_error) }
+    __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_5);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
+        __Pyx_DECREF_SET(__pyx_t_2, function);
       }
     }
-    if (!__pyx_t_1) {
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_arr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 394, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
+    if (!__pyx_t_5) {
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_arr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 404, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
     } else {
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_4)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_v_arr};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 394, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_GOTREF(__pyx_t_2);
+      if (PyFunction_Check(__pyx_t_2)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_v_arr};
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 404, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_GOTREF(__pyx_t_3);
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-        PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_v_arr};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 394, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_GOTREF(__pyx_t_2);
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+        PyObject *__pyx_temp[2] = {__pyx_t_5, __pyx_v_arr};
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 404, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_GOTREF(__pyx_t_3);
       } else
       #endif
       {
-        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 394, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
+        __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 404, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5); __pyx_t_5 = NULL;
         __Pyx_INCREF(__pyx_v_arr);
         __Pyx_GIVEREF(__pyx_v_arr);
-        PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_v_arr);
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 394, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_v_arr);
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 404, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
     }
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_rand_arr, __pyx_t_2);
-    __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_rand_arr, __pyx_t_3);
+    __pyx_t_3 = 0;
 
-    /* "engine_commands.pyx":395
+    /* "engine_commands.pyx":405
  * 
  *         rand_arr = np.random.permutation(arr)
  *         piece_counter = 0             # <<<<<<<<<<<<<<
@@ -5264,29 +5079,29 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
     __pyx_v_piece_counter = 0;
 
-    /* "engine_commands.pyx":397
+    /* "engine_commands.pyx":407
  *         piece_counter = 0
  * 
  *         for x in range(0, board_size):             # <<<<<<<<<<<<<<
  *             for y in range(0 + i*(board_size-rows), rows + i*(board_size-rows)):
  *                 calc_num = x + y*board_size
  */
-    __pyx_t_8 = __pyx_v_board_size;
-    for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
-      __pyx_v_x = __pyx_t_9;
+    __pyx_t_6 = __pyx_v_board_size;
+    for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
+      __pyx_v_x = __pyx_t_7;
 
-      /* "engine_commands.pyx":398
+      /* "engine_commands.pyx":408
  * 
  *         for x in range(0, board_size):
  *             for y in range(0 + i*(board_size-rows), rows + i*(board_size-rows)):             # <<<<<<<<<<<<<<
  *                 calc_num = x + y*board_size
  * 
  */
-      __pyx_t_10 = (__pyx_v_rows + (__pyx_v_i * (__pyx_v_board_size - __pyx_v_rows)));
-      for (__pyx_t_11 = (0 + (__pyx_v_i * (__pyx_v_board_size - __pyx_v_rows))); __pyx_t_11 < __pyx_t_10; __pyx_t_11+=1) {
-        __pyx_v_y = __pyx_t_11;
+      __pyx_t_8 = (__pyx_v_rows + (__pyx_v_i * (__pyx_v_board_size - __pyx_v_rows)));
+      for (__pyx_t_9 = (0 + (__pyx_v_i * (__pyx_v_board_size - __pyx_v_rows))); __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
+        __pyx_v_y = __pyx_t_9;
 
-        /* "engine_commands.pyx":399
+        /* "engine_commands.pyx":409
  *         for x in range(0, board_size):
  *             for y in range(0 + i*(board_size-rows), rows + i*(board_size-rows)):
  *                 calc_num = x + y*board_size             # <<<<<<<<<<<<<<
@@ -5295,37 +5110,37 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
         __pyx_v_calc_num = (__pyx_v_x + (__pyx_v_y * __pyx_v_board_size));
 
-        /* "engine_commands.pyx":401
+        /* "engine_commands.pyx":411
  *                 calc_num = x + y*board_size
  * 
  *                 if (x == flag0 and y == 0) or (x == flag1 and y == board_size-1):             # <<<<<<<<<<<<<<
  *                     continue
  *                 board[calc_num] = rand_arr[piece_counter]
  */
-        __pyx_t_13 = ((__pyx_v_x == __pyx_v_flag0) != 0);
-        if (!__pyx_t_13) {
+        __pyx_t_11 = ((__pyx_v_x == __pyx_v_flag0) != 0);
+        if (!__pyx_t_11) {
           goto __pyx_L11_next_or;
         } else {
         }
-        __pyx_t_13 = ((__pyx_v_y == 0) != 0);
-        if (!__pyx_t_13) {
+        __pyx_t_11 = ((__pyx_v_y == 0) != 0);
+        if (!__pyx_t_11) {
         } else {
-          __pyx_t_12 = __pyx_t_13;
+          __pyx_t_10 = __pyx_t_11;
           goto __pyx_L10_bool_binop_done;
         }
         __pyx_L11_next_or:;
-        __pyx_t_13 = ((__pyx_v_x == __pyx_v_flag1) != 0);
-        if (__pyx_t_13) {
+        __pyx_t_11 = ((__pyx_v_x == __pyx_v_flag1) != 0);
+        if (__pyx_t_11) {
         } else {
-          __pyx_t_12 = __pyx_t_13;
+          __pyx_t_10 = __pyx_t_11;
           goto __pyx_L10_bool_binop_done;
         }
-        __pyx_t_13 = ((__pyx_v_y == (__pyx_v_board_size - 1)) != 0);
-        __pyx_t_12 = __pyx_t_13;
+        __pyx_t_11 = ((__pyx_v_y == (__pyx_v_board_size - 1)) != 0);
+        __pyx_t_10 = __pyx_t_11;
         __pyx_L10_bool_binop_done:;
-        if (__pyx_t_12) {
+        if (__pyx_t_10) {
 
-          /* "engine_commands.pyx":402
+          /* "engine_commands.pyx":412
  * 
  *                 if (x == flag0 and y == 0) or (x == flag1 and y == board_size-1):
  *                     continue             # <<<<<<<<<<<<<<
@@ -5334,7 +5149,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
           goto __pyx_L7_continue;
 
-          /* "engine_commands.pyx":401
+          /* "engine_commands.pyx":411
  *                 calc_num = x + y*board_size
  * 
  *                 if (x == flag0 and y == 0) or (x == flag1 and y == board_size-1):             # <<<<<<<<<<<<<<
@@ -5343,20 +5158,20 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
         }
 
-        /* "engine_commands.pyx":403
+        /* "engine_commands.pyx":413
  *                 if (x == flag0 and y == 0) or (x == flag1 and y == board_size-1):
  *                     continue
  *                 board[calc_num] = rand_arr[piece_counter]             # <<<<<<<<<<<<<<
  *                 visible[calc_num] = 0
  *                 owner[calc_num] = i
  */
-        __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_rand_arr, __pyx_v_piece_counter, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 403, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_6 = __Pyx_PyInt_As_npy_int8(__pyx_t_2); if (unlikely((__pyx_t_6 == ((npy_int8)-1)) && PyErr_Occurred())) __PYX_ERR(0, 403, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        (__pyx_v_board[__pyx_v_calc_num]) = __pyx_t_6;
+        __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_rand_arr, __pyx_v_piece_counter, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 413, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_12 = __Pyx_PyInt_As_npy_int8(__pyx_t_3); if (unlikely((__pyx_t_12 == ((npy_int8)-1)) && PyErr_Occurred())) __PYX_ERR(0, 413, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        (__pyx_v_board[__pyx_v_calc_num]) = __pyx_t_12;
 
-        /* "engine_commands.pyx":404
+        /* "engine_commands.pyx":414
  *                     continue
  *                 board[calc_num] = rand_arr[piece_counter]
  *                 visible[calc_num] = 0             # <<<<<<<<<<<<<<
@@ -5365,7 +5180,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
         (__pyx_v_visible[__pyx_v_calc_num]) = 0;
 
-        /* "engine_commands.pyx":405
+        /* "engine_commands.pyx":415
  *                 board[calc_num] = rand_arr[piece_counter]
  *                 visible[calc_num] = 0
  *                 owner[calc_num] = i             # <<<<<<<<<<<<<<
@@ -5374,7 +5189,7 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
  */
         (__pyx_v_owner[__pyx_v_calc_num]) = __pyx_v_i;
 
-        /* "engine_commands.pyx":406
+        /* "engine_commands.pyx":416
  *                 visible[calc_num] = 0
  *                 owner[calc_num] = i
  *                 piece_counter += 1             # <<<<<<<<<<<<<<
@@ -5387,36 +5202,161 @@ static PyObject *__pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands
     }
   }
 
-  /* "engine_commands.pyx":287
- * 
- * 
- * cdef fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):             # <<<<<<<<<<<<<<
+  /* "engine_commands.pyx":296
+ * @cython.boundscheck(False)
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):             # <<<<<<<<<<<<<<
  *     # Rivers
  *     if board_size == 10:
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("engine_commands.fill_boards", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_WriteUnraisable("engine_commands.fill_boards", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_pos);
   __Pyx_XDECREF(__pyx_v_arr);
   __Pyx_XDECREF(__pyx_v_rand_arr);
-  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+}
+
+/* "engine_commands.pyx":423
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef int get_random_move(DTYPE_t *all_moves, int move_size):             # <<<<<<<<<<<<<<
+ *     return rand() % all_moves[0]
+ * 
+ */
+
+static int __pyx_f_15engine_commands_get_random_move(__pyx_t_15engine_commands_DTYPE_t *__pyx_v_all_moves, CYTHON_UNUSED int __pyx_v_move_size) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_random_move", 0);
+
+  /* "engine_commands.pyx":424
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef int get_random_move(DTYPE_t *all_moves, int move_size):
+ *     return rand() % all_moves[0]             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_r = (rand() % (__pyx_v_all_moves[0]));
+  goto __pyx_L0;
+
+  /* "engine_commands.pyx":423
+ * @cython.boundscheck(False) # turn off bounds-checking for entire function
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
+ * cdef int get_random_move(DTYPE_t *all_moves, int move_size):             # <<<<<<<<<<<<<<
+ *     return rand() % all_moves[0]
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "engine_commands.pyx":411
- * # @cython.cdivision(True)
- * # @cython.boundscheck(False)
+/* "engine_commands.pyx":427
+ * 
+ * 
+ * cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int max_return_size):             # <<<<<<<<<<<<<<
+ *     cdef int i = 2
+ *     for i in range(2, (board_size*board_size) + 2):
+ */
+
+static void __pyx_f_15engine_commands_write_init_return_board(__pyx_t_5numpy_int16_t *__pyx_v_return_stuff, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_board, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_visible, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_owner, int __pyx_v_board_size, CYTHON_UNUSED int __pyx_v_max_return_size) {
+  int __pyx_v_i;
+  __Pyx_RefNannyDeclarations
+  long __pyx_t_1;
+  int __pyx_t_2;
+  PyObject *__pyx_t_3 = NULL;
+  __Pyx_RefNannySetupContext("write_init_return_board", 0);
+
+  /* "engine_commands.pyx":428
+ * 
+ * cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int max_return_size):
+ *     cdef int i = 2             # <<<<<<<<<<<<<<
+ *     for i in range(2, (board_size*board_size) + 2):
+ *         return_stuff[i*3] = board[i-2]
+ */
+  __pyx_v_i = 2;
+
+  /* "engine_commands.pyx":429
+ * cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int max_return_size):
+ *     cdef int i = 2
+ *     for i in range(2, (board_size*board_size) + 2):             # <<<<<<<<<<<<<<
+ *         return_stuff[i*3] = board[i-2]
+ *         return_stuff[(i+1)*3] = visible[i-2]
+ */
+  __pyx_t_1 = ((__pyx_v_board_size * __pyx_v_board_size) + 2);
+  for (__pyx_t_2 = 2; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
+    __pyx_v_i = __pyx_t_2;
+
+    /* "engine_commands.pyx":430
+ *     cdef int i = 2
+ *     for i in range(2, (board_size*board_size) + 2):
+ *         return_stuff[i*3] = board[i-2]             # <<<<<<<<<<<<<<
+ *         return_stuff[(i+1)*3] = visible[i-2]
+ *         return_stuff[(i+2)*3] = owner[i-2]
+ */
+    (__pyx_v_return_stuff[(__pyx_v_i * 3)]) = (__pyx_v_board[(__pyx_v_i - 2)]);
+
+    /* "engine_commands.pyx":431
+ *     for i in range(2, (board_size*board_size) + 2):
+ *         return_stuff[i*3] = board[i-2]
+ *         return_stuff[(i+1)*3] = visible[i-2]             # <<<<<<<<<<<<<<
+ *         return_stuff[(i+2)*3] = owner[i-2]
+ *     print((i+2)*3)
+ */
+    (__pyx_v_return_stuff[((__pyx_v_i + 1) * 3)]) = (__pyx_v_visible[(__pyx_v_i - 2)]);
+
+    /* "engine_commands.pyx":432
+ *         return_stuff[i*3] = board[i-2]
+ *         return_stuff[(i+1)*3] = visible[i-2]
+ *         return_stuff[(i+2)*3] = owner[i-2]             # <<<<<<<<<<<<<<
+ *     print((i+2)*3)
+ * 
+ */
+    (__pyx_v_return_stuff[((__pyx_v_i + 2) * 3)]) = (__pyx_v_owner[(__pyx_v_i - 2)]);
+  }
+
+  /* "engine_commands.pyx":433
+ *         return_stuff[(i+1)*3] = visible[i-2]
+ *         return_stuff[(i+2)*3] = owner[i-2]
+ *     print((i+2)*3)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_long(((__pyx_v_i + 2) * 3)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 433, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "engine_commands.pyx":427
+ * 
+ * 
+ * cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int max_return_size):             # <<<<<<<<<<<<<<
+ *     cdef int i = 2
+ *     for i in range(2, (board_size*board_size) + 2):
+ */
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_WriteUnraisable("engine_commands.write_init_return_board", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+}
+
+/* "engine_commands.pyx":440
+ * @cython.boundscheck(False)
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * def play_game(int AI1, int AI2, int board_size):             # <<<<<<<<<<<<<<
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     players[0] = AI1
@@ -5453,16 +5393,16 @@ static PyObject *__pyx_pw_15engine_commands_3play_game(PyObject *__pyx_self, PyO
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_AI2)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, 1); __PYX_ERR(0, 411, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, 1); __PYX_ERR(0, 440, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_board_size)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, 2); __PYX_ERR(0, 411, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, 2); __PYX_ERR(0, 440, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "play_game") < 0)) __PYX_ERR(0, 411, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "play_game") < 0)) __PYX_ERR(0, 440, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -5471,13 +5411,13 @@ static PyObject *__pyx_pw_15engine_commands_3play_game(PyObject *__pyx_self, PyO
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_AI1 = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_AI1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 411, __pyx_L3_error)
-    __pyx_v_AI2 = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_AI2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 411, __pyx_L3_error)
-    __pyx_v_board_size = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_board_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 411, __pyx_L3_error)
+    __pyx_v_AI1 = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_AI1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 440, __pyx_L3_error)
+    __pyx_v_AI2 = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_AI2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 440, __pyx_L3_error)
+    __pyx_v_board_size = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_board_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 440, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 411, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 440, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("engine_commands.play_game", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5493,25 +5433,32 @@ static PyObject *__pyx_pw_15engine_commands_3play_game(PyObject *__pyx_self, PyO
 static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_AI1, int __pyx_v_AI2, int __pyx_v_board_size) {
   __pyx_t_15engine_commands_DTYPE_t *__pyx_v_players;
   int __pyx_v_move_size;
+  int __pyx_v_max_return_size;
   __pyx_t_15engine_commands_DTYPE_t *__pyx_v_board;
   __pyx_t_15engine_commands_DTYPE_t *__pyx_v_visible;
   __pyx_t_15engine_commands_DTYPE_t *__pyx_v_owner;
   __pyx_t_15engine_commands_DTYPE_t *__pyx_v_all_moves;
+  __pyx_t_5numpy_int16_t *__pyx_v_return_stuff;
+  int __pyx_v_q;
+  CYTHON_UNUSED int __pyx_v_i;
   __pyx_t_15engine_commands_DTYPE_t *__pyx_v_flags;
+  int __pyx_v_write_counter;
   int __pyx_v_move;
   int __pyx_v_turn;
   int __pyx_v_winner;
+  int __pyx_v_num_moves;
+  PyObject *__pyx_v_tmp = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_1;
   int __pyx_t_2;
-  int __pyx_t_3;
+  PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_5;
   __Pyx_RefNannySetupContext("play_game", 0);
 
-  /* "engine_commands.pyx":412
- * # @cython.boundscheck(False)
+  /* "engine_commands.pyx":441
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * def play_game(int AI1, int AI2, int board_size):
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
  *     players[0] = AI1
@@ -5519,7 +5466,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_players = ((__pyx_t_15engine_commands_DTYPE_t *)malloc((2 * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":413
+  /* "engine_commands.pyx":442
  * def play_game(int AI1, int AI2, int board_size):
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     players[0] = AI1             # <<<<<<<<<<<<<<
@@ -5528,25 +5475,34 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   (__pyx_v_players[0]) = __pyx_v_AI1;
 
-  /* "engine_commands.pyx":414
+  /* "engine_commands.pyx":443
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     players[0] = AI1
  *     players[1] = AI2             # <<<<<<<<<<<<<<
  * 
- *     cdef int move_size = 1000
+ *     cdef int move_size = 4001 # (number of possible moves (1000) * 4) + 1
  */
   (__pyx_v_players[1]) = __pyx_v_AI2;
 
-  /* "engine_commands.pyx":416
+  /* "engine_commands.pyx":445
  *     players[1] = AI2
  * 
- *     cdef int move_size = 1000             # <<<<<<<<<<<<<<
+ *     cdef int move_size = 4001 # (number of possible moves (1000) * 4) + 1             # <<<<<<<<<<<<<<
+ *     cdef int max_return_size = 200002 # (max moves in a game (5000) * 4) + 2
+ * 
+ */
+  __pyx_v_move_size = 0xFA1;
+
+  /* "engine_commands.pyx":446
+ * 
+ *     cdef int move_size = 4001 # (number of possible moves (1000) * 4) + 1
+ *     cdef int max_return_size = 200002 # (max moves in a game (5000) * 4) + 2             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_v_move_size = 0x3E8;
+  __pyx_v_max_return_size = 0x30D42;
 
-  /* "engine_commands.pyx":420
+  /* "engine_commands.pyx":450
  * 
  *     # board setup
  *     cdef DTYPE_t *board = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5555,7 +5511,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_board = ((__pyx_t_15engine_commands_DTYPE_t *)malloc(((__pyx_v_board_size * __pyx_v_board_size) * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":421
+  /* "engine_commands.pyx":451
  *     # board setup
  *     cdef DTYPE_t *board = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
  *     cdef DTYPE_t *visible = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5564,7 +5520,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_visible = ((__pyx_t_15engine_commands_DTYPE_t *)malloc(((__pyx_v_board_size * __pyx_v_board_size) * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":422
+  /* "engine_commands.pyx":452
  *     cdef DTYPE_t *board = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
  *     cdef DTYPE_t *visible = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
  *     cdef DTYPE_t *owner = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5573,7 +5529,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_owner = ((__pyx_t_15engine_commands_DTYPE_t *)malloc(((__pyx_v_board_size * __pyx_v_board_size) * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":424
+  /* "engine_commands.pyx":454
  *     cdef DTYPE_t *owner = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
  * 
  *     cdef DTYPE_t *all_moves = <DTYPE_t *>malloc(move_size * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5582,51 +5538,82 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_all_moves = ((__pyx_t_15engine_commands_DTYPE_t *)malloc((__pyx_v_move_size * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":429
+  /* "engine_commands.pyx":458
+ * 
+ *     # Initilizing return_stuff
+ *     cdef np.int16_t *return_stuff = <np.int16_t *>malloc(max_return_size * sizeof(np.int16_t))             # <<<<<<<<<<<<<<
+ *     cdef int q = 0
+ *     for i in range(max_return_size):
+ */
+  __pyx_v_return_stuff = ((__pyx_t_5numpy_int16_t *)malloc((__pyx_v_max_return_size * (sizeof(__pyx_t_5numpy_int16_t)))));
+
+  /* "engine_commands.pyx":459
+ *     # Initilizing return_stuff
+ *     cdef np.int16_t *return_stuff = <np.int16_t *>malloc(max_return_size * sizeof(np.int16_t))
+ *     cdef int q = 0             # <<<<<<<<<<<<<<
+ *     for i in range(max_return_size):
+ *         return_stuff[q] = 0
+ */
+  __pyx_v_q = 0;
+
+  /* "engine_commands.pyx":460
+ *     cdef np.int16_t *return_stuff = <np.int16_t *>malloc(max_return_size * sizeof(np.int16_t))
+ *     cdef int q = 0
+ *     for i in range(max_return_size):             # <<<<<<<<<<<<<<
+ *         return_stuff[q] = 0
+ * 
+ */
+  __pyx_t_1 = __pyx_v_max_return_size;
+  for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
+    __pyx_v_i = __pyx_t_2;
+
+    /* "engine_commands.pyx":461
+ *     cdef int q = 0
+ *     for i in range(max_return_size):
+ *         return_stuff[q] = 0             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+    (__pyx_v_return_stuff[__pyx_v_q]) = 0;
+  }
+
+  /* "engine_commands.pyx":466
  * 
  * 
  *     set_to(board, board_size, 0)             # <<<<<<<<<<<<<<
  *     set_to(visible, board_size, 0)
  *     set_to(owner, board_size, 2)
  */
-  __pyx_t_1 = __pyx_f_15engine_commands_set_to(__pyx_v_board, __pyx_v_board_size, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 429, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_f_15engine_commands_set_to(__pyx_v_board, __pyx_v_board_size, 0);
 
-  /* "engine_commands.pyx":430
+  /* "engine_commands.pyx":467
  * 
  *     set_to(board, board_size, 0)
  *     set_to(visible, board_size, 0)             # <<<<<<<<<<<<<<
  *     set_to(owner, board_size, 2)
  *     set_to(all_moves, move_size, 0)
  */
-  __pyx_t_1 = __pyx_f_15engine_commands_set_to(__pyx_v_visible, __pyx_v_board_size, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 430, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_f_15engine_commands_set_to(__pyx_v_visible, __pyx_v_board_size, 0);
 
-  /* "engine_commands.pyx":431
+  /* "engine_commands.pyx":468
  *     set_to(board, board_size, 0)
  *     set_to(visible, board_size, 0)
  *     set_to(owner, board_size, 2)             # <<<<<<<<<<<<<<
  *     set_to(all_moves, move_size, 0)
  * 
  */
-  __pyx_t_1 = __pyx_f_15engine_commands_set_to(__pyx_v_owner, __pyx_v_board_size, 2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 431, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_f_15engine_commands_set_to(__pyx_v_owner, __pyx_v_board_size, 2);
 
-  /* "engine_commands.pyx":432
+  /* "engine_commands.pyx":469
  *     set_to(visible, board_size, 0)
  *     set_to(owner, board_size, 2)
  *     set_to(all_moves, move_size, 0)             # <<<<<<<<<<<<<<
  * 
  *     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  */
-  __pyx_t_1 = __pyx_f_15engine_commands_set_to(__pyx_v_all_moves, __pyx_v_move_size, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 432, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_f_15engine_commands_set_to(__pyx_v_all_moves, __pyx_v_move_size, 0);
 
-  /* "engine_commands.pyx":434
+  /* "engine_commands.pyx":471
  *     set_to(all_moves, move_size, 0)
  * 
  *     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5635,19 +5622,136 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_flags = ((__pyx_t_15engine_commands_DTYPE_t *)malloc((2 * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":435
+  /* "engine_commands.pyx":472
  * 
  *     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     fill_boards(board, visible, owner, flags, board_size)             # <<<<<<<<<<<<<<
  * 
+ *     write_init_return_board(return_stuff, board, visible, owner, board_size, max_return_size)
+ */
+  __pyx_f_15engine_commands_fill_boards(__pyx_v_board, __pyx_v_visible, __pyx_v_owner, __pyx_v_flags, __pyx_v_board_size);
+
+  /* "engine_commands.pyx":474
+ *     fill_boards(board, visible, owner, flags, board_size)
+ * 
+ *     write_init_return_board(return_stuff, board, visible, owner, board_size, max_return_size)             # <<<<<<<<<<<<<<
+ * 
+ *     cdef int write_counter = (board_size * board_size * 3) + 3
+ */
+  __pyx_f_15engine_commands_write_init_return_board(__pyx_v_return_stuff, __pyx_v_board, __pyx_v_visible, __pyx_v_owner, __pyx_v_board_size, __pyx_v_max_return_size);
+
+  /* "engine_commands.pyx":476
+ *     write_init_return_board(return_stuff, board, visible, owner, board_size, max_return_size)
+ * 
+ *     cdef int write_counter = (board_size * board_size * 3) + 3             # <<<<<<<<<<<<<<
+ *     print(write_counter)
+ * 
+ */
+  __pyx_v_write_counter = (((__pyx_v_board_size * __pyx_v_board_size) * 3) + 3);
+
+  /* "engine_commands.pyx":477
+ * 
+ *     cdef int write_counter = (board_size * board_size * 3) + 3
+ *     print(write_counter)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_write_counter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 477, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "engine_commands.pyx":480
+ * 
+ * 
+ *     print(return_stuff[write_counter-4])             # <<<<<<<<<<<<<<
+ *     print(return_stuff[write_counter-3])
+ *     print(return_stuff[write_counter-2])
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[(__pyx_v_write_counter - 4)])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 480, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 480, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "engine_commands.pyx":481
+ * 
+ *     print(return_stuff[write_counter-4])
+ *     print(return_stuff[write_counter-3])             # <<<<<<<<<<<<<<
+ *     print(return_stuff[write_counter-2])
+ *     print(return_stuff[write_counter-1])
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[(__pyx_v_write_counter - 3)])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 481, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 481, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "engine_commands.pyx":482
+ *     print(return_stuff[write_counter-4])
+ *     print(return_stuff[write_counter-3])
+ *     print(return_stuff[write_counter-2])             # <<<<<<<<<<<<<<
+ *     print(return_stuff[write_counter-1])
+ *     print(return_stuff[write_counter])
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[(__pyx_v_write_counter - 2)])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 482, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 482, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "engine_commands.pyx":483
+ *     print(return_stuff[write_counter-3])
+ *     print(return_stuff[write_counter-2])
+ *     print(return_stuff[write_counter-1])             # <<<<<<<<<<<<<<
+ *     print(return_stuff[write_counter])
+ *     print(return_stuff[write_counter+1])
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[(__pyx_v_write_counter - 1)])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 483, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 483, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "engine_commands.pyx":484
+ *     print(return_stuff[write_counter-2])
+ *     print(return_stuff[write_counter-1])
+ *     print(return_stuff[write_counter])             # <<<<<<<<<<<<<<
+ *     print(return_stuff[write_counter+1])
+ *     time.sleep(100)
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[__pyx_v_write_counter])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 484, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 484, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "engine_commands.pyx":485
+ *     print(return_stuff[write_counter-1])
+ *     print(return_stuff[write_counter])
+ *     print(return_stuff[write_counter+1])             # <<<<<<<<<<<<<<
+ *     time.sleep(100)
+ * 
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[(__pyx_v_write_counter + 1)])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 485, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 485, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "engine_commands.pyx":486
+ *     print(return_stuff[write_counter])
+ *     print(return_stuff[write_counter+1])
+ *     time.sleep(100)             # <<<<<<<<<<<<<<
+ * 
  *     cdef int move = 0
  */
-  __pyx_t_1 = __pyx_f_15engine_commands_fill_boards(__pyx_v_board, __pyx_v_visible, __pyx_v_owner, __pyx_v_flags, __pyx_v_board_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 435, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 486, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_sleep); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 486, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 486, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "engine_commands.pyx":437
- *     fill_boards(board, visible, owner, flags, board_size)
+  /* "engine_commands.pyx":488
+ *     time.sleep(100)
  * 
  *     cdef int move = 0             # <<<<<<<<<<<<<<
  *     cdef int turn = 0
@@ -5655,77 +5759,80 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_move = 0;
 
-  /* "engine_commands.pyx":438
+  /* "engine_commands.pyx":489
  * 
  *     cdef int move = 0
  *     cdef int turn = 0             # <<<<<<<<<<<<<<
  *     cdef int winner = 0
- *     while True:
+ *     cdef int num_moves = 0
  */
   __pyx_v_turn = 0;
 
-  /* "engine_commands.pyx":439
+  /* "engine_commands.pyx":490
  *     cdef int move = 0
  *     cdef int turn = 0
  *     cdef int winner = 0             # <<<<<<<<<<<<<<
+ *     cdef int num_moves = 0
  *     while True:
- * 
  */
   __pyx_v_winner = 0;
 
-  /* "engine_commands.pyx":440
+  /* "engine_commands.pyx":491
  *     cdef int turn = 0
  *     cdef int winner = 0
+ *     cdef int num_moves = 0             # <<<<<<<<<<<<<<
+ *     while True:
+ * 
+ */
+  __pyx_v_num_moves = 0;
+
+  /* "engine_commands.pyx":492
+ *     cdef int winner = 0
+ *     cdef int num_moves = 0
  *     while True:             # <<<<<<<<<<<<<<
  * 
  *         # for o in range(board_size * board_size):
  */
   while (1) {
 
-    /* "engine_commands.pyx":447
+    /* "engine_commands.pyx":498
  * 
  * 
  *         all_legal_moves(turn, board, owner, all_moves, move_size, board_size)             # <<<<<<<<<<<<<<
  * 
  *         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size)
  */
-    __pyx_t_1 = __pyx_f_15engine_commands_all_legal_moves(__pyx_v_turn, __pyx_v_board, __pyx_v_owner, __pyx_v_all_moves, __pyx_v_move_size, __pyx_v_board_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 447, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_f_15engine_commands_all_legal_moves(__pyx_v_turn, __pyx_v_board, __pyx_v_owner, __pyx_v_all_moves, __pyx_v_move_size, __pyx_v_board_size);
 
-    /* "engine_commands.pyx":449
+    /* "engine_commands.pyx":500
  *         all_legal_moves(turn, board, owner, all_moves, move_size, board_size)
  * 
  *         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size)             # <<<<<<<<<<<<<<
  *         if winner != 0:
  *             break
  */
-    __pyx_t_1 = __pyx_f_15engine_commands_check_winner(__pyx_v_board, __pyx_v_all_moves, __pyx_v_owner, __pyx_v_flags, __pyx_v_turn, __pyx_v_move_size, __pyx_v_board_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 449, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 449, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_v_winner = __pyx_t_2;
+    __pyx_v_winner = __pyx_f_15engine_commands_check_winner(__pyx_v_board, __pyx_v_all_moves, __pyx_v_owner, __pyx_v_flags, __pyx_v_turn, __pyx_v_move_size, __pyx_v_board_size);
 
-    /* "engine_commands.pyx":450
+    /* "engine_commands.pyx":501
  * 
  *         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size)
  *         if winner != 0:             # <<<<<<<<<<<<<<
  *             break
  * 
  */
-    __pyx_t_3 = ((__pyx_v_winner != 0) != 0);
-    if (__pyx_t_3) {
+    __pyx_t_5 = ((__pyx_v_winner != 0) != 0);
+    if (__pyx_t_5) {
 
-      /* "engine_commands.pyx":451
+      /* "engine_commands.pyx":502
  *         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size)
  *         if winner != 0:
  *             break             # <<<<<<<<<<<<<<
  * 
  *         # RandomAI
  */
-      goto __pyx_L4_break;
+      goto __pyx_L6_break;
 
-      /* "engine_commands.pyx":450
+      /* "engine_commands.pyx":501
  * 
  *         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size)
  *         if winner != 0:             # <<<<<<<<<<<<<<
@@ -5734,83 +5841,65 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
     }
 
-    /* "engine_commands.pyx":454
+    /* "engine_commands.pyx":505
  * 
  *         # RandomAI
  *         if players[turn] == 0:             # <<<<<<<<<<<<<<
- *             move = players[turn].get_random_move()
+ *             move = get_random_move(all_moves, move_size)
  * 
  */
-    __pyx_t_3 = (((__pyx_v_players[__pyx_v_turn]) == 0) != 0);
-    if (__pyx_t_3) {
+    __pyx_t_5 = (((__pyx_v_players[__pyx_v_turn]) == 0) != 0);
+    if (__pyx_t_5) {
 
-      /* "engine_commands.pyx":455
+      /* "engine_commands.pyx":506
  *         # RandomAI
  *         if players[turn] == 0:
- *             move = players[turn].get_random_move()             # <<<<<<<<<<<<<<
+ *             move = get_random_move(all_moves, move_size)             # <<<<<<<<<<<<<<
  * 
  *         move_piece(move, all_moves, board, visible, owner, board_size)
  */
-      __pyx_t_4 = __Pyx_PyInt_From_npy_int8((__pyx_v_players[__pyx_v_turn])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 455, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_get_random_move); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 455, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-        __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
-        if (likely(__pyx_t_4)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-          __Pyx_INCREF(__pyx_t_4);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_5, function);
-        }
-      }
-      if (__pyx_t_4) {
-        __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 455, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      } else {
-        __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 455, __pyx_L1_error)
-      }
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 455, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_v_move = __pyx_t_2;
+      __pyx_v_move = __pyx_f_15engine_commands_get_random_move(__pyx_v_all_moves, __pyx_v_move_size);
 
-      /* "engine_commands.pyx":454
+      /* "engine_commands.pyx":505
  * 
  *         # RandomAI
  *         if players[turn] == 0:             # <<<<<<<<<<<<<<
- *             move = players[turn].get_random_move()
+ *             move = get_random_move(all_moves, move_size)
  * 
  */
     }
 
-    /* "engine_commands.pyx":457
- *             move = players[turn].get_random_move()
+    /* "engine_commands.pyx":508
+ *             move = get_random_move(all_moves, move_size)
  * 
  *         move_piece(move, all_moves, board, visible, owner, board_size)             # <<<<<<<<<<<<<<
+ * 
+ *         num_moves += 1
+ */
+    __pyx_f_15engine_commands_move_piece(__pyx_v_move, __pyx_v_all_moves, __pyx_v_board, __pyx_v_visible, __pyx_v_owner, __pyx_v_board_size);
+
+    /* "engine_commands.pyx":510
+ *         move_piece(move, all_moves, board, visible, owner, board_size)
+ * 
+ *         num_moves += 1             # <<<<<<<<<<<<<<
  *         turn = 1 - turn
  *     free(players)
  */
-    __pyx_t_1 = __pyx_f_15engine_commands_move_piece(__pyx_v_move, __pyx_v_all_moves, __pyx_v_board, __pyx_v_visible, __pyx_v_owner, __pyx_v_board_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 457, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_v_num_moves = (__pyx_v_num_moves + 1);
 
-    /* "engine_commands.pyx":458
+    /* "engine_commands.pyx":511
  * 
- *         move_piece(move, all_moves, board, visible, owner, board_size)
+ *         num_moves += 1
  *         turn = 1 - turn             # <<<<<<<<<<<<<<
  *     free(players)
  *     free(board)
  */
     __pyx_v_turn = (1 - __pyx_v_turn);
   }
-  __pyx_L4_break:;
+  __pyx_L6_break:;
 
-  /* "engine_commands.pyx":459
- *         move_piece(move, all_moves, board, visible, owner, board_size)
+  /* "engine_commands.pyx":512
+ *         num_moves += 1
  *         turn = 1 - turn
  *     free(players)             # <<<<<<<<<<<<<<
  *     free(board)
@@ -5818,7 +5907,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   free(__pyx_v_players);
 
-  /* "engine_commands.pyx":460
+  /* "engine_commands.pyx":513
  *         turn = 1 - turn
  *     free(players)
  *     free(board)             # <<<<<<<<<<<<<<
@@ -5827,7 +5916,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   free(__pyx_v_board);
 
-  /* "engine_commands.pyx":461
+  /* "engine_commands.pyx":514
  *     free(players)
  *     free(board)
  *     free(visible)             # <<<<<<<<<<<<<<
@@ -5836,7 +5925,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   free(__pyx_v_visible);
 
-  /* "engine_commands.pyx":462
+  /* "engine_commands.pyx":515
  *     free(board)
  *     free(visible)
  *     free(owner)             # <<<<<<<<<<<<<<
@@ -5845,31 +5934,68 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   free(__pyx_v_owner);
 
-  /* "engine_commands.pyx":463
+  /* "engine_commands.pyx":516
  *     free(visible)
  *     free(owner)
  *     free(flags)             # <<<<<<<<<<<<<<
  * 
- *     return winner
+ *     return_stuff[0] = winner
  */
   free(__pyx_v_flags);
 
-  /* "engine_commands.pyx":465
+  /* "engine_commands.pyx":518
  *     free(flags)
  * 
- *     return winner             # <<<<<<<<<<<<<<
+ *     return_stuff[0] = winner             # <<<<<<<<<<<<<<
+ *     return_stuff[1] = num_moves
+ * 
+ */
+  (__pyx_v_return_stuff[0]) = __pyx_v_winner;
+
+  /* "engine_commands.pyx":519
+ * 
+ *     return_stuff[0] = winner
+ *     return_stuff[1] = num_moves             # <<<<<<<<<<<<<<
+ * 
+ *     tmp = data_to_numpy_array_with_spec(return_stuff, max_return_size, np.NPY_INT16)
+ */
+  (__pyx_v_return_stuff[1]) = __pyx_v_num_moves;
+
+  /* "engine_commands.pyx":521
+ *     return_stuff[1] = num_moves
+ * 
+ *     tmp = data_to_numpy_array_with_spec(return_stuff, max_return_size, np.NPY_INT16)             # <<<<<<<<<<<<<<
+ * 
+ *     free(return_stuff)
+ */
+  __pyx_t_3 = __pyx_f_15engine_commands_data_to_numpy_array_with_spec(__pyx_v_return_stuff, __pyx_v_max_return_size, NPY_INT16); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_v_tmp = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "engine_commands.pyx":523
+ *     tmp = data_to_numpy_array_with_spec(return_stuff, max_return_size, np.NPY_INT16)
+ * 
+ *     free(return_stuff)             # <<<<<<<<<<<<<<
+ * 
+ *     return tmp
+ */
+  free(__pyx_v_return_stuff);
+
+  /* "engine_commands.pyx":525
+ *     free(return_stuff)
+ * 
+ *     return tmp             # <<<<<<<<<<<<<<
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_winner); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 465, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __Pyx_INCREF(__pyx_v_tmp);
+  __pyx_r = __pyx_v_tmp;
   goto __pyx_L0;
 
-  /* "engine_commands.pyx":411
- * # @cython.cdivision(True)
- * # @cython.boundscheck(False)
+  /* "engine_commands.pyx":440
+ * @cython.boundscheck(False)
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * def play_game(int AI1, int AI2, int board_size):             # <<<<<<<<<<<<<<
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     players[0] = AI1
@@ -5877,18 +6003,18 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_AddTraceback("engine_commands.play_game", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_tmp);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":197
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":197
  *         # experimental exception made for __getbuffer__ and __releasebuffer__
  *         # -- the details of this may change.
  *         def __getbuffer__(ndarray self, Py_buffer* info, int flags):             # <<<<<<<<<<<<<<
@@ -5935,7 +6061,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     __Pyx_GIVEREF(__pyx_v_info->obj);
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":203
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":203
  *             # of flags
  * 
  *             if info == NULL: return             # <<<<<<<<<<<<<<
@@ -5948,7 +6074,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     goto __pyx_L0;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":206
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":206
  * 
  *             cdef int copy_shape, i, ndim
  *             cdef int endian_detector = 1             # <<<<<<<<<<<<<<
@@ -5957,7 +6083,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_endian_detector = 1;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":207
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":207
  *             cdef int copy_shape, i, ndim
  *             cdef int endian_detector = 1
  *             cdef bint little_endian = ((<char*>&endian_detector)[0] != 0)             # <<<<<<<<<<<<<<
@@ -5966,7 +6092,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_little_endian = ((((char *)(&__pyx_v_endian_detector))[0]) != 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":209
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":209
  *             cdef bint little_endian = ((<char*>&endian_detector)[0] != 0)
  * 
  *             ndim = PyArray_NDIM(self)             # <<<<<<<<<<<<<<
@@ -5975,7 +6101,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_ndim = PyArray_NDIM(__pyx_v_self);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":211
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":211
  *             ndim = PyArray_NDIM(self)
  * 
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):             # <<<<<<<<<<<<<<
@@ -5985,7 +6111,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_t_1 = (((sizeof(npy_intp)) != (sizeof(Py_ssize_t))) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":212
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":212
  * 
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):
  *                 copy_shape = 1             # <<<<<<<<<<<<<<
@@ -5994,7 +6120,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     __pyx_v_copy_shape = 1;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":211
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":211
  *             ndim = PyArray_NDIM(self)
  * 
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):             # <<<<<<<<<<<<<<
@@ -6004,7 +6130,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     goto __pyx_L4;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":214
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":214
  *                 copy_shape = 1
  *             else:
  *                 copy_shape = 0             # <<<<<<<<<<<<<<
@@ -6016,7 +6142,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   }
   __pyx_L4:;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":216
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":216
  *                 copy_shape = 0
  * 
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -6030,7 +6156,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     goto __pyx_L6_bool_binop_done;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":217
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":217
  * 
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_C_CONTIGUOUS)):             # <<<<<<<<<<<<<<
@@ -6041,7 +6167,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_t_1 = __pyx_t_2;
   __pyx_L6_bool_binop_done:;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":216
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":216
  *                 copy_shape = 0
  * 
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -6050,20 +6176,20 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   if (__pyx_t_1) {
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":218
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":218
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_C_CONTIGUOUS)):
  *                 raise ValueError(u"ndarray is not C contiguous")             # <<<<<<<<<<<<<<
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 218, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __PYX_ERR(1, 218, __pyx_L1_error)
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":216
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":216
  *                 copy_shape = 0
  * 
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -6072,7 +6198,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":220
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":220
  *                 raise ValueError(u"ndarray is not C contiguous")
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -6086,7 +6212,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     goto __pyx_L9_bool_binop_done;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":221
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":221
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_F_CONTIGUOUS)):             # <<<<<<<<<<<<<<
@@ -6097,7 +6223,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_t_1 = __pyx_t_2;
   __pyx_L9_bool_binop_done:;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":220
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":220
  *                 raise ValueError(u"ndarray is not C contiguous")
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -6106,20 +6232,20 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   if (__pyx_t_1) {
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":222
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":222
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_F_CONTIGUOUS)):
  *                 raise ValueError(u"ndarray is not Fortran contiguous")             # <<<<<<<<<<<<<<
  * 
  *             info.buf = PyArray_DATA(self)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 222, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __PYX_ERR(1, 222, __pyx_L1_error)
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":220
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":220
  *                 raise ValueError(u"ndarray is not C contiguous")
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -6128,7 +6254,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":224
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":224
  *                 raise ValueError(u"ndarray is not Fortran contiguous")
  * 
  *             info.buf = PyArray_DATA(self)             # <<<<<<<<<<<<<<
@@ -6137,7 +6263,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_info->buf = PyArray_DATA(__pyx_v_self);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":225
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":225
  * 
  *             info.buf = PyArray_DATA(self)
  *             info.ndim = ndim             # <<<<<<<<<<<<<<
@@ -6146,7 +6272,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_info->ndim = __pyx_v_ndim;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":226
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":226
  *             info.buf = PyArray_DATA(self)
  *             info.ndim = ndim
  *             if copy_shape:             # <<<<<<<<<<<<<<
@@ -6156,7 +6282,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_t_1 = (__pyx_v_copy_shape != 0);
   if (__pyx_t_1) {
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":229
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":229
  *                 # Allocate new buffer for strides and shape info.
  *                 # This is allocated as one block, strides first.
  *                 info.strides = <Py_ssize_t*>stdlib.malloc(sizeof(Py_ssize_t) * <size_t>ndim * 2)             # <<<<<<<<<<<<<<
@@ -6165,7 +6291,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     __pyx_v_info->strides = ((Py_ssize_t *)malloc((((sizeof(Py_ssize_t)) * ((size_t)__pyx_v_ndim)) * 2)));
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":230
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":230
  *                 # This is allocated as one block, strides first.
  *                 info.strides = <Py_ssize_t*>stdlib.malloc(sizeof(Py_ssize_t) * <size_t>ndim * 2)
  *                 info.shape = info.strides + ndim             # <<<<<<<<<<<<<<
@@ -6174,7 +6300,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     __pyx_v_info->shape = (__pyx_v_info->strides + __pyx_v_ndim);
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":231
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":231
  *                 info.strides = <Py_ssize_t*>stdlib.malloc(sizeof(Py_ssize_t) * <size_t>ndim * 2)
  *                 info.shape = info.strides + ndim
  *                 for i in range(ndim):             # <<<<<<<<<<<<<<
@@ -6185,7 +6311,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":232
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":232
  *                 info.shape = info.strides + ndim
  *                 for i in range(ndim):
  *                     info.strides[i] = PyArray_STRIDES(self)[i]             # <<<<<<<<<<<<<<
@@ -6194,7 +6320,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
       (__pyx_v_info->strides[__pyx_v_i]) = (PyArray_STRIDES(__pyx_v_self)[__pyx_v_i]);
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":233
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":233
  *                 for i in range(ndim):
  *                     info.strides[i] = PyArray_STRIDES(self)[i]
  *                     info.shape[i] = PyArray_DIMS(self)[i]             # <<<<<<<<<<<<<<
@@ -6204,7 +6330,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       (__pyx_v_info->shape[__pyx_v_i]) = (PyArray_DIMS(__pyx_v_self)[__pyx_v_i]);
     }
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":226
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":226
  *             info.buf = PyArray_DATA(self)
  *             info.ndim = ndim
  *             if copy_shape:             # <<<<<<<<<<<<<<
@@ -6214,7 +6340,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     goto __pyx_L11;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":235
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":235
  *                     info.shape[i] = PyArray_DIMS(self)[i]
  *             else:
  *                 info.strides = <Py_ssize_t*>PyArray_STRIDES(self)             # <<<<<<<<<<<<<<
@@ -6224,7 +6350,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   /*else*/ {
     __pyx_v_info->strides = ((Py_ssize_t *)PyArray_STRIDES(__pyx_v_self));
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":236
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":236
  *             else:
  *                 info.strides = <Py_ssize_t*>PyArray_STRIDES(self)
  *                 info.shape = <Py_ssize_t*>PyArray_DIMS(self)             # <<<<<<<<<<<<<<
@@ -6235,7 +6361,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   }
   __pyx_L11:;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":237
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":237
  *                 info.strides = <Py_ssize_t*>PyArray_STRIDES(self)
  *                 info.shape = <Py_ssize_t*>PyArray_DIMS(self)
  *             info.suboffsets = NULL             # <<<<<<<<<<<<<<
@@ -6244,7 +6370,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_info->suboffsets = NULL;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":238
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":238
  *                 info.shape = <Py_ssize_t*>PyArray_DIMS(self)
  *             info.suboffsets = NULL
  *             info.itemsize = PyArray_ITEMSIZE(self)             # <<<<<<<<<<<<<<
@@ -6253,7 +6379,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_info->itemsize = PyArray_ITEMSIZE(__pyx_v_self);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":239
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":239
  *             info.suboffsets = NULL
  *             info.itemsize = PyArray_ITEMSIZE(self)
  *             info.readonly = not PyArray_ISWRITEABLE(self)             # <<<<<<<<<<<<<<
@@ -6262,7 +6388,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_info->readonly = (!(PyArray_ISWRITEABLE(__pyx_v_self) != 0));
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":242
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":242
  * 
  *             cdef int t
  *             cdef char* f = NULL             # <<<<<<<<<<<<<<
@@ -6271,7 +6397,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_f = NULL;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":243
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":243
  *             cdef int t
  *             cdef char* f = NULL
  *             cdef dtype descr = self.descr             # <<<<<<<<<<<<<<
@@ -6283,7 +6409,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_v_descr = ((PyArray_Descr *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":246
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":246
  *             cdef int offset
  * 
  *             cdef bint hasfields = PyDataType_HASFIELDS(descr)             # <<<<<<<<<<<<<<
@@ -6292,7 +6418,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_hasfields = PyDataType_HASFIELDS(__pyx_v_descr);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":248
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":248
  *             cdef bint hasfields = PyDataType_HASFIELDS(descr)
  * 
  *             if not hasfields and not copy_shape:             # <<<<<<<<<<<<<<
@@ -6310,7 +6436,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_L15_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":250
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":250
  *             if not hasfields and not copy_shape:
  *                 # do not call releasebuffer
  *                 info.obj = None             # <<<<<<<<<<<<<<
@@ -6323,7 +6449,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     __Pyx_DECREF(__pyx_v_info->obj);
     __pyx_v_info->obj = Py_None;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":248
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":248
  *             cdef bint hasfields = PyDataType_HASFIELDS(descr)
  * 
  *             if not hasfields and not copy_shape:             # <<<<<<<<<<<<<<
@@ -6333,7 +6459,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     goto __pyx_L14;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":253
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":253
  *             else:
  *                 # need to call releasebuffer
  *                 info.obj = self             # <<<<<<<<<<<<<<
@@ -6349,7 +6475,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   }
   __pyx_L14:;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":255
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":255
  *                 info.obj = self
  * 
  *             if not hasfields:             # <<<<<<<<<<<<<<
@@ -6359,7 +6485,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_t_1 = ((!(__pyx_v_hasfields != 0)) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":256
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":256
  * 
  *             if not hasfields:
  *                 t = descr.type_num             # <<<<<<<<<<<<<<
@@ -6369,7 +6495,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     __pyx_t_4 = __pyx_v_descr->type_num;
     __pyx_v_t = __pyx_t_4;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":257
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":257
  *             if not hasfields:
  *                 t = descr.type_num
  *                 if ((descr.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -6389,7 +6515,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     }
     __pyx_L20_next_or:;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":258
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":258
  *                 t = descr.type_num
  *                 if ((descr.byteorder == c'>' and little_endian) or
  *                     (descr.byteorder == c'<' and not little_endian)):             # <<<<<<<<<<<<<<
@@ -6406,7 +6532,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     __pyx_t_1 = __pyx_t_2;
     __pyx_L19_bool_binop_done:;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":257
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":257
  *             if not hasfields:
  *                 t = descr.type_num
  *                 if ((descr.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -6415,20 +6541,20 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     if (__pyx_t_1) {
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":259
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":259
  *                 if ((descr.byteorder == c'>' and little_endian) or
  *                     (descr.byteorder == c'<' and not little_endian)):
  *                     raise ValueError(u"Non-native byte order not supported")             # <<<<<<<<<<<<<<
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 259, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 259, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __PYX_ERR(1, 259, __pyx_L1_error)
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":257
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":257
  *             if not hasfields:
  *                 t = descr.type_num
  *                 if ((descr.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -6437,7 +6563,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     }
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":260
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":260
  *                     (descr.byteorder == c'<' and not little_endian)):
  *                     raise ValueError(u"Non-native byte order not supported")
  *                 if   t == NPY_BYTE:        f = "b"             # <<<<<<<<<<<<<<
@@ -6449,7 +6575,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"b");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":261
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":261
  *                     raise ValueError(u"Non-native byte order not supported")
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"             # <<<<<<<<<<<<<<
@@ -6460,7 +6586,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"B");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":262
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":262
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  *                 elif t == NPY_SHORT:       f = "h"             # <<<<<<<<<<<<<<
@@ -6471,7 +6597,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"h");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":263
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":263
  *                 elif t == NPY_UBYTE:       f = "B"
  *                 elif t == NPY_SHORT:       f = "h"
  *                 elif t == NPY_USHORT:      f = "H"             # <<<<<<<<<<<<<<
@@ -6482,7 +6608,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"H");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":264
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":264
  *                 elif t == NPY_SHORT:       f = "h"
  *                 elif t == NPY_USHORT:      f = "H"
  *                 elif t == NPY_INT:         f = "i"             # <<<<<<<<<<<<<<
@@ -6493,7 +6619,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"i");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":265
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":265
  *                 elif t == NPY_USHORT:      f = "H"
  *                 elif t == NPY_INT:         f = "i"
  *                 elif t == NPY_UINT:        f = "I"             # <<<<<<<<<<<<<<
@@ -6504,7 +6630,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"I");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":266
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":266
  *                 elif t == NPY_INT:         f = "i"
  *                 elif t == NPY_UINT:        f = "I"
  *                 elif t == NPY_LONG:        f = "l"             # <<<<<<<<<<<<<<
@@ -6515,7 +6641,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"l");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":267
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":267
  *                 elif t == NPY_UINT:        f = "I"
  *                 elif t == NPY_LONG:        f = "l"
  *                 elif t == NPY_ULONG:       f = "L"             # <<<<<<<<<<<<<<
@@ -6526,7 +6652,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"L");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":268
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":268
  *                 elif t == NPY_LONG:        f = "l"
  *                 elif t == NPY_ULONG:       f = "L"
  *                 elif t == NPY_LONGLONG:    f = "q"             # <<<<<<<<<<<<<<
@@ -6537,7 +6663,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"q");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":269
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":269
  *                 elif t == NPY_ULONG:       f = "L"
  *                 elif t == NPY_LONGLONG:    f = "q"
  *                 elif t == NPY_ULONGLONG:   f = "Q"             # <<<<<<<<<<<<<<
@@ -6548,7 +6674,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"Q");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":270
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":270
  *                 elif t == NPY_LONGLONG:    f = "q"
  *                 elif t == NPY_ULONGLONG:   f = "Q"
  *                 elif t == NPY_FLOAT:       f = "f"             # <<<<<<<<<<<<<<
@@ -6559,7 +6685,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"f");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":271
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":271
  *                 elif t == NPY_ULONGLONG:   f = "Q"
  *                 elif t == NPY_FLOAT:       f = "f"
  *                 elif t == NPY_DOUBLE:      f = "d"             # <<<<<<<<<<<<<<
@@ -6570,7 +6696,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"d");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":272
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":272
  *                 elif t == NPY_FLOAT:       f = "f"
  *                 elif t == NPY_DOUBLE:      f = "d"
  *                 elif t == NPY_LONGDOUBLE:  f = "g"             # <<<<<<<<<<<<<<
@@ -6581,7 +6707,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"g");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":273
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":273
  *                 elif t == NPY_DOUBLE:      f = "d"
  *                 elif t == NPY_LONGDOUBLE:  f = "g"
  *                 elif t == NPY_CFLOAT:      f = "Zf"             # <<<<<<<<<<<<<<
@@ -6592,7 +6718,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"Zf");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":274
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":274
  *                 elif t == NPY_LONGDOUBLE:  f = "g"
  *                 elif t == NPY_CFLOAT:      f = "Zf"
  *                 elif t == NPY_CDOUBLE:     f = "Zd"             # <<<<<<<<<<<<<<
@@ -6603,7 +6729,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"Zd");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":275
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":275
  *                 elif t == NPY_CFLOAT:      f = "Zf"
  *                 elif t == NPY_CDOUBLE:     f = "Zd"
  *                 elif t == NPY_CLONGDOUBLE: f = "Zg"             # <<<<<<<<<<<<<<
@@ -6614,7 +6740,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       __pyx_v_f = ((char *)"Zg");
       break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":276
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":276
  *                 elif t == NPY_CDOUBLE:     f = "Zd"
  *                 elif t == NPY_CLONGDOUBLE: f = "Zg"
  *                 elif t == NPY_OBJECT:      f = "O"             # <<<<<<<<<<<<<<
@@ -6626,7 +6752,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       default:
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":278
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":278
  *                 elif t == NPY_OBJECT:      f = "O"
  *                 else:
  *                     raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)             # <<<<<<<<<<<<<<
@@ -6652,7 +6778,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
     }
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":279
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":279
  *                 else:
  *                     raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)
  *                 info.format = f             # <<<<<<<<<<<<<<
@@ -6661,7 +6787,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     __pyx_v_info->format = __pyx_v_f;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":280
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":280
  *                     raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)
  *                 info.format = f
  *                 return             # <<<<<<<<<<<<<<
@@ -6671,7 +6797,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":255
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":255
  *                 info.obj = self
  * 
  *             if not hasfields:             # <<<<<<<<<<<<<<
@@ -6680,7 +6806,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":282
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":282
  *                 return
  *             else:
  *                 info.format = <char*>stdlib.malloc(_buffer_format_string_len)             # <<<<<<<<<<<<<<
@@ -6690,7 +6816,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   /*else*/ {
     __pyx_v_info->format = ((char *)malloc(0xFF));
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":283
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":283
  *             else:
  *                 info.format = <char*>stdlib.malloc(_buffer_format_string_len)
  *                 info.format[0] = c'^' # Native data types, manual alignment             # <<<<<<<<<<<<<<
@@ -6699,7 +6825,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     (__pyx_v_info->format[0]) = '^';
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":284
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":284
  *                 info.format = <char*>stdlib.malloc(_buffer_format_string_len)
  *                 info.format[0] = c'^' # Native data types, manual alignment
  *                 offset = 0             # <<<<<<<<<<<<<<
@@ -6708,7 +6834,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     __pyx_v_offset = 0;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":285
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":285
  *                 info.format[0] = c'^' # Native data types, manual alignment
  *                 offset = 0
  *                 f = _util_dtypestring(descr, info.format + 1,             # <<<<<<<<<<<<<<
@@ -6718,7 +6844,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     __pyx_t_7 = __pyx_f_5numpy__util_dtypestring(__pyx_v_descr, (__pyx_v_info->format + 1), (__pyx_v_info->format + 0xFF), (&__pyx_v_offset)); if (unlikely(__pyx_t_7 == NULL)) __PYX_ERR(1, 285, __pyx_L1_error)
     __pyx_v_f = __pyx_t_7;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":288
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":288
  *                                       info.format + _buffer_format_string_len,
  *                                       &offset)
  *                 f[0] = c'\0' # Terminate format string             # <<<<<<<<<<<<<<
@@ -6728,7 +6854,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     (__pyx_v_f[0]) = '\x00';
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":197
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":197
  *         # experimental exception made for __getbuffer__ and __releasebuffer__
  *         # -- the details of this may change.
  *         def __getbuffer__(ndarray self, Py_buffer* info, int flags):             # <<<<<<<<<<<<<<
@@ -6760,7 +6886,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":290
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":290
  *                 f[0] = c'\0' # Terminate format string
  * 
  *         def __releasebuffer__(ndarray self, Py_buffer* info):             # <<<<<<<<<<<<<<
@@ -6784,7 +6910,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__releasebuffer__", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":291
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":291
  * 
  *         def __releasebuffer__(ndarray self, Py_buffer* info):
  *             if PyArray_HASFIELDS(self):             # <<<<<<<<<<<<<<
@@ -6794,7 +6920,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
   __pyx_t_1 = (PyArray_HASFIELDS(__pyx_v_self) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":292
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":292
  *         def __releasebuffer__(ndarray self, Py_buffer* info):
  *             if PyArray_HASFIELDS(self):
  *                 stdlib.free(info.format)             # <<<<<<<<<<<<<<
@@ -6803,7 +6929,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
  */
     free(__pyx_v_info->format);
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":291
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":291
  * 
  *         def __releasebuffer__(ndarray self, Py_buffer* info):
  *             if PyArray_HASFIELDS(self):             # <<<<<<<<<<<<<<
@@ -6812,7 +6938,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
  */
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":293
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":293
  *             if PyArray_HASFIELDS(self):
  *                 stdlib.free(info.format)
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):             # <<<<<<<<<<<<<<
@@ -6822,7 +6948,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
   __pyx_t_1 = (((sizeof(npy_intp)) != (sizeof(Py_ssize_t))) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":294
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":294
  *                 stdlib.free(info.format)
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):
  *                 stdlib.free(info.strides)             # <<<<<<<<<<<<<<
@@ -6831,7 +6957,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
  */
     free(__pyx_v_info->strides);
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":293
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":293
  *             if PyArray_HASFIELDS(self):
  *                 stdlib.free(info.format)
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):             # <<<<<<<<<<<<<<
@@ -6840,7 +6966,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
  */
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":290
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":290
  *                 f[0] = c'\0' # Terminate format string
  * 
  *         def __releasebuffer__(ndarray self, Py_buffer* info):             # <<<<<<<<<<<<<<
@@ -6852,7 +6978,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
   __Pyx_RefNannyFinishContext();
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":770
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":770
  * ctypedef npy_cdouble     complex_t
  * 
  * cdef inline object PyArray_MultiIterNew1(a):             # <<<<<<<<<<<<<<
@@ -6866,7 +6992,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew1", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":771
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":771
  * 
  * cdef inline object PyArray_MultiIterNew1(a):
  *     return PyArray_MultiIterNew(1, <void*>a)             # <<<<<<<<<<<<<<
@@ -6880,7 +7006,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":770
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":770
  * ctypedef npy_cdouble     complex_t
  * 
  * cdef inline object PyArray_MultiIterNew1(a):             # <<<<<<<<<<<<<<
@@ -6899,7 +7025,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":773
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":773
  *     return PyArray_MultiIterNew(1, <void*>a)
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):             # <<<<<<<<<<<<<<
@@ -6913,7 +7039,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew2", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":774
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":774
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)             # <<<<<<<<<<<<<<
@@ -6927,7 +7053,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":773
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":773
  *     return PyArray_MultiIterNew(1, <void*>a)
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):             # <<<<<<<<<<<<<<
@@ -6946,7 +7072,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":776
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":776
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):             # <<<<<<<<<<<<<<
@@ -6960,7 +7086,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew3", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":777
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":777
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)             # <<<<<<<<<<<<<<
@@ -6974,7 +7100,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":776
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":776
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):             # <<<<<<<<<<<<<<
@@ -6993,7 +7119,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":779
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":779
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):             # <<<<<<<<<<<<<<
@@ -7007,7 +7133,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew4", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":780
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":780
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)             # <<<<<<<<<<<<<<
@@ -7021,7 +7147,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":779
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":779
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):             # <<<<<<<<<<<<<<
@@ -7040,7 +7166,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":782
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":782
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):             # <<<<<<<<<<<<<<
@@ -7054,7 +7180,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew5", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":783
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":783
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)             # <<<<<<<<<<<<<<
@@ -7068,7 +7194,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":782
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":782
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):             # <<<<<<<<<<<<<<
@@ -7087,7 +7213,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":785
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":785
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
  * 
  * cdef inline char* _util_dtypestring(dtype descr, char* f, char* end, int* offset) except NULL:             # <<<<<<<<<<<<<<
@@ -7116,7 +7242,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   char *__pyx_t_9;
   __Pyx_RefNannySetupContext("_util_dtypestring", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":790
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":790
  * 
  *     cdef dtype child
  *     cdef int endian_detector = 1             # <<<<<<<<<<<<<<
@@ -7125,7 +7251,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
   __pyx_v_endian_detector = 1;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":791
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":791
  *     cdef dtype child
  *     cdef int endian_detector = 1
  *     cdef bint little_endian = ((<char*>&endian_detector)[0] != 0)             # <<<<<<<<<<<<<<
@@ -7134,7 +7260,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
   __pyx_v_little_endian = ((((char *)(&__pyx_v_endian_detector))[0]) != 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":794
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":794
  *     cdef tuple fields
  * 
  *     for childname in descr.names:             # <<<<<<<<<<<<<<
@@ -7157,7 +7283,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __Pyx_XDECREF_SET(__pyx_v_childname, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":795
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":795
  * 
  *     for childname in descr.names:
  *         fields = descr.fields[childname]             # <<<<<<<<<<<<<<
@@ -7174,7 +7300,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __Pyx_XDECREF_SET(__pyx_v_fields, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":796
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":796
  *     for childname in descr.names:
  *         fields = descr.fields[childname]
  *         child, new_offset = fields             # <<<<<<<<<<<<<<
@@ -7213,7 +7339,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __Pyx_XDECREF_SET(__pyx_v_new_offset, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":798
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":798
  *         child, new_offset = fields
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:             # <<<<<<<<<<<<<<
@@ -7230,20 +7356,20 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_6 = ((((__pyx_v_end - __pyx_v_f) - ((int)__pyx_t_5)) < 15) != 0);
     if (__pyx_t_6) {
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":799
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":799
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")             # <<<<<<<<<<<<<<
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 799, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 799, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __PYX_ERR(1, 799, __pyx_L1_error)
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":798
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":798
  *         child, new_offset = fields
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:             # <<<<<<<<<<<<<<
@@ -7252,7 +7378,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
     }
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":801
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":801
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")
  * 
  *         if ((child.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -7272,7 +7398,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     }
     __pyx_L8_next_or:;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":802
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":802
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  *             (child.byteorder == c'<' and not little_endian)):             # <<<<<<<<<<<<<<
@@ -7289,7 +7415,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_6 = __pyx_t_7;
     __pyx_L7_bool_binop_done:;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":801
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":801
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")
  * 
  *         if ((child.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -7298,20 +7424,20 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
     if (__pyx_t_6) {
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":803
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":803
  *         if ((child.byteorder == c'>' and little_endian) or
  *             (child.byteorder == c'<' and not little_endian)):
  *             raise ValueError(u"Non-native byte order not supported")             # <<<<<<<<<<<<<<
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 803, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 803, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __PYX_ERR(1, 803, __pyx_L1_error)
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":801
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":801
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")
  * 
  *         if ((child.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -7320,7 +7446,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
     }
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":813
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":813
  * 
  *         # Output padding bytes
  *         while offset[0] < new_offset:             # <<<<<<<<<<<<<<
@@ -7336,7 +7462,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (!__pyx_t_6) break;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":814
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":814
  *         # Output padding bytes
  *         while offset[0] < new_offset:
  *             f[0] = 120 # "x"; pad byte             # <<<<<<<<<<<<<<
@@ -7345,7 +7471,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       (__pyx_v_f[0]) = 0x78;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":815
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":815
  *         while offset[0] < new_offset:
  *             f[0] = 120 # "x"; pad byte
  *             f += 1             # <<<<<<<<<<<<<<
@@ -7354,7 +7480,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       __pyx_v_f = (__pyx_v_f + 1);
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":816
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":816
  *             f[0] = 120 # "x"; pad byte
  *             f += 1
  *             offset[0] += 1             # <<<<<<<<<<<<<<
@@ -7365,7 +7491,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       (__pyx_v_offset[__pyx_t_8]) = ((__pyx_v_offset[__pyx_t_8]) + 1);
     }
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":818
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":818
  *             offset[0] += 1
  * 
  *         offset[0] += child.itemsize             # <<<<<<<<<<<<<<
@@ -7375,7 +7501,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_8 = 0;
     (__pyx_v_offset[__pyx_t_8]) = ((__pyx_v_offset[__pyx_t_8]) + __pyx_v_child->elsize);
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":820
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":820
  *         offset[0] += child.itemsize
  * 
  *         if not PyDataType_HASFIELDS(child):             # <<<<<<<<<<<<<<
@@ -7385,7 +7511,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_6 = ((!(PyDataType_HASFIELDS(__pyx_v_child) != 0)) != 0);
     if (__pyx_t_6) {
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":821
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":821
  * 
  *         if not PyDataType_HASFIELDS(child):
  *             t = child.type_num             # <<<<<<<<<<<<<<
@@ -7397,7 +7523,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __Pyx_XDECREF_SET(__pyx_v_t, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":822
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":822
  *         if not PyDataType_HASFIELDS(child):
  *             t = child.type_num
  *             if end - f < 5:             # <<<<<<<<<<<<<<
@@ -7407,20 +7533,20 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __pyx_t_6 = (((__pyx_v_end - __pyx_v_f) < 5) != 0);
       if (__pyx_t_6) {
 
-        /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":823
+        /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":823
  *             t = child.type_num
  *             if end - f < 5:
  *                 raise RuntimeError(u"Format string allocated too short.")             # <<<<<<<<<<<<<<
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 823, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 823, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_Raise(__pyx_t_4, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __PYX_ERR(1, 823, __pyx_L1_error)
 
-        /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":822
+        /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":822
  *         if not PyDataType_HASFIELDS(child):
  *             t = child.type_num
  *             if end - f < 5:             # <<<<<<<<<<<<<<
@@ -7429,7 +7555,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":826
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":826
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  *             if   t == NPY_BYTE:        f[0] =  98 #"b"             # <<<<<<<<<<<<<<
@@ -7447,7 +7573,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":827
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":827
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  *             if   t == NPY_BYTE:        f[0] =  98 #"b"
  *             elif t == NPY_UBYTE:       f[0] =  66 #"B"             # <<<<<<<<<<<<<<
@@ -7465,7 +7591,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":828
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":828
  *             if   t == NPY_BYTE:        f[0] =  98 #"b"
  *             elif t == NPY_UBYTE:       f[0] =  66 #"B"
  *             elif t == NPY_SHORT:       f[0] = 104 #"h"             # <<<<<<<<<<<<<<
@@ -7483,7 +7609,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":829
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":829
  *             elif t == NPY_UBYTE:       f[0] =  66 #"B"
  *             elif t == NPY_SHORT:       f[0] = 104 #"h"
  *             elif t == NPY_USHORT:      f[0] =  72 #"H"             # <<<<<<<<<<<<<<
@@ -7501,7 +7627,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":830
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":830
  *             elif t == NPY_SHORT:       f[0] = 104 #"h"
  *             elif t == NPY_USHORT:      f[0] =  72 #"H"
  *             elif t == NPY_INT:         f[0] = 105 #"i"             # <<<<<<<<<<<<<<
@@ -7519,7 +7645,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":831
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":831
  *             elif t == NPY_USHORT:      f[0] =  72 #"H"
  *             elif t == NPY_INT:         f[0] = 105 #"i"
  *             elif t == NPY_UINT:        f[0] =  73 #"I"             # <<<<<<<<<<<<<<
@@ -7537,7 +7663,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":832
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":832
  *             elif t == NPY_INT:         f[0] = 105 #"i"
  *             elif t == NPY_UINT:        f[0] =  73 #"I"
  *             elif t == NPY_LONG:        f[0] = 108 #"l"             # <<<<<<<<<<<<<<
@@ -7555,7 +7681,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":833
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":833
  *             elif t == NPY_UINT:        f[0] =  73 #"I"
  *             elif t == NPY_LONG:        f[0] = 108 #"l"
  *             elif t == NPY_ULONG:       f[0] = 76  #"L"             # <<<<<<<<<<<<<<
@@ -7573,7 +7699,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":834
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":834
  *             elif t == NPY_LONG:        f[0] = 108 #"l"
  *             elif t == NPY_ULONG:       f[0] = 76  #"L"
  *             elif t == NPY_LONGLONG:    f[0] = 113 #"q"             # <<<<<<<<<<<<<<
@@ -7591,7 +7717,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":835
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":835
  *             elif t == NPY_ULONG:       f[0] = 76  #"L"
  *             elif t == NPY_LONGLONG:    f[0] = 113 #"q"
  *             elif t == NPY_ULONGLONG:   f[0] = 81  #"Q"             # <<<<<<<<<<<<<<
@@ -7609,7 +7735,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":836
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":836
  *             elif t == NPY_LONGLONG:    f[0] = 113 #"q"
  *             elif t == NPY_ULONGLONG:   f[0] = 81  #"Q"
  *             elif t == NPY_FLOAT:       f[0] = 102 #"f"             # <<<<<<<<<<<<<<
@@ -7627,7 +7753,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":837
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":837
  *             elif t == NPY_ULONGLONG:   f[0] = 81  #"Q"
  *             elif t == NPY_FLOAT:       f[0] = 102 #"f"
  *             elif t == NPY_DOUBLE:      f[0] = 100 #"d"             # <<<<<<<<<<<<<<
@@ -7645,7 +7771,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":838
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":838
  *             elif t == NPY_FLOAT:       f[0] = 102 #"f"
  *             elif t == NPY_DOUBLE:      f[0] = 100 #"d"
  *             elif t == NPY_LONGDOUBLE:  f[0] = 103 #"g"             # <<<<<<<<<<<<<<
@@ -7663,7 +7789,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":839
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":839
  *             elif t == NPY_DOUBLE:      f[0] = 100 #"d"
  *             elif t == NPY_LONGDOUBLE:  f[0] = 103 #"g"
  *             elif t == NPY_CFLOAT:      f[0] = 90; f[1] = 102; f += 1 # Zf             # <<<<<<<<<<<<<<
@@ -7683,7 +7809,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":840
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":840
  *             elif t == NPY_LONGDOUBLE:  f[0] = 103 #"g"
  *             elif t == NPY_CFLOAT:      f[0] = 90; f[1] = 102; f += 1 # Zf
  *             elif t == NPY_CDOUBLE:     f[0] = 90; f[1] = 100; f += 1 # Zd             # <<<<<<<<<<<<<<
@@ -7703,7 +7829,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":841
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":841
  *             elif t == NPY_CFLOAT:      f[0] = 90; f[1] = 102; f += 1 # Zf
  *             elif t == NPY_CDOUBLE:     f[0] = 90; f[1] = 100; f += 1 # Zd
  *             elif t == NPY_CLONGDOUBLE: f[0] = 90; f[1] = 103; f += 1 # Zg             # <<<<<<<<<<<<<<
@@ -7723,7 +7849,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":842
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":842
  *             elif t == NPY_CDOUBLE:     f[0] = 90; f[1] = 100; f += 1 # Zd
  *             elif t == NPY_CLONGDOUBLE: f[0] = 90; f[1] = 103; f += 1 # Zg
  *             elif t == NPY_OBJECT:      f[0] = 79 #"O"             # <<<<<<<<<<<<<<
@@ -7741,7 +7867,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":844
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":844
  *             elif t == NPY_OBJECT:      f[0] = 79 #"O"
  *             else:
  *                 raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)             # <<<<<<<<<<<<<<
@@ -7765,7 +7891,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       }
       __pyx_L15:;
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":845
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":845
  *             else:
  *                 raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)
  *             f += 1             # <<<<<<<<<<<<<<
@@ -7774,7 +7900,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       __pyx_v_f = (__pyx_v_f + 1);
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":820
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":820
  *         offset[0] += child.itemsize
  * 
  *         if not PyDataType_HASFIELDS(child):             # <<<<<<<<<<<<<<
@@ -7784,7 +7910,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       goto __pyx_L13;
     }
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":849
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":849
  *             # Cython ignores struct boundary information ("T{...}"),
  *             # so don't output it
  *             f = _util_dtypestring(child, f, end, offset)             # <<<<<<<<<<<<<<
@@ -7797,7 +7923,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     }
     __pyx_L13:;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":794
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":794
  *     cdef tuple fields
  * 
  *     for childname in descr.names:             # <<<<<<<<<<<<<<
@@ -7807,7 +7933,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":850
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":850
  *             # so don't output it
  *             f = _util_dtypestring(child, f, end, offset)
  *     return f             # <<<<<<<<<<<<<<
@@ -7817,7 +7943,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   __pyx_r = __pyx_v_f;
   goto __pyx_L0;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":785
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":785
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
  * 
  * cdef inline char* _util_dtypestring(dtype descr, char* f, char* end, int* offset) except NULL:             # <<<<<<<<<<<<<<
@@ -7842,7 +7968,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":966
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":966
  * 
  * 
  * cdef inline void set_array_base(ndarray arr, object base):             # <<<<<<<<<<<<<<
@@ -7857,7 +7983,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   int __pyx_t_2;
   __Pyx_RefNannySetupContext("set_array_base", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":968
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":968
  * cdef inline void set_array_base(ndarray arr, object base):
  *      cdef PyObject* baseptr
  *      if base is None:             # <<<<<<<<<<<<<<
@@ -7868,7 +7994,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":969
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":969
  *      cdef PyObject* baseptr
  *      if base is None:
  *          baseptr = NULL             # <<<<<<<<<<<<<<
@@ -7877,7 +8003,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
  */
     __pyx_v_baseptr = NULL;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":968
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":968
  * cdef inline void set_array_base(ndarray arr, object base):
  *      cdef PyObject* baseptr
  *      if base is None:             # <<<<<<<<<<<<<<
@@ -7887,7 +8013,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
     goto __pyx_L3;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":971
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":971
  *          baseptr = NULL
  *      else:
  *          Py_INCREF(base) # important to do this before decref below!             # <<<<<<<<<<<<<<
@@ -7897,7 +8023,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   /*else*/ {
     Py_INCREF(__pyx_v_base);
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":972
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":972
  *      else:
  *          Py_INCREF(base) # important to do this before decref below!
  *          baseptr = <PyObject*>base             # <<<<<<<<<<<<<<
@@ -7908,7 +8034,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   }
   __pyx_L3:;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":973
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":973
  *          Py_INCREF(base) # important to do this before decref below!
  *          baseptr = <PyObject*>base
  *      Py_XDECREF(arr.base)             # <<<<<<<<<<<<<<
@@ -7917,7 +8043,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
  */
   Py_XDECREF(__pyx_v_arr->base);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":974
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":974
  *          baseptr = <PyObject*>base
  *      Py_XDECREF(arr.base)
  *      arr.base = baseptr             # <<<<<<<<<<<<<<
@@ -7926,7 +8052,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
  */
   __pyx_v_arr->base = __pyx_v_baseptr;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":966
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":966
  * 
  * 
  * cdef inline void set_array_base(ndarray arr, object base):             # <<<<<<<<<<<<<<
@@ -7938,7 +8064,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   __Pyx_RefNannyFinishContext();
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":976
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":976
  *      arr.base = baseptr
  * 
  * cdef inline object get_array_base(ndarray arr):             # <<<<<<<<<<<<<<
@@ -7952,7 +8078,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("get_array_base", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":977
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":977
  * 
  * cdef inline object get_array_base(ndarray arr):
  *     if arr.base is NULL:             # <<<<<<<<<<<<<<
@@ -7962,7 +8088,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   __pyx_t_1 = ((__pyx_v_arr->base == NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":978
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":978
  * cdef inline object get_array_base(ndarray arr):
  *     if arr.base is NULL:
  *         return None             # <<<<<<<<<<<<<<
@@ -7974,7 +8100,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
     __pyx_r = Py_None;
     goto __pyx_L0;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":977
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":977
  * 
  * cdef inline object get_array_base(ndarray arr):
  *     if arr.base is NULL:             # <<<<<<<<<<<<<<
@@ -7983,7 +8109,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
  */
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":980
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":980
  *         return None
  *     else:
  *         return <object>arr.base             # <<<<<<<<<<<<<<
@@ -7997,7 +8123,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
     goto __pyx_L0;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":976
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":976
  *      arr.base = baseptr
  * 
  * cdef inline object get_array_base(ndarray arr):             # <<<<<<<<<<<<<<
@@ -8012,7 +8138,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":985
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":985
  * # Versions of the import_* functions which are more suitable for
  * # Cython code.
  * cdef inline int import_array() except -1:             # <<<<<<<<<<<<<<
@@ -8033,7 +8159,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("import_array", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":986
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":986
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -8049,7 +8175,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":987
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":987
  * cdef inline int import_array() except -1:
  *     try:
  *         _import_array()             # <<<<<<<<<<<<<<
@@ -8058,7 +8184,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  */
       __pyx_t_4 = _import_array(); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(1, 987, __pyx_L3_error)
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":986
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":986
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -8073,7 +8199,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     __pyx_L3_error:;
     __Pyx_PyThreadState_assign
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":988
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":988
  *     try:
  *         _import_array()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -8088,14 +8214,14 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_7);
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":989
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":989
  *         _import_array()
  *     except Exception:
  *         raise ImportError("numpy.core.multiarray failed to import")             # <<<<<<<<<<<<<<
  * 
  * cdef inline int import_umath() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 989, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 989, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -8104,7 +8230,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":986
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":986
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -8120,7 +8246,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     __pyx_L10_try_end:;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":985
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":985
  * # Versions of the import_* functions which are more suitable for
  * # Cython code.
  * cdef inline int import_array() except -1:             # <<<<<<<<<<<<<<
@@ -8143,7 +8269,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":991
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":991
  *         raise ImportError("numpy.core.multiarray failed to import")
  * 
  * cdef inline int import_umath() except -1:             # <<<<<<<<<<<<<<
@@ -8164,7 +8290,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("import_umath", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":992
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":992
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -8180,7 +8306,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":993
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":993
  * cdef inline int import_umath() except -1:
  *     try:
  *         _import_umath()             # <<<<<<<<<<<<<<
@@ -8189,7 +8315,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  */
       __pyx_t_4 = _import_umath(); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(1, 993, __pyx_L3_error)
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":992
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":992
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -8204,7 +8330,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     __pyx_L3_error:;
     __Pyx_PyThreadState_assign
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":994
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":994
  *     try:
  *         _import_umath()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -8219,14 +8345,14 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_7);
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":995
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":995
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  * 
  * cdef inline int import_ufunc() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 995, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 995, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -8235,7 +8361,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":992
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":992
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -8251,7 +8377,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     __pyx_L10_try_end:;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":991
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":991
  *         raise ImportError("numpy.core.multiarray failed to import")
  * 
  * cdef inline int import_umath() except -1:             # <<<<<<<<<<<<<<
@@ -8274,7 +8400,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
   return __pyx_r;
 }
 
-/* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":997
+/* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":997
  *         raise ImportError("numpy.core.umath failed to import")
  * 
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
@@ -8295,7 +8421,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("import_ufunc", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":998
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":998
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -8311,7 +8437,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":999
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":999
  * cdef inline int import_ufunc() except -1:
  *     try:
  *         _import_umath()             # <<<<<<<<<<<<<<
@@ -8320,7 +8446,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  */
       __pyx_t_4 = _import_umath(); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(1, 999, __pyx_L3_error)
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":998
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":998
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -8335,7 +8461,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     __pyx_L3_error:;
     __Pyx_PyThreadState_assign
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1000
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1000
  *     try:
  *         _import_umath()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -8349,12 +8475,12 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_7);
 
-      /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1001
+      /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1001
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1001, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1001, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -8363,7 +8489,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":998
+    /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":998
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -8379,7 +8505,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     __pyx_L10_try_end:;
   }
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":997
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":997
  *         raise ImportError("numpy.core.umath failed to import")
  * 
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
@@ -8427,7 +8553,7 @@ static struct PyModuleDef __pyx_moduledef = {
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_AI1, __pyx_k_AI1, sizeof(__pyx_k_AI1), 0, 0, 1, 1},
   {&__pyx_n_s_AI2, __pyx_k_AI2, sizeof(__pyx_k_AI2), 0, 0, 1, 1},
-  {&__pyx_kp_s_C_PythonProjects_strategoai_c_bi, __pyx_k_C_PythonProjects_strategoai_c_bi, sizeof(__pyx_k_C_PythonProjects_strategoai_c_bi), 0, 0, 1, 0},
+  {&__pyx_kp_s_C_Programming_Python_strategoai, __pyx_k_C_Programming_Python_strategoai, sizeof(__pyx_k_C_Programming_Python_strategoai), 0, 0, 1, 0},
   {&__pyx_n_s_DTYPE, __pyx_k_DTYPE, sizeof(__pyx_k_DTYPE), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
@@ -8441,18 +8567,22 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_board_size, __pyx_k_board_size, sizeof(__pyx_k_board_size), 0, 0, 1, 1},
   {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
+  {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
   {&__pyx_n_s_engine_commands, __pyx_k_engine_commands, sizeof(__pyx_k_engine_commands), 0, 0, 1, 1},
+  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_flags, __pyx_k_flags, sizeof(__pyx_k_flags), 0, 0, 1, 1},
-  {&__pyx_n_s_get_random_move, __pyx_k_get_random_move, sizeof(__pyx_k_get_random_move), 0, 0, 1, 1},
+  {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_int8, __pyx_k_int8, sizeof(__pyx_k_int8), 0, 0, 1, 1},
   {&__pyx_n_s_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
+  {&__pyx_n_s_max_return_size, __pyx_k_max_return_size, sizeof(__pyx_k_max_return_size), 0, 0, 1, 1},
   {&__pyx_n_s_move, __pyx_k_move, sizeof(__pyx_k_move), 0, 0, 1, 1},
   {&__pyx_n_s_move_size, __pyx_k_move_size, sizeof(__pyx_k_move_size), 0, 0, 1, 1},
   {&__pyx_kp_u_ndarray_is_not_C_contiguous, __pyx_k_ndarray_is_not_C_contiguous, sizeof(__pyx_k_ndarray_is_not_C_contiguous), 0, 1, 0, 0},
   {&__pyx_kp_u_ndarray_is_not_Fortran_contiguou, __pyx_k_ndarray_is_not_Fortran_contiguou, sizeof(__pyx_k_ndarray_is_not_Fortran_contiguou), 0, 1, 0, 0},
   {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
+  {&__pyx_n_s_num_moves, __pyx_k_num_moves, sizeof(__pyx_k_num_moves), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
   {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
@@ -8462,21 +8592,25 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_play_game, __pyx_k_play_game, sizeof(__pyx_k_play_game), 0, 0, 1, 1},
   {&__pyx_n_s_players, __pyx_k_players, sizeof(__pyx_k_players), 0, 0, 1, 1},
   {&__pyx_n_s_primes, __pyx_k_primes, sizeof(__pyx_k_primes), 0, 0, 1, 1},
-  {&__pyx_n_s_randint, __pyx_k_randint, sizeof(__pyx_k_randint), 0, 0, 1, 1},
+  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
+  {&__pyx_n_s_q, __pyx_k_q, sizeof(__pyx_k_q), 0, 0, 1, 1},
   {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
-  {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
+  {&__pyx_n_s_return_stuff, __pyx_k_return_stuff, sizeof(__pyx_k_return_stuff), 0, 0, 1, 1},
+  {&__pyx_n_s_sleep, __pyx_k_sleep, sizeof(__pyx_k_sleep), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_time, __pyx_k_time, sizeof(__pyx_k_time), 0, 0, 1, 1},
+  {&__pyx_n_s_tmp, __pyx_k_tmp, sizeof(__pyx_k_tmp), 0, 0, 1, 1},
   {&__pyx_n_s_turn, __pyx_k_turn, sizeof(__pyx_k_turn), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
   {&__pyx_n_s_up_to, __pyx_k_up_to, sizeof(__pyx_k_up_to), 0, 0, 1, 1},
   {&__pyx_n_s_visible, __pyx_k_visible, sizeof(__pyx_k_visible), 0, 0, 1, 1},
   {&__pyx_n_s_winner, __pyx_k_winner, sizeof(__pyx_k_winner), 0, 0, 1, 1},
+  {&__pyx_n_s_write_counter, __pyx_k_write_counter, sizeof(__pyx_k_write_counter), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 43, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 218, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 799, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 989, __pyx_L1_error)
@@ -8489,126 +8623,137 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":218
+  /* "engine_commands.pyx":486
+ *     print(return_stuff[write_counter])
+ *     print(return_stuff[write_counter+1])
+ *     time.sleep(100)             # <<<<<<<<<<<<<<
+ * 
+ *     cdef int move = 0
+ */
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_int_100); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 486, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple_);
+  __Pyx_GIVEREF(__pyx_tuple_);
+
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":218
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_C_CONTIGUOUS)):
  *                 raise ValueError(u"ndarray is not C contiguous")             # <<<<<<<<<<<<<<
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple_)) __PYX_ERR(1, 218, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple_);
-  __Pyx_GIVEREF(__pyx_tuple_);
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 218, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__2);
+  __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":222
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":222
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_F_CONTIGUOUS)):
  *                 raise ValueError(u"ndarray is not Fortran contiguous")             # <<<<<<<<<<<<<<
  * 
  *             info.buf = PyArray_DATA(self)
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 222, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":259
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":259
  *                 if ((descr.byteorder == c'>' and little_endian) or
  *                     (descr.byteorder == c'<' and not little_endian)):
  *                     raise ValueError(u"Non-native byte order not supported")             # <<<<<<<<<<<<<<
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 259, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__3);
-  __Pyx_GIVEREF(__pyx_tuple__3);
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 259, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":799
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":799
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")             # <<<<<<<<<<<<<<
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 799, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__4);
-  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 799, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":803
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":803
  *         if ((child.byteorder == c'>' and little_endian) or
  *             (child.byteorder == c'<' and not little_endian)):
  *             raise ValueError(u"Non-native byte order not supported")             # <<<<<<<<<<<<<<
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 803, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__5);
-  __Pyx_GIVEREF(__pyx_tuple__5);
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 803, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":823
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":823
  *             t = child.type_num
  *             if end - f < 5:
  *                 raise RuntimeError(u"Format string allocated too short.")             # <<<<<<<<<<<<<<
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 823, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 823, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":989
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":989
  *         _import_array()
  *     except Exception:
  *         raise ImportError("numpy.core.multiarray failed to import")             # <<<<<<<<<<<<<<
  * 
  * cdef inline int import_umath() except -1:
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 989, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 989, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":995
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":995
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  * 
  * cdef inline int import_ufunc() except -1:
  */
-  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 995, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__8);
-  __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 995, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__9);
+  __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1001
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1001
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 1001, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(1, 1001, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "engine_commands.pyx":269
+  /* "engine_commands.pyx":272
  * @cython.cdivision(True)
  * @cython.boundscheck(False)
  * def primes(int up_to):             # <<<<<<<<<<<<<<
  *     cdef DTYPE_t k = 0
  *     cdef DTYPE_t *p = <DTYPE_t *>malloc(up_to * sizeof(DTYPE_t))
  */
-  __pyx_tuple__10 = PyTuple_Pack(5, __pyx_n_s_up_to, __pyx_n_s_up_to, __pyx_n_s_k, __pyx_n_s_p, __pyx_n_s_arr); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 269, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_PythonProjects_strategoai_c_bi, __pyx_n_s_primes, 269, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 269, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(5, __pyx_n_s_up_to, __pyx_n_s_up_to, __pyx_n_s_k, __pyx_n_s_p, __pyx_n_s_arr); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Programming_Python_strategoai, __pyx_n_s_primes, 272, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 272, __pyx_L1_error)
 
-  /* "engine_commands.pyx":411
- * # @cython.cdivision(True)
- * # @cython.boundscheck(False)
+  /* "engine_commands.pyx":440
+ * @cython.boundscheck(False)
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * def play_game(int AI1, int AI2, int board_size):             # <<<<<<<<<<<<<<
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     players[0] = AI1
  */
-  __pyx_tuple__12 = PyTuple_Pack(13, __pyx_n_s_AI1, __pyx_n_s_AI2, __pyx_n_s_board_size, __pyx_n_s_players, __pyx_n_s_move_size, __pyx_n_s_board, __pyx_n_s_visible, __pyx_n_s_owner, __pyx_n_s_all_moves, __pyx_n_s_flags, __pyx_n_s_move, __pyx_n_s_turn, __pyx_n_s_winner); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 411, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(3, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_PythonProjects_strategoai_c_bi, __pyx_n_s_play_game, 411, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 411, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(20, __pyx_n_s_AI1, __pyx_n_s_AI2, __pyx_n_s_board_size, __pyx_n_s_players, __pyx_n_s_move_size, __pyx_n_s_max_return_size, __pyx_n_s_board, __pyx_n_s_visible, __pyx_n_s_owner, __pyx_n_s_all_moves, __pyx_n_s_return_stuff, __pyx_n_s_q, __pyx_n_s_i, __pyx_n_s_flags, __pyx_n_s_write_counter, __pyx_n_s_move, __pyx_n_s_turn, __pyx_n_s_winner, __pyx_n_s_num_moves, __pyx_n_s_tmp); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 440, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(3, 0, 20, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Programming_Python_strategoai, __pyx_n_s_play_game, 440, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 440, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -8618,7 +8763,6 @@ static int __Pyx_InitCachedConstants(void) {
 
 static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
-  __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_2 = PyInt_FromLong(2); if (unlikely(!__pyx_int_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_3 = PyInt_FromLong(3); if (unlikely(!__pyx_int_3)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -8630,6 +8774,7 @@ static int __Pyx_InitGlobals(void) {
   __pyx_int_9 = PyInt_FromLong(9); if (unlikely(!__pyx_int_9)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_10 = PyInt_FromLong(10); if (unlikely(!__pyx_int_10)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_11 = PyInt_FromLong(11); if (unlikely(!__pyx_int_11)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_100 = PyInt_FromLong(100); if (unlikely(!__pyx_int_100)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -8772,45 +8917,45 @@ PyMODINIT_FUNC PyInit_engine_commands(void)
  * DTYPE = np.int8
  * cimport cython
  * import time             # <<<<<<<<<<<<<<
+ * from libc.stdlib cimport rand
  * 
- * np.import_array()
  */
   __pyx_t_2 = __Pyx_Import(__pyx_n_s_time, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_time, __pyx_t_2) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "engine_commands.pyx":9
- * import time
+  /* "engine_commands.pyx":10
+ * from libc.stdlib cimport rand
  * 
  * np.import_array()             # <<<<<<<<<<<<<<
  * 
  * ctypedef np.int8_t DTYPE_t
  */
-  __pyx_t_3 = __pyx_f_5numpy_import_array(); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_3 = __pyx_f_5numpy_import_array(); if (unlikely(__pyx_t_3 == -1)) __PYX_ERR(0, 10, __pyx_L1_error)
 
-  /* "engine_commands.pyx":269
+  /* "engine_commands.pyx":272
  * @cython.cdivision(True)
  * @cython.boundscheck(False)
  * def primes(int up_to):             # <<<<<<<<<<<<<<
  *     cdef DTYPE_t k = 0
  *     cdef DTYPE_t *p = <DTYPE_t *>malloc(up_to * sizeof(DTYPE_t))
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_15engine_commands_1primes, NULL, __pyx_n_s_engine_commands); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 269, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_15engine_commands_1primes, NULL, __pyx_n_s_engine_commands); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_primes, __pyx_t_2) < 0) __PYX_ERR(0, 269, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_primes, __pyx_t_2) < 0) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "engine_commands.pyx":411
- * # @cython.cdivision(True)
- * # @cython.boundscheck(False)
+  /* "engine_commands.pyx":440
+ * @cython.boundscheck(False)
+ * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * def play_game(int AI1, int AI2, int board_size):             # <<<<<<<<<<<<<<
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     players[0] = AI1
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_15engine_commands_3play_game, NULL, __pyx_n_s_engine_commands); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 411, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_15engine_commands_3play_game, NULL, __pyx_n_s_engine_commands); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 440, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_play_game, __pyx_t_2) < 0) __PYX_ERR(0, 411, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_play_game, __pyx_t_2) < 0) __PYX_ERR(0, 440, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "engine_commands.pyx":1
@@ -8823,7 +8968,7 @@ PyMODINIT_FUNC PyInit_engine_commands(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "../../Envs/strategoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":997
+  /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":997
  *         raise ImportError("numpy.core.umath failed to import")
  * 
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
@@ -8884,29 +9029,6 @@ static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
 #endif
     }
     return result;
-}
-
-/* None */
-static CYTHON_INLINE int __Pyx_mod_int(int a, int b) {
-    int r = a % b;
-    r += ((r != 0) & ((r ^ b) < 0)) * b;
-    return r;
-}
-
-/* None */
-static CYTHON_INLINE int __Pyx_div_int(int a, int b) {
-    int q = a / b;
-    int r = a - q*b;
-    q -= ((r != 0) & ((r ^ b) < 0));
-    return q;
-}
-
-/* None */
-static CYTHON_INLINE long __Pyx_div_long(long a, long b) {
-    long q = a / b;
-    long r = a - q*b;
-    q -= ((r != 0) & ((r ^ b) < 0));
-    return q;
 }
 
 /* ExtTypeTest */
@@ -9496,26 +9618,6 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 }
 #endif
 
-/* PyObjectCall */
-  #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
-    PyObject *result;
-    ternaryfunc call = func->ob_type->tp_call;
-    if (unlikely(!call))
-        return PyObject_Call(func, arg, kw);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = (*call)(func, arg, kw);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
-
 /* GetModuleGlobalName */
   static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
     PyObject *result;
@@ -9534,86 +9636,25 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
     return result;
 }
 
-/* GetItemInt */
-    static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
-    PyObject *r;
-    if (!j) return NULL;
-    r = PyObject_GetItem(o, j);
-    Py_DECREF(j);
-    return r;
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    if (wraparound & unlikely(i < 0)) i += PyList_GET_SIZE(o);
-    if ((!boundscheck) || likely((0 <= i) & (i < PyList_GET_SIZE(o)))) {
-        PyObject *r = PyList_GET_ITEM(o, i);
-        Py_INCREF(r);
-        return r;
+/* PyObjectCall */
+    #if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    PyObject *result;
+    ternaryfunc call = func->ob_type->tp_call;
+    if (unlikely(!call))
+        return PyObject_Call(func, arg, kw);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = (*call)(func, arg, kw);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
     }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
+    return result;
+}
 #endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    if (wraparound & unlikely(i < 0)) i += PyTuple_GET_SIZE(o);
-    if ((!boundscheck) || likely((0 <= i) & (i < PyTuple_GET_SIZE(o)))) {
-        PyObject *r = PyTuple_GET_ITEM(o, i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
-                                                     CYTHON_NCP_UNUSED int wraparound,
-                                                     CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
-    if (is_list || PyList_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
-        if ((!boundscheck) || (likely((n >= 0) & (n < PyList_GET_SIZE(o))))) {
-            PyObject *r = PyList_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    }
-    else if (PyTuple_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
-        if ((!boundscheck) || likely((n >= 0) & (n < PyTuple_GET_SIZE(o)))) {
-            PyObject *r = PyTuple_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    } else {
-        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
-        if (likely(m && m->sq_item)) {
-            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
-                Py_ssize_t l = m->sq_length(o);
-                if (likely(l >= 0)) {
-                    i += l;
-                } else {
-                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
-                        return NULL;
-                    PyErr_Clear();
-                }
-            }
-            return m->sq_item(o, i);
-        }
-    }
-#else
-    if (is_list || PySequence_Check(o)) {
-        return PySequence_GetItem(o, i);
-    }
-#endif
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-}
 
 /* SetItemInt */
     static CYTHON_INLINE int __Pyx_SetItemInt_Generic(PyObject *o, PyObject *j, PyObject *v) {
@@ -9870,6 +9911,129 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 }
 #endif
 
+/* GetItemInt */
+        static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+    PyObject *r;
+    if (!j) return NULL;
+    r = PyObject_GetItem(o, j);
+    Py_DECREF(j);
+    return r;
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    if (wraparound & unlikely(i < 0)) i += PyList_GET_SIZE(o);
+    if ((!boundscheck) || likely((0 <= i) & (i < PyList_GET_SIZE(o)))) {
+        PyObject *r = PyList_GET_ITEM(o, i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    if (wraparound & unlikely(i < 0)) i += PyTuple_GET_SIZE(o);
+    if ((!boundscheck) || likely((0 <= i) & (i < PyTuple_GET_SIZE(o)))) {
+        PyObject *r = PyTuple_GET_ITEM(o, i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
+                                                     CYTHON_NCP_UNUSED int wraparound,
+                                                     CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
+        if ((!boundscheck) || (likely((n >= 0) & (n < PyList_GET_SIZE(o))))) {
+            PyObject *r = PyList_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    }
+    else if (PyTuple_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
+        if ((!boundscheck) || likely((n >= 0) & (n < PyTuple_GET_SIZE(o)))) {
+            PyObject *r = PyTuple_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
+                        return NULL;
+                    PyErr_Clear();
+                }
+            }
+            return m->sq_item(o, i);
+        }
+    }
+#else
+    if (is_list || PySequence_Check(o)) {
+        return PySequence_GetItem(o, i);
+    }
+#endif
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+}
+
+/* WriteUnraisableException */
+        static void __Pyx_WriteUnraisable(const char *name, CYTHON_UNUSED int clineno,
+                                  CYTHON_UNUSED int lineno, CYTHON_UNUSED const char *filename,
+                                  int full_traceback, CYTHON_UNUSED int nogil) {
+    PyObject *old_exc, *old_val, *old_tb;
+    PyObject *ctx;
+    __Pyx_PyThreadState_declare
+#ifdef WITH_THREAD
+    PyGILState_STATE state;
+    if (nogil)
+        state = PyGILState_Ensure();
+#ifdef _MSC_VER
+    else state = (PyGILState_STATE)-1;
+#endif
+#endif
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&old_exc, &old_val, &old_tb);
+    if (full_traceback) {
+        Py_XINCREF(old_exc);
+        Py_XINCREF(old_val);
+        Py_XINCREF(old_tb);
+        __Pyx_ErrRestore(old_exc, old_val, old_tb);
+        PyErr_PrintEx(1);
+    }
+    #if PY_MAJOR_VERSION < 3
+    ctx = PyString_FromString(name);
+    #else
+    ctx = PyUnicode_FromString(name);
+    #endif
+    __Pyx_ErrRestore(old_exc, old_val, old_tb);
+    if (!ctx) {
+        PyErr_WriteUnraisable(Py_None);
+    } else {
+        PyErr_WriteUnraisable(ctx);
+        Py_DECREF(ctx);
+    }
+#ifdef WITH_THREAD
+    if (nogil)
+        PyGILState_Release(state);
+#endif
+}
+
 /* RaiseArgTupleInvalid */
         static void __Pyx_RaiseArgtupleInvalid(
     const char* func_name,
@@ -10012,29 +10176,8 @@ bad:
     return -1;
 }
 
-/* PyObjectCallNoArg */
-        #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
-#if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(func)) {
-        return __Pyx_PyFunction_FastCall(func, NULL, 0);
-    }
-#endif
-#ifdef __Pyx_CyFunction_USED
-    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
-#else
-    if (likely(PyCFunction_Check(func))) {
-#endif
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
-            return __Pyx_PyObject_CallMethO(func, NULL);
-        }
-    }
-    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
-}
-#endif
-
 /* RaiseException */
-          #if PY_MAJOR_VERSION < 3
+        #if PY_MAJOR_VERSION < 3
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb,
                         CYTHON_UNUSED PyObject *cause) {
     __Pyx_PyThreadState_declare
@@ -10197,25 +10340,25 @@ bad:
 #endif
 
 /* RaiseTooManyValuesToUnpack */
-            static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
+          static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
     PyErr_Format(PyExc_ValueError,
                  "too many values to unpack (expected %" CYTHON_FORMAT_SSIZE_T "d)", expected);
 }
 
 /* RaiseNeedMoreValuesToUnpack */
-            static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
+          static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
     PyErr_Format(PyExc_ValueError,
                  "need more than %" CYTHON_FORMAT_SSIZE_T "d value%.1s to unpack",
                  index, (index == 1) ? "" : "s");
 }
 
 /* RaiseNoneIterError */
-            static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void) {
+          static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
 }
 
 /* SaveResetException */
-            #if CYTHON_FAST_THREAD_STATE
+          #if CYTHON_FAST_THREAD_STATE
 static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
     *type = tstate->exc_type;
     *value = tstate->exc_value;
@@ -10239,7 +10382,7 @@ static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject 
 #endif
 
 /* PyErrExceptionMatches */
-            #if CYTHON_FAST_THREAD_STATE
+          #if CYTHON_FAST_THREAD_STATE
 static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err) {
     PyObject *exc_type = tstate->curexc_type;
     if (exc_type == err) return 1;
@@ -10249,7 +10392,7 @@ static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tsta
 #endif
 
 /* GetException */
-            #if CYTHON_FAST_THREAD_STATE
+          #if CYTHON_FAST_THREAD_STATE
 static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
 #else
 static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb) {
@@ -10310,7 +10453,7 @@ bad:
 }
 
 /* Import */
-              static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
+            static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
     PyObject *empty_list = 0;
     PyObject *module = 0;
     PyObject *global_dict = 0;
@@ -10384,7 +10527,7 @@ bad:
 }
 
 /* CodeObjectCache */
-              static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
+            static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
     int start = 0, mid = 0, end = count - 1;
     if (end >= 0 && code_line > entries[end].code_line) {
         return count;
@@ -10464,7 +10607,7 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object) {
 }
 
 /* AddTraceback */
-              #include "compile.h"
+            #include "compile.h"
 #include "frameobject.h"
 #include "traceback.h"
 static PyCodeObject* __Pyx_CreateCodeObjectForTraceback(
@@ -10565,8 +10708,8 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
 #endif
 
 
-              /* CIntFromPyVerify */
-              #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
+            /* CIntFromPyVerify */
+            #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 0)
 #define __PYX_VERIFY_RETURN_INT_EXC(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 1)
@@ -10588,7 +10731,7 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
     }
 
 /* CIntToPy */
-              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
     const int neg_one = (int) -1, const_zero = (int) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -10619,7 +10762,7 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
 }
 
 /* CIntToPy */
-              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
     const long neg_one = (long) -1, const_zero = (long) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -10649,25 +10792,131 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
     }
 }
 
+/* Print */
+            #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
+static PyObject *__Pyx_GetStdout(void) {
+    PyObject *f = PySys_GetObject((char *)"stdout");
+    if (!f) {
+        PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
+    }
+    return f;
+}
+static int __Pyx_Print(PyObject* f, PyObject *arg_tuple, int newline) {
+    int i;
+    if (!f) {
+        if (!(f = __Pyx_GetStdout()))
+            return -1;
+    }
+    Py_INCREF(f);
+    for (i=0; i < PyTuple_GET_SIZE(arg_tuple); i++) {
+        PyObject* v;
+        if (PyFile_SoftSpace(f, 1)) {
+            if (PyFile_WriteString(" ", f) < 0)
+                goto error;
+        }
+        v = PyTuple_GET_ITEM(arg_tuple, i);
+        if (PyFile_WriteObject(v, f, Py_PRINT_RAW) < 0)
+            goto error;
+        if (PyString_Check(v)) {
+            char *s = PyString_AsString(v);
+            Py_ssize_t len = PyString_Size(v);
+            if (len > 0) {
+                switch (s[len-1]) {
+                    case ' ': break;
+                    case '\f': case '\r': case '\n': case '\t': case '\v':
+                        PyFile_SoftSpace(f, 0);
+                        break;
+                    default:  break;
+                }
+            }
+        }
+    }
+    if (newline) {
+        if (PyFile_WriteString("\n", f) < 0)
+            goto error;
+        PyFile_SoftSpace(f, 0);
+    }
+    Py_DECREF(f);
+    return 0;
+error:
+    Py_DECREF(f);
+    return -1;
+}
+#else
+static int __Pyx_Print(PyObject* stream, PyObject *arg_tuple, int newline) {
+    PyObject* kwargs = 0;
+    PyObject* result = 0;
+    PyObject* end_string;
+    if (unlikely(!__pyx_print)) {
+        __pyx_print = PyObject_GetAttr(__pyx_b, __pyx_n_s_print);
+        if (!__pyx_print)
+            return -1;
+    }
+    if (stream) {
+        kwargs = PyDict_New();
+        if (unlikely(!kwargs))
+            return -1;
+        if (unlikely(PyDict_SetItem(kwargs, __pyx_n_s_file, stream) < 0))
+            goto bad;
+        if (!newline) {
+            end_string = PyUnicode_FromStringAndSize(" ", 1);
+            if (unlikely(!end_string))
+                goto bad;
+            if (PyDict_SetItem(kwargs, __pyx_n_s_end, end_string) < 0) {
+                Py_DECREF(end_string);
+                goto bad;
+            }
+            Py_DECREF(end_string);
+        }
+    } else if (!newline) {
+        if (unlikely(!__pyx_print_kwargs)) {
+            __pyx_print_kwargs = PyDict_New();
+            if (unlikely(!__pyx_print_kwargs))
+                return -1;
+            end_string = PyUnicode_FromStringAndSize(" ", 1);
+            if (unlikely(!end_string))
+                return -1;
+            if (PyDict_SetItem(__pyx_print_kwargs, __pyx_n_s_end, end_string) < 0) {
+                Py_DECREF(end_string);
+                return -1;
+            }
+            Py_DECREF(end_string);
+        }
+        kwargs = __pyx_print_kwargs;
+    }
+    result = PyObject_Call(__pyx_print, arg_tuple, kwargs);
+    if (unlikely(kwargs) && (kwargs != __pyx_print_kwargs))
+        Py_DECREF(kwargs);
+    if (!result)
+        return -1;
+    Py_DECREF(result);
+    return 0;
+bad:
+    if (kwargs != __pyx_print_kwargs)
+        Py_XDECREF(kwargs);
+    return -1;
+}
+#endif
+
 /* CIntToPy */
-              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_npy_int8(npy_int8 value) {
-    const npy_int8 neg_one = (npy_int8) -1, const_zero = (npy_int8) 0;
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_npy_int16(npy_int16 value) {
+    const npy_int16 neg_one = (npy_int16) -1, const_zero = (npy_int16) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
-        if (sizeof(npy_int8) < sizeof(long)) {
+        if (sizeof(npy_int16) < sizeof(long)) {
             return PyInt_FromLong((long) value);
-        } else if (sizeof(npy_int8) <= sizeof(unsigned long)) {
+        } else if (sizeof(npy_int16) <= sizeof(unsigned long)) {
             return PyLong_FromUnsignedLong((unsigned long) value);
 #ifdef HAVE_LONG_LONG
-        } else if (sizeof(npy_int8) <= sizeof(unsigned PY_LONG_LONG)) {
+        } else if (sizeof(npy_int16) <= sizeof(unsigned PY_LONG_LONG)) {
             return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
 #endif
         }
     } else {
-        if (sizeof(npy_int8) <= sizeof(long)) {
+        if (sizeof(npy_int16) <= sizeof(long)) {
             return PyInt_FromLong((long) value);
 #ifdef HAVE_LONG_LONG
-        } else if (sizeof(npy_int8) <= sizeof(PY_LONG_LONG)) {
+        } else if (sizeof(npy_int16) <= sizeof(PY_LONG_LONG)) {
             return PyLong_FromLongLong((PY_LONG_LONG) value);
 #endif
         }
@@ -10675,13 +10924,13 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
     {
         int one = 1; int little = (int)*(unsigned char *)&one;
         unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(npy_int8),
+        return _PyLong_FromByteArray(bytes, sizeof(npy_int16),
                                      little, !is_unsigned);
     }
 }
 
 /* Declarations */
-              #if CYTHON_CCOMPLEX
+            #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
     static CYTHON_INLINE __pyx_t_float_complex __pyx_t_float_complex_from_parts(float x, float y) {
       return ::std::complex< float >(x, y);
@@ -10701,7 +10950,7 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
 #endif
 
 /* Arithmetic */
-              #if CYTHON_CCOMPLEX
+            #if CYTHON_CCOMPLEX
 #else
     static CYTHON_INLINE int __Pyx_c_eq_float(__pyx_t_float_complex a, __pyx_t_float_complex b) {
        return (a.real == b.real) && (a.imag == b.imag);
@@ -10836,7 +11085,7 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
 #endif
 
 /* Declarations */
-              #if CYTHON_CCOMPLEX
+            #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
     static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(double x, double y) {
       return ::std::complex< double >(x, y);
@@ -10856,7 +11105,7 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
 #endif
 
 /* Arithmetic */
-              #if CYTHON_CCOMPLEX
+            #if CYTHON_CCOMPLEX
 #else
     static CYTHON_INLINE int __Pyx_c_eq_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
        return (a.real == b.real) && (a.imag == b.imag);
@@ -10991,7 +11240,7 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
 #endif
 
 /* CIntToPy */
-              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_enum__NPY_TYPES(enum NPY_TYPES value) {
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_enum__NPY_TYPES(enum NPY_TYPES value) {
     const enum NPY_TYPES neg_one = (enum NPY_TYPES) -1, const_zero = (enum NPY_TYPES) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -11022,7 +11271,7 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
 }
 
 /* CIntFromPy */
-              static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
+            static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
     const int neg_one = (int) -1, const_zero = (int) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -11211,7 +11460,7 @@ raise_neg_overflow:
 }
 
 /* CIntFromPy */
-              static CYTHON_INLINE npy_int8 __Pyx_PyInt_As_npy_int8(PyObject *x) {
+            static CYTHON_INLINE npy_int8 __Pyx_PyInt_As_npy_int8(PyObject *x) {
     const npy_int8 neg_one = (npy_int8) -1, const_zero = (npy_int8) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -11399,8 +11648,45 @@ raise_neg_overflow:
     return (npy_int8) -1;
 }
 
+/* PrintOne */
+            #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
+static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
+    if (!f) {
+        if (!(f = __Pyx_GetStdout()))
+            return -1;
+    }
+    Py_INCREF(f);
+    if (PyFile_SoftSpace(f, 0)) {
+        if (PyFile_WriteString(" ", f) < 0)
+            goto error;
+    }
+    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
+        goto error;
+    if (PyFile_WriteString("\n", f) < 0)
+        goto error;
+    Py_DECREF(f);
+    return 0;
+error:
+    Py_DECREF(f);
+    return -1;
+    /* the line below is just to avoid C compiler
+     * warnings about unused functions */
+    return __Pyx_Print(f, NULL, 0);
+}
+#else
+static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
+    int res;
+    PyObject* arg_tuple = PyTuple_Pack(1, o);
+    if (unlikely(!arg_tuple))
+        return -1;
+    res = __Pyx_Print(stream, arg_tuple, 1);
+    Py_DECREF(arg_tuple);
+    return res;
+}
+#endif
+
 /* CIntFromPy */
-              static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
+            static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
     const long neg_one = (long) -1, const_zero = (long) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -11589,7 +11875,7 @@ raise_neg_overflow:
 }
 
 /* CheckBinaryVersion */
-              static int __Pyx_check_binary_version(void) {
+            static int __Pyx_check_binary_version(void) {
     char ctversion[4], rtversion[4];
     PyOS_snprintf(ctversion, 4, "%d.%d", PY_MAJOR_VERSION, PY_MINOR_VERSION);
     PyOS_snprintf(rtversion, 4, "%s", Py_GetVersion());
@@ -11605,7 +11891,7 @@ raise_neg_overflow:
 }
 
 /* ModuleImport */
-              #ifndef __PYX_HAVE_RT_ImportModule
+            #ifndef __PYX_HAVE_RT_ImportModule
 #define __PYX_HAVE_RT_ImportModule
 static PyObject *__Pyx_ImportModule(const char *name) {
     PyObject *py_name = 0;
@@ -11623,7 +11909,7 @@ bad:
 #endif
 
 /* TypeImport */
-              #ifndef __PYX_HAVE_RT_ImportType
+            #ifndef __PYX_HAVE_RT_ImportType
 #define __PYX_HAVE_RT_ImportType
 static PyTypeObject *__Pyx_ImportType(const char *module_name, const char *class_name,
     size_t size, int strict)
@@ -11688,7 +11974,7 @@ bad:
 #endif
 
 /* InitStrings */
-              static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
+            static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
     while (t->p) {
         #if PY_MAJOR_VERSION < 3
         if (t->is_unicode) {

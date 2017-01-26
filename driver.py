@@ -44,7 +44,9 @@ def play_c_game(engine, humans = 1, db_stuff = None, gui = False, renderer = Non
     if gui == True:
         raise Exception("gui cannot be active during c game")
 
+    start = time.perf_counter()
     results = c_bindings.play_game(0, 0, board_size)
+    end = time.perf_counter()
 
     if tracking:
         sql_game_insert =   """
@@ -65,7 +67,7 @@ def play_c_game(engine, humans = 1, db_stuff = None, gui = False, renderer = Non
         db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
         db_stuff[0].commit()
 
-    return results
+    return results, end-start
 
 
 
@@ -228,8 +230,9 @@ def game_start(args):
     num_games = int(args.number)
 
     for i in range(num_games):
-        winner = play_c_game(engine, int(args.humans), db_stuff, gui, re, FIRST_AI, SECOND_AI, int(args.size))
-        print('game ', i, ': ', winner, ' won')
+        results, time = play_c_game(engine, int(args.humans), db_stuff, gui, re, FIRST_AI, SECOND_AI, int(args.size))
+        print('MP_PC:', float(results[1])/time)
+        print('game ', i, ': ', results[0], ' won in', results[1], 'moves')
     if int(args.track):
         db_stuff[0].close()
 
