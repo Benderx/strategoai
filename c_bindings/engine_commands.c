@@ -1285,13 +1285,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
-/* Print.proto */
-static int __Pyx_Print(PyObject*, PyObject *, int);
-#if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
-static PyObject* __pyx_print = 0;
-static PyObject* __pyx_print_kwargs = 0;
-#endif
-
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_npy_int16(npy_int16 value);
 
@@ -1402,9 +1395,6 @@ static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 /* CIntFromPy.proto */
 static CYTHON_INLINE npy_int8 __Pyx_PyInt_As_npy_int8(PyObject *);
 
-/* PrintOne.proto */
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
-
 /* CIntFromPy.proto */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
@@ -1476,7 +1466,8 @@ static void __pyx_f_15engine_commands_set_to(__pyx_t_15engine_commands_DTYPE_t *
 static void __pyx_f_15engine_commands_fill_boards(__pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int); /*proto*/
 static int __pyx_f_15engine_commands_get_random_move(__pyx_t_15engine_commands_DTYPE_t *, int); /*proto*/
 static void __pyx_f_15engine_commands_write_init_return_board(__pyx_t_5numpy_int16_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, __pyx_t_15engine_commands_DTYPE_t *, int, int); /*proto*/
-static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_15engine_commands_DTYPE_t = { "DTYPE_t", NULL, sizeof(__pyx_t_15engine_commands_DTYPE_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_15engine_commands_DTYPE_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_15engine_commands_DTYPE_t), 0 };
+static void __pyx_f_15engine_commands_write_return_move(__pyx_t_5numpy_int16_t *, __pyx_t_15engine_commands_DTYPE_t *, int, int); /*proto*/
+static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_int16_t = { "int16_t", NULL, sizeof(__pyx_t_5numpy_int16_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_5numpy_int16_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_5numpy_int16_t), 0 };
 #define __Pyx_MODULE_NAME "engine_commands"
 int __pyx_module_is_main_engine_commands = 0;
 
@@ -1485,6 +1476,7 @@ static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
+static const char __pyx_k_a[] = "a";
 static const char __pyx_k_i[] = "i";
 static const char __pyx_k_k[] = "k";
 static const char __pyx_k_p[] = "p";
@@ -1493,9 +1485,7 @@ static const char __pyx_k_np[] = "np";
 static const char __pyx_k_AI1[] = "AI1";
 static const char __pyx_k_AI2[] = "AI2";
 static const char __pyx_k_arr[] = "arr";
-static const char __pyx_k_end[] = "end";
 static const char __pyx_k_tmp[] = "tmp";
-static const char __pyx_k_file[] = "file";
 static const char __pyx_k_int8[] = "int8";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_move[] = "move";
@@ -1507,12 +1497,12 @@ static const char __pyx_k_board[] = "board";
 static const char __pyx_k_dtype[] = "dtype";
 static const char __pyx_k_empty[] = "empty";
 static const char __pyx_k_flags[] = "flags";
+static const char __pyx_k_int16[] = "int16";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_owner[] = "owner";
-static const char __pyx_k_print[] = "print";
 static const char __pyx_k_range[] = "range";
-static const char __pyx_k_sleep[] = "sleep";
 static const char __pyx_k_up_to[] = "up_to";
+static const char __pyx_k_zeros[] = "zeros";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_primes[] = "primes";
 static const char __pyx_k_random[] = "random";
@@ -1551,18 +1541,18 @@ static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_ValueError;
+static PyObject *__pyx_n_s_a;
 static PyObject *__pyx_n_s_all_moves;
 static PyObject *__pyx_n_s_arr;
 static PyObject *__pyx_n_s_board;
 static PyObject *__pyx_n_s_board_size;
 static PyObject *__pyx_n_s_dtype;
 static PyObject *__pyx_n_s_empty;
-static PyObject *__pyx_n_s_end;
 static PyObject *__pyx_n_s_engine_commands;
-static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_flags;
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
+static PyObject *__pyx_n_s_int16;
 static PyObject *__pyx_n_s_int8;
 static PyObject *__pyx_n_s_k;
 static PyObject *__pyx_n_s_main;
@@ -1582,12 +1572,10 @@ static PyObject *__pyx_n_s_permutation;
 static PyObject *__pyx_n_s_play_game;
 static PyObject *__pyx_n_s_players;
 static PyObject *__pyx_n_s_primes;
-static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_q;
 static PyObject *__pyx_n_s_random;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_return_stuff;
-static PyObject *__pyx_n_s_sleep;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_time;
 static PyObject *__pyx_n_s_tmp;
@@ -1597,6 +1585,7 @@ static PyObject *__pyx_n_s_up_to;
 static PyObject *__pyx_n_s_visible;
 static PyObject *__pyx_n_s_winner;
 static PyObject *__pyx_n_s_write_counter;
+static PyObject *__pyx_n_s_zeros;
 static PyObject *__pyx_pf_15engine_commands_primes(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_up_to); /* proto */
 static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_AI1, int __pyx_v_AI2, int __pyx_v_board_size); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
@@ -1612,7 +1601,6 @@ static PyObject *__pyx_int_8;
 static PyObject *__pyx_int_9;
 static PyObject *__pyx_int_10;
 static PyObject *__pyx_int_11;
-static PyObject *__pyx_int_100;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
@@ -1623,10 +1611,9 @@ static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__9;
 static PyObject *__pyx_tuple__10;
-static PyObject *__pyx_tuple__11;
-static PyObject *__pyx_tuple__13;
-static PyObject *__pyx_codeobj__12;
-static PyObject *__pyx_codeobj__14;
+static PyObject *__pyx_tuple__12;
+static PyObject *__pyx_codeobj__11;
+static PyObject *__pyx_codeobj__13;
 
 /* "engine_commands.pyx":19
  * @cython.boundscheck(False) # turn off bounds-checking for entire function
@@ -3815,7 +3802,7 @@ static int __pyx_f_15engine_commands_check_winner(__pyx_t_15engine_commands_DTYP
  * 
  * 
  * cdef data_to_numpy_array_with_spec(void * ptr, np.npy_intp N, int t):             # <<<<<<<<<<<<<<
- *     cdef np.ndarray[DTYPE_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
+ *     cdef np.ndarray[np.int16_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
  *     PyArray_ENABLEFLAGS(arr, np.NPY_OWNDATA)
  */
 
@@ -3836,7 +3823,7 @@ static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *_
   /* "engine_commands.pyx":264
  * 
  * cdef data_to_numpy_array_with_spec(void * ptr, np.npy_intp N, int t):
- *     cdef np.ndarray[DTYPE_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)             # <<<<<<<<<<<<<<
+ *     cdef np.ndarray[np.int16_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)             # <<<<<<<<<<<<<<
  *     PyArray_ENABLEFLAGS(arr, np.NPY_OWNDATA)
  *     return arr
  */
@@ -3846,7 +3833,7 @@ static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *_
   __pyx_t_2 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_2, &__Pyx_TypeInfo_nn___pyx_t_15engine_commands_DTYPE_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_arr.rcbuffer->pybuffer, (PyObject*)__pyx_t_2, &__Pyx_TypeInfo_nn___pyx_t_5numpy_int16_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_arr = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_arr.rcbuffer->pybuffer.buf = NULL;
       __PYX_ERR(0, 264, __pyx_L1_error)
     } else {__pyx_pybuffernd_arr.diminfo[0].strides = __pyx_pybuffernd_arr.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_arr.diminfo[0].shape = __pyx_pybuffernd_arr.rcbuffer->pybuffer.shape[0];
@@ -3858,7 +3845,7 @@ static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *_
 
   /* "engine_commands.pyx":265
  * cdef data_to_numpy_array_with_spec(void * ptr, np.npy_intp N, int t):
- *     cdef np.ndarray[DTYPE_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
+ *     cdef np.ndarray[np.int16_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
  *     PyArray_ENABLEFLAGS(arr, np.NPY_OWNDATA)             # <<<<<<<<<<<<<<
  *     return arr
  * 
@@ -3866,7 +3853,7 @@ static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *_
   PyArray_ENABLEFLAGS(((PyArrayObject *)__pyx_v_arr), NPY_OWNDATA);
 
   /* "engine_commands.pyx":266
- *     cdef np.ndarray[DTYPE_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
+ *     cdef np.ndarray[np.int16_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
  *     PyArray_ENABLEFLAGS(arr, np.NPY_OWNDATA)
  *     return arr             # <<<<<<<<<<<<<<
  * 
@@ -3881,7 +3868,7 @@ static PyObject *__pyx_f_15engine_commands_data_to_numpy_array_with_spec(void *_
  * 
  * 
  * cdef data_to_numpy_array_with_spec(void * ptr, np.npy_intp N, int t):             # <<<<<<<<<<<<<<
- *     cdef np.ndarray[DTYPE_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
+ *     cdef np.ndarray[np.int16_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
  *     PyArray_ENABLEFLAGS(arr, np.NPY_OWNDATA)
  */
 
@@ -5274,7 +5261,6 @@ static void __pyx_f_15engine_commands_write_init_return_board(__pyx_t_5numpy_int
   __Pyx_RefNannyDeclarations
   long __pyx_t_1;
   int __pyx_t_2;
-  PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("write_init_return_board", 0);
 
   /* "engine_commands.pyx":428
@@ -5282,7 +5268,7 @@ static void __pyx_f_15engine_commands_write_init_return_board(__pyx_t_5numpy_int
  * cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int max_return_size):
  *     cdef int i = 2             # <<<<<<<<<<<<<<
  *     for i in range(2, (board_size*board_size) + 2):
- *         return_stuff[i*3] = board[i-2]
+ *         return_stuff[(i*3)-4] = board[i-2]
  */
   __pyx_v_i = 2;
 
@@ -5290,8 +5276,8 @@ static void __pyx_f_15engine_commands_write_init_return_board(__pyx_t_5numpy_int
  * cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int max_return_size):
  *     cdef int i = 2
  *     for i in range(2, (board_size*board_size) + 2):             # <<<<<<<<<<<<<<
- *         return_stuff[i*3] = board[i-2]
- *         return_stuff[(i+1)*3] = visible[i-2]
+ *         return_stuff[(i*3)-4] = board[i-2]
+ *         return_stuff[(i*3)-3] = visible[i-2]
  */
   __pyx_t_1 = ((__pyx_v_board_size * __pyx_v_board_size) + 2);
   for (__pyx_t_2 = 2; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
@@ -5300,42 +5286,30 @@ static void __pyx_f_15engine_commands_write_init_return_board(__pyx_t_5numpy_int
     /* "engine_commands.pyx":430
  *     cdef int i = 2
  *     for i in range(2, (board_size*board_size) + 2):
- *         return_stuff[i*3] = board[i-2]             # <<<<<<<<<<<<<<
- *         return_stuff[(i+1)*3] = visible[i-2]
- *         return_stuff[(i+2)*3] = owner[i-2]
+ *         return_stuff[(i*3)-4] = board[i-2]             # <<<<<<<<<<<<<<
+ *         return_stuff[(i*3)-3] = visible[i-2]
+ *         return_stuff[(i*3)-2] = owner[i-2]
  */
-    (__pyx_v_return_stuff[(__pyx_v_i * 3)]) = (__pyx_v_board[(__pyx_v_i - 2)]);
+    (__pyx_v_return_stuff[((__pyx_v_i * 3) - 4)]) = (__pyx_v_board[(__pyx_v_i - 2)]);
 
     /* "engine_commands.pyx":431
  *     for i in range(2, (board_size*board_size) + 2):
- *         return_stuff[i*3] = board[i-2]
- *         return_stuff[(i+1)*3] = visible[i-2]             # <<<<<<<<<<<<<<
- *         return_stuff[(i+2)*3] = owner[i-2]
- *     print((i+2)*3)
+ *         return_stuff[(i*3)-4] = board[i-2]
+ *         return_stuff[(i*3)-3] = visible[i-2]             # <<<<<<<<<<<<<<
+ *         return_stuff[(i*3)-2] = owner[i-2]
+ * 
  */
-    (__pyx_v_return_stuff[((__pyx_v_i + 1) * 3)]) = (__pyx_v_visible[(__pyx_v_i - 2)]);
+    (__pyx_v_return_stuff[((__pyx_v_i * 3) - 3)]) = (__pyx_v_visible[(__pyx_v_i - 2)]);
 
     /* "engine_commands.pyx":432
- *         return_stuff[i*3] = board[i-2]
- *         return_stuff[(i+1)*3] = visible[i-2]
- *         return_stuff[(i+2)*3] = owner[i-2]             # <<<<<<<<<<<<<<
- *     print((i+2)*3)
+ *         return_stuff[(i*3)-4] = board[i-2]
+ *         return_stuff[(i*3)-3] = visible[i-2]
+ *         return_stuff[(i*3)-2] = owner[i-2]             # <<<<<<<<<<<<<<
+ * 
  * 
  */
-    (__pyx_v_return_stuff[((__pyx_v_i + 2) * 3)]) = (__pyx_v_owner[(__pyx_v_i - 2)]);
+    (__pyx_v_return_stuff[((__pyx_v_i * 3) - 2)]) = (__pyx_v_owner[(__pyx_v_i - 2)]);
   }
-
-  /* "engine_commands.pyx":433
- *         return_stuff[(i+1)*3] = visible[i-2]
- *         return_stuff[(i+2)*3] = owner[i-2]
- *     print((i+2)*3)             # <<<<<<<<<<<<<<
- * 
- * 
- */
-  __pyx_t_3 = __Pyx_PyInt_From_long(((__pyx_v_i + 2) * 3)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 433, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 433, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "engine_commands.pyx":427
  * 
@@ -5346,15 +5320,70 @@ static void __pyx_f_15engine_commands_write_init_return_board(__pyx_t_5numpy_int
  */
 
   /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_WriteUnraisable("engine_commands.write_init_return_board", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
-  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "engine_commands.pyx":440
+/* "engine_commands.pyx":435
+ * 
+ * 
+ * cdef void write_return_move(np.int16_t *return_stuff, DTYPE_t *all_moves, int move, int write_counter):             # <<<<<<<<<<<<<<
+ *     return_stuff[write_counter] = all_moves[(move*4) + 1]
+ *     return_stuff[write_counter+1] = all_moves[(move*4) + 2]
+ */
+
+static void __pyx_f_15engine_commands_write_return_move(__pyx_t_5numpy_int16_t *__pyx_v_return_stuff, __pyx_t_15engine_commands_DTYPE_t *__pyx_v_all_moves, int __pyx_v_move, int __pyx_v_write_counter) {
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("write_return_move", 0);
+
+  /* "engine_commands.pyx":436
+ * 
+ * cdef void write_return_move(np.int16_t *return_stuff, DTYPE_t *all_moves, int move, int write_counter):
+ *     return_stuff[write_counter] = all_moves[(move*4) + 1]             # <<<<<<<<<<<<<<
+ *     return_stuff[write_counter+1] = all_moves[(move*4) + 2]
+ *     return_stuff[write_counter+2] = all_moves[(move*4) + 3]
+ */
+  (__pyx_v_return_stuff[__pyx_v_write_counter]) = (__pyx_v_all_moves[((__pyx_v_move * 4) + 1)]);
+
+  /* "engine_commands.pyx":437
+ * cdef void write_return_move(np.int16_t *return_stuff, DTYPE_t *all_moves, int move, int write_counter):
+ *     return_stuff[write_counter] = all_moves[(move*4) + 1]
+ *     return_stuff[write_counter+1] = all_moves[(move*4) + 2]             # <<<<<<<<<<<<<<
+ *     return_stuff[write_counter+2] = all_moves[(move*4) + 3]
+ *     return_stuff[write_counter+3] = all_moves[(move*4) + 4]
+ */
+  (__pyx_v_return_stuff[(__pyx_v_write_counter + 1)]) = (__pyx_v_all_moves[((__pyx_v_move * 4) + 2)]);
+
+  /* "engine_commands.pyx":438
+ *     return_stuff[write_counter] = all_moves[(move*4) + 1]
+ *     return_stuff[write_counter+1] = all_moves[(move*4) + 2]
+ *     return_stuff[write_counter+2] = all_moves[(move*4) + 3]             # <<<<<<<<<<<<<<
+ *     return_stuff[write_counter+3] = all_moves[(move*4) + 4]
+ * 
+ */
+  (__pyx_v_return_stuff[(__pyx_v_write_counter + 2)]) = (__pyx_v_all_moves[((__pyx_v_move * 4) + 3)]);
+
+  /* "engine_commands.pyx":439
+ *     return_stuff[write_counter+1] = all_moves[(move*4) + 2]
+ *     return_stuff[write_counter+2] = all_moves[(move*4) + 3]
+ *     return_stuff[write_counter+3] = all_moves[(move*4) + 4]             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  (__pyx_v_return_stuff[(__pyx_v_write_counter + 3)]) = (__pyx_v_all_moves[((__pyx_v_move * 4) + 4)]);
+
+  /* "engine_commands.pyx":435
+ * 
+ * 
+ * cdef void write_return_move(np.int16_t *return_stuff, DTYPE_t *all_moves, int move, int write_counter):             # <<<<<<<<<<<<<<
+ *     return_stuff[write_counter] = all_moves[(move*4) + 1]
+ *     return_stuff[write_counter+1] = all_moves[(move*4) + 2]
+ */
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+}
+
+/* "engine_commands.pyx":447
  * @cython.boundscheck(False)
  * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * def play_game(int AI1, int AI2, int board_size):             # <<<<<<<<<<<<<<
@@ -5393,16 +5422,16 @@ static PyObject *__pyx_pw_15engine_commands_3play_game(PyObject *__pyx_self, PyO
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_AI2)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, 1); __PYX_ERR(0, 440, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, 1); __PYX_ERR(0, 447, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_board_size)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, 2); __PYX_ERR(0, 440, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, 2); __PYX_ERR(0, 447, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "play_game") < 0)) __PYX_ERR(0, 440, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "play_game") < 0)) __PYX_ERR(0, 447, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -5411,13 +5440,13 @@ static PyObject *__pyx_pw_15engine_commands_3play_game(PyObject *__pyx_self, PyO
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_AI1 = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_AI1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 440, __pyx_L3_error)
-    __pyx_v_AI2 = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_AI2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 440, __pyx_L3_error)
-    __pyx_v_board_size = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_board_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 440, __pyx_L3_error)
+    __pyx_v_AI1 = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_AI1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 447, __pyx_L3_error)
+    __pyx_v_AI2 = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_AI2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 447, __pyx_L3_error)
+    __pyx_v_board_size = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_board_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 447, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 440, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("play_game", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 447, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("engine_commands.play_game", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5447,17 +5476,21 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
   int __pyx_v_turn;
   int __pyx_v_winner;
   int __pyx_v_num_moves;
+  int __pyx_v_a;
   PyObject *__pyx_v_tmp = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
-  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_3;
   PyObject *__pyx_t_4 = NULL;
-  int __pyx_t_5;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("play_game", 0);
 
-  /* "engine_commands.pyx":441
+  /* "engine_commands.pyx":448
  * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * def play_game(int AI1, int AI2, int board_size):
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5466,7 +5499,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_players = ((__pyx_t_15engine_commands_DTYPE_t *)malloc((2 * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":442
+  /* "engine_commands.pyx":449
  * def play_game(int AI1, int AI2, int board_size):
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     players[0] = AI1             # <<<<<<<<<<<<<<
@@ -5475,7 +5508,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   (__pyx_v_players[0]) = __pyx_v_AI1;
 
-  /* "engine_commands.pyx":443
+  /* "engine_commands.pyx":450
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     players[0] = AI1
  *     players[1] = AI2             # <<<<<<<<<<<<<<
@@ -5484,7 +5517,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   (__pyx_v_players[1]) = __pyx_v_AI2;
 
-  /* "engine_commands.pyx":445
+  /* "engine_commands.pyx":452
  *     players[1] = AI2
  * 
  *     cdef int move_size = 4001 # (number of possible moves (1000) * 4) + 1             # <<<<<<<<<<<<<<
@@ -5493,7 +5526,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_move_size = 0xFA1;
 
-  /* "engine_commands.pyx":446
+  /* "engine_commands.pyx":453
  * 
  *     cdef int move_size = 4001 # (number of possible moves (1000) * 4) + 1
  *     cdef int max_return_size = 200002 # (max moves in a game (5000) * 4) + 2             # <<<<<<<<<<<<<<
@@ -5502,7 +5535,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_max_return_size = 0x30D42;
 
-  /* "engine_commands.pyx":450
+  /* "engine_commands.pyx":457
  * 
  *     # board setup
  *     cdef DTYPE_t *board = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5511,7 +5544,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_board = ((__pyx_t_15engine_commands_DTYPE_t *)malloc(((__pyx_v_board_size * __pyx_v_board_size) * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":451
+  /* "engine_commands.pyx":458
  *     # board setup
  *     cdef DTYPE_t *board = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
  *     cdef DTYPE_t *visible = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5520,7 +5553,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_visible = ((__pyx_t_15engine_commands_DTYPE_t *)malloc(((__pyx_v_board_size * __pyx_v_board_size) * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":452
+  /* "engine_commands.pyx":459
  *     cdef DTYPE_t *board = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
  *     cdef DTYPE_t *visible = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
  *     cdef DTYPE_t *owner = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5529,7 +5562,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_owner = ((__pyx_t_15engine_commands_DTYPE_t *)malloc(((__pyx_v_board_size * __pyx_v_board_size) * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":454
+  /* "engine_commands.pyx":461
  *     cdef DTYPE_t *owner = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
  * 
  *     cdef DTYPE_t *all_moves = <DTYPE_t *>malloc(move_size * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5538,7 +5571,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_all_moves = ((__pyx_t_15engine_commands_DTYPE_t *)malloc((__pyx_v_move_size * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":458
+  /* "engine_commands.pyx":465
  * 
  *     # Initilizing return_stuff
  *     cdef np.int16_t *return_stuff = <np.int16_t *>malloc(max_return_size * sizeof(np.int16_t))             # <<<<<<<<<<<<<<
@@ -5547,7 +5580,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_return_stuff = ((__pyx_t_5numpy_int16_t *)malloc((__pyx_v_max_return_size * (sizeof(__pyx_t_5numpy_int16_t)))));
 
-  /* "engine_commands.pyx":459
+  /* "engine_commands.pyx":466
  *     # Initilizing return_stuff
  *     cdef np.int16_t *return_stuff = <np.int16_t *>malloc(max_return_size * sizeof(np.int16_t))
  *     cdef int q = 0             # <<<<<<<<<<<<<<
@@ -5556,7 +5589,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_q = 0;
 
-  /* "engine_commands.pyx":460
+  /* "engine_commands.pyx":467
  *     cdef np.int16_t *return_stuff = <np.int16_t *>malloc(max_return_size * sizeof(np.int16_t))
  *     cdef int q = 0
  *     for i in range(max_return_size):             # <<<<<<<<<<<<<<
@@ -5567,7 +5600,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "engine_commands.pyx":461
+    /* "engine_commands.pyx":468
  *     cdef int q = 0
  *     for i in range(max_return_size):
  *         return_stuff[q] = 0             # <<<<<<<<<<<<<<
@@ -5577,7 +5610,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
     (__pyx_v_return_stuff[__pyx_v_q]) = 0;
   }
 
-  /* "engine_commands.pyx":466
+  /* "engine_commands.pyx":473
  * 
  * 
  *     set_to(board, board_size, 0)             # <<<<<<<<<<<<<<
@@ -5586,7 +5619,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_f_15engine_commands_set_to(__pyx_v_board, __pyx_v_board_size, 0);
 
-  /* "engine_commands.pyx":467
+  /* "engine_commands.pyx":474
  * 
  *     set_to(board, board_size, 0)
  *     set_to(visible, board_size, 0)             # <<<<<<<<<<<<<<
@@ -5595,7 +5628,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_f_15engine_commands_set_to(__pyx_v_visible, __pyx_v_board_size, 0);
 
-  /* "engine_commands.pyx":468
+  /* "engine_commands.pyx":475
  *     set_to(board, board_size, 0)
  *     set_to(visible, board_size, 0)
  *     set_to(owner, board_size, 2)             # <<<<<<<<<<<<<<
@@ -5604,7 +5637,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_f_15engine_commands_set_to(__pyx_v_owner, __pyx_v_board_size, 2);
 
-  /* "engine_commands.pyx":469
+  /* "engine_commands.pyx":476
  *     set_to(visible, board_size, 0)
  *     set_to(owner, board_size, 2)
  *     set_to(all_moves, move_size, 0)             # <<<<<<<<<<<<<<
@@ -5613,7 +5646,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_f_15engine_commands_set_to(__pyx_v_all_moves, __pyx_v_move_size, 0);
 
-  /* "engine_commands.pyx":471
+  /* "engine_commands.pyx":478
  *     set_to(all_moves, move_size, 0)
  * 
  *     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))             # <<<<<<<<<<<<<<
@@ -5622,7 +5655,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_flags = ((__pyx_t_15engine_commands_DTYPE_t *)malloc((2 * (sizeof(__pyx_t_15engine_commands_DTYPE_t)))));
 
-  /* "engine_commands.pyx":472
+  /* "engine_commands.pyx":479
  * 
  *     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     fill_boards(board, visible, owner, flags, board_size)             # <<<<<<<<<<<<<<
@@ -5631,127 +5664,26 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_f_15engine_commands_fill_boards(__pyx_v_board, __pyx_v_visible, __pyx_v_owner, __pyx_v_flags, __pyx_v_board_size);
 
-  /* "engine_commands.pyx":474
+  /* "engine_commands.pyx":481
  *     fill_boards(board, visible, owner, flags, board_size)
  * 
  *     write_init_return_board(return_stuff, board, visible, owner, board_size, max_return_size)             # <<<<<<<<<<<<<<
  * 
- *     cdef int write_counter = (board_size * board_size * 3) + 3
+ *     cdef int write_counter = (board_size * board_size * 3) + 2
  */
   __pyx_f_15engine_commands_write_init_return_board(__pyx_v_return_stuff, __pyx_v_board, __pyx_v_visible, __pyx_v_owner, __pyx_v_board_size, __pyx_v_max_return_size);
 
-  /* "engine_commands.pyx":476
+  /* "engine_commands.pyx":483
  *     write_init_return_board(return_stuff, board, visible, owner, board_size, max_return_size)
  * 
- *     cdef int write_counter = (board_size * board_size * 3) + 3             # <<<<<<<<<<<<<<
- *     print(write_counter)
- * 
- */
-  __pyx_v_write_counter = (((__pyx_v_board_size * __pyx_v_board_size) * 3) + 3);
-
-  /* "engine_commands.pyx":477
- * 
- *     cdef int write_counter = (board_size * board_size * 3) + 3
- *     print(write_counter)             # <<<<<<<<<<<<<<
- * 
- * 
- */
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_write_counter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 477, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 477, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "engine_commands.pyx":480
- * 
- * 
- *     print(return_stuff[write_counter-4])             # <<<<<<<<<<<<<<
- *     print(return_stuff[write_counter-3])
- *     print(return_stuff[write_counter-2])
- */
-  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[(__pyx_v_write_counter - 4)])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 480, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 480, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "engine_commands.pyx":481
- * 
- *     print(return_stuff[write_counter-4])
- *     print(return_stuff[write_counter-3])             # <<<<<<<<<<<<<<
- *     print(return_stuff[write_counter-2])
- *     print(return_stuff[write_counter-1])
- */
-  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[(__pyx_v_write_counter - 3)])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 481, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 481, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "engine_commands.pyx":482
- *     print(return_stuff[write_counter-4])
- *     print(return_stuff[write_counter-3])
- *     print(return_stuff[write_counter-2])             # <<<<<<<<<<<<<<
- *     print(return_stuff[write_counter-1])
- *     print(return_stuff[write_counter])
- */
-  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[(__pyx_v_write_counter - 2)])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 482, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 482, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "engine_commands.pyx":483
- *     print(return_stuff[write_counter-3])
- *     print(return_stuff[write_counter-2])
- *     print(return_stuff[write_counter-1])             # <<<<<<<<<<<<<<
- *     print(return_stuff[write_counter])
- *     print(return_stuff[write_counter+1])
- */
-  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[(__pyx_v_write_counter - 1)])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 483, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 483, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "engine_commands.pyx":484
- *     print(return_stuff[write_counter-2])
- *     print(return_stuff[write_counter-1])
- *     print(return_stuff[write_counter])             # <<<<<<<<<<<<<<
- *     print(return_stuff[write_counter+1])
- *     time.sleep(100)
- */
-  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[__pyx_v_write_counter])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 484, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 484, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "engine_commands.pyx":485
- *     print(return_stuff[write_counter-1])
- *     print(return_stuff[write_counter])
- *     print(return_stuff[write_counter+1])             # <<<<<<<<<<<<<<
- *     time.sleep(100)
- * 
- */
-  __pyx_t_3 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[(__pyx_v_write_counter + 1)])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 485, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 485, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "engine_commands.pyx":486
- *     print(return_stuff[write_counter])
- *     print(return_stuff[write_counter+1])
- *     time.sleep(100)             # <<<<<<<<<<<<<<
+ *     cdef int write_counter = (board_size * board_size * 3) + 2             # <<<<<<<<<<<<<<
  * 
  *     cdef int move = 0
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 486, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_sleep); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 486, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 486, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_v_write_counter = (((__pyx_v_board_size * __pyx_v_board_size) * 3) + 2);
 
-  /* "engine_commands.pyx":488
- *     time.sleep(100)
+  /* "engine_commands.pyx":485
+ *     cdef int write_counter = (board_size * board_size * 3) + 2
  * 
  *     cdef int move = 0             # <<<<<<<<<<<<<<
  *     cdef int turn = 0
@@ -5759,7 +5691,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_move = 0;
 
-  /* "engine_commands.pyx":489
+  /* "engine_commands.pyx":486
  * 
  *     cdef int move = 0
  *     cdef int turn = 0             # <<<<<<<<<<<<<<
@@ -5768,7 +5700,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_turn = 0;
 
-  /* "engine_commands.pyx":490
+  /* "engine_commands.pyx":487
  *     cdef int move = 0
  *     cdef int turn = 0
  *     cdef int winner = 0             # <<<<<<<<<<<<<<
@@ -5777,7 +5709,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_winner = 0;
 
-  /* "engine_commands.pyx":491
+  /* "engine_commands.pyx":488
  *     cdef int turn = 0
  *     cdef int winner = 0
  *     cdef int num_moves = 0             # <<<<<<<<<<<<<<
@@ -5786,7 +5718,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_num_moves = 0;
 
-  /* "engine_commands.pyx":492
+  /* "engine_commands.pyx":489
  *     cdef int winner = 0
  *     cdef int num_moves = 0
  *     while True:             # <<<<<<<<<<<<<<
@@ -5795,7 +5727,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   while (1) {
 
-    /* "engine_commands.pyx":498
+    /* "engine_commands.pyx":495
  * 
  * 
  *         all_legal_moves(turn, board, owner, all_moves, move_size, board_size)             # <<<<<<<<<<<<<<
@@ -5804,7 +5736,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
     __pyx_f_15engine_commands_all_legal_moves(__pyx_v_turn, __pyx_v_board, __pyx_v_owner, __pyx_v_all_moves, __pyx_v_move_size, __pyx_v_board_size);
 
-    /* "engine_commands.pyx":500
+    /* "engine_commands.pyx":497
  *         all_legal_moves(turn, board, owner, all_moves, move_size, board_size)
  * 
  *         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size)             # <<<<<<<<<<<<<<
@@ -5813,17 +5745,17 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
     __pyx_v_winner = __pyx_f_15engine_commands_check_winner(__pyx_v_board, __pyx_v_all_moves, __pyx_v_owner, __pyx_v_flags, __pyx_v_turn, __pyx_v_move_size, __pyx_v_board_size);
 
-    /* "engine_commands.pyx":501
+    /* "engine_commands.pyx":498
  * 
  *         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size)
  *         if winner != 0:             # <<<<<<<<<<<<<<
  *             break
  * 
  */
-    __pyx_t_5 = ((__pyx_v_winner != 0) != 0);
-    if (__pyx_t_5) {
+    __pyx_t_3 = ((__pyx_v_winner != 0) != 0);
+    if (__pyx_t_3) {
 
-      /* "engine_commands.pyx":502
+      /* "engine_commands.pyx":499
  *         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size)
  *         if winner != 0:
  *             break             # <<<<<<<<<<<<<<
@@ -5832,7 +5764,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
       goto __pyx_L6_break;
 
-      /* "engine_commands.pyx":501
+      /* "engine_commands.pyx":498
  * 
  *         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size)
  *         if winner != 0:             # <<<<<<<<<<<<<<
@@ -5841,17 +5773,17 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
     }
 
-    /* "engine_commands.pyx":505
+    /* "engine_commands.pyx":502
  * 
  *         # RandomAI
  *         if players[turn] == 0:             # <<<<<<<<<<<<<<
  *             move = get_random_move(all_moves, move_size)
  * 
  */
-    __pyx_t_5 = (((__pyx_v_players[__pyx_v_turn]) == 0) != 0);
-    if (__pyx_t_5) {
+    __pyx_t_3 = (((__pyx_v_players[__pyx_v_turn]) == 0) != 0);
+    if (__pyx_t_3) {
 
-      /* "engine_commands.pyx":506
+      /* "engine_commands.pyx":503
  *         # RandomAI
  *         if players[turn] == 0:
  *             move = get_random_move(all_moves, move_size)             # <<<<<<<<<<<<<<
@@ -5860,7 +5792,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
       __pyx_v_move = __pyx_f_15engine_commands_get_random_move(__pyx_v_all_moves, __pyx_v_move_size);
 
-      /* "engine_commands.pyx":505
+      /* "engine_commands.pyx":502
  * 
  *         # RandomAI
  *         if players[turn] == 0:             # <<<<<<<<<<<<<<
@@ -5869,17 +5801,35 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
     }
 
-    /* "engine_commands.pyx":508
+    /* "engine_commands.pyx":505
  *             move = get_random_move(all_moves, move_size)
  * 
  *         move_piece(move, all_moves, board, visible, owner, board_size)             # <<<<<<<<<<<<<<
- * 
- *         num_moves += 1
+ *         write_return_move(return_stuff, all_moves, move, write_counter)
+ *         write_counter += 4
  */
     __pyx_f_15engine_commands_move_piece(__pyx_v_move, __pyx_v_all_moves, __pyx_v_board, __pyx_v_visible, __pyx_v_owner, __pyx_v_board_size);
 
-    /* "engine_commands.pyx":510
+    /* "engine_commands.pyx":506
+ * 
  *         move_piece(move, all_moves, board, visible, owner, board_size)
+ *         write_return_move(return_stuff, all_moves, move, write_counter)             # <<<<<<<<<<<<<<
+ *         write_counter += 4
+ * 
+ */
+    __pyx_f_15engine_commands_write_return_move(__pyx_v_return_stuff, __pyx_v_all_moves, __pyx_v_move, __pyx_v_write_counter);
+
+    /* "engine_commands.pyx":507
+ *         move_piece(move, all_moves, board, visible, owner, board_size)
+ *         write_return_move(return_stuff, all_moves, move, write_counter)
+ *         write_counter += 4             # <<<<<<<<<<<<<<
+ * 
+ *         num_moves += 1
+ */
+    __pyx_v_write_counter = (__pyx_v_write_counter + 4);
+
+    /* "engine_commands.pyx":509
+ *         write_counter += 4
  * 
  *         num_moves += 1             # <<<<<<<<<<<<<<
  *         turn = 1 - turn
@@ -5887,7 +5837,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
     __pyx_v_num_moves = (__pyx_v_num_moves + 1);
 
-    /* "engine_commands.pyx":511
+    /* "engine_commands.pyx":510
  * 
  *         num_moves += 1
  *         turn = 1 - turn             # <<<<<<<<<<<<<<
@@ -5898,7 +5848,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
   }
   __pyx_L6_break:;
 
-  /* "engine_commands.pyx":512
+  /* "engine_commands.pyx":511
  *         num_moves += 1
  *         turn = 1 - turn
  *     free(players)             # <<<<<<<<<<<<<<
@@ -5907,7 +5857,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   free(__pyx_v_players);
 
-  /* "engine_commands.pyx":513
+  /* "engine_commands.pyx":512
  *         turn = 1 - turn
  *     free(players)
  *     free(board)             # <<<<<<<<<<<<<<
@@ -5916,7 +5866,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   free(__pyx_v_board);
 
-  /* "engine_commands.pyx":514
+  /* "engine_commands.pyx":513
  *     free(players)
  *     free(board)
  *     free(visible)             # <<<<<<<<<<<<<<
@@ -5925,7 +5875,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   free(__pyx_v_visible);
 
-  /* "engine_commands.pyx":515
+  /* "engine_commands.pyx":514
  *     free(board)
  *     free(visible)
  *     free(owner)             # <<<<<<<<<<<<<<
@@ -5934,7 +5884,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   free(__pyx_v_owner);
 
-  /* "engine_commands.pyx":516
+  /* "engine_commands.pyx":515
  *     free(visible)
  *     free(owner)
  *     free(flags)             # <<<<<<<<<<<<<<
@@ -5943,7 +5893,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   free(__pyx_v_flags);
 
-  /* "engine_commands.pyx":518
+  /* "engine_commands.pyx":517
  *     free(flags)
  * 
  *     return_stuff[0] = winner             # <<<<<<<<<<<<<<
@@ -5952,29 +5902,91 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   (__pyx_v_return_stuff[0]) = __pyx_v_winner;
 
-  /* "engine_commands.pyx":519
+  /* "engine_commands.pyx":518
  * 
  *     return_stuff[0] = winner
  *     return_stuff[1] = num_moves             # <<<<<<<<<<<<<<
  * 
- *     tmp = data_to_numpy_array_with_spec(return_stuff, max_return_size, np.NPY_INT16)
+ *     cdef int a = 0
  */
   (__pyx_v_return_stuff[1]) = __pyx_v_num_moves;
 
-  /* "engine_commands.pyx":521
+  /* "engine_commands.pyx":520
  *     return_stuff[1] = num_moves
  * 
- *     tmp = data_to_numpy_array_with_spec(return_stuff, max_return_size, np.NPY_INT16)             # <<<<<<<<<<<<<<
+ *     cdef int a = 0             # <<<<<<<<<<<<<<
+ *     tmp = np.zeros([max_return_size], dtype=np.int16)
+ * 
+ */
+  __pyx_v_a = 0;
+
+  /* "engine_commands.pyx":521
+ * 
+ *     cdef int a = 0
+ *     tmp = np.zeros([max_return_size], dtype=np.int16)             # <<<<<<<<<<<<<<
+ * 
+ *     for a in range(max_return_size):
+ */
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_max_return_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_6 = PyList_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyList_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
+  __pyx_t_4 = 0;
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6);
+  __pyx_t_6 = 0;
+  __pyx_t_6 = PyDict_New(); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int16); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 521, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_v_tmp = __pyx_t_8;
+  __pyx_t_8 = 0;
+
+  /* "engine_commands.pyx":523
+ *     tmp = np.zeros([max_return_size], dtype=np.int16)
+ * 
+ *     for a in range(max_return_size):             # <<<<<<<<<<<<<<
+ *         tmp[a] = return_stuff[a]
+ * 
+ */
+  __pyx_t_1 = __pyx_v_max_return_size;
+  for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
+    __pyx_v_a = __pyx_t_2;
+
+    /* "engine_commands.pyx":524
+ * 
+ *     for a in range(max_return_size):
+ *         tmp[a] = return_stuff[a]             # <<<<<<<<<<<<<<
  * 
  *     free(return_stuff)
  */
-  __pyx_t_3 = __pyx_f_15engine_commands_data_to_numpy_array_with_spec(__pyx_v_return_stuff, __pyx_v_max_return_size, NPY_INT16); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 521, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_v_tmp = __pyx_t_3;
-  __pyx_t_3 = 0;
+    __pyx_t_8 = __Pyx_PyInt_From_npy_int16((__pyx_v_return_stuff[__pyx_v_a])); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 524, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    if (unlikely(__Pyx_SetItemInt(__pyx_v_tmp, __pyx_v_a, __pyx_t_8, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 524, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  }
 
-  /* "engine_commands.pyx":523
- *     tmp = data_to_numpy_array_with_spec(return_stuff, max_return_size, np.NPY_INT16)
+  /* "engine_commands.pyx":526
+ *         tmp[a] = return_stuff[a]
  * 
  *     free(return_stuff)             # <<<<<<<<<<<<<<
  * 
@@ -5982,7 +5994,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  */
   free(__pyx_v_return_stuff);
 
-  /* "engine_commands.pyx":525
+  /* "engine_commands.pyx":528
  *     free(return_stuff)
  * 
  *     return tmp             # <<<<<<<<<<<<<<
@@ -5993,7 +6005,7 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
   __pyx_r = __pyx_v_tmp;
   goto __pyx_L0;
 
-  /* "engine_commands.pyx":440
+  /* "engine_commands.pyx":447
  * @cython.boundscheck(False)
  * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * def play_game(int AI1, int AI2, int board_size):             # <<<<<<<<<<<<<<
@@ -6003,8 +6015,11 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
   __Pyx_AddTraceback("engine_commands.play_game", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -6183,7 +6198,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 218, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -6239,7 +6254,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  * 
  *             info.buf = PyArray_DATA(self)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 222, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -6548,7 +6563,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 259, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 259, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7363,7 +7378,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 799, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 799, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7431,7 +7446,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 803, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 803, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -7540,7 +7555,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 823, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 823, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_Raise(__pyx_t_4, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -8221,7 +8236,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 989, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 989, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -8352,7 +8367,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 995, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 995, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -8480,7 +8495,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1001, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1001, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -8561,18 +8576,18 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
+  {&__pyx_n_s_a, __pyx_k_a, sizeof(__pyx_k_a), 0, 0, 1, 1},
   {&__pyx_n_s_all_moves, __pyx_k_all_moves, sizeof(__pyx_k_all_moves), 0, 0, 1, 1},
   {&__pyx_n_s_arr, __pyx_k_arr, sizeof(__pyx_k_arr), 0, 0, 1, 1},
   {&__pyx_n_s_board, __pyx_k_board, sizeof(__pyx_k_board), 0, 0, 1, 1},
   {&__pyx_n_s_board_size, __pyx_k_board_size, sizeof(__pyx_k_board_size), 0, 0, 1, 1},
   {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
-  {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
   {&__pyx_n_s_engine_commands, __pyx_k_engine_commands, sizeof(__pyx_k_engine_commands), 0, 0, 1, 1},
-  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_flags, __pyx_k_flags, sizeof(__pyx_k_flags), 0, 0, 1, 1},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
+  {&__pyx_n_s_int16, __pyx_k_int16, sizeof(__pyx_k_int16), 0, 0, 1, 1},
   {&__pyx_n_s_int8, __pyx_k_int8, sizeof(__pyx_k_int8), 0, 0, 1, 1},
   {&__pyx_n_s_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -8592,12 +8607,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_play_game, __pyx_k_play_game, sizeof(__pyx_k_play_game), 0, 0, 1, 1},
   {&__pyx_n_s_players, __pyx_k_players, sizeof(__pyx_k_players), 0, 0, 1, 1},
   {&__pyx_n_s_primes, __pyx_k_primes, sizeof(__pyx_k_primes), 0, 0, 1, 1},
-  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_q, __pyx_k_q, sizeof(__pyx_k_q), 0, 0, 1, 1},
   {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_return_stuff, __pyx_k_return_stuff, sizeof(__pyx_k_return_stuff), 0, 0, 1, 1},
-  {&__pyx_n_s_sleep, __pyx_k_sleep, sizeof(__pyx_k_sleep), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_time, __pyx_k_time, sizeof(__pyx_k_time), 0, 0, 1, 1},
   {&__pyx_n_s_tmp, __pyx_k_tmp, sizeof(__pyx_k_tmp), 0, 0, 1, 1},
@@ -8607,6 +8620,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_visible, __pyx_k_visible, sizeof(__pyx_k_visible), 0, 0, 1, 1},
   {&__pyx_n_s_winner, __pyx_k_winner, sizeof(__pyx_k_winner), 0, 0, 1, 1},
   {&__pyx_n_s_write_counter, __pyx_k_write_counter, sizeof(__pyx_k_write_counter), 0, 0, 1, 1},
+  {&__pyx_n_s_zeros, __pyx_k_zeros, sizeof(__pyx_k_zeros), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
@@ -8623,17 +8637,6 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "engine_commands.pyx":486
- *     print(return_stuff[write_counter])
- *     print(return_stuff[write_counter+1])
- *     time.sleep(100)             # <<<<<<<<<<<<<<
- * 
- *     cdef int move = 0
- */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_int_100); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 486, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple_);
-  __Pyx_GIVEREF(__pyx_tuple_);
-
   /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":218
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_C_CONTIGUOUS)):
@@ -8641,9 +8644,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 218, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple_)) __PYX_ERR(1, 218, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple_);
+  __Pyx_GIVEREF(__pyx_tuple_);
 
   /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":222
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
@@ -8652,9 +8655,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             info.buf = PyArray_DATA(self)
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__3);
-  __Pyx_GIVEREF(__pyx_tuple__3);
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 222, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__2);
+  __Pyx_GIVEREF(__pyx_tuple__2);
 
   /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":259
  *                 if ((descr.byteorder == c'>' and little_endian) or
@@ -8663,9 +8666,9 @@ static int __Pyx_InitCachedConstants(void) {
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 259, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__4);
-  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 259, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
 
   /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":799
  * 
@@ -8674,9 +8677,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 799, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__5);
-  __Pyx_GIVEREF(__pyx_tuple__5);
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 799, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
 
   /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":803
  *         if ((child.byteorder == c'>' and little_endian) or
@@ -8685,9 +8688,9 @@ static int __Pyx_InitCachedConstants(void) {
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 803, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 803, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
 
   /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":823
  *             t = child.type_num
@@ -8696,9 +8699,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 823, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 823, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
 
   /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":989
  *         _import_array()
@@ -8707,9 +8710,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 989, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__8);
-  __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 989, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
 
   /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":995
  *         _import_umath()
@@ -8718,18 +8721,18 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 995, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 995, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
 
   /* "../../Envs/startegoai/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1001
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(1, 1001, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 1001, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__9);
+  __Pyx_GIVEREF(__pyx_tuple__9);
 
   /* "engine_commands.pyx":272
  * @cython.cdivision(True)
@@ -8738,22 +8741,22 @@ static int __Pyx_InitCachedConstants(void) {
  *     cdef DTYPE_t k = 0
  *     cdef DTYPE_t *p = <DTYPE_t *>malloc(up_to * sizeof(DTYPE_t))
  */
-  __pyx_tuple__11 = PyTuple_Pack(5, __pyx_n_s_up_to, __pyx_n_s_up_to, __pyx_n_s_k, __pyx_n_s_p, __pyx_n_s_arr); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 272, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Programming_Python_strategoai, __pyx_n_s_primes, 272, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(5, __pyx_n_s_up_to, __pyx_n_s_up_to, __pyx_n_s_k, __pyx_n_s_p, __pyx_n_s_arr); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 272, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Programming_Python_strategoai, __pyx_n_s_primes, 272, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 272, __pyx_L1_error)
 
-  /* "engine_commands.pyx":440
+  /* "engine_commands.pyx":447
  * @cython.boundscheck(False)
  * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * def play_game(int AI1, int AI2, int board_size):             # <<<<<<<<<<<<<<
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     players[0] = AI1
  */
-  __pyx_tuple__13 = PyTuple_Pack(20, __pyx_n_s_AI1, __pyx_n_s_AI2, __pyx_n_s_board_size, __pyx_n_s_players, __pyx_n_s_move_size, __pyx_n_s_max_return_size, __pyx_n_s_board, __pyx_n_s_visible, __pyx_n_s_owner, __pyx_n_s_all_moves, __pyx_n_s_return_stuff, __pyx_n_s_q, __pyx_n_s_i, __pyx_n_s_flags, __pyx_n_s_write_counter, __pyx_n_s_move, __pyx_n_s_turn, __pyx_n_s_winner, __pyx_n_s_num_moves, __pyx_n_s_tmp); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 440, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(3, 0, 20, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Programming_Python_strategoai, __pyx_n_s_play_game, 440, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 440, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(21, __pyx_n_s_AI1, __pyx_n_s_AI2, __pyx_n_s_board_size, __pyx_n_s_players, __pyx_n_s_move_size, __pyx_n_s_max_return_size, __pyx_n_s_board, __pyx_n_s_visible, __pyx_n_s_owner, __pyx_n_s_all_moves, __pyx_n_s_return_stuff, __pyx_n_s_q, __pyx_n_s_i, __pyx_n_s_flags, __pyx_n_s_write_counter, __pyx_n_s_move, __pyx_n_s_turn, __pyx_n_s_winner, __pyx_n_s_num_moves, __pyx_n_s_a, __pyx_n_s_tmp); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 447, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(3, 0, 21, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_C_Programming_Python_strategoai, __pyx_n_s_play_game, 447, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 447, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -8774,7 +8777,6 @@ static int __Pyx_InitGlobals(void) {
   __pyx_int_9 = PyInt_FromLong(9); if (unlikely(!__pyx_int_9)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_10 = PyInt_FromLong(10); if (unlikely(!__pyx_int_10)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_11 = PyInt_FromLong(11); if (unlikely(!__pyx_int_11)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_int_100 = PyInt_FromLong(100); if (unlikely(!__pyx_int_100)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -8946,16 +8948,16 @@ PyMODINIT_FUNC PyInit_engine_commands(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_primes, __pyx_t_2) < 0) __PYX_ERR(0, 272, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "engine_commands.pyx":440
+  /* "engine_commands.pyx":447
  * @cython.boundscheck(False)
  * @cython.wraparound(False)  # turn off negative index wrapping for entire function
  * def play_game(int AI1, int AI2, int board_size):             # <<<<<<<<<<<<<<
  *     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
  *     players[0] = AI1
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_15engine_commands_3play_game, NULL, __pyx_n_s_engine_commands); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 440, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_15engine_commands_3play_game, NULL, __pyx_n_s_engine_commands); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 447, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_play_game, __pyx_t_2) < 0) __PYX_ERR(0, 440, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_play_game, __pyx_t_2) < 0) __PYX_ERR(0, 447, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "engine_commands.pyx":1
@@ -10792,112 +10794,6 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
     }
 }
 
-/* Print */
-            #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static PyObject *__Pyx_GetStdout(void) {
-    PyObject *f = PySys_GetObject((char *)"stdout");
-    if (!f) {
-        PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
-    }
-    return f;
-}
-static int __Pyx_Print(PyObject* f, PyObject *arg_tuple, int newline) {
-    int i;
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    for (i=0; i < PyTuple_GET_SIZE(arg_tuple); i++) {
-        PyObject* v;
-        if (PyFile_SoftSpace(f, 1)) {
-            if (PyFile_WriteString(" ", f) < 0)
-                goto error;
-        }
-        v = PyTuple_GET_ITEM(arg_tuple, i);
-        if (PyFile_WriteObject(v, f, Py_PRINT_RAW) < 0)
-            goto error;
-        if (PyString_Check(v)) {
-            char *s = PyString_AsString(v);
-            Py_ssize_t len = PyString_Size(v);
-            if (len > 0) {
-                switch (s[len-1]) {
-                    case ' ': break;
-                    case '\f': case '\r': case '\n': case '\t': case '\v':
-                        PyFile_SoftSpace(f, 0);
-                        break;
-                    default:  break;
-                }
-            }
-        }
-    }
-    if (newline) {
-        if (PyFile_WriteString("\n", f) < 0)
-            goto error;
-        PyFile_SoftSpace(f, 0);
-    }
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-}
-#else
-static int __Pyx_Print(PyObject* stream, PyObject *arg_tuple, int newline) {
-    PyObject* kwargs = 0;
-    PyObject* result = 0;
-    PyObject* end_string;
-    if (unlikely(!__pyx_print)) {
-        __pyx_print = PyObject_GetAttr(__pyx_b, __pyx_n_s_print);
-        if (!__pyx_print)
-            return -1;
-    }
-    if (stream) {
-        kwargs = PyDict_New();
-        if (unlikely(!kwargs))
-            return -1;
-        if (unlikely(PyDict_SetItem(kwargs, __pyx_n_s_file, stream) < 0))
-            goto bad;
-        if (!newline) {
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                goto bad;
-            if (PyDict_SetItem(kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                goto bad;
-            }
-            Py_DECREF(end_string);
-        }
-    } else if (!newline) {
-        if (unlikely(!__pyx_print_kwargs)) {
-            __pyx_print_kwargs = PyDict_New();
-            if (unlikely(!__pyx_print_kwargs))
-                return -1;
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                return -1;
-            if (PyDict_SetItem(__pyx_print_kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                return -1;
-            }
-            Py_DECREF(end_string);
-        }
-        kwargs = __pyx_print_kwargs;
-    }
-    result = PyObject_Call(__pyx_print, arg_tuple, kwargs);
-    if (unlikely(kwargs) && (kwargs != __pyx_print_kwargs))
-        Py_DECREF(kwargs);
-    if (!result)
-        return -1;
-    Py_DECREF(result);
-    return 0;
-bad:
-    if (kwargs != __pyx_print_kwargs)
-        Py_XDECREF(kwargs);
-    return -1;
-}
-#endif
-
 /* CIntToPy */
             static CYTHON_INLINE PyObject* __Pyx_PyInt_From_npy_int16(npy_int16 value) {
     const npy_int16 neg_one = (npy_int16) -1, const_zero = (npy_int16) 0;
@@ -11647,43 +11543,6 @@ raise_neg_overflow:
         "can't convert negative value to npy_int8");
     return (npy_int8) -1;
 }
-
-/* PrintOne */
-            #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    if (PyFile_SoftSpace(f, 0)) {
-        if (PyFile_WriteString(" ", f) < 0)
-            goto error;
-    }
-    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
-        goto error;
-    if (PyFile_WriteString("\n", f) < 0)
-        goto error;
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-    /* the line below is just to avoid C compiler
-     * warnings about unused functions */
-    return __Pyx_Print(f, NULL, 0);
-}
-#else
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
-    int res;
-    PyObject* arg_tuple = PyTuple_Pack(1, o);
-    if (unlikely(!arg_tuple))
-        return -1;
-    res = __Pyx_Print(stream, arg_tuple, 1);
-    Py_DECREF(arg_tuple);
-    return res;
-}
-#endif
 
 /* CIntFromPy */
             static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {

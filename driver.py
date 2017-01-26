@@ -32,44 +32,6 @@ class CountThread (threading.Thread):
         print("Exiting " + self.name)
 
 
-# humans = 0, 1, 2
-def play_c_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None, AI1 = None, AI2 = None, board_size = 10):
-    tracking = True
-    if db_stuff == None:
-        tracking = False
-
-    if humans == 1:
-        raise Exception("Humans cannot play during a c game")
-
-    if gui == True:
-        raise Exception("gui cannot be active during c game")
-
-    start = time.perf_counter()
-    results = c_bindings.play_game(0, 0, board_size)
-    end = time.perf_counter()
-
-    if tracking:
-        sql_game_insert =   """
-                                INSERT INTO Game (WINNER)
-                                VALUES (?);
-                            """
-        db_stuff[1].execute(sql_game_insert, str(winner))
-
-        game_id = db_stuff[1].lastrowid
-        state_tracker_packed = []
-        for i in state_tracker:
-            state_tracker_packed.append((str(game_id), str(i)))
-
-        sql_state_insert =  """
-                                INSERT INTO State (GAME_ID, BOARD)
-                                VALUES (?, ?);
-                            """
-        db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
-        db_stuff[0].commit()
-
-    return results, end-start
-
-
 
 # humans = 0, 1, 2
 def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None, AI1 = None, AI2 = None):
@@ -211,6 +173,25 @@ def print_moves_per_second(thread_name, delay, c):
 
 
 
+# def play_back_game(game_array):
+
+
+# humans = 0, 1, 2
+def play_c_game(engine, humans = 1, AI1 = None, AI2 = None, board_size = 10):
+
+    if humans == 1:
+        raise Exception("Humans cannot play during a c game")
+
+    if gui == True:
+        raise Exception("gui cannot be active during c game")
+
+    start = time.perf_counter()
+    results = c_bindings.play_game(0, 0, board_size)
+    end = time.perf_counter()
+
+    return results, end-start
+
+
 def game_start(args):
     engine = g.GameEngine(int(args.size))
 
@@ -230,9 +211,9 @@ def game_start(args):
     num_games = int(args.number)
 
     for i in range(num_games):
-        results, time = play_c_game(engine, int(args.humans), db_stuff, gui, re, FIRST_AI, SECOND_AI, int(args.size))
-        print('MP_PC:', float(results[1])/time)
-        print('game ', i, ': ', results[0], ' won in', results[1], 'moves')
+        results, time = play_c_game(engine, int(args.humans), FIRST_AI, SECOND_AI, int(args.size))
+        print('game ', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
+        play_back_game(results)
     if int(args.track):
         db_stuff[0].close()
 
@@ -252,7 +233,7 @@ def main():
 
     thread1 = CountThread(1, 'counting thread', 1, 5)
     thread1.setDaemon(True)
-    thread1.start()
+    # thread1.start()
 
     game_start(args)
 

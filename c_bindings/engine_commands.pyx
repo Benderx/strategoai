@@ -261,7 +261,7 @@ cdef extern from "numpy/arrayobject.h":
 
 
 cdef data_to_numpy_array_with_spec(void * ptr, np.npy_intp N, int t):
-    cdef np.ndarray[DTYPE_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
+    cdef np.ndarray[np.int16_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
     PyArray_ENABLEFLAGS(arr, np.NPY_OWNDATA)
     return arr
 
@@ -427,10 +427,17 @@ cdef int get_random_move(DTYPE_t *all_moves, int move_size):
 cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int max_return_size):
     cdef int i = 2
     for i in range(2, (board_size*board_size) + 2):
-        return_stuff[i*3] = board[i-2]
-        return_stuff[(i+1)*3] = visible[i-2]
-        return_stuff[(i+2)*3] = owner[i-2]
-    print((i+2)*3)
+        return_stuff[(i*3)-4] = board[i-2]
+        return_stuff[(i*3)-3] = visible[i-2]
+        return_stuff[(i*3)-2] = owner[i-2]
+
+
+cdef void write_return_move(np.int16_t *return_stuff, DTYPE_t *all_moves, int move, int write_counter):
+    return_stuff[write_counter] = all_moves[(move*4) + 1]
+    return_stuff[write_counter+1] = all_moves[(move*4) + 2]
+    return_stuff[write_counter+2] = all_moves[(move*4) + 3]
+    return_stuff[write_counter+3] = all_moves[(move*4) + 4]
+
 
 
 
@@ -473,17 +480,7 @@ def play_game(int AI1, int AI2, int board_size):
 
     write_init_return_board(return_stuff, board, visible, owner, board_size, max_return_size)
 
-    cdef int write_counter = (board_size * board_size * 3) + 3
-    print(write_counter)
-
-
-    print(return_stuff[write_counter-4])
-    print(return_stuff[write_counter-3])
-    print(return_stuff[write_counter-2])
-    print(return_stuff[write_counter-1])
-    print(return_stuff[write_counter])
-    print(return_stuff[write_counter+1])
-    time.sleep(100)
+    cdef int write_counter = (board_size * board_size * 3) + 2
 
     cdef int move = 0
     cdef int turn = 0
@@ -506,6 +503,8 @@ def play_game(int AI1, int AI2, int board_size):
             move = get_random_move(all_moves, move_size)
 
         move_piece(move, all_moves, board, visible, owner, board_size) 
+        write_return_move(return_stuff, all_moves, move, write_counter)
+        write_counter += 4
 
         num_moves += 1
         turn = 1 - turn 
@@ -518,7 +517,11 @@ def play_game(int AI1, int AI2, int board_size):
     return_stuff[0] = winner
     return_stuff[1] = num_moves
 
-    tmp = data_to_numpy_array_with_spec(return_stuff, max_return_size, np.NPY_INT16)
+    cdef int a = 0
+    tmp = np.zeros([max_return_size], dtype=np.int16)
+
+    for a in range(max_return_size):
+        tmp[a] = return_stuff[a]
 
     free(return_stuff)
 
