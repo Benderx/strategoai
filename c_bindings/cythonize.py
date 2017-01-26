@@ -11,3 +11,7 @@ setup(
 
 # commmand
 # python cythonize.py build_ext --inplace
+
+
+# Slowdowns
+# cython .\engine_commands.pyx -a

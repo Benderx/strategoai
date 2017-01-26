@@ -5,13 +5,14 @@ import RandomAI
 import time
 import numpy
 
-TOTAL_SAMPLES = 1000
+TOTAL_SAMPLES = 500
 
 class MonteCarloAI:
     def __init__(self, player, engine, depth = 1):
         self.engine = engine
         self.player = player
         self.trans_table = {} # tbd
+        self.type = 1
     
 
     def get_move(self):
@@ -73,7 +74,7 @@ class MonteCarloAI:
         self.engine.visible = store_visible
         self.engine.owner = store_owner
         if winner == self.player:
-            return 1
-        if winner == 2:
+            return 3
+        if winner == 3:
             return .5
         return 0

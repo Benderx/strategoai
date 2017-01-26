@@ -10,6 +10,7 @@ import sqlite3
 import os
 import argparse
 import threading
+import c_bindings.engine_commands as c_bindings
 
 FIRST_AI = RandomAI.RandomAI #RandomAI, MonteCarloAI, MinimaxAI
 SECOND_AI = MonteCarloAI.MonteCarloAI
@@ -32,8 +33,45 @@ class CountThread (threading.Thread):
 
 
 # humans = 0, 1, 2
+def play_c_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None, AI1 = None, AI2 = None, board_size = 10):
+    tracking = True
+    if db_stuff == None:
+        tracking = False
+
+    if humans == 1:
+        raise Exception("Humans cannot play during a c game")
+
+    if gui == True:
+        raise Exception("gui cannot be active during c game")
+
+    results = c_bindings.play_game(AI1.type, AI2.type, board_size)
+
+    if tracking:
+        sql_game_insert =   """
+                                INSERT INTO Game (WINNER)
+                                VALUES (?);
+                            """
+        db_stuff[1].execute(sql_game_insert, str(winner))
+
+        game_id = db_stuff[1].lastrowid
+        state_tracker_packed = []
+        for i in state_tracker:
+            state_tracker_packed.append((str(game_id), str(i)))
+
+        sql_state_insert =  """
+                                INSERT INTO State (GAME_ID, BOARD)
+                                VALUES (?, ?);
+                            """
+        db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
+        db_stuff[0].commit()
+
+    return results
+
+
+
+# humans = 0, 1, 2
 def play_game(engine, humans = 1, db_stuff = None, gui = False, renderer = None, AI1 = None, AI2 = None):
-    global moves_per_second;
+    engine.board_setup()
     tracking = True
     if db_stuff == None:
         tracking = False
@@ -173,7 +211,7 @@ def print_moves_per_second(thread_name, delay, c):
 
 def game_start(args):
     engine = g.GameEngine(int(args.size))
-    engine.board_setup()
+
     if int(args.track):
         db_stuff = init_db('games.db', True)
     else:
@@ -190,8 +228,7 @@ def game_start(args):
     num_games = int(args.number)
 
     for i in range(num_games):
-        engine.board_setup()
-        winner = play_game(engine, int(args.humans), db_stuff, gui, re, FIRST_AI, SECOND_AI)
+        winner = play_c_game(engine, int(args.humans), db_stuff, gui, re, FIRST_AI, SECOND_AI)
         print('game ', i, ': ', winner, ' won')
     if int(args.track):
         db_stuff[0].close()

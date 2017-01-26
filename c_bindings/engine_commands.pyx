@@ -5,13 +5,14 @@ cimport numpy as np
 DTYPE = np.int8
 cimport cython
 
+np.import_array()
 
 ctypedef np.int8_t DTYPE_t
 
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int check_legal(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] owner, int size, int x, int y, int player, np.ndarray[DTYPE_t] moves):
+cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int player, DTYPE_t *moves):
     if player == owner[x + size*y]:
         return 0
     return 1
@@ -19,7 +20,7 @@ cdef int check_legal(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] owner, int s
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] owner, int size, int val, int x, int y, int player, np.ndarray[DTYPE_t] moves, int counter):
+cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int counter):
     if val == -1 or val == 0:
         return counter
     if player != owner[x + size*y]:
@@ -138,7 +139,7 @@ cdef int legal_moves_for_piece(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] ow
 @cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-def all_legal_moves(int player, np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] owner, np.ndarray[DTYPE_t] moves):
+cdef all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves):
     cdef int g = 0
     for g in range(moves.shape[0]):
         moves[g] = 0
@@ -202,7 +203,7 @@ cdef int battle(int v1, int v2):
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-def move(int move, np.ndarray[DTYPE_t] all_moves, np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] visible, np.ndarray[DTYPE_t] owner, int size):
+cdef move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size):
     cdef int x1 = all_moves[(move*4)+1] - 1
     cdef int y1 = all_moves[(move*4)+2] - 1
     cdef int x2 = all_moves[(move*4)+3] - 1
@@ -238,7 +239,7 @@ def move(int move, np.ndarray[DTYPE_t] all_moves, np.ndarray[DTYPE_t] board, np.
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-def check_winner(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] moves, np.ndarray[DTYPE_t] owner, int flag0, int flag1, int player):
+cdef check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, int flag0, int flag1, int player):
     if not board[flag0] == 12:
         return 2
     if not board[flag1] == 12:
@@ -250,3 +251,120 @@ def check_winner(np.ndarray[DTYPE_t] board, np.ndarray[DTYPE_t] moves, np.ndarra
             return 3
         return player + 1
     return 0
+
+
+cdef extern from "numpy/arrayobject.h":
+    void PyArray_ENABLEFLAGS(np.ndarray arr, int flags)
+
+
+cdef data_to_numpy_array_with_spec(void * ptr, np.npy_intp N, int t):
+    cdef np.ndarray[DTYPE_t, ndim=1] arr = np.PyArray_SimpleNewFromData(1, &N, t, ptr)
+    PyArray_ENABLEFLAGS(arr, np.NPY_OWNDATA)
+    return arr
+
+
+
+@cython.cdivision(True)
+@cython.boundscheck(False)
+def primes(int up_to):
+    cdef DTYPE_t k = 0
+    cdef DTYPE_t *p = <DTYPE_t *>malloc(up_to * sizeof(DTYPE_t))
+    
+    while k < up_to:
+        p[k] = k
+        k += 1
+
+    arr = data_to_numpy_array_with_spec(p, up_to, np.NPY_INT8)
+    return arr
+
+
+
+cdef fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int *flag0, int *flag1, int player):
+    # Rivers
+    if board_size == 10:
+        board[4 + board_size*2] = -1
+        board[5 + board_size*2] = -1
+        board[4 + board_size*3] = -1
+        board[5 + board_size*3] = -1
+
+        board[4 + board_size*6] = -1
+        board[5 + board_size*6]
+        board[4 + board_size*7]
+        board[5 + board_size*7]
+    elif board_size == 6:
+        board[2 + board_size*2]
+        board[3 + board_size*2]
+
+    cdef int rows = 0
+
+    for i in range(0, 2):
+        arr = np.empty([50], dtype=DTYPE)
+        arr[0] = 11
+        arr[1] = 10
+        arr[2] = 9
+        arr[3] = 8
+        arr[4] = 7
+        arr[5] = 6
+        arr[6] = 5
+        arr[7] = 4
+        arr[8] = 3
+        arr[9] = 2
+        arr[10] = 1
+        arr[11] = 0
+
+        if board_size == 10:
+            rows = 4
+        elif board_size == 6:
+            rows = 2
+            starting_pieces = [[10, 'Bomb B', 1], [11, 'Spy Y', 1], [9, 'Scout S', 1], [8, 'Miner R', 1], [7, 'Sergeant T', 1], [6, 'Lieutenent L', 1], [5, 'Captain C', 1], [4, 'Major J', 1], [3, 'Colonel O', 1], [2, 'General G', 1], [1, 'Marshall M', 1]]
+
+        rand_arr = np.random.permutation(arr)
+
+
+
+
+@cython.cdivision(True)
+@cython.boundscheck(False)
+def play_game(int AI1, int AI2, int board_size):
+    cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
+    players[0] = AI1
+    players[1] = AI2
+
+
+    # board setup
+    cdef DTYPE_t *board = <DTYPE_t *>malloc(board_size * sizeof(DTYPE_t))
+    cdef DTYPE_t *visible = <DTYPE_t *>malloc(board_size * sizeof(DTYPE_t))
+    cdef DTYPE_t *owner = <DTYPE_t *>malloc(board_size * sizeof(DTYPE_t))
+
+    cdef DTYPE_t *moves = <DTYPE_t *>malloc(1000 * sizeof(DTYPE_t))
+
+
+    cdef flag0 *int = malloc(sizeof(int))
+    cdef flag1 *int = malloc(sizeof(int))
+    
+    fill_boards(board, visible, owner, flag0, flag1, board_size)
+
+
+    cdef int move = 0
+    cdef int turn = 0
+    cdef int winner = 0
+    while True:
+        all_legal_moves(turn, board, owner, all_moves)
+
+        winner = check_winner(board, all_moves, owner, flag0, flag1, turn) 
+        if winner != 0: 
+            break
+
+        # RandomAI
+        if players[turn] == 0:
+            move = players[turn].get_random_move()
+
+        move_piece(move, all_moves, board, visible, owner, board_size) 
+        turn = 1 - turn  
+    free(players)
+    free(board)
+    free(visible)
+    free(owner)
+
+    return winner
+

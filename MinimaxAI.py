@@ -7,6 +7,7 @@ class MinimaxAI:
         self.player = player
         self.board = engine.get_board()
         self.depth = depth
+        self.type = 2
     
 
     def minimax(self, depth, alpha, beta, player):

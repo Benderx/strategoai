@@ -149,6 +149,20 @@ class GameEngine:
 
 
     def all_legal_moves(self, player):
+        # timing_total = 0
+        # timing_samples = 0
+
+        # for i in range(0, 100):
+        #     start = time.perf_counter()
+        #     c_bindings.primes(i)
+        #     end = time.perf_counter()
+        #     timing_total += end-start
+        #     timing_samples += 1
+
+        # print("avg:", timing_total/timing_samples)
+        # exit()
+
+
         return c_bindings.all_legal_moves(player, self.board, self.owner, self.moves)
 
 
