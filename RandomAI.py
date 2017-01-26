@@ -2,11 +2,12 @@
 #next up: rate moves based on tree
 import random
 
+ai_type = 0
+
 class RandomAI:
     def __init__(self, player, engine, *args):
         self.engine = engine
         self.player = player
-        self.type = 0
     
 
     def get_move(self):
