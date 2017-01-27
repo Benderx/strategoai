@@ -25,12 +25,12 @@ class Renderer:
 
         for i in range(len(board)):
             for j in range(len(board[i])):
-                if board[i][j] != -1 and self.lines_drawn == False:
+                if board[i][j] != 13 and self.lines_drawn == False:
                     c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),
                           graphics.Point(self.box_length * (i+1) + self.offset, self.box_length * (j+1) + self.offset))
                     c.draw(self.win)
 
-                if board[i][j] == -1 or board[i][j] == 0:
+                if board[i][j] == 13 or board[i][j] == 0:
                     continue
 
                 c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),

@@ -108,13 +108,8 @@ class GameEngine:
 
         for i in range(2, (board_size*board_size)+2):
             self.board[i-2] = results_arr[(i*3)-4]
-            self.visible[i-2] = results_arr[(i*3)-4]
-            self.owner[i-2] = results_arr[(i*3)-4]
-
-        # Rivers
-        self.convert_to_numpy_1D(board_temp, self.board)
-        self.convert_to_numpy_1D(owner_temp, self.owner)
-        self.convert_to_numpy_1D(visibility_temp, self.visible)
+            self.visible[i-2] = results_arr[(i*3)-3]
+            self.owner[i-2] = results_arr[(i*3)-2]
 
 
 
@@ -160,12 +155,81 @@ class GameEngine:
 
 
 
+    # Takes in 2 players and returns 0 for p1 winning and 1 for p2 winning, 2 for tie.
+    # Also reveals.
+    def battle(self, v1, v2):
+
+        if v1 == 0:
+            return 1
+
+        if v2 == 0:
+            return 0
+
+        if v1 == 10:
+            if v2 == 8:
+                return 1
+            return 0
+
+        if v2 == 10:
+            if v1 == 8:
+                return 0
+            return 1
+
+        if v1 == 11:
+            if v2 == 1:
+                return 0
+            return 1
+
+        if v2 == 11:
+            if v1 == 1:
+                return 1
+            return 0
+
+        if v1 == v2:
+            return 2
+
+        if v1 < v2:
+            return 0
+        if v1 > v2:
+            return 1
+
+        raise Exception('A case that was not thought of happened')
+        return False
+
+
     # Takes in coord1 [x1, y1] and coord2 [x2, y2]
     # This assumes check_legal has been run.
     # The return is whether or not battle() was run
-    def move(self, move):
-        c_bindings.move(move, self.moves, self.board, self.visible, self.owner, self.size)
-        return
+    def move(self, move_tot, size):
+        x1 = move_tot[0] - 1
+        y1 = move_tot[1] - 1
+        x2 = move_tot[2] - 1
+        y2 = move_tot[3] - 1
+
+
+        p1 = self.board[x1 + size*y1]
+        self.board[x1 + size*(y1)] = 0
+
+        p2 = self.board[x2 + size*y2]
+
+        winner = 0
+
+        if p2 == 0:
+            self.board[x2 + size*y2] = p1
+            self.visible[x2 + size*y2] = 1
+            self.owner[x2 + size*y2] = self.owner[x1 + size*y1]
+            self.owner[x1 + size*(y1)] = 2
+        else:
+            winner = self.battle(p1, p2)
+
+            if winner == 0:
+                self.board[x2 + size*y2] = p1
+                self.visible[x2 + size*y2] = 0
+                self.owner[x2 + size*y2] = self.owner[x1 + size*y1]
+            elif winner == 2:
+                self.board[x2 + size*y2] = 0
+                self.owner[x2 + size*y2] = 2
+            self.owner[x1 + size*(y1)] = 2
 
 
     def all_legal_moves(self, player):

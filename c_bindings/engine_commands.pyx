@@ -470,9 +470,9 @@ def play_game(int AI1, int AI2, int board_size):
 
 
 
-    set_to(board, board_size, 0)
-    set_to(visible, board_size, 0)
-    set_to(owner, board_size, 2)
+    set_to(board, board_size*board_size, 0)
+    set_to(visible, board_size*board_size, 0)
+    set_to(owner, board_size*board_size, 2)
     set_to(all_moves, move_size, 0)
 
     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))

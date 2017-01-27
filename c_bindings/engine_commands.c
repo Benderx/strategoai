@@ -5613,33 +5613,33 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
   /* "engine_commands.pyx":473
  * 
  * 
- *     set_to(board, board_size, 0)             # <<<<<<<<<<<<<<
- *     set_to(visible, board_size, 0)
- *     set_to(owner, board_size, 2)
+ *     set_to(board, board_size*board_size, 0)             # <<<<<<<<<<<<<<
+ *     set_to(visible, board_size*board_size, 0)
+ *     set_to(owner, board_size*board_size, 2)
  */
-  __pyx_f_15engine_commands_set_to(__pyx_v_board, __pyx_v_board_size, 0);
+  __pyx_f_15engine_commands_set_to(__pyx_v_board, (__pyx_v_board_size * __pyx_v_board_size), 0);
 
   /* "engine_commands.pyx":474
  * 
- *     set_to(board, board_size, 0)
- *     set_to(visible, board_size, 0)             # <<<<<<<<<<<<<<
- *     set_to(owner, board_size, 2)
+ *     set_to(board, board_size*board_size, 0)
+ *     set_to(visible, board_size*board_size, 0)             # <<<<<<<<<<<<<<
+ *     set_to(owner, board_size*board_size, 2)
  *     set_to(all_moves, move_size, 0)
  */
-  __pyx_f_15engine_commands_set_to(__pyx_v_visible, __pyx_v_board_size, 0);
+  __pyx_f_15engine_commands_set_to(__pyx_v_visible, (__pyx_v_board_size * __pyx_v_board_size), 0);
 
   /* "engine_commands.pyx":475
- *     set_to(board, board_size, 0)
- *     set_to(visible, board_size, 0)
- *     set_to(owner, board_size, 2)             # <<<<<<<<<<<<<<
+ *     set_to(board, board_size*board_size, 0)
+ *     set_to(visible, board_size*board_size, 0)
+ *     set_to(owner, board_size*board_size, 2)             # <<<<<<<<<<<<<<
  *     set_to(all_moves, move_size, 0)
  * 
  */
-  __pyx_f_15engine_commands_set_to(__pyx_v_owner, __pyx_v_board_size, 2);
+  __pyx_f_15engine_commands_set_to(__pyx_v_owner, (__pyx_v_board_size * __pyx_v_board_size), 2);
 
   /* "engine_commands.pyx":476
- *     set_to(visible, board_size, 0)
- *     set_to(owner, board_size, 2)
+ *     set_to(visible, board_size*board_size, 0)
+ *     set_to(owner, board_size*board_size, 2)
  *     set_to(all_moves, move_size, 0)             # <<<<<<<<<<<<<<
  * 
  *     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
@@ -5989,14 +5989,14 @@ static PyObject *__pyx_pf_15engine_commands_2play_game(CYTHON_UNUSED PyObject *_
  *         tmp[a] = return_stuff[a]
  * 
  *     free(return_stuff)             # <<<<<<<<<<<<<<
- * 
  *     return tmp
+ * 
  */
   free(__pyx_v_return_stuff);
 
-  /* "engine_commands.pyx":528
- *     free(return_stuff)
+  /* "engine_commands.pyx":527
  * 
+ *     free(return_stuff)
  *     return tmp             # <<<<<<<<<<<<<<
  * 
  */

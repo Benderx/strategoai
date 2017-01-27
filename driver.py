@@ -173,64 +173,26 @@ def print_moves_per_second(thread_name, delay, c):
 
 
 
-def play_back_game(game_array, renderer, board_size):
+def play_back_game(engine, game_array, renderer, board_size):
     engine.board_setup(game_array, board_size)
+    renderer.draw_board()
 
-    players = []
-    if humans == 0:
-        players.append(AI1(0, engine, 4))
-        players.append(AI2(1, engine, 4))
-    elif humans == 1:
-        players.append(h.Human(engine, 0, gui, renderer))
-        players.append(AI2(1, engine, 4))
-    elif humans == 2:
-        players.append(h.Human(engine, 0, gui, renderer))
-        players.append(h.Human(engine, 1, gui, renderer))
-    else:
-        raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
-
-    if gui:
-        renderer.draw_board()
-    # else:
-    #     engine.print_board()
-
-    state_tracker = []
     turn = 0
-    timing_total = 0
-    timing_samples = 0
-    moves_this_game = 0
-    start = time.perf_counter()
+    moves_this_game = game_array[1]
+    counter = (board_size*board_size*3)+2
 
+    # print(game_array[0:14])
     while True:
-        # state_tracker.append(engine.get_compacted_board_state())
-        
-        # start = time.perf_counter()
-        engine.all_legal_moves(turn)    # 5.4 x 10 ^ -6       10x10
-        # end = time.perf_counter()
+        move = game_array[counter:counter+4]
 
-        winner = engine.check_winner(turn)     # 5.3 x 10 ^ -6       10x10
+        engine.move(move, board_size)
+        
+        renderer.draw_board()
 
+        counter += 4
+        turn = 1- turn
+        time.sleep(1)
         
-        if winner != 0:     # 1.4 x 10 ^ -7       10x10
-            break
-        
-
-        move = players[turn].get_move()     # 5.0 x 10 ^ -6       10x10
-        engine.move(move)     # 2.51 x 10 ^ -6       10x10
-
-        
-        moves_this_game += 1    #1.2 x 10 ^ -7       10x10
-        moves_per_second += 1    #1.2 x 10 ^ -7       10x10
-        
-
-        if gui:
-            renderer.draw_board()   # 1.4 x 10 ^ -7       10x10
-        
-        # else:
-        #     engine.print_board()
-        
-        turn = 1 - turn    # 1.1 x 10 ^ -7       10x10
-        timing_samples += 1   # 1.1 x 10 ^ -7       10x10
 
 
 
@@ -239,9 +201,6 @@ def play_c_game(engine, humans = 1, AI1 = None, AI2 = None, board_size = 10):
 
     if humans == 1:
         raise Exception("Humans cannot play during a c game")
-
-    if gui == True:
-        raise Exception("gui cannot be active during c game")
 
     start = time.perf_counter()
     results = c_bindings.play_game(0, 0, board_size)
@@ -252,6 +211,7 @@ def play_c_game(engine, humans = 1, AI1 = None, AI2 = None, board_size = 10):
 
 def game_start(args):
     engine = g.GameEngine(int(args.size))
+    gui = False
 
     if int(args.track):
         db_stuff = init_db('games.db', True)
@@ -272,7 +232,7 @@ def game_start(args):
         results, time = play_c_game(engine, int(args.humans), FIRST_AI, SECOND_AI, int(args.size))
         print('game ', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
         if gui:
-            play_back_game(results, re, int(args.size))
+            play_back_game(engine, results, re, int(args.size))
     if int(args.track):
         db_stuff[0].close()
 
