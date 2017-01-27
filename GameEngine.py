@@ -10,9 +10,9 @@ import time
 class GameEngine:
     def __init__(self, n):
         self.size = n
-        self.board = numpy.zeros((n * n,), dtype=numpy.int8)
-        self.owner = numpy.zeros((n * n,), dtype=numpy.int8)
-        self.visible = numpy.zeros((n * n,), dtype=numpy.int8)
+        self.board = None
+        self.owner = None
+        self.visible = None
         self.moves = numpy.zeros((401), dtype=numpy.int8)
         self.flags = [-1, -1]
         self.move_history = []
@@ -33,7 +33,11 @@ class GameEngine:
 
 
     def board_setup(self):
-        owner_temp = [[-1 for x in range(0, self.size)] for x in range(0, self.size)]
+        self.board = numpy.zeros((n * n,), dtype=numpy.int8)
+        self.owner = numpy.zeros((n * n,), dtype=numpy.int8)
+        self.visible = numpy.zeros((n * n,), dtype=numpy.int8)
+
+        owner_temp = self.board = numpy.zeros((n * n,), dtype=numpy.int8)
         visibility_temp = [[0 for x in range(0, self.size)] for x in range(0, self.size)]
         board_temp = [[0 for x in range(0, self.size)] for x in range(0, self.size)]
 
@@ -92,6 +96,22 @@ class GameEngine:
                 starting_pieces[r1][2] -= 1
                 if starting_pieces[r1][2] == 0:
                     starting_pieces.pop(r1)
+        self.convert_to_numpy_1D(board_temp, self.board)
+        self.convert_to_numpy_1D(owner_temp, self.owner)
+        self.convert_to_numpy_1D(visibility_temp, self.visible)
+
+
+    def board_setup(self, results_arr, board_size):
+        self.board = numpy.zeros((board_size * board_size,), dtype=numpy.int8)
+        self.visible = numpy.zeros((board_size * board_size,), dtype=numpy.int8)
+        self.owner = numpy.zeros((board_size * board_size,), dtype=numpy.int8)
+
+        for i in range(2, (board_size*board_size)+2):
+            self.board[i-2] = results_arr[(i*3)-4]
+            self.visible[i-2] = results_arr[(i*3)-4]
+            self.owner[i-2] = results_arr[(i*3)-4]
+
+        # Rivers
         self.convert_to_numpy_1D(board_temp, self.board)
         self.convert_to_numpy_1D(owner_temp, self.owner)
         self.convert_to_numpy_1D(visibility_temp, self.visible)

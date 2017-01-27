@@ -173,7 +173,65 @@ def print_moves_per_second(thread_name, delay, c):
 
 
 
-# def play_back_game(game_array):
+def play_back_game(game_array, renderer, board_size):
+    engine.board_setup(game_array, board_size)
+
+    players = []
+    if humans == 0:
+        players.append(AI1(0, engine, 4))
+        players.append(AI2(1, engine, 4))
+    elif humans == 1:
+        players.append(h.Human(engine, 0, gui, renderer))
+        players.append(AI2(1, engine, 4))
+    elif humans == 2:
+        players.append(h.Human(engine, 0, gui, renderer))
+        players.append(h.Human(engine, 1, gui, renderer))
+    else:
+        raise Exception('This is a two player game, you listed more than 2 humans, or less than 0.')
+
+    if gui:
+        renderer.draw_board()
+    # else:
+    #     engine.print_board()
+
+    state_tracker = []
+    turn = 0
+    timing_total = 0
+    timing_samples = 0
+    moves_this_game = 0
+    start = time.perf_counter()
+
+    while True:
+        # state_tracker.append(engine.get_compacted_board_state())
+        
+        # start = time.perf_counter()
+        engine.all_legal_moves(turn)    # 5.4 x 10 ^ -6       10x10
+        # end = time.perf_counter()
+
+        winner = engine.check_winner(turn)     # 5.3 x 10 ^ -6       10x10
+
+        
+        if winner != 0:     # 1.4 x 10 ^ -7       10x10
+            break
+        
+
+        move = players[turn].get_move()     # 5.0 x 10 ^ -6       10x10
+        engine.move(move)     # 2.51 x 10 ^ -6       10x10
+
+        
+        moves_this_game += 1    #1.2 x 10 ^ -7       10x10
+        moves_per_second += 1    #1.2 x 10 ^ -7       10x10
+        
+
+        if gui:
+            renderer.draw_board()   # 1.4 x 10 ^ -7       10x10
+        
+        # else:
+        #     engine.print_board()
+        
+        turn = 1 - turn    # 1.1 x 10 ^ -7       10x10
+        timing_samples += 1   # 1.1 x 10 ^ -7       10x10
+
 
 
 # humans = 0, 1, 2
@@ -213,7 +271,8 @@ def game_start(args):
     for i in range(num_games):
         results, time = play_c_game(engine, int(args.humans), FIRST_AI, SECOND_AI, int(args.size))
         print('game ', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
-        play_back_game(results)
+        if gui:
+            play_back_game(results, re, int(args.size))
     if int(args.track):
         db_stuff[0].close()
 

@@ -524,6 +524,5 @@ def play_game(int AI1, int AI2, int board_size):
         tmp[a] = return_stuff[a]
 
     free(return_stuff)
-
     return tmp
 
