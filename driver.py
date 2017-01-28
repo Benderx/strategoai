@@ -203,7 +203,7 @@ def play_c_game(engine, humans = 1, AI1 = None, AI2 = None, board_size = 10):
         raise Exception("Humans cannot play during a c game")
 
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 0, board_size)
+    results = c_bindings.play_game(0, 1, 100, board_size)
     end = time.perf_counter()
 
     return results, end-start
