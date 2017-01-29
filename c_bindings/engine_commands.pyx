@@ -299,6 +299,7 @@ cdef void set_to(DTYPE_t *to_set, int size, int to):
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):
     # Rivers
+
     if board_size == 10:
         board[2 + board_size*4] = 13
         board[2 + board_size*5] = 13
@@ -309,9 +310,9 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
         board[6 + board_size*5] = 13
         board[7 + board_size*4] = 13
         board[7 + board_size*5] = 13
-    elif board_size == 6:
+    else:
         board[2 + board_size*2] = 13
-        board[3 + board_size*3] = 13
+        board[2 + board_size*3] = 13
 
     cdef int rows = 0
     cdef int piece_counter = 0
@@ -405,6 +406,9 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
         y = 0
 
 
+        
+
+
         rand_arr = np.random.permutation(arr)
         piece_counter = 0
 
@@ -452,7 +456,7 @@ cdef void write_return_move(np.int16_t *return_stuff, DTYPE_t *all_moves, int mo
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, DTYPE_t *flags, DTYPE_t *parent_moves, int parent_move, int turn_parent):
+cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, DTYPE_t *flags, DTYPE_t *parent_moves, int parent_move, int turn_parent):
     move_piece(parent_move, parent_moves, board, visible, owner, board_size) 
 
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
@@ -506,16 +510,12 @@ cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size):
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn):
+cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn):
     cdef int i = 0
     cdef int value = 0      
 
     cdef float *move_ratings = <float *>malloc(all_moves[0] * sizeof(float))
     cdef DTYPE_t *move_samples = <DTYPE_t *>malloc(all_moves[0] * sizeof(DTYPE_t))
-
-    cdef DTYPE_t *sample_board = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
-    cdef DTYPE_t *sample_visible = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
-    cdef DTYPE_t *sample_owner = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
 
     for i in range(all_moves[0]):
         move_ratings[i] = -1
@@ -538,10 +538,6 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int mo
         else:
             move_ratings[move] = value   
         i+=1
-
-    free(sample_board)
-    free(sample_visible)
-    free(sample_owner)
 
     i = 0
     cdef float max_num = move_ratings[0]
@@ -585,6 +581,11 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
         return_stuff[q] = 0
 
 
+    # ONLY FOR MONTE
+    cdef DTYPE_t *sample_board = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
+    cdef DTYPE_t *sample_visible = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
+    cdef DTYPE_t *sample_owner = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
+
 
 
     set_to(board, board_size*board_size, 0)
@@ -619,7 +620,7 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
         if players[turn] == 0:
             move = get_random_move(all_moves, move_size)
         elif players[turn] == 1:
-            move = get_monte_move(board, visible, owner, monte_samples, board_size, all_moves, flags, turn)
+            move = get_monte_move(board, visible, owner, sample_owner, sample_visible, sample_owner, monte_samples, board_size, all_moves, flags, turn)
             # print('moved for real')
             # time.sleep(100)
 
@@ -637,6 +638,10 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     free(owner)
     free(flags)
     free(all_moves)
+
+    free(sample_board)
+    free(sample_visible)
+    free(sample_owner)
 
     return_stuff[0] = winner
     return_stuff[1] = num_moves
