@@ -509,46 +509,52 @@ cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size):
         arr_empty[i] = arr_copy[i]
 
 
-cdef void get_unknown_flag_loc(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *visible, int player, int board_size):
+cdef void get_unknown_flag_loc(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size):
     cdef int i = 0
     cdef int counter = 1
-    for i in range(player * (board_size-1), player * (board_size-1) + board_size):
-        if owner[i] != 2 and owner[i] != player and visible[i] == 0:
+    for i in range((1-player) * (board_size-1), (1-player) * (board_size-1) + board_size):
+        if owner[i] == (1-player) and visible[i] == 0:
             unknowns[counter] = i
             counter += 1
     unknowns[0] = counter-1
 
 
-cdef void get_unknown_pieces(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *visible, int player, int board_size, int new_flag_loc):
+cdef void get_unknown_pieces(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size, int new_flag_loc):
     cdef int i = 0
     cdef int counter = 1
     for i in range(0, board_size * board_size):
-        if i == new_flag_loc:
+        if board[i] == 12:
             continue
-        if owner[i] != 2 and owner[i] != player and visible[i] == 0:
-            unknowns[counter] = i
+        if owner[i] == (1-player) and visible[i] == 0:
+            unknowns[counter] = board[i]
             counter += 1
     unknowns[0] = counter-1
 
 
-cdef void get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *visible, int board_size, int player, DTYPE_t *unknowns, int unknown_size):
+cdef void get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int player, DTYPE_t *unknowns, int unknown_size):
     cdef int i = 0
     cdef int counter = 1
     cdef int new_flag_loc = 0
 
-    get_unknown_flag_loc(unknowns, unknown_size, board, owner, visible, player, board_size)
+    get_unknown_flag_loc(unknowns, unknown_size, board, visible, owner, player, board_size)
     if unknowns[0] == 0:
         print("something went terribly wrong, get_randomized_board()")
 
-    new_flag_loc = rand() % unknowns[0]
-    new_flag_loc = unknowns[rand_int+1]
+    new_flag_loc = unknowns[(rand() % unknowns[0])+1]
 
-    get_unknown_pieces(unknowns, unknown_size, board, owner, visible, player, board_size, new_flag_loc)
+    # print(new_flag_loc, board[new])
+    # time.sleep(1000)
+
+    get_unknown_pieces(unknowns, unknown_size, board, visible, owner, player, board_size, new_flag_loc)
+
+    # for j in range(unknown_size):
+    #     print(unknowns[j])
+    # time.sleep(1000)
 
     for i in range(board_size * board_size):
         if i == new_flag_loc:
             continue
-        if owner[i] == 2 or owner[i] == player or visible[i] == 1:
+        if owner[i] != (1-player) or visible[i] == 1:
             sample_board[i] = board[i]
         else:
             sample_board[i] = unknowns[counter]
@@ -578,9 +584,20 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
         move = i%all_moves[0]
 
         # Does visibility matter?
-        get_randomized_board(sample_board, board, owner, visible, board_size, turn, unknowns, unknown_size)
+        get_randomized_board(sample_board, board, visible, owner, board_size, turn, unknowns, unknown_size)
         copy_arr(sample_visible, visible, board_size * board_size)
         copy_arr(sample_owner, owner, board_size * board_size)
+
+        # for j in range(board_size*board_size):
+        #     print("board", board[j])
+        #     print("visible", visible[j])
+        #     print("owner", owner[j])
+
+        for j in range(board_size*board_size):
+            print("sample", sample_board[j])
+            print("real", board[j])
+
+        time.sleep(1000)
 
         value = monte_sample(sample_board, sample_visible, sample_owner, board_size, flags, all_moves, move, turn)
 
@@ -677,7 +694,7 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
         if players[turn] == 0:
             move = get_random_move(all_moves, move_size)
         elif players[turn] == 1:
-            move = get_monte_move(board, visible, owner, sample_owner, sample_visible, sample_owner, monte_samples, board_size, all_moves, flags, turn, unknowns, unknown_size)
+            move = get_monte_move(board, visible, owner, sample_board, sample_visible, sample_owner, monte_samples, board_size, all_moves, flags, turn, unknowns, unknown_size)
             # print('moved for real')
             # time.sleep(100)
 
