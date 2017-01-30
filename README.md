@@ -1,2 +1,3 @@
 # strategoai
-Python - Using machine learning to learn the game of Stratego.
+
+Python, C - Using machine learning to learn the game of Stratego.
