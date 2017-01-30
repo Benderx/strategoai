@@ -531,7 +531,7 @@ cdef void get_unknown_pieces(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board
     unknowns[0] = counter-1
 
 
-cdef void get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int player, DTYPE_t *unknowns, int unknown_size, DTYPE_t *unknown_mixed):
+cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int player, DTYPE_t *unknowns, int unknown_size, DTYPE_t *unknown_mixed):
     cdef int i = 0
     cdef int counter = 1
     cdef int new_flag_loc = 0
@@ -577,6 +577,7 @@ cdef void get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *v
             counter += 1
 
     sample_board[new_flag_loc] = 12
+    return new_flag_loc
 
 
 
@@ -586,6 +587,8 @@ cdef void get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *v
 cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, int unknown_size, DTYPE_t *unknown_mixed):
     cdef int i = 0
     cdef int value = 0      
+    cdef int flag_store = 0
+    cdef int new_flag = 0
 
     cdef float *move_ratings = <float *>malloc(all_moves[0] * sizeof(float))
     cdef DTYPE_t *move_samples = <DTYPE_t *>malloc(all_moves[0] * sizeof(DTYPE_t))
@@ -596,29 +599,40 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 
     i = 0
     # moves_copy = all_moves.copy()
+
     while i < monte_samples:
         move = i%all_moves[0]
 
         # Does visibility matter?
-        get_randomized_board(sample_board, board, visible, owner, board_size, turn, unknowns, unknown_size, unknown_mixed)
+        print("1")
+        new_flag = get_randomized_board(sample_board, board, visible, owner, board_size, turn, unknowns, unknown_size, unknown_mixed)
+        print("2")
         copy_arr(sample_visible, visible, board_size * board_size)
         copy_arr(sample_owner, owner, board_size * board_size)
 
 
-        for j in range(board_size*board_size):
-            print("sample", sample_board[j])
-            print("real", board[j])
-        time.sleep(1000)
+        # for j in range(board_size*board_size):
+        #     print("sample", sample_board[j])
+        #     print("real", board[j])
+        # time.sleep(1000)
+
+        flag_store = flags[1-turn]
+        flags[1-turn] = new_flag
+
 
         value = monte_sample(sample_board, sample_visible, sample_owner, board_size, flags, all_moves, move, turn)
+        print("3")
 
+        flags[1-turn] = flag_store
         if move_ratings[move] != -1:
             move_ratings[move] = move_ratings[move]*move_samples[move]/(move_samples[move]+1) + value / (move_samples[move] + 1)
             move_samples[move] += 1
         else:
             move_ratings[move] = value   
+        print("4")
         i+=1
 
+    print("5")
     i = 0
     cdef float max_num = move_ratings[0]
     cdef int max_index = 0
@@ -643,10 +657,10 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     players[1] = AI2
 
     cdef int move_size = 4001 # (number of possible moves (1000) * 4) + 1
-    cdef int max_return_size = 200002 # (max moves in a game (5000) * 4) + 2
+    cdef int max_return_size = 2000002 # (max moves in a game (5000) * 4) + 2
 
     # MONTE STUFF
-    cdef int unknown_size = 101
+    cdef int unknown_size = 1001
     cdef DTYPE_t *unknowns = <DTYPE_t *>malloc(unknown_size * sizeof(DTYPE_t))
 
 
