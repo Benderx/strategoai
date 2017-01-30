@@ -506,6 +506,14 @@ cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size):
         arr_empty[i] = arr_copy[i]
 
 
+cdef void get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, int size, int player):
+    cdef int i = 0
+    for i in range(size):
+        if board[i] == 13 or board[i] == 0 or owner[i] == player:
+            arr_empty[i] = arr_copy[i]
+
+
+
 
 @cython.cdivision(True)
 @cython.boundscheck(False)
@@ -526,7 +534,8 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
     while i < monte_samples:
         move = i%all_moves[0]
 
-        copy_arr(sample_board, board, board_size * board_size)
+        # Does visibility matter?
+        get_randomized_board(sample_board, board, visible, board_size * board_size, turn)
         copy_arr(sample_visible, visible, board_size * board_size)
         copy_arr(sample_owner, owner, board_size * board_size)
 
