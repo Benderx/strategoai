@@ -1,6 +1,8 @@
 from distutils.core import setup
 from Cython.Build import cythonize
 import numpy
+import os
+
 
 setup(
     ext_modules=cythonize("engine_commands.pyx"),

@@ -201,11 +201,43 @@ class GameEngine:
     # This assumes check_legal has been run.
     # The return is whether or not battle() was run
     def move(self, move_tot, size):
+        # x1 = move_tot[0] - 1
+        # y1 = move_tot[1] - 1
+        # x2 = move_tot[2] - 1
+        # y2 = move_tot[3] - 1
+
+
+        # p1 = self.board[x1 + size*y1]
+        # self.board[x1 + size*(y1)] = 0
+
+        # p2 = self.board[x2 + size*y2]
+
+        # winner = 0
+
+        # if p2 == 0:
+        #     self.board[x2 + size*y2] = p1
+        #     self.visible[x2 + size*y2] = 1
+        #     self.owner[x2 + size*y2] = self.owner[x1 + size*y1]
+        #     self.owner[x1 + size*(y1)] = 2
+        # else:
+        #     winner = self.battle(p1, p2)
+
+        #     if winner == 0:
+        #         self.board[x2 + size*y2] = p1
+        #         self.visible[x2 + size*y2] = 0
+        #         self.owner[x2 + size*y2] = self.owner[x1 + size*y1]
+        #     elif winner == 2:
+        #         self.board[x2 + size*y2] = 0
+        #         self.owner[x2 + size*y2] = 2
+        #     self.owner[x1 + size*(y1)] = 2
+
         x1 = move_tot[0] - 1
         y1 = move_tot[1] - 1
         x2 = move_tot[2] - 1
         y2 = move_tot[3] - 1
 
+        if x1 == -1:
+            return False
 
         p1 = self.board[x1 + size*y1]
         self.board[x1 + size*(y1)] = 0
@@ -216,20 +248,25 @@ class GameEngine:
 
         if p2 == 0:
             self.board[x2 + size*y2] = p1
-            self.visible[x2 + size*y2] = 1
+            self.visible[x2 + size*y2] = self.visible[x1 + size*y1]
             self.owner[x2 + size*y2] = self.owner[x1 + size*y1]
-            self.owner[x1 + size*(y1)] = 2
         else:
             winner = self.battle(p1, p2)
 
             if winner == 0:
                 self.board[x2 + size*y2] = p1
-                self.visible[x2 + size*y2] = 0
+                self.visible[x2 + size*y2] = 1
                 self.owner[x2 + size*y2] = self.owner[x1 + size*y1]
+            elif winner == 1:
+                self.visible[x2 + size*y2] = 1
             elif winner == 2:
                 self.board[x2 + size*y2] = 0
                 self.owner[x2 + size*y2] = 2
-            self.owner[x1 + size*(y1)] = 2
+                self.visible[x2 + size*y2] = 0
+        self.visible[x1 + size*y1] = 0
+        self.owner[x1 + size*(y1)] = 2
+
+        return True
 
 
     def all_legal_moves(self, player):
@@ -251,7 +288,7 @@ class GameEngine:
 
 
     # Takes in player to see if stalemate or something, might be able to removed
-    # Returns True or False for if game is over, second is for result
+    # Returns True or False for if game is over, second is for resultx
     def check_winner(self, player):
         return c_bindings.check_winner(self.board, self.moves, self.owner, self.flags[0], self.flags[1], player)
 

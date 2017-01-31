@@ -5,7 +5,7 @@ cimport numpy as np
 DTYPE = np.int8
 cimport cython
 import time
-from libc.stdlib cimport rand
+from libc.stdlib cimport rand, srand, RAND_MAX
 
 np.import_array()
 
@@ -247,16 +247,16 @@ cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visi
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):
     if not board[flags[0]] == 12:
-        return 2
-    if not board[flags[1]] == 12:
         return 1
+    if not board[flags[1]] == 12:
+        return 0
 
     if moves[0] == 0:
         all_legal_moves(1-player, board, owner, moves, move_size, board_size)
         if moves[0] == 0:
-            return 3
+            return 2
         return player + 1
-    return 0
+    return 3
 
 
 cdef extern from "numpy/arrayobject.h":
@@ -322,9 +322,12 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
     cdef int i
     cdef int x, y, calc_num
 
+    cdef int rander1 = rand()
+    cdef int rander2 = rand()
+
     # places flags on backrank
-    cdef int pos0 = rand() % board_size
-    cdef int pos1 = rand() % board_size
+    cdef int pos0 = rander1 % board_size
+    cdef int pos1 = rander2 % board_size
 
     board[pos0] = 12
     visible[pos0] = 0
@@ -341,6 +344,7 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
     cdef int flag0 = pos0
     cdef int flag1 = pos1
 
+    # print(pos0, pos1, rander1, rander2)
 
     i = 0
     for i in range(0, 2):
@@ -478,7 +482,7 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int boar
         all_legal_moves(turn, board, owner, sample_moves, move_size, board_size)
 
         winner = check_winner(board, sample_moves, owner, flags, turn, move_size, board_size) 
-        if winner != 0: 
+        if winner != 3: 
             break
 
         # RandomAI
@@ -488,15 +492,14 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int boar
 
         turn = 1 - turn 
 
-    # print('sample completed')
 
     free(players)
     free(sample_moves)
 
     if winner == turn_parent:
         return 2
-    if winner == 3:
-        return 1
+    # if winner == 2:
+    #     return 1
     return 0
 
 
@@ -509,6 +512,9 @@ cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size):
         arr_empty[i] = arr_copy[i]
 
 
+@cython.cdivision(True)
+@cython.boundscheck(False)
+@cython.wraparound(False) 
 cdef void get_unknown_flag_loc(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size):
     cdef int i = 0
     cdef int counter = 1
@@ -519,6 +525,9 @@ cdef void get_unknown_flag_loc(DTYPE_t *unknowns, int unknown_size, DTYPE_t *boa
     unknowns[0] = counter-1
 
 
+@cython.cdivision(True)
+@cython.boundscheck(False)
+@cython.wraparound(False) 
 cdef void get_unknown_pieces(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size, int new_flag_loc):
     cdef int i = 0
     cdef int counter = 1
@@ -531,6 +540,9 @@ cdef void get_unknown_pieces(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board
     unknowns[0] = counter-1
 
 
+@cython.cdivision(True)
+@cython.boundscheck(False)
+@cython.wraparound(False) 
 cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int player, DTYPE_t *unknowns, int unknown_size, DTYPE_t *unknown_mixed):
     cdef int i = 0
     cdef int counter = 1
@@ -553,7 +565,6 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
 
 
     cdef int n = unknowns[0]
-    source = [x for x in range(n)]
     while n > 0:
         # use rand to generate a random number x in the range 0..n-1
         x = (rand() % n)+1
@@ -581,9 +592,9 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
 
 
 
-# @cython.cdivision(True)
-# @cython.boundscheck(False)
-# @cython.wraparound(False)  # turn off negative index wrapping for entire function
+@cython.cdivision(True)
+@cython.boundscheck(False)
+@cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, int unknown_size, DTYPE_t *unknown_mixed):
     cdef int i = 0
     cdef int value = 0      
@@ -606,9 +617,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
         move = i%all_moves[0]
 
         # Does visibility matter?
-        print("1")
         new_flag = get_randomized_board(sample_board, board, visible, owner, board_size, turn, unknowns, unknown_size, unknown_mixed)
-        print("2")
         copy_arr(sample_visible, visible, board_size * board_size)
         copy_arr(sample_owner, owner, board_size * board_size)
 
@@ -623,19 +632,15 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 
 
         value = monte_sample(sample_board, sample_visible, sample_owner, board_size, flags, all_moves, move, turn)
-        print("3")
 
         flags[1-turn] = flag_store
-        print("Move_sample:", move_samples[move], "move:", move)
         if move_ratings[move] != -1:
             move_ratings[move] = move_ratings[move]*move_samples[move]/(move_samples[move]+1) + value / (move_samples[move] + 1)
             move_samples[move] += 1
         else:
             move_ratings[move] = value   
-        print("4")
         i+=1
 
-    print("5")
     i = 0
     cdef float max_num = move_ratings[0]
     cdef int max_index = 0
@@ -655,12 +660,14 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 def play_game(int AI1, int AI2, int monte_samples, int board_size):
+
+    srand(int(np.random.rand()*100000))
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
     players[0] = AI1
     players[1] = AI2
 
     cdef int move_size = 4001 # (number of possible moves (1000) * 4) + 1
-    cdef int max_return_size = 2000002 # (max moves in a game (5000) * 4) + 2
+    cdef int max_return_size = 200002 # (max moves in a game (5000) * 4) + 2
 
     # MONTE STUFF
     cdef int unknown_size = 1001
@@ -701,6 +708,10 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
     fill_boards(board, visible, owner, flags, board_size)
 
+    # print(flags[0])
+    # print(flags[1])
+
+
     write_init_return_board(return_stuff, board, visible, owner, board_size, max_return_size)
 
     cdef int write_counter = (board_size * board_size * 3) + 2
@@ -715,10 +726,11 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
         #     print(board[o])
 
 
+
         all_legal_moves(turn, board, owner, all_moves, move_size, board_size)
 
         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size) 
-        if winner != 0: 
+        if winner != 3: 
             break
 
         # RandomAI

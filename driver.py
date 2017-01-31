@@ -185,13 +185,20 @@ def play_back_game(engine, game_array, renderer, board_size):
     while True:
         move = game_array[counter:counter+4]
 
-        engine.move(move, board_size)
+        cont = engine.move(move, board_size)
+
+        if cont == False:
+            break
         
         renderer.draw_board()
 
         counter += 4
         turn = 1- turn
-        time.sleep(1)
+        time.sleep(.2)
+
+    print("game replay over")
+    time.sleep(1000)
+
         
 
 

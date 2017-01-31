@@ -18,6 +18,7 @@ class Renderer:
     def draw_board(self):
         board = self.engine.get_2D_array(self.engine.board)
         owner = self.engine.get_2D_array(self.engine.owner)
+        visible = self.engine.get_2D_array(self.engine.visible)
 
         for i in self.piece_arr:
             i.undraw()
@@ -31,6 +32,11 @@ class Renderer:
                     c.draw(self.win)
 
                 if board[i][j] == 13 or board[i][j] == 0:
+                    if owner[i][j] != 2:
+                        print("lol1")
+                        continue
+                    if visible[i][j] == 1:
+                        print("lol2")
                     continue
 
                 c = graphics.Rectangle(graphics.Point(self.box_length * i + self.offset, self.box_length * j + self.offset),
