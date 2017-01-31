@@ -581,9 +581,9 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
 
 
 
-@cython.cdivision(True)
-@cython.boundscheck(False)
-@cython.wraparound(False)  # turn off negative index wrapping for entire function
+# @cython.cdivision(True)
+# @cython.boundscheck(False)
+# @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, int unknown_size, DTYPE_t *unknown_mixed):
     cdef int i = 0
     cdef int value = 0      
@@ -591,11 +591,13 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
     cdef int new_flag = 0
 
     cdef float *move_ratings = <float *>malloc(all_moves[0] * sizeof(float))
-    cdef DTYPE_t *move_samples = <DTYPE_t *>malloc(all_moves[0] * sizeof(DTYPE_t))
+    cdef float *move_samples = <float *>malloc(all_moves[0] * sizeof(float))
 
     for i in range(all_moves[0]):
         move_ratings[i] = -1
-    set_to(move_samples, all_moves[0], 1)
+        i = 0
+    for i in range(all_moves[0]):
+        move_samples[i] = 1
 
     i = 0
     # moves_copy = all_moves.copy()
@@ -624,6 +626,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
         print("3")
 
         flags[1-turn] = flag_store
+        print("Move_sample:", move_samples[move], "move:", move)
         if move_ratings[move] != -1:
             move_ratings[move] = move_ratings[move]*move_samples[move]/(move_samples[move]+1) + value / (move_samples[move] + 1)
             move_samples[move] += 1
