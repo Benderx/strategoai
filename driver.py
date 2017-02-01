@@ -14,23 +14,6 @@ import c_bindings.engine_commands as c_bindings
 
 FIRST_AI = RandomAI.RandomAI #RandomAI, MonteCarloAI, MinimaxAI
 SECOND_AI = MonteCarloAI.MonteCarloAI
-global moves_per_second; moves_per_second = 0
-
-
-class CountThread (threading.Thread):
-    def __init__(self, thread_id, name, delay, count):
-        threading.Thread.__init__(self)
-        self.thread_id = thread_id
-        self.name = name
-        self.delay = delay
-        self.count = count
-
-
-    def run(self):
-        print("Starting " + self.name)
-        print_moves_per_second(self.name, self.delay, self.count)
-        print("Exiting " + self.name)
-
 
 
 # humans = 0, 1, 2
@@ -179,7 +162,6 @@ def print_moves_per_second(thread_name, delay, c):
 
 def play_back_game(engine, results, renderer, board_size, db_stuff, game_iter):
     counter = engine.board_setup(results, board_size)
-    renderer.draw_board()
 
     turn = 0
     moves_this_game = results[1]
@@ -188,25 +170,23 @@ def play_back_game(engine, results, renderer, board_size, db_stuff, game_iter):
         game_recorder = []
 
     while True:
+        if renderer != None:
+            renderer.draw_board()
+
         move = results[counter:counter+4]
-
         move_transformed = engine.move(move, board_size)
-
-        
         if move_transformed == None:
             break
         else:
             if db_stuff != None:
                 board, visible, owner, movement = engine.get_board_state()
-                game_recorder.append((0, board, visible, owner, movement, move_transformed))
+                game_recorder.append([0, board, visible, owner, movement, move_transformed])
 
-
-        if renderer != None:
-            renderer.draw_board()
 
         counter += 4
         turn = 1- turn
-        time.sleep(1)
+        if renderer != None:
+            time.sleep(.5)
 
     if db_stuff != None:
         try:
@@ -219,13 +199,14 @@ def play_back_game(engine, results, renderer, board_size, db_stuff, game_iter):
             game_id = db_stuff[1].lastrowid
         
             for i in game_recorder:
-                game_recorder[0] = str(game_id)
+                i[0] = str(game_id)
+                i = tuple(i)
 
             sql_state_insert =  """
                                     INSERT INTO State (GAME_ID, BOARD, VISIBLE, OWNER, MOVEMENT, MOVE_MADE)
                                     VALUES (?, ?, ?, ?, ?, ?);
                                 """
-            db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
+            db_stuff[1].executemany(sql_state_insert, game_recorder)
             db_stuff[0].commit()
         except:
             raise Exception("database insertion failed")
@@ -234,8 +215,8 @@ def play_back_game(engine, results, renderer, board_size, db_stuff, game_iter):
     else:
         print("game", game_iter, "replay over")
     
-
-    time.sleep(1000)
+    if renderer != None:
+        time.sleep(1000)
 
 
 
@@ -246,7 +227,7 @@ def play_c_game(engine, humans = 1, AI1 = None, AI2 = None, board_size = 10):
         raise Exception("Humans cannot play during a c game")
 
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 2000, board_size)
+    results = c_bindings.play_game(0, 1, 1000, board_size)
     end = time.perf_counter()
 
     return results, end-start
@@ -286,13 +267,6 @@ def main():
     parser.add_argument('size', default=10, help='How big the board is')
     parser.add_argument('track', default=1, help='If database tracking happens')
     args = parser.parse_args()
-
-    run_event = threading.Event()
-    run_event.set()
-
-    thread1 = CountThread(1, 'counting thread', 1, 5)
-    thread1.setDaemon(True)
-    # thread1.start()
 
     game_start(args)
 

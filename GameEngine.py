@@ -191,6 +191,14 @@ class GameEngine:
         return False
 
 
+    def extender(self, s):
+        if len(s) == 1:
+            return '00' + s
+        elif len(s) == 2:
+            return '0' + s
+        return s
+
+
     # Takes in coord1 [x1, y1] and coord2 [x2, y2]
     # This assumes check_legal has been run.
     # The return is whether or not battle() was run
@@ -237,7 +245,13 @@ class GameEngine:
 
 
         # Transform move here!!!
-        return True
+        pos0 = str([x1 + size*(y1)])
+        pos1 = str([x2 + size*(y2)])
+
+        pos0 = self.extender(pos0)
+        pos1 = self.extender(pos1)
+
+        return pos0 + pos1
 
 
 
@@ -284,40 +298,20 @@ class GameEngine:
     #     return ''.join(whole)
 
 
-    # #################game_recorder = (boar, visible, owner, movement, move)
     # Returns representation of the board. Only for db storage atm.
     def get_board_state(self):
-        prev = ''
-        counter = 1
-        whole = []
-        board = self.get_2D_array(self.board)
-        owner = self.get_2D_array(self.owner)
-        visible = self.get_2D_array(self.visible)
-        movement = self.get_2D_array(self.movement)
+        board = ''
+        visible = ''
+        owner = ''
+        movement = ''
 
-        for i in range(len(board)):
-            for j in range(len(board[i])):
-                val = board[j][i]
-                if val != 0 and val != -1:
-                    player = owner[j][i]
-                    if player == 0:
-                        player = 'W'
-                    else:
-                        player = 'B'
-                    v = visible[j][i]
+        for i in range(0, self.size * self.size):
+            board += str(self.board[i])
+            visible += str(self.visible[i])
+            owner += str(self.owner[i])
+            movement += str(self.movement[i])
 
-                if val == -1:
-                    whole.append('L')
-                elif val == 12:
-                    whole.append('F')
-                elif val == 0:
-                    whole.append('0')
-                else:
-                    if v:
-                        whole.append(player + 'V' + str(val))
-                    else:
-                        whole.append(player + str(val))
-        return ''.join(whole)
+        return board, visible, owner, movement
 
 
     def move_track(self, coord1, coord2):
