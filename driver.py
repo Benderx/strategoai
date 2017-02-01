@@ -194,7 +194,7 @@ def play_back_game(engine, game_array, renderer, board_size):
 
         counter += 4
         turn = 1- turn
-        time.sleep(.2)
+        time.sleep(1)
 
     print("game replay over")
     time.sleep(1000)
@@ -210,7 +210,7 @@ def play_c_game(engine, humans = 1, AI1 = None, AI2 = None, board_size = 10):
         raise Exception("Humans cannot play during a c game")
 
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 4000, board_size)
+    results = c_bindings.play_game(0, 1, 100000, board_size)
     end = time.perf_counter()
 
     return results, end-start

@@ -13,6 +13,7 @@ class GameEngine:
         self.board = None
         self.owner = None
         self.visible = None
+        self.movement = None
         self.moves = numpy.zeros((401), dtype=numpy.int8)
         self.flags = [-1, -1]
         self.move_history = []
@@ -102,14 +103,17 @@ class GameEngine:
 
 
     def board_setup(self, results_arr, board_size):
-        self.board = numpy.zeros((board_size * board_size,), dtype=numpy.int8)
-        self.visible = numpy.zeros((board_size * board_size,), dtype=numpy.int8)
-        self.owner = numpy.zeros((board_size * board_size,), dtype=numpy.int8)
+        self.board = numpy.zeros((board_size * board_size,), dtype=numpy.int16)
+        self.visible = numpy.zeros((board_size * board_size,), dtype=numpy.int16)
+        self.owner = numpy.zeros((board_size * board_size,), dtype=numpy.int16)
+        self.movement = numpy.zeros((board_size * board_size,), dtype=numpy.int16)
 
         for i in range(2, (board_size*board_size)+2):
-            self.board[i-2] = results_arr[(i*3)-4]
-            self.visible[i-2] = results_arr[(i*3)-3]
-            self.owner[i-2] = results_arr[(i*3)-2]
+            self.board[i-2] = results_arr[(i*4)-6]
+            self.visible[i-2] = results_arr[(i*4)-5]
+            self.owner[i-2] = results_arr[(i*4)-4]
+            self.movement[i-2] = results_arr[(i*4)-3]
+
 
 
 
@@ -201,35 +205,43 @@ class GameEngine:
     # This assumes check_legal has been run.
     # The return is whether or not battle() was run
     def move(self, move_tot, size):
-        # x1 = move_tot[0] - 1
-        # y1 = move_tot[1] - 1
-        # x2 = move_tot[2] - 1
-        # y2 = move_tot[3] - 1
+        # cdef int x1 = all_moves[(move*4)+1] - 1
+        # cdef int y1 = all_moves[(move*4)+2] - 1
+        # cdef int x2 = all_moves[(move*4)+3] - 1
+        # cdef int y2 = all_moves[(move*4)+4] - 1
 
 
-        # p1 = self.board[x1 + size*y1]
-        # self.board[x1 + size*(y1)] = 0
 
-        # p2 = self.board[x2 + size*y2]
+        # cdef int p1 = board[x1 + size*y1]
+        # board[x1 + size*(y1)] = 0
 
-        # winner = 0
+        # cdef int p2 = board[x2 + size*y2]
+
+        # cdef int winner = 0
 
         # if p2 == 0:
-        #     self.board[x2 + size*y2] = p1
-        #     self.visible[x2 + size*y2] = 1
-        #     self.owner[x2 + size*y2] = self.owner[x1 + size*y1]
-        #     self.owner[x1 + size*(y1)] = 2
+        #     board[x2 + size*y2] = p1
+        #     visible[x2 + size*y2] = visible[x1 + size*y1]
+        #     owner[x2 + size*y2] = owner[x1 + size*y1]
+        #     movement[x2 + size*(y2)] = movement[x1 + size*(y1)] + 1
         # else:
-        #     winner = self.battle(p1, p2)
+        #     winner = battle(p1, p2)
 
         #     if winner == 0:
-        #         self.board[x2 + size*y2] = p1
-        #         self.visible[x2 + size*y2] = 0
-        #         self.owner[x2 + size*y2] = self.owner[x1 + size*y1]
+        #         board[x2 + size*y2] = p1
+        #         visible[x2 + size*y2] = 1
+        #         owner[x2 + size*y2] = owner[x1 + size*y1]
+        #         movement[x2 + size*(y2)] = movement[x1 + size*(y1)] + 1
+        #     elif winner == 1:
+        #         visible[x2 + size*y2] = 1
         #     elif winner == 2:
-        #         self.board[x2 + size*y2] = 0
-        #         self.owner[x2 + size*y2] = 2
-        #     self.owner[x1 + size*(y1)] = 2
+        #         board[x2 + size*y2] = 0
+        #         owner[x2 + size*y2] = 2
+        #         visible[x2 + size*y2] = 0
+        #         movement[x2 + size*(y2)] = 0
+        # visible[x1 + size*y1] = 0
+        # owner[x1 + size*(y1)] = 2
+        # movement[x1 + size*(y1)] = 0
 
         x1 = move_tot[0] - 1
         y1 = move_tot[1] - 1
@@ -250,6 +262,7 @@ class GameEngine:
             self.board[x2 + size*y2] = p1
             self.visible[x2 + size*y2] = self.visible[x1 + size*y1]
             self.owner[x2 + size*y2] = self.owner[x1 + size*y1]
+            self.movement[x2 + size*(y2)] = self.movement[x1 + size*(y1)] + 1
         else:
             winner = self.battle(p1, p2)
 
@@ -257,16 +270,20 @@ class GameEngine:
                 self.board[x2 + size*y2] = p1
                 self.visible[x2 + size*y2] = 1
                 self.owner[x2 + size*y2] = self.owner[x1 + size*y1]
+                self.movement[x2 + size*(y2)] = self.movement[x1 + size*(y1)] + 1
             elif winner == 1:
                 self.visible[x2 + size*y2] = 1
             elif winner == 2:
                 self.board[x2 + size*y2] = 0
                 self.owner[x2 + size*y2] = 2
                 self.visible[x2 + size*y2] = 0
+                self.movement[x2 + size*y2] = 0
         self.visible[x1 + size*y1] = 0
         self.owner[x1 + size*(y1)] = 2
+        self.movement[x1 + size*y1] = 0
 
         return True
+
 
 
     def all_legal_moves(self, player):

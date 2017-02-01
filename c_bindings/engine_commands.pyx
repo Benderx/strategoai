@@ -2,14 +2,14 @@ from libc.stdlib cimport malloc, free
 from libc.math cimport sqrt as sqrt
 import numpy as np
 cimport numpy as np
-DTYPE = np.int8
+DTYPE = np.int16
 cimport cython
 import time
 from libc.stdlib cimport rand, srand, RAND_MAX
 
 np.import_array()
 
-ctypedef np.int8_t DTYPE_t
+ctypedef np.int16_t DTYPE_t
 
 cdef extern from "limits.h":
     int INT_MAX
@@ -206,7 +206,7 @@ cdef int battle(int v1, int v2):
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size):
+cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size, DTYPE_t *movement):
     cdef int x1 = all_moves[(move*4)+1] - 1
     cdef int y1 = all_moves[(move*4)+2] - 1
     cdef int x2 = all_moves[(move*4)+3] - 1
@@ -225,6 +225,7 @@ cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visi
         board[x2 + size*y2] = p1
         visible[x2 + size*y2] = visible[x1 + size*y1]
         owner[x2 + size*y2] = owner[x1 + size*y1]
+        movement[x2 + size*(y2)] = movement[x1 + size*(y1)] + 1
     else:
         winner = battle(p1, p2)
 
@@ -232,14 +233,17 @@ cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visi
             board[x2 + size*y2] = p1
             visible[x2 + size*y2] = 1
             owner[x2 + size*y2] = owner[x1 + size*y1]
+            movement[x2 + size*(y2)] = movement[x1 + size*(y1)] + 1
         elif winner == 1:
             visible[x2 + size*y2] = 1
         elif winner == 2:
             board[x2 + size*y2] = 0
             owner[x2 + size*y2] = 2
             visible[x2 + size*y2] = 0
+            movement[x2 + size*(y2)] = 0
     visible[x1 + size*y1] = 0
     owner[x1 + size*(y1)] = 2
+    movement[x1 + size*(y1)] = 0
 
 
 
@@ -442,12 +446,13 @@ cdef int get_random_move(DTYPE_t *all_moves, int move_size):
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int max_return_size):
+cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int max_return_size):
     cdef int i = 2
     for i in range(2, (board_size*board_size) + 2):
-        return_stuff[(i*3)-4] = board[i-2]
-        return_stuff[(i*3)-3] = visible[i-2]
-        return_stuff[(i*3)-2] = owner[i-2]
+        return_stuff[(i*4)-6] = board[i-2]
+        return_stuff[(i*4)-5] = visible[i-2]
+        return_stuff[(i*4)-4] = owner[i-2]
+        return_stuff[(i*4)-3] = movement[i-2]
 
 
 @cython.cdivision(True)
@@ -666,11 +671,11 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     players[0] = AI1
     players[1] = AI2
 
-    cdef int move_size = 4001 # (number of possible moves (1000) * 4) + 1
-    cdef int max_return_size = 200002 # (max moves in a game (5000) * 4) + 2
+    cdef int move_size = 10001 # (number of possible moves (1000) * 4) + 1
+    cdef int max_return_size = 400002 # (max moves in a game (5000) * 4) + 2
 
     # MONTE STUFF
-    cdef int unknown_size = 1001
+    cdef int unknown_size = 6001
     cdef DTYPE_t *unknowns = <DTYPE_t *>malloc(unknown_size * sizeof(DTYPE_t))
 
 
@@ -678,6 +683,7 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     cdef DTYPE_t *board = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
     cdef DTYPE_t *visible = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
     cdef DTYPE_t *owner = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
+    cdef DTYPE_t *movement = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
 
     cdef DTYPE_t *all_moves = <DTYPE_t *>malloc(move_size * sizeof(DTYPE_t))
 
@@ -695,15 +701,17 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     cdef DTYPE_t *sample_board = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
     cdef DTYPE_t *sample_visible = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
     cdef DTYPE_t *sample_owner = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
-
+    cdef DTYPE_t *sample_movement = <DTYPE_t *>malloc(board_size * board_size * sizeof(DTYPE_t))
 
 
     set_to(board, board_size*board_size, 0)
     set_to(visible, board_size*board_size, 0)
     set_to(owner, board_size*board_size, 2)
+    set_to(movement, board_size*board_size, 0)
     set_to(all_moves, move_size, 0)
     set_to(unknowns, unknown_size, 0)
     set_to(unknown_mixed, unknown_size, 0)
+    
 
     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
     fill_boards(board, visible, owner, flags, board_size)
@@ -712,21 +720,15 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     # print(flags[1])
 
 
-    write_init_return_board(return_stuff, board, visible, owner, board_size, max_return_size)
+    write_init_return_board(return_stuff, board, visible, owner, movement, board_size, max_return_size)
 
-    cdef int write_counter = (board_size * board_size * 3) + 2
+    cdef int write_counter = (board_size * board_size * 4) + 2
 
     cdef int move = 0
     cdef int turn = 0
     cdef int winner = 0
     cdef int num_moves = 0
     while True:
-
-        # for o in range(board_size * board_size):
-        #     print(board[o])
-
-
-
         all_legal_moves(turn, board, owner, all_moves, move_size, board_size)
 
         winner = check_winner(board, all_moves, owner, flags, turn, move_size, board_size) 
@@ -743,9 +745,11 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
 
 
 
-        move_piece(move, all_moves, board, visible, owner, board_size) 
+        move_piece(move, all_moves, board, visible, owner, board_size, movement) 
         write_return_move(return_stuff, all_moves, move, write_counter)
         write_counter += 4
+
+        print("move")
 
         num_moves += 1
         turn = 1 - turn 
@@ -759,6 +763,7 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     free(sample_board)
     free(sample_visible)
     free(sample_owner)
+    free(sample_movement)
 
     free(unknowns)
     free(unknown_mixed)
