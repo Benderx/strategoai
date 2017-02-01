@@ -174,12 +174,11 @@ def print_moves_per_second(thread_name, delay, c):
 
 
 def play_back_game(engine, game_array, renderer, board_size):
-    engine.board_setup(game_array, board_size)
+    counter = engine.board_setup(game_array, board_size)
     renderer.draw_board()
 
     turn = 0
     moves_this_game = game_array[1]
-    counter = (board_size*board_size*3)+2
 
     # print(game_array[0:14])
     while True:
@@ -210,7 +209,7 @@ def play_c_game(engine, humans = 1, AI1 = None, AI2 = None, board_size = 10):
         raise Exception("Humans cannot play during a c game")
 
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 100000, board_size)
+    results = c_bindings.play_game(0, 1, 2000, board_size)
     end = time.perf_counter()
 
     return results, end-start

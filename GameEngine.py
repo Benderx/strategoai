@@ -114,6 +114,8 @@ class GameEngine:
             self.owner[i-2] = results_arr[(i*4)-4]
             self.movement[i-2] = results_arr[(i*4)-3]
 
+        return (i*4)-2
+
 
 
 
@@ -143,18 +145,6 @@ class GameEngine:
         print()
 
 
-
-
-    # def get_visible_board(self, player):
-    #     visible_board = deepcopy(self.board)
-    #     piece_options = []
-    #     for x in range(len(self.board)):
-    #         for y in range(len(self.board)):
-    #             piece = visible_board[x][y]
-    #             if piece and piece.player != player and not piece.visible:
-    #                 visible_board[x][y].value = 0
-    #                 piece_options.append(piece.value)
-    #     return visible_board, piece_options
 
 
 
@@ -205,44 +195,6 @@ class GameEngine:
     # This assumes check_legal has been run.
     # The return is whether or not battle() was run
     def move(self, move_tot, size):
-        # cdef int x1 = all_moves[(move*4)+1] - 1
-        # cdef int y1 = all_moves[(move*4)+2] - 1
-        # cdef int x2 = all_moves[(move*4)+3] - 1
-        # cdef int y2 = all_moves[(move*4)+4] - 1
-
-
-
-        # cdef int p1 = board[x1 + size*y1]
-        # board[x1 + size*(y1)] = 0
-
-        # cdef int p2 = board[x2 + size*y2]
-
-        # cdef int winner = 0
-
-        # if p2 == 0:
-        #     board[x2 + size*y2] = p1
-        #     visible[x2 + size*y2] = visible[x1 + size*y1]
-        #     owner[x2 + size*y2] = owner[x1 + size*y1]
-        #     movement[x2 + size*(y2)] = movement[x1 + size*(y1)] + 1
-        # else:
-        #     winner = battle(p1, p2)
-
-        #     if winner == 0:
-        #         board[x2 + size*y2] = p1
-        #         visible[x2 + size*y2] = 1
-        #         owner[x2 + size*y2] = owner[x1 + size*y1]
-        #         movement[x2 + size*(y2)] = movement[x1 + size*(y1)] + 1
-        #     elif winner == 1:
-        #         visible[x2 + size*y2] = 1
-        #     elif winner == 2:
-        #         board[x2 + size*y2] = 0
-        #         owner[x2 + size*y2] = 2
-        #         visible[x2 + size*y2] = 0
-        #         movement[x2 + size*(y2)] = 0
-        # visible[x1 + size*y1] = 0
-        # owner[x1 + size*(y1)] = 2
-        # movement[x1 + size*(y1)] = 0
-
         x1 = move_tot[0] - 1
         y1 = move_tot[1] - 1
         x2 = move_tot[2] - 1
@@ -287,20 +239,6 @@ class GameEngine:
 
 
     def all_legal_moves(self, player):
-        # timing_total = 0
-        # timing_samples = 0
-
-        # for i in range(0, 100):
-        #     start = time.perf_counter()
-        #     c_bindings.primes(i)
-        #     end = time.perf_counter()
-        #     timing_total += end-start
-        #     timing_samples += 1
-
-        # print("avg:", timing_total/timing_samples)
-        # exit()
-
-
         return c_bindings.all_legal_moves(player, self.board, self.owner, self.moves)
 
 
