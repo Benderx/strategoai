@@ -152,7 +152,11 @@ def init_db(dbpath = 'test.db', overwrite = True):
                                 CREATE TABLE State (
                                 ID INTEGER PRIMARY KEY AUTOINCREMENT,
                                 GAME_ID INTEGER NOT NULL,
-                                BOARD CHAR(500) NOT NULL,
+                                BOARD CHAR(256) NOT NULL,
+                                VISIBLE CHAR(256) NOT NULL,
+                                OWNER CHAR(256) NOT NULL,
+                                MOVEMENT CHAR(256) NOT NULL,
+                                MOVE_MADE CHAR(32) NOT NULL,
                                 FOREIGN KEY (GAME_ID) REFERENCES Game(ID));
                             """
         cursor.execute(sql_create_state)
@@ -173,29 +177,28 @@ def print_moves_per_second(thread_name, delay, c):
 
 
 
-def play_back_game(engine, game_array, renderer, board_size, db_stuff):
-    counter = engine.board_setup(game_array, board_size)
+def play_back_game(engine, results, renderer, board_size, db_stuff, game_iter):
+    counter = engine.board_setup(results, board_size)
     renderer.draw_board()
 
     turn = 0
-    moves_this_game = game_array[1]
+    moves_this_game = results[1]
 
     if db_stuff != None:
         game_recorder = []
 
-    # print(game_array[0:14])
     while True:
-        move = game_array[counter:counter+4]
+        move = results[counter:counter+4]
 
-        cont = engine.move(move, board_size)
+        move_transformed = engine.move(move, board_size)
 
         
-        if cont == False:
+        if move_transformed == None:
             break
         else:
             if db_stuff != None:
                 board, visible, owner, movement = engine.get_board_state()
-                game_recorder = (boar, visible, owner, movement, move)
+                game_recorder.append((0, board, visible, owner, movement, move_transformed))
 
 
         if renderer != None:
@@ -205,10 +208,34 @@ def play_back_game(engine, game_array, renderer, board_size, db_stuff):
         turn = 1- turn
         time.sleep(1)
 
-    print("game replay over")
-    time.sleep(1000)
+    if db_stuff != None:
+        try:
+            sql_game_insert =   """
+                                    INSERT INTO Game (WINNER)
+                                    VALUES (?);
+                                """
+            db_stuff[1].execute(sql_game_insert, str(results[0]))
 
+            game_id = db_stuff[1].lastrowid
         
+            for i in game_recorder:
+                game_recorder[0] = str(game_id)
+
+            sql_state_insert =  """
+                                    INSERT INTO State (GAME_ID, BOARD, VISIBLE, OWNER, MOVEMENT, MOVE_MADE)
+                                    VALUES (?, ?, ?, ?, ?, ?);
+                                """
+            db_stuff[1].executemany(sql_state_insert, state_tracker_packed)
+            db_stuff[0].commit()
+        except:
+            raise Exception("database insertion failed")
+
+        print("game", game_iter, "tracking over")
+    else:
+        print("game", game_iter, "replay over")
+    
+
+    time.sleep(1000)
 
 
 
@@ -227,6 +254,7 @@ def play_c_game(engine, humans = 1, AI1 = None, AI2 = None, board_size = 10):
 
 def game_start(args):
     engine = g.GameEngine(int(args.size))
+    re = None
     if int(args.track):
         db_stuff = init_db('games.db', True)
     else:
@@ -237,10 +265,13 @@ def game_start(args):
     for i in range(num_games):
         results, time = play_c_game(engine, int(args.humans), FIRST_AI, SECOND_AI, int(args.size))
         print('game ', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
-        if int(args.graphical) == 1:
-            re = r.Renderer(engine)
-            re.window_setup(500, 500)
-            play_back_game(engine, results, re, int(args.size), db_stuff)
+
+        if int(args.graphical) == 1 or int(args.track) == 1:
+            if int(args.graphical) == 1:
+                re = r.Renderer(engine)
+                re.window_setup(500, 500)
+
+            play_back_game(engine, results, re, int(args.size), db_stuff, i)
 
     if int(args.track):
         db_stuff[0].close()

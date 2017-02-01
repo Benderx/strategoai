@@ -201,7 +201,7 @@ class GameEngine:
         y2 = move_tot[3] - 1
 
         if x1 == -1:
-            return False
+            return None
 
         p1 = self.board[x1 + size*y1]
         self.board[x1 + size*(y1)] = 0
@@ -234,6 +234,9 @@ class GameEngine:
         self.owner[x1 + size*(y1)] = 2
         self.movement[x1 + size*y1] = 0
 
+
+
+        # Transform move here!!!
         return True
 
 
