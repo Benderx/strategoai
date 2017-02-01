@@ -249,13 +249,49 @@ class GameEngine:
 
 
     # Returns representation of the board. Only for db storage atm.
-    def get_compacted_board_state(self):
+    # def get_compacted_board_state(self):
+    #     prev = ''
+    #     counter = 1
+    #     whole = []
+    #     board = self.get_2D_array(self.board)
+    #     owner = self.get_2D_array(self.owner)
+    #     visible = self.get_2D_array(self.visible)
+    #     for i in range(len(board)):
+    #         for j in range(len(board[i])):
+    #             val = board[j][i]
+    #             if val != 0 and val != -1:
+    #                 player = owner[j][i]
+    #                 if player == 0:
+    #                     player = 'W'
+    #                 else:
+    #                     player = 'B'
+    #                 v = visible[j][i]
+
+    #             if val == -1:
+    #                 whole.append('L')
+    #             elif val == 12:
+    #                 whole.append('F')
+    #             elif val == 0:
+    #                 whole.append('0')
+    #             else:
+    #                 if v:
+    #                     whole.append(player + 'V' + str(val))
+    #                 else:
+    #                     whole.append(player + str(val))
+    #     return ''.join(whole)
+
+
+    # #################game_recorder = (boar, visible, owner, movement, move)
+    # Returns representation of the board. Only for db storage atm.
+    def get_board_state(self):
         prev = ''
         counter = 1
         whole = []
         board = self.get_2D_array(self.board)
         owner = self.get_2D_array(self.owner)
         visible = self.get_2D_array(self.visible)
+        movement = self.get_2D_array(self.movement)
+
         for i in range(len(board)):
             for j in range(len(board[i])):
                 val = board[j][i]

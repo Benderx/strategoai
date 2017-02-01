@@ -173,12 +173,15 @@ def print_moves_per_second(thread_name, delay, c):
 
 
 
-def play_back_game(engine, game_array, renderer, board_size):
+def play_back_game(engine, game_array, renderer, board_size, db_stuff):
     counter = engine.board_setup(game_array, board_size)
     renderer.draw_board()
 
     turn = 0
     moves_this_game = game_array[1]
+
+    if db_stuff != None:
+        game_recorder = []
 
     # print(game_array[0:14])
     while True:
@@ -186,10 +189,17 @@ def play_back_game(engine, game_array, renderer, board_size):
 
         cont = engine.move(move, board_size)
 
+        
         if cont == False:
             break
-        
-        renderer.draw_board()
+        else:
+            if db_stuff != None:
+                board, visible, owner, movement = engine.get_board_state()
+                game_recorder = (boar, visible, owner, movement, move)
+
+
+        if renderer != None:
+            renderer.draw_board()
 
         counter += 4
         turn = 1- turn
@@ -217,28 +227,21 @@ def play_c_game(engine, humans = 1, AI1 = None, AI2 = None, board_size = 10):
 
 def game_start(args):
     engine = g.GameEngine(int(args.size))
-    gui = False
-
     if int(args.track):
         db_stuff = init_db('games.db', True)
     else:
         db_stuff = None
-
-    if int(args.graphical) == 1:
-        re = r.Renderer(engine)
-        re.window_setup(500, 500)
-        gui = True
-    else:
-        re = None
-        gui = False
-
     num_games = int(args.number)
+
 
     for i in range(num_games):
         results, time = play_c_game(engine, int(args.humans), FIRST_AI, SECOND_AI, int(args.size))
         print('game ', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
-        if gui:
-            play_back_game(engine, results, re, int(args.size))
+        if int(args.graphical) == 1:
+            re = r.Renderer(engine)
+            re.window_setup(500, 500)
+            play_back_game(engine, results, re, int(args.size), db_stuff)
+
     if int(args.track):
         db_stuff[0].close()
 
