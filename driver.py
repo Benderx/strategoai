@@ -48,7 +48,6 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
             owner.append(engine.owner)
             movement.append(engine.movement)
             move_taken.append(move_transformed)
-            all_moves.append(engine.all_legal_moves(turn))
 
 
 
@@ -59,8 +58,8 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
 
     df = pandas.DataFrame({'board':board,'visible': visible,
                            'owner': owner, 'movement': movement,'move_taken': move_taken})
-    print(df)
-    if db_stuff != None:
+    # print(df)
+    if track == 1:
         df.to_csv('games.csv')
 
     if renderer != None:
