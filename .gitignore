@@ -1,8 +1,12 @@
 
-*.xml
-
 \.idea/
 
-*.pyc
+__pycache__/
 
-games\.db
+*.xml
+
+*.o
+
+*.so
+
+*.db
