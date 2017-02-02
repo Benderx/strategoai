@@ -520,11 +520,11 @@ cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size):
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False) 
-cdef void get_unknown_flag_loc(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size):
+cdef void get_unknown_flag_loc(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int player, int board_size):
     cdef int i = 0
     cdef int counter = 1
     for i in range((1-player) * (board_size-1), (1-player) * (board_size-1) + board_size):
-        if owner[i] == (1-player) and visible[i] == 0:
+        if owner[i] == (1-player) and visible[i] == 0 and movement[i] == 0:
             unknowns[counter] = i
             counter += 1
     unknowns[0] = counter-1
@@ -548,12 +548,12 @@ cdef void get_unknown_pieces(DTYPE_t *unknowns, int unknown_size, DTYPE_t *board
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False) 
-cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int board_size, int player, DTYPE_t *unknowns, int unknown_size, DTYPE_t *unknown_mixed):
+cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int player, DTYPE_t *unknowns, int unknown_size, DTYPE_t *unknown_mixed):
     cdef int i = 0
     cdef int counter = 1
     cdef int new_flag_loc = 0
 
-    get_unknown_flag_loc(unknowns, unknown_size, board, visible, owner, player, board_size)
+    get_unknown_flag_loc(unknowns, unknown_size, board, visible, owner, movement, player, board_size)
     if unknowns[0] == 0:
         print("something went terribly wrong, get_randomized_board()")
 
@@ -622,16 +622,10 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
         move = i%all_moves[0]
 
         # Does visibility matter?
-        new_flag = get_randomized_board(sample_board, board, visible, owner, board_size, turn, unknowns, unknown_size, unknown_mixed)
+        new_flag = get_randomized_board(sample_board, board, visible, owner, movement, board_size, turn, unknowns, unknown_size, unknown_mixed)
         copy_arr(sample_visible, visible, board_size * board_size)
         copy_arr(sample_owner, owner, board_size * board_size)
         copy_arr(sample_movement, movement, board_size * board_size)
-
-
-        # for j in range(board_size*board_size):
-        #     print("sample", sample_board[j])
-        #     print("real", board[j])
-        # time.sleep(1000)
 
         flag_store = flags[1-turn]
         flags[1-turn] = new_flag

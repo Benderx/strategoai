@@ -12,6 +12,8 @@ import pandas
 FIRST_AI = 0 #RANDOM
 SECOND_AI = 1 #MONTE
 
+GAMES_FILEPATH = 'games.csv'
+
 
 def print_moves_per_second(thread_name, delay, c):
     global moves_per_second;
@@ -33,34 +35,41 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
     turn = 0
     moves_this_game = results[1]
 
-    board, visible, owner, movement, all_moves, move_taken = [], [], [], [], [], []
+    board, visible, owner, movement = [], [], [], []
     while True:
         if renderer != None:
             renderer.draw_board()
 
         move = results[counter:counter+4]
-        move_transformed = engine.move(move, board_size)
-        if move_transformed == None:
+        move_from, move_to = engine.move(move, board_size)
+        if move_from == None:
             break
+
         if track == 1:
             board.append(engine.board)
             visible.append(engine.visible)
             owner.append(engine.owner)
             movement.append(engine.movement)
-            move_taken.append(move_transformed)
-
-
 
         counter += 4
         turn = 1- turn
         if renderer != None:
             time.sleep(.5)
 
-    df = pandas.DataFrame({'board':board,'visible': visible,
-                           'owner': owner, 'movement': movement,'move_taken': move_taken})
-    # print(df)
     if track == 1:
-        df.to_csv('games.csv')
+        game_id = game_iter
+        df = pandas.DataFrame({'board':board, 'visible': visible,
+                           'owner': owner, 'movement': movement, 
+                           'move_from': move_from, 'move_to': move_to, 
+                           'board_size': board_size, 'game_id': game_id})
+
+        if not os.path.isfile('games.csv') or True:
+            df.to_csv(GAMES_FILEPATH)
+            print(df)
+        else:
+            with open(GAMES_FILEPATH, 'a') as file:
+                df.to_csv(file, header=False)
+        print('Tracking game', game_iter)
 
     if renderer != None:
         time.sleep(1000)
@@ -69,7 +78,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
 
 def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 1000, board_size)
+    results = c_bindings.play_game(0, 1, 50000, board_size)
     end = time.perf_counter()
 
     return results, end-start

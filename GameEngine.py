@@ -127,7 +127,7 @@ class GameEngine:
         y2 = move_tot[3] - 1
 
         if x1 == -1:
-            return None
+            return None, None
 
         p1 = self.board[x1 + size*y1]
         self.board[x1 + size*(y1)] = 0
