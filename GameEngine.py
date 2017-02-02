@@ -253,10 +253,56 @@ class GameEngine:
 
         return pos0 + pos1
 
+    def legal_moves_for_piece(self, loc, player):
+        if not isinstance(self.board[loc[0]][loc[1]], Piece):
+            return []
+        moves = []
 
+        speed = self.board[loc[0]][loc[1]].get_movement()
+        for i in range(1, speed + 1):
+            if loc[0] + i < 0 or loc[0] + i > self.size - 1:
+                break
+            if self.board[loc[0] + i][loc[1]] != 0:
+                moves.append((loc[0] + i, loc[1]))
+                break
+            moves.append((loc[0] + i, loc[1]))
+
+        for i in range(1, speed + 1):
+            if loc[0] - i < 0 or loc[0] - i > self.size - 1:
+                break
+            if self.board[loc[0] - i][loc[1]] != 0:
+                moves.append((loc[0] - i, loc[1]))
+                break
+            moves.append((loc[0] - i, loc[1]))
+
+        for i in range(1, speed + 1):
+            if loc[1] + i < 0 or loc[1] + i > self.size - 1:
+                break
+            if self.board[loc[0]][loc[1] + i] != 0:
+                moves.append((loc[0], loc[1] + i))
+                break
+            moves.append((loc[0], loc[1] + i))
+
+        for i in range(1, speed + 1):
+            if loc[1] - i < 0 or loc[1] - i > self.size - 1:
+                break
+            if self.board[loc[0]][loc[1] - i] != 0:
+                moves.append((loc[0], loc[1] - i))
+                break
+            moves.append((loc[0], loc[1] - i))
+
+        final = []
+        for move in moves:
+            if self.check_legal(loc, move, player)[0]:
+                final.append((loc, move))
+        return final
 
     def all_legal_moves(self, player):
-        return c_bindings.all_legal_moves(player, self.board, self.owner, self.moves)
+        moves = []
+        for i in range(len(self.board)):
+            for j in range(len(self.board[i])):
+                moves += self.legal_moves_for_piece([i, j], player)
+        return moves
 
 
     # Takes in player to see if stalemate or something, might be able to removed
@@ -312,8 +358,8 @@ class GameEngine:
                 board += str(-2)
             elif self.board[i] == 12: # flag
                 board += str(-1)
-            else:
-                board += str(self.board[i])
+
+            board += str(self.board[i])
             visible += str(self.visible[i])
             owner += str(self.owner[i])
             movement += str(self.movement[i])

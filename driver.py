@@ -167,9 +167,7 @@ def play_back_game(engine, results, renderer, board_size, db_stuff, game_iter):
     turn = 0
     moves_this_game = results[1]
 
-    if db_stuff != None:
-        game_recorder = []
-
+    board, visible, owner, movement, all_moves, move_taken = [], [], [], [], [], []
     while True:
         if renderer != None:
             renderer.draw_board()
@@ -178,11 +176,20 @@ def play_back_game(engine, results, renderer, board_size, db_stuff, game_iter):
         move_transformed = engine.move(move, board_size)
         if move_transformed == None:
             break
-        else:
-            if db_stuff != None:
-                board, visible, owner, movement = engine.get_board_state()
-                engine.print_board()
-                game_recorder.append([0, board, visible, owner, movement, move_transformed])
+        if db_stuff != None:
+            # board = engine.board.tostring()
+            # visible = engine.visible.tostring()
+            # owner = engine.owner.tostring()
+            # movement = engine.movement.tostring()
+            # print('here')
+            # game_recorder.append([0, board, visible, owner, movement, move_transformed])
+            board.append(engine.board)
+            visible.append(engine.visible)
+            owner.append(engine.owner)
+            movement.append(engine.movement)
+            move_taken.append(move_transformed)
+            all_moves.append(engine.all_legal_moves(turn))
+
 
 
         counter += 4
@@ -190,32 +197,37 @@ def play_back_game(engine, results, renderer, board_size, db_stuff, game_iter):
         if renderer != None:
             time.sleep(.5)
 
+    df = pandas.DataFrame({'board':board,'visible': visible,
+                           'owner': owner, 'movement': movement,'move_taken': move_taken})
+    print(df)
     if db_stuff != None:
-        try:
-            sql_game_insert =   """
-                                    INSERT INTO Game (WINNER)
-                                    VALUES (?);
-                                """
-            db_stuff[1].execute(sql_game_insert, str(results[0]))
+        df.to_csv('games.csv')
 
-            game_id = db_stuff[1].lastrowid
-        
-            for i in game_recorder:
-                i[0] = str(game_id)
-                i = tuple(i)
-
-            sql_state_insert =  """
-                                    INSERT INTO State (GAME_ID, BOARD, VISIBLE, OWNER, MOVEMENT, MOVE_MADE)
-                                    VALUES (?, ?, ?, ?, ?, ?);
-                                """
-            db_stuff[1].executemany(sql_state_insert, game_recorder)
-            db_stuff[0].commit()
-        except:
-            raise Exception("database insertion failed")
-
-        print("game", game_iter, "tracking over")
-    else:
-        print("game", game_iter, "replay over")
+    #     try:
+    #         sql_game_insert =   """
+    #                                 INSERT INTO Game (WINNER)
+    #                                 VALUES (?);
+    #                             """
+    #         db_stuff[1].execute(sql_game_insert, str(results[0]))
+    #
+    #         game_id = db_stuff[1].lastrowid
+    #
+    #         for i in game_recorder:
+    #             i[0] = str(game_id)
+    #             i = tuple(i)
+    #
+    #         sql_state_insert =  """
+    #                                 INSERT INTO State (GAME_ID, BOARD, VISIBLE, OWNER, MOVEMENT, MOVE_MADE)
+    #                                 VALUES (?, ?, ?, ?, ?, ?);
+    #                             """
+    #         db_stuff[1].executemany(sql_state_insert, game_recorder)
+    #         db_stuff[0].commit()
+    #     except:
+    #         raise Exception("database insertion failed")
+    #
+    #     print("game", game_iter, "tracking over")
+    # else:
+    #     print("game", game_iter, "replay over")
     
     if renderer != None:
         time.sleep(1000)
