@@ -306,7 +306,14 @@ class GameEngine:
         movement = ''
 
         for i in range(0, self.size * self.size):
-            board += str(self.board[i])
+            if self.board[i] == 10: # bomb
+                board += str(-3)
+            elif self.board[i] == 11: # spy
+                board += str(-2)
+            elif self.board[i] == 12: # flag
+                board += str(-1)
+            else:
+                board += str(self.board[i])
             visible += str(self.visible[i])
             owner += str(self.owner[i])
             movement += str(self.movement[i])

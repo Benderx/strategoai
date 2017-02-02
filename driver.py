@@ -11,6 +11,7 @@ import os
 import argparse
 import threading
 import c_bindings.engine_commands as c_bindings
+import pandas
 
 FIRST_AI = RandomAI.RandomAI #RandomAI, MonteCarloAI, MinimaxAI
 SECOND_AI = MonteCarloAI.MonteCarloAI
@@ -180,6 +181,7 @@ def play_back_game(engine, results, renderer, board_size, db_stuff, game_iter):
         else:
             if db_stuff != None:
                 board, visible, owner, movement = engine.get_board_state()
+                engine.print_board()
                 game_recorder.append([0, board, visible, owner, movement, move_transformed])
 
 
