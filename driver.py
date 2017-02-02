@@ -9,8 +9,8 @@ import c_bindings.engine_commands as c_bindings
 import pandas
 
 
-FIRST_AI = 0
-SECOND_AI = 1
+FIRST_AI = 0 #RANDOM
+SECOND_AI = 1 #MONTE
 
 
 def print_moves_per_second(thread_name, delay, c):
@@ -27,7 +27,7 @@ def print_moves_per_second(thread_name, delay, c):
 
 
 
-def play_back_game(engine, results, renderer, board_size, tracking, game_iter):
+def play_back_game(engine, results, renderer, board_size, track, game_iter):
     counter = engine.board_setup(results, board_size)
 
     turn = 0
@@ -42,7 +42,7 @@ def play_back_game(engine, results, renderer, board_size, tracking, game_iter):
         move_transformed = engine.move(move, board_size)
         if move_transformed == None:
             break
-        if tracking:
+        if track == 1:
             board.append(engine.board)
             visible.append(engine.visible)
             owner.append(engine.owner)
@@ -68,12 +68,7 @@ def play_back_game(engine, results, renderer, board_size, tracking, game_iter):
 
 
 
-# humans = 0, 1, 2
 def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
-
-    if humans == 1:
-        raise Exception("Humans cannot play during a c game")
-
     start = time.perf_counter()
     results = c_bindings.play_game(0, 1, 1000, board_size)
     end = time.perf_counter()
@@ -84,10 +79,6 @@ def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
 def game_start(args):
     engine = g.GameEngine(int(args.size))
     re = None
-    if int(args.track):
-        db_stuff = init_db('games.db', True)
-    else:
-        db_stuff = None
     num_games = int(args.number)
 
 
@@ -100,10 +91,7 @@ def game_start(args):
                 re = r.Renderer(engine)
                 re.window_setup(500, 500)
 
-            play_back_game(engine, results, re, int(args.size), db_stuff, i)
-
-    if int(args.track):
-        db_stuff[0].close()
+            play_back_game(engine, results, re, int(args.size), int(args.track), i)
 
 
 
