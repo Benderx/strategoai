@@ -693,9 +693,9 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
 
     # Initilizing return_stuff
     cdef np.int16_t *return_stuff = <np.int16_t *>malloc(max_return_size * sizeof(np.int16_t))
-    cdef int q = 0
+    cdef int i = 0
     for i in range(max_return_size):
-        return_stuff[q] = 0
+        return_stuff[i] = 0
 
 
     # ONLY FOR MONTE
