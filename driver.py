@@ -68,13 +68,12 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
 =======
                            'move_from': moves_from, 'move_to': moves_to,
                            'board_size': board_size, 'game_id': game_id})
->>>>>>> ab1104f6a3622e26d136223577e213b75f5e327b
-
-        if not os.path.isfile('games.csv') or True:
-            df.to_csv(GAMES_FILEPATH)
-        else:
-            with open(GAMES_FILEPATH, 'a') as file:
-                df.to_csv(file, header=False)
+        df.to_pickle("game")
+        # if not os.path.isfile('games.csv') or True:
+        #     df.to_csv(GAMES_FILEPATH)
+        # else:
+        #     with open(GAMES_FILEPATH, 'a') as file:
+        #         df.to_csv(file, header=False)
         print('Tracking game', game_iter)
 
     if renderer != None:
