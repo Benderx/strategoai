@@ -162,4 +162,4 @@ class GameEngine:
 
 
 
-        return [x1 + size*(y1)], [x2 + size*(y2)]
+        return x1 + size*(y1), x2 + size*(y2)
