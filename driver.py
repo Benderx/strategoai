@@ -44,7 +44,6 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         move_from, move_to = engine.move(move, board_size)
         if move_from == None:
             break
-
         if track == 1:
             board.append(engine.board)
             visible.append(engine.visible)
@@ -57,14 +56,18 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         turn = 1- turn
         if renderer != None:
             time.sleep(.5)
-
     if track == 1:
         # game_id = game_iter
         df = pandas.DataFrame({'board':board, 'visible': visible,
-                           'owner': owner, 'movement': movement, 
-                           'move_from': move_from, 'move_to': move_to,
+                           'owner': owner, 'movement': movement,
+                           'move_from': moves_from, 'move_to': moves_to,
                            'board_size': board_size})
-        df.to_pickle("game")
+        if os.path.isfile("games"):
+            old = pandas.read_pickle("games")
+            df = pandas.concat([df, old], ignore_index=True, axis=0)
+
+            print(df)
+        df.to_pickle("games")
         # if not os.path.isfile('games.csv') or True:
         #     df.to_csv(GAMES_FILEPATH)
         # else:
@@ -73,13 +76,14 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         print('Tracking game', game_iter)
 
     if renderer != None:
-        time.sleep(1000)
+        input()
+    input()
 
 
 
 def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 5000, board_size)
+    results = c_bindings.play_game(0, 1, 50, board_size)
     end = time.perf_counter()
 
     return results, end-start
