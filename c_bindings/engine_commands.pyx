@@ -20,19 +20,20 @@ cdef extern from "numpy/arrayobject.h":
 
 
 
-@cython.boundscheck(False) # turn off bounds-checking for entire function
-@cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int player, DTYPE_t *moves):
-    if player == owner[x + size*y]:
-        return 0
-    return 1
+# @cython.boundscheck(False) # turn off bounds-checking for entire function
+# @cython.wraparound(False)  # turn off negative index wrapping for entire function
+# cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int player, DTYPE_t *moves):
+#     if player == owner[x + size*y]:
+#         return 0
+#     return 1
 
 
 @cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int old_x, int old_y, int new_x, int new_y, int player, DTYPE_t *moves, int *counter, int speed):
-    if board[new_x + size*new_y] == 0:
+    cdef int new_board_pos = new_x + size*new_y
+    if board[new_board_pos] == 0:
         moves[counter[0]] = old_x + 1
         moves[counter[0]+1] = old_y + 1
         moves[counter[0]+2] = new_x + 1
@@ -40,17 +41,15 @@ cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int va
         counter[0] += 4
         return 0
         # return 0 # no break, increment
-    elif board[new_x + size*new_y] == 13:
-        return 1 # break proccess no increment
-    elif board[new_x + size*new_y] != 0:
-        if check_legal(board, owner, size, new_x, new_y, player, moves) == 1:
+    elif board[new_board_pos] < 13:
+        if player != owner[new_board_pos]:
             moves[counter[0]] = old_x + 1
             moves[counter[0]+1] = old_y + 1
             moves[counter[0]+2] = new_x + 1
             moves[counter[0]+3] = new_y + 1
             counter[0] += 4
             # return 2 # break proccess increment
-        return 1
+    return 1
 
 
 @cython.cdivision(True)
@@ -59,98 +58,55 @@ cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int va
 cdef void legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int *counter):
     # if val == 13 or val == 0:
     #     return counter
-    if player != owner[x + size*y]:
+    if player != owner[x + size*y]: # handles if board == 0 and board == 13
         return
-    cdef int speed = 1
-
-    if val == 9:
-        speed = size
     elif val == 10 or val == 12:
         return
 
-    cdef int p = 0
-    cdef int i
+    cdef int speed = 2
+
+    if val == 9:
+        speed = size+1
+
+    cdef int p
     cdef int new_x
     cdef int new_y
 
-    for p in range(speed):
-        i = p + 1
-        new_x = x+i
+    for p in range(1, speed):
+        new_x = x+p
 
         if new_x < 0  or new_x > size-1:
             break
 
         if legal_square_for_piece(board, owner, size, val, x, y, new_x, y, player, moves, counter, speed):
             break
-        # if ret == 0:
-        #     counter += 4
-        # elif ret == 1:
-        #     break
-        # elif ret == 2:
-        #     counter += 4
-        #     break
-        # elif ret == 4:
-        #     print("plz no")
 
-    p = 0
-    for p in range(speed):
-        i = p + 1
-        new_x = x-i
+    for p in range(1, speed):
+        new_x = x-p
 
         if new_x < 0  or new_x > size-1:
             break
 
         if legal_square_for_piece(board, owner, size, val, x, y, new_x, y, player, moves, counter, speed):
             break
-        # if ret == 0:
-        #     counter += 4
-        # elif ret == 1:
-        #     break
-        # elif ret == 2:
-        #     counter += 4
-        #     break
-        # elif ret == 4:
-        #     print("plz no")
 
-    p = 0
-    for p in range(speed):
-        i = p + 1
-        new_y = y+i
+    for p in range(1, speed):
+        new_y = y+p
 
         if new_y < 0  or new_y > size-1:
             break
 
         if legal_square_for_piece(board, owner, size, val, x, y, x, new_y, player, moves, counter, speed):
             break
-        # if ret == 0:
-        #     counter += 4
-        # elif ret == 1:
-        #     break
-        # elif ret == 2:
-        #     counter += 4
-        #     break
-        # elif ret == 4:
-        #     print("plz no")
 
-    p = 0
-    for p in range(speed):
-        i = p + 1
-        new_y = y-i
+    for p in range(1, speed):
+        new_y = y-p
 
         if new_y < 0  or new_y > size-1:
             break
 
         if legal_square_for_piece(board, owner, size, val, x, y, x, new_y, player, moves, counter, speed):
             break
-        # if ret == 0:
-        #     counter += 4
-        # elif ret == 1:
-        #     break
-        # elif ret == 2:
-        #     counter += 4
-        #     break
-        # elif ret == 4:
-        #     print("plz no")
 
 
 
@@ -591,10 +547,11 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
     # set_to(sample_moves, move_size, 0)
 
-    cdef int num_moves = 0
-    cdef float time_tot = 0
-    cdef float start
-    cdef float end
+    # cdef int num_moves = 0
+    # cdef float time_tot = 0
+    # cdef float start
+    # cdef float end
+    # cdef int dummy
 
     cdef int move = 0
     cdef int turn = 1 - turn_parent
@@ -602,9 +559,10 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
 
     while True:
-        start = time.perf_counter()
+        # start = time.perf_counter()
+        # for dummy in range(0, 10000):
         all_legal_moves(turn, board, owner, sample_moves, move_size, board_size)
-        end = time.perf_counter()
+        # end = time.perf_counter()
 
         winner = check_winner(board, sample_moves, owner, flags, turn, move_size, board_size) 
         if winner != 3: 
@@ -615,11 +573,11 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
         move_piece(move, sample_moves, board, visible, owner, board_size, movement) 
 
-        time_tot += (end - start)
-        num_moves += 1
+        # time_tot += (end - start)
+        # num_moves += 1
         turn = 1 - turn 
     
-    print('Time:', time_tot/num_moves)
+    # print('Time:', time_tot/num_moves)
 
     free(players)
 
