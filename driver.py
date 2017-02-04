@@ -57,11 +57,11 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
             time.sleep(.5)
 
     if track == 1:
-        game_id = game_iter
+        # game_id = game_iter
         df = pandas.DataFrame({'board':board, 'visible': visible,
                            'owner': owner, 'movement': movement, 
                            'move_from': move_from, 'move_to': move_to, 
-                           'board_size': board_size, 'game_id': game_id})
+                           'board_size': board_size})
 
         if not os.path.isfile('games.csv') or True:
             df.to_csv(GAMES_FILEPATH)
@@ -78,7 +78,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
 
 def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 50000, board_size)
+    results = c_bindings.play_game(0, 1, 100000, board_size)
     end = time.perf_counter()
 
     return results, end-start
