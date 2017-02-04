@@ -22,24 +22,23 @@ cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int
     return 1
 
 
+@cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int counter):
-    if val == 13 or val == 0:
-        return counter
+    # if val == 13 or val == 0:
+    #     return counter
     if player != owner[x + size*y]:
         return counter
-
     cdef int speed = 1
-    cdef int i = 0
+
     if val == 9:
         speed = size
     elif val == 10 or val == 12:
-        speed = 0
+        return counter
 
     cdef int p = 0
-
-
+    cdef int i
     for p in range(speed):
         i = p + 1
         if x+i < 0  or x+i > size-1:
@@ -145,8 +144,8 @@ cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size):
     cdef int g = 0
-    for g in range(move_size):
-        moves[g] = 0
+    # for g in range(move_size):
+    #     moves[g] = 0
 
 
     cdef int val = 0
@@ -477,16 +476,18 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
     # set_to(sample_moves, move_size, 0)
 
-    # cdef int num_moves = 0
-    # cdef float time_tot = 0
-    # cdef float start
-    # cdef float end
+    cdef int num_moves = 0
+    cdef float time_tot = 0
+    cdef float start
+    cdef float end
 
     cdef int move = 0
     cdef int turn = 1 - turn_parent
     cdef int winner = 0
     while True:
+        start = time.perf_counter()
         all_legal_moves(turn, board, owner, sample_moves, move_size, board_size)
+        end = time.perf_counter()
 
         winner = check_winner(board, sample_moves, owner, flags, turn, move_size, board_size) 
         if winner != 3: 
@@ -495,16 +496,14 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
         # RandomAI
         move = get_random_move(sample_moves, move_size)
 
-        # start = time.perf_counter()
         move_piece(move, sample_moves, board, visible, owner, board_size, movement) 
-        # end = time.perf_counter()
 
-        # time_tot += (end - start)
-        # num_moves += 1
+        time_tot += (end - start)
+        num_moves += 1
         turn = 1 - turn 
 
 
-    # print('Time:', time_tot/num_moves)
+    print('Time:', time_tot/num_moves)
 
     free(players)
 
