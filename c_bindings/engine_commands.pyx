@@ -31,46 +31,48 @@ cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int
 @cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int old_x, int old_y, int new_x, int new_y, int player, DTYPE_t *moves, int counter, int speed):
+cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int old_x, int old_y, int new_x, int new_y, int player, DTYPE_t *moves, int *counter, int speed):
     if board[new_x + size*new_y] == 0:
-        moves[counter] = old_x + 1
-        moves[counter+1] = old_y + 1
-        moves[counter+2] = new_x + 1
-        moves[counter+3] = new_y + 1
-        return 0 # no break, increment
+        moves[counter[0]] = old_x + 1
+        moves[counter[0]+1] = old_y + 1
+        moves[counter[0]+2] = new_x + 1
+        moves[counter[0]+3] = new_y + 1
+        counter[0] += 4
+        return 0
+        # return 0 # no break, increment
     elif board[new_x + size*new_y] == 13:
         return 1 # break proccess no increment
     elif board[new_x + size*new_y] != 0:
         if check_legal(board, owner, size, new_x, new_y, player, moves) == 1:
-            moves[counter] = old_x + 1
-            moves[counter+1] = old_y + 1
-            moves[counter+2] = new_x + 1
-            moves[counter+3] = new_y + 1
-            return 2 # break proccess increment
+            moves[counter[0]] = old_x + 1
+            moves[counter[0]+1] = old_y + 1
+            moves[counter[0]+2] = new_x + 1
+            moves[counter[0]+3] = new_y + 1
+            counter[0] += 4
+            # return 2 # break proccess increment
         return 1
-    return 4
 
 
 @cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int counter):
+cdef void legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int *counter):
     # if val == 13 or val == 0:
     #     return counter
     if player != owner[x + size*y]:
-        return counter
+        return
     cdef int speed = 1
 
     if val == 9:
         speed = size
     elif val == 10 or val == 12:
-        return counter
+        return
 
     cdef int p = 0
     cdef int i
     cdef int new_x
     cdef int new_y
-    cdef int ret
+
     for p in range(speed):
         i = p + 1
         new_x = x+i
@@ -78,16 +80,17 @@ cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val
         if new_x < 0  or new_x > size-1:
             break
 
-        ret = legal_square_for_piece(board, owner, size, val, x, y, new_x, y, player, moves, counter, speed)
-        if ret == 0:
-            counter += 4
-        elif ret == 1:
+        if legal_square_for_piece(board, owner, size, val, x, y, new_x, y, player, moves, counter, speed):
             break
-        elif ret == 2:
-            counter += 4
-            break
-        elif ret == 4:
-            print("plz no")
+        # if ret == 0:
+        #     counter += 4
+        # elif ret == 1:
+        #     break
+        # elif ret == 2:
+        #     counter += 4
+        #     break
+        # elif ret == 4:
+        #     print("plz no")
 
     p = 0
     for p in range(speed):
@@ -97,16 +100,17 @@ cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val
         if new_x < 0  or new_x > size-1:
             break
 
-        ret = legal_square_for_piece(board, owner, size, val, x, y, new_x, y, player, moves, counter, speed)
-        if ret == 0:
-            counter += 4
-        elif ret == 1:
+        if legal_square_for_piece(board, owner, size, val, x, y, new_x, y, player, moves, counter, speed):
             break
-        elif ret == 2:
-            counter += 4
-            break
-        elif ret == 4:
-            print("plz no")
+        # if ret == 0:
+        #     counter += 4
+        # elif ret == 1:
+        #     break
+        # elif ret == 2:
+        #     counter += 4
+        #     break
+        # elif ret == 4:
+        #     print("plz no")
 
     p = 0
     for p in range(speed):
@@ -116,16 +120,17 @@ cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val
         if new_y < 0  or new_y > size-1:
             break
 
-        ret = legal_square_for_piece(board, owner, size, val, x, y, x, new_y, player, moves, counter, speed)
-        if ret == 0:
-            counter += 4
-        elif ret == 1:
+        if legal_square_for_piece(board, owner, size, val, x, y, x, new_y, player, moves, counter, speed):
             break
-        elif ret == 2:
-            counter += 4
-            break
-        elif ret == 4:
-            print("plz no")
+        # if ret == 0:
+        #     counter += 4
+        # elif ret == 1:
+        #     break
+        # elif ret == 2:
+        #     counter += 4
+        #     break
+        # elif ret == 4:
+        #     print("plz no")
 
     p = 0
     for p in range(speed):
@@ -135,18 +140,17 @@ cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val
         if new_y < 0  or new_y > size-1:
             break
 
-        ret = legal_square_for_piece(board, owner, size, val, x, y, x, new_y, player, moves, counter, speed)
-        if ret == 0:
-            counter += 4
-        elif ret == 1:
+        if legal_square_for_piece(board, owner, size, val, x, y, x, new_y, player, moves, counter, speed):
             break
-        elif ret == 2:
-            counter += 4
-            break
-        elif ret == 4:
-            print("plz no")
-
-    return counter
+        # if ret == 0:
+        #     counter += 4
+        # elif ret == 1:
+        #     break
+        # elif ret == 2:
+        #     counter += 4
+        #     break
+        # elif ret == 4:
+        #     print("plz no")
 
 
 
@@ -277,10 +281,11 @@ cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *m
     cdef int g = 0
     # for g in range(move_size):
     #     moves[g] = 0
-
+    cdef int *counter = <int *>malloc(sizeof(int))
+    counter[0] = 1
+    # print("legal_enter", counter[0])
 
     cdef int val = 0
-    cdef int counter = 1
     cdef int i = 0
     cdef int c_x = 0
     cdef int c_y = 0
@@ -289,8 +294,10 @@ cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *m
         c_x = i % board_size
         c_y = i / board_size
         val = board[c_x + board_size*c_y]
-        counter = legal_moves_for_piece(board, owner, board_size, val, c_x, c_y, player, moves, counter)
-    moves[0] = <int> ((counter-1) / 4)
+        legal_moves_for_piece(board, owner, board_size, val, c_x, c_y, player, moves, counter)
+    moves[0] = <int> ((counter[0]-1) / 4)
+    free(counter)
+
     # print("moves", moves[0])
     # for jk in range(moves[0]*4):
     #     print(player, moves[jk+1])
