@@ -476,10 +476,10 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
     # set_to(sample_moves, move_size, 0)
 
-    cdef int num_moves = 0
-    cdef float time_tot = 0
-    cdef float start
-    cdef float end
+    # cdef int num_moves = 0
+    # cdef float time_tot = 0
+    # cdef float start
+    # cdef float end
 
     cdef int move = 0
     cdef int turn = 1 - turn_parent
@@ -498,12 +498,12 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
         move_piece(move, sample_moves, board, visible, owner, board_size, movement) 
 
-        time_tot += (end - start)
-        num_moves += 1
+        # time_tot += (end - start)
+        # num_moves += 1
         turn = 1 - turn 
 
 
-    print('Time:', time_tot/num_moves)
+    # print('Time:', time_tot/num_moves)
 
     free(players)
 
@@ -764,7 +764,7 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
         write_return_move(return_stuff, all_moves, move, write_counter)
         write_counter += 4
 
-        print("move", num_moves)
+        # print("move", num_moves)
 
         num_moves += 1
         turn = 1 - turn 
