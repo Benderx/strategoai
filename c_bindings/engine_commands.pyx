@@ -110,125 +110,6 @@ cdef void legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int va
 
 
 
-# @cython.cdivision(True)
-# @cython.boundscheck(False) # turn off bounds-checking for entire function
-# @cython.wraparound(False)  # turn off negative index wrapping for entire function
-# cdef int legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int counter):
-#     # if val == 13 or val == 0:
-#     #     return counter
-#     if player != owner[x + size*y]:
-#         return counter
-#     cdef int speed = 1
-
-#     if val == 9:
-#         speed = size
-#     elif val == 10 or val == 12:
-#         return counter
-
-#     cdef int p = 0
-#     cdef int i
-#     for p in range(speed):
-#         i = p + 1
-#         if x+i < 0  or x+i > size-1:
-#             break
-
-#         if board[(x+i) + size*y] == 0:
-#             moves[counter] = x + 1
-#             moves[counter+1] = y + 1
-#             moves[counter+2] = x+i + 1
-#             moves[counter+3] = y + 1
-#             counter += 4
-
-#         elif board[(x+i) + size*y] == 13:
-#             break
-#         elif board[(x+i) + size*y] != 0:
-#             if check_legal(board, owner, size, x+i, y, player, moves) == 1:
-#                 moves[counter] = x + 1
-#                 moves[counter+1] = y + 1
-#                 moves[counter+2] = x+i + 1
-#                 moves[counter+3] = y + 1
-#                 counter += 4
-#             break
-
-#     p = 0
-
-#     for p in range(speed):
-#         i = p + 1
-#         if x-i < 0  or x-i > size-1:
-#             break
-
-#         if board[(x-i) + size*y] == 0:
-#             moves[counter] = x + 1
-#             moves[counter+1] = y + 1
-#             moves[counter+2] = x-i + 1
-#             moves[counter+3] = y + 1
-#             counter += 4
-
-#         elif board[(x-i) + size*y] == 13:
-#             break
-#         elif board[(x-i) + size*y] != 0:
-#             if check_legal(board, owner, size, x-i, y, player, moves) == 1:
-#                 moves[counter] = x + 1
-#                 moves[counter+1] = y + 1
-#                 moves[counter+2] = x-i + 1
-#                 moves[counter+3] = y + 1
-#                 counter += 4
-#             break
-
-#     p = 0
-
-#     for p in range(speed):
-#         i = p + 1
-#         if y+i < 0  or y+i > size-1:
-#             break
-
-#         if board[x + size*(y+i)] == 0:
-#             moves[counter] = x + 1
-#             moves[counter+1] = y + 1
-#             moves[counter+2] = x + 1
-#             moves[counter+3] = y+i + 1
-#             counter += 4
-
-#         elif board[x + size*(y+i)] == 13:
-#             break
-#         elif board[x + size*(y+i)] != 0:
-#             if check_legal(board, owner, size, x, y+i, player, moves) == 1:
-#                 moves[counter] = x + 1
-#                 moves[counter+1] = y + 1
-#                 moves[counter+2] = x + 1
-#                 moves[counter+3] = y+i + 1
-#                 counter += 4
-#             break
-
-#     p = 0
-
-#     for p in range(speed):
-#         i = p + 1
-#         if y-i < 0  or y-i > size-1:
-#             break
-
-#         if board[x + size*(y-i)] == 0:
-#             moves[counter] = x + 1
-#             moves[counter+1] = y + 1
-#             moves[counter+2] = x + 1
-#             moves[counter+3] = y-i + 1
-#             counter += 4
-#         elif board[x + size*(y-i)] == 13:
-#             break
-#         elif board[x + size*(y-i)] != 0:
-#             if check_legal(board, owner, size, x, y-i, player, moves) == 1:
-#                 moves[counter] = x + 1
-#                 moves[counter+1] = y + 1
-#                 moves[counter+2] = x + 1
-#                 moves[counter+3] = y-i + 1
-#                 counter += 4
-#             break
-#     # print(x, y, val)
-#     # print(counter)
-#     # print(moves)
-#     return counter
-
-
 
 @cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
@@ -264,40 +145,25 @@ cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *m
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int battle(int v1, int v2):
-    if v1 == 0:
-        return 1
-
     if v2 == 0:
         return 0
-
-    if v1 == 10:
-        if v2 == 8:
-            return 1
-        return 0
-
     if v2 == 10:
         if v1 == 8:
             return 0
         return 1
-
     if v1 == 11:
-        if v2 == 1:
+        if v2 == 1 or v2 == 12:
             return 0
         return 1
-
     if v2 == 11:
         if v1 == 1:
             return 1
         return 0
-
-    if v1 == v2:
-        return 2
-
     if v1 < v2:
         return 0
     if v1 > v2:
         return 1
-    return -1
+    return 2
 
 
 
@@ -311,23 +177,23 @@ cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visi
 
 
 
-    cdef int p1 = board[x1 + size*y1]
+    cdef int v1 = board[x1 + size*y1]
     board[x1 + size*(y1)] = 0
 
-    cdef int p2 = board[x2 + size*y2]
+    cdef int v2 = board[x2 + size*y2]
 
     cdef int winner = 0
 
-    if p2 == 0:
-        board[x2 + size*y2] = p1
+    if v2 == 0:
+        board[x2 + size*y2] = v1
         visible[x2 + size*y2] = visible[x1 + size*y1]
         owner[x2 + size*y2] = owner[x1 + size*y1]
         movement[x2 + size*(y2)] = movement[x1 + size*(y1)] + 1
     else:
-        winner = battle(p1, p2)
+        winner = battle(v1, v2)
 
         if winner == 0:
-            board[x2 + size*y2] = p1
+            board[x2 + size*y2] = v1
             visible[x2 + size*y2] = 1
             owner[x2 + size*y2] = owner[x1 + size*y1]
             movement[x2 + size*(y2)] = movement[x1 + size*(y1)] + 1
@@ -605,7 +471,7 @@ cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size):
 cdef void get_unknown_flag_loc(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int player, int board_size):
     cdef int i = 0
     cdef int counter = 1
-    for i in range((1-player) * (board_size-1), (1-player) * (board_size-1) + board_size):
+    for i in range(board_size):
         if owner[i] == (1-player) and visible[i] == 0 and movement[i] == 0:
             unknowns[counter] = i
             counter += 1
@@ -618,7 +484,7 @@ cdef void get_unknown_flag_loc(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visib
 cdef int get_bombs_left(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size):
     cdef int i = 0
     cdef int counter = 1
-    for i in range((1-player) * (board_size-1), (1-player) * (board_size-1) + board_size):
+    for i in range(board_size*4):
         if owner[i] == (1-player) and visible[i] == 0 and board[i] == 10:
             counter += 1
     return counter
@@ -650,6 +516,11 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
 
     get_unknown_flag_loc(unknowns, board, visible, owner, movement, player, board_size)
     if unknowns[0] == 0:
+        for i in range(board_size*board_size):
+            print("board", board[i])
+            print("own", owner[i])
+            print("vis", visible[i])
+            print("movement", movement[i])
         print("something went terribly wrong, get_randomized_board()")
 
     new_flag_loc = unknowns[(rand() % unknowns[0])+1]
