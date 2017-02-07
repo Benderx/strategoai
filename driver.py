@@ -7,6 +7,8 @@ import os
 import argparse
 import c_bindings.engine_commands as c_bindings
 import pandas
+import numpy
+from copy import deepcopy
 
 
 FIRST_AI = 0 #RANDOM
@@ -31,6 +33,23 @@ def print_moves_per_second(thread_name, delay, c):
 
 def play_back_game(engine, results, renderer, board_size, track, game_iter):
     counter = engine.board_setup(results, board_size)
+    def one_hot(val):
+        temp = numpy.zeros(36, dtype = "int16")
+        temp[val] = 1
+        return temp
+    def fix_owner(list):
+        temp = []
+        for i in range(len(list)):
+            if list[i] == 0:
+                temp.append(1)
+            elif list[i] == 1:
+                temp.append(2)
+            elif list[i] == 2:
+                temp.append(0)
+            else:
+                raise ValueError("visibility array is fucked")
+        return numpy.asarray(temp, dtype = "int16")
+
 
     turn = 0
     moves_this_game = results[1]
@@ -44,21 +63,22 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         move_from, move_to = engine.move(move, board_size)
         if move_from == None:
             break
-        if track == 1:
-            board.append(engine.board)
-            visible.append(engine.visible)
-            owner.append(engine.owner)
-            movement.append(engine.movement)
-            moves_from.append(move_from)
-            moves_to.append(move_to)
+        if track == 1 and turn == 1:
+            board.append(deepcopy(engine.board))
+            visible.append(deepcopy(engine.visible))
+            owned = fix_owner(engine.owner)
+            owner.append(owned)
+            movement.append(deepcopy(engine.movement))
+            moves_from.append(one_hot(move_from))
+            moves_to.append(one_hot(move_to))
 
         counter += 4
         turn = 1- turn
         if renderer != None:
             time.sleep(.5)
     if track == 1:
-        # game_id = game_iter
-        df = pandas.DataFrame({'board':board, 'visible': visible,
+        print(len(board[0]))
+        df = pandas.DataFrame.from_dict({'board':board, 'visible': visible,
                            'owner': owner, 'movement': movement,
                            'move_from': moves_from, 'move_to': moves_to,
                            'board_size': board_size})
@@ -66,7 +86,6 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
             old = pandas.read_pickle("games")
             df = pandas.concat([df, old], ignore_index=True, axis=0)
 
-            print(df)
         df.to_pickle("games")
         # if not os.path.isfile('games.csv') or True:
         #     df.to_csv(GAMES_FILEPATH)
@@ -77,13 +96,12 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
 
     if renderer != None:
         input()
-    input()
 
 
 
 def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 5, board_size)
+    results = c_bindings.play_game(0, 1, 500, board_size)
     end = time.perf_counter()
 
     return results, end-start
