@@ -54,7 +54,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
     turn = 0
     moves_this_game = results[1]
 
-    board, visible, owner, movement, move_from, move_to, move_from_one_hot, move_to_one_hot = [], [], [], [], [], [], [], []
+    board_arr, visible_arr, owner_arr, movement_arr, move_from_arr, move_to_arr, move_from_arr_one_hot, move_to_arr_one_hot = [], [], [], [], [], [], [], []
     while True:
         if renderer != None:
             renderer.draw_board()
@@ -64,17 +64,17 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         if move_from == None:
             break
         if track == 1 and turn == 1:
-            board.append(deepcopy(engine.board))
-            visible.append(deepcopy(engine.visible))
+            board_arr.append(deepcopy(engine.board))
+            visible_arr.append(deepcopy(engine.visible))
             owned = fix_owner(engine.owner)
-            owner.append(owned)
-            movement.append(deepcopy(engine.movement))
+            owner_arr.append(owned)
+            movement_arr.append(deepcopy(engine.movement))
 
-            move_from_one_hot.append(one_hot(move_from))
-            move_to_one_hot.append(one_hot(move_to))
+            move_from_arr_one_hot.append(one_hot(move_from))
+            move_to_arr_one_hot.append(one_hot(move_to))
 
-            move_from.append(move_from)
-            move_to.append(move_to)
+            move_from_arr.append(move_from)
+            move_to_arr.append(move_to)
 
         counter += 4
         turn = 1- turn
@@ -82,9 +82,10 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
             time.sleep(.5)
     if track == 1:
         print(len(board[0]))
-        df = pandas.DataFrame.from_dict({'board':board, 'visible': visible,
-                           'owner': owner, 'movement': movement,
-                           'move_from': moves_from, 'move_to': moves_to,
+        df = pandas.DataFrame.from_dict({'board':board_arr, 'visible': visible_arr,
+                           'owner': owner_arr, 'movement': movement_arr,
+                           'move_from': moves_from_arr, 'move_to': moves_to_arr,
+                           'move_from_one_hot': moves_from_arr_one_hot, 'move_to_one_hot': moves_to_arr_one_hot,
                            'board_size': board_size})
         if os.path.isfile("games"):
             old = pandas.read_pickle("games")
