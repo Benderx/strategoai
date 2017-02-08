@@ -47,14 +47,14 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
             elif list[i] == 2:
                 temp.append(0)
             else:
-                raise ValueError("visibility array is fucked")
+                raise ValueError("visibility array is broken")
         return numpy.asarray(temp, dtype = "int16")
 
 
     turn = 0
     moves_this_game = results[1]
 
-    board, visible, owner, movement, moves_from, moves_to = [], [], [], [], [], []
+    board, visible, owner, movement, move_from, move_to, move_from_one_hot, move_to_one_hot = [], [], [], [], [], [], [], []
     while True:
         if renderer != None:
             renderer.draw_board()
@@ -69,8 +69,12 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
             owned = fix_owner(engine.owner)
             owner.append(owned)
             movement.append(deepcopy(engine.movement))
-            moves_from.append(one_hot(move_from))
-            moves_to.append(one_hot(move_to))
+
+            move_from_one_hot.append(one_hot(move_from))
+            move_to_one_hot.append(one_hot(move_to))
+
+            move_from.append(move_from)
+            move_to.append(move_to)
 
         counter += 4
         turn = 1- turn
