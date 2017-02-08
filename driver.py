@@ -81,11 +81,11 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         if renderer != None:
             time.sleep(.5)
     if track == 1:
-        print(len(board[0]))
+        # print(len(board_arr[0]))
         df = pandas.DataFrame.from_dict({'board':board_arr, 'visible': visible_arr,
                            'owner': owner_arr, 'movement': movement_arr,
-                           'move_from': moves_from_arr, 'move_to': moves_to_arr,
-                           'move_from_one_hot': moves_from_arr_one_hot, 'move_to_one_hot': moves_to_arr_one_hot,
+                           'move_from': move_from_arr, 'move_to': move_to_arr,
+                           'move_from_one_hot': move_from_arr_one_hot, 'move_to_one_hot': move_to_arr_one_hot,
                            'board_size': board_size})
         if os.path.isfile("games"):
             old = pandas.read_pickle("games")
