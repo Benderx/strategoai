@@ -34,7 +34,7 @@ def print_moves_per_second(thread_name, delay, c):
 def play_back_game(engine, results, renderer, board_size, track, game_iter):
     counter = engine.board_setup(results, board_size)
     def one_hot(val):
-        temp = numpy.zeros(36, dtype = "int16")
+        temp = numpy.zeros(36, dtype = "float")
         temp[val] = 1
         return temp
     def fix_owner(list):
@@ -48,21 +48,40 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
                 temp.append(0)
             else:
                 raise ValueError("visibility array is broken")
-        return numpy.asarray(temp, dtype = "int16")
+        return numpy.asarray(temp, dtype = "float")
 
+    print(results[counter:counter+100])
 
     turn = 0
     moves_this_game = results[1]
 
-    board_arr, visible_arr, owner_arr, movement_arr, move_from_arr, move_to_arr, move_from_arr_one_hot, move_to_arr_one_hot = [], [], [], [], [], [], [], []
+    board_arr, visible_arr, owner_arr, movement_arr, move_from_arr, move_to_arr, move_from_arr_one_hot, move_to_arr_one_hot, move_data = [], [], [], [], [], [], [], [], []
     while True:
         if renderer != None:
             renderer.draw_board()
+        move = results[counter:counter+6]
 
-        move = results[counter:counter+4]
-        move_from, move_to = engine.move(move, board_size)
-        if move_from == None:
+
+        done, tot_move, move_type, rating, sample = engine.examine_move(move)
+        if done == None:
             break
+
+        # read monte move
+        if move_type != 1:
+            monte_moves = []
+            while True:
+                monte_moves.append((tot_move, rating, sample))
+
+                counter += 6
+                move = results[counter:counter+6]
+                done, tot_move, move_type, rating, sample = engine.examine_move(move)
+                if done == None:
+                    raise Exception("this should never happen")
+                if move_type == 1:
+                    break
+
+        engine.move(tot_move)
+
         if track == 1 and turn == 1:
             board_arr.append(deepcopy(engine.board))
             visible_arr.append(deepcopy(engine.visible))
@@ -76,7 +95,9 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
             move_from_arr.append(move_from)
             move_to_arr.append(move_to)
 
-        counter += 4
+            move_data.append(monte_moves)
+
+        counter += 6
         turn = 1- turn
         if renderer != None:
             time.sleep(.5)
@@ -86,17 +107,12 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
                            'owner': owner_arr, 'movement': movement_arr,
                            'move_from': move_from_arr, 'move_to': move_to_arr,
                            'move_from_one_hot': move_from_arr_one_hot, 'move_to_one_hot': move_to_arr_one_hot,
-                           'board_size': board_size})
+                           'move_data': move_data, 'board_size': board_size})
         if os.path.isfile("games"):
             old = pandas.read_pickle("games")
             df = pandas.concat([df, old], ignore_index=True, axis=0)
 
         df.to_pickle("games")
-        # if not os.path.isfile('games.csv') or True:
-        #     df.to_csv(GAMES_FILEPATH)
-        # else:
-        #     with open(GAMES_FILEPATH, 'a') as file:
-        #         df.to_csv(file, header=False)
         print('Tracking game', game_iter)
 
     if renderer != None:
@@ -106,7 +122,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
 
 def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 500, board_size)
+    results = c_bindings.play_game(0, 1, 50000, board_size)
     end = time.perf_counter()
 
     return results, end-start

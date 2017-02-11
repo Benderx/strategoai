@@ -28,6 +28,7 @@ cdef extern from "numpy/arrayobject.h":
 #     return 1
 
 
+
 @cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
@@ -50,6 +51,7 @@ cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int va
             counter[0] += 4
             # return 2 # break proccess increment
     return 1
+
 
 
 @cython.cdivision(True)
@@ -107,7 +109,6 @@ cdef void legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int va
 
         if legal_square_for_piece(board, owner, size, val, x, y, x, new_y, player, moves, counter, speed):
             break
-
 
 
 
@@ -174,7 +175,6 @@ cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visi
     cdef int y1 = all_moves[(move*4)+2] - 1
     cdef int x2 = all_moves[(move*4)+3] - 1
     cdef int y2 = all_moves[(move*4)+4] - 1
-
 
 
     cdef int v1 = board[x1 + size*y1]
@@ -351,10 +351,6 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
         x = 0
         y = 0
 
-
-        
-
-
         rand_arr = np.random.permutation(arr)
         piece_counter = 0
 
@@ -381,7 +377,7 @@ cdef int get_random_move(DTYPE_t *all_moves, int move_size):
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int max_return_size):
+cdef void write_init_return_board(float *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int max_return_size):
     cdef int i = 2
     for i in range(2, (board_size*board_size) + 2):
         return_stuff[(i*4)-6] = board[i-2]
@@ -390,21 +386,11 @@ cdef void write_init_return_board(np.int16_t *return_stuff, DTYPE_t *board, DTYP
         return_stuff[(i*4)-3] = movement[i-2]
 
 
-@cython.cdivision(True)
-@cython.boundscheck(False)
-@cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void write_return_move(np.int16_t *return_stuff, DTYPE_t *all_moves, int move, int write_counter):
-    return_stuff[write_counter] = all_moves[(move*4) + 1]
-    return_stuff[write_counter+1] = all_moves[(move*4) + 2]
-    return_stuff[write_counter+2] = all_moves[(move*4) + 3]
-    return_stuff[write_counter+3] = all_moves[(move*4) + 4]
-
 
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, DTYPE_t *flags, DTYPE_t *parent_moves, int parent_move, int turn_parent, DTYPE_t *sample_moves, int move_size):
-
     move_piece(parent_move, parent_moves, board, visible, owner, board_size, movement) 
 
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
@@ -565,7 +551,21 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, DTYPE_t *sample_movement, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, DTYPE_t *sample_moves, int move_size):
+cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, int *write_counter, float rating, float samples):
+    return_stuff[write_counter[0]] = all_moves[(move*4) + 1]
+    return_stuff[write_counter[0]+1] = all_moves[(move*4) + 2]
+    return_stuff[write_counter[0]+2] = all_moves[(move*4) + 3]
+    return_stuff[write_counter[0]+3] = all_moves[(move*4) + 4]
+    return_stuff[write_counter[0]+4] = rating
+    return_stuff[write_counter[0]+5] = samples
+    write_counter[0] += 6
+
+
+
+@cython.cdivision(True)
+@cython.boundscheck(False)
+@cython.wraparound(False)  # turn off negative index wrapping for entire function
+cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, DTYPE_t *sample_movement, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, DTYPE_t *sample_moves, int move_size, int *write_counter, float *return_stuff):
     cdef int i = 0
     cdef int value = 0      
     cdef int flag_store = 0
@@ -585,8 +585,6 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 
     while i < monte_samples:
         move = i%all_moves[0]
-
-
 
         # Does visibility matter?
         new_flag = get_randomized_board(sample_board, board, visible, owner, movement, board_size, turn, unknowns, unknown_mixed)
@@ -609,6 +607,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
             move_ratings[move] = value   
         i+=1
 
+
     i = 0
     cdef float max_num = move_ratings[0]
     cdef int max_index = 0
@@ -616,6 +615,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
         if move_ratings[i] > max_num:
             max_num = move_ratings[i]
             max_index = i
+            write_return_move(return_stuff, all_moves, i, write_counter, move_ratings[i], move_samples[i])
 
     free(move_ratings)
     free(move_samples)
@@ -635,7 +635,7 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     players[1] = AI2
 
     cdef int move_size = 10001 # (number of possible moves (1000) * 4) + 1
-    cdef int max_return_size = 400002 # (max moves in a game (5000) * 4) + 2
+    cdef int max_return_size = 4000002 # (max moves in a game (5000) * 4) + 2
 
     # MONTE STUFF
     cdef int unknown_size = 6001
@@ -654,7 +654,7 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
 
 
     # Initilizing return_stuff
-    cdef np.int16_t *return_stuff = <np.int16_t *>malloc(max_return_size * sizeof(np.int16_t))
+    cdef float *return_stuff = <float *>malloc(max_return_size * sizeof(float))
     cdef int i = 0
     for i in range(max_return_size):
         return_stuff[i] = 0
@@ -685,7 +685,9 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
 
     write_init_return_board(return_stuff, board, visible, owner, movement, board_size, max_return_size)
 
-    cdef int write_counter = (board_size * board_size * 4) + 2
+    cdef int *write_counter = <int *>malloc(sizeof(int))
+
+    write_counter[0] = (board_size * board_size * 4) + 2
 
     cdef int move = 0
     cdef int turn = 0
@@ -702,15 +704,14 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
         if players[turn] == 0:
             move = get_random_move(all_moves, move_size)
         elif players[turn] == 1:
-            move = get_monte_move(board, visible, owner, movement, sample_board, sample_visible, sample_owner, sample_movement, monte_samples, board_size, all_moves, flags, turn, unknowns, unknown_mixed, sample_moves, move_size)
+            move = get_monte_move(board, visible, owner, movement, sample_board, sample_visible, sample_owner, sample_movement, monte_samples, board_size, all_moves, flags, turn, unknowns, unknown_mixed, sample_moves, move_size, write_counter, return_stuff)
             # print('moved for real')
             # time.sleep(100)
 
 
 
         move_piece(move, all_moves, board, visible, owner, board_size, movement) 
-        write_return_move(return_stuff, all_moves, move, write_counter)
-        write_counter += 4
+        write_return_move(return_stuff, all_moves, move, write_counter, -2, -2)
 
         # print("move", num_moves)
 
@@ -736,7 +737,7 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     return_stuff[1] = num_moves
 
     cdef int a = 0
-    tmp = np.zeros([max_return_size], dtype=np.int16)
+    tmp = np.zeros([max_return_size], dtype=np.float)
 
     for a in range(max_return_size):
         tmp[a] = return_stuff[a]

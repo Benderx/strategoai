@@ -109,25 +109,35 @@ class GameEngine:
         return False
 
 
-    def extender(self, s):
-        if len(s) == 1:
-            return '00' + s
-        elif len(s) == 2:
-            return '0' + s
-        return s
+    def examine_move(self, move_tot):
+        x1 = int(move_tot[0] - 1)
+        y1 = int(move_tot[1] - 1)
+        x2 = int(move_tot[2] - 1)
+        y2 = int(move_tot[3] - 1)
+        rating = move_tot[4]
+        samples = int(move_tot[5])
+
+        if x1 == -1:
+            return None, None, None, None, None
+
+        if samples == -2:
+            move_type = 1
+        else:
+            move_type = 0
+
+        return 1, (x1, y1, x2, y2), move_type, rating, samples
 
 
     # Takes in coord1 [x1, y1] and coord2 [x2, y2]
     # This assumes check_legal has been run.
     # The return is whether or not battle() was run
-    def move(self, move_tot, size):
-        x1 = move_tot[0] - 1
-        y1 = move_tot[1] - 1
-        x2 = move_tot[2] - 1
-        y2 = move_tot[3] - 1
+    def move(self, move_tot):
+        x1 = move_tot[0]
+        y1 = move_tot[1]
+        x2 = move_tot[2]
+        y2 = move_tot[3]
 
-        if x1 == -1:
-            return None, None
+        size = self.size
 
         p1 = self.board[x1 + size*y1]
         self.board[x1 + size*(y1)] = 0
@@ -159,7 +169,3 @@ class GameEngine:
         self.visible[x1 + size*y1] = 0
         self.owner[x1 + size*(y1)] = 2
         self.movement[x1 + size*y1] = 0
-
-
-
-        return x1 + size*(y1), x2 + size*(y2)
