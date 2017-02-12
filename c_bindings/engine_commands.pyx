@@ -35,19 +35,19 @@ cdef extern from "numpy/arrayobject.h":
 cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int old_x, int old_y, int new_x, int new_y, int player, DTYPE_t *moves, int *counter, int speed):
     cdef int new_board_pos = new_x + size*new_y
     if board[new_board_pos] == 0:
-        moves[counter[0]] = old_x + 1
-        moves[counter[0]+1] = old_y + 1
-        moves[counter[0]+2] = new_x + 1
-        moves[counter[0]+3] = new_y + 1
+        moves[counter[0]] = old_x
+        moves[counter[0]+1] = old_y
+        moves[counter[0]+2] = new_x
+        moves[counter[0]+3] = new_y
         counter[0] += 4
         return 0
         # return 0 # no break, increment
     elif board[new_board_pos] < 13:
         if player != owner[new_board_pos]:
-            moves[counter[0]] = old_x + 1
-            moves[counter[0]+1] = old_y + 1
-            moves[counter[0]+2] = new_x + 1
-            moves[counter[0]+3] = new_y + 1
+            moves[counter[0]] = old_x
+            moves[counter[0]+1] = old_y
+            moves[counter[0]+2] = new_x
+            moves[counter[0]+3] = new_y
             counter[0] += 4
             # return 2 # break proccess increment
     return 1
@@ -171,10 +171,10 @@ cdef int battle(int v1, int v2):
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size, DTYPE_t *movement):
-    cdef int x1 = all_moves[(move*4)+1] - 1
-    cdef int y1 = all_moves[(move*4)+2] - 1
-    cdef int x2 = all_moves[(move*4)+3] - 1
-    cdef int y2 = all_moves[(move*4)+4] - 1
+    cdef int x1 = all_moves[(move*4)+1]
+    cdef int y1 = all_moves[(move*4)+2]
+    cdef int x2 = all_moves[(move*4)+3]
+    cdef int y2 = all_moves[(move*4)+4]
 
 
     cdef int v1 = board[x1 + size*y1]
@@ -679,10 +679,6 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
     fill_boards(board, visible, owner, flags, board_size)
 
-    # print(flags[0])
-    # print(flags[1])
-
-
     write_init_return_board(return_stuff, board, visible, owner, movement, board_size, max_return_size)
 
     cdef int *write_counter = <int *>malloc(sizeof(int))
@@ -740,8 +736,13 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     tmp = np.zeros([max_return_size], dtype=np.float)
 
     for a in range(max_return_size):
+        if a == write_counter[0]:
+            break
         tmp[a] = return_stuff[a]
 
+    tmp[write_counter[0]] = -5
+
+    free(write_counter)
     free(return_stuff)
     return tmp
 

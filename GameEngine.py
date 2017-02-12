@@ -110,14 +110,14 @@ class GameEngine:
 
 
     def examine_move(self, move_tot):
-        x1 = int(move_tot[0] - 1)
-        y1 = int(move_tot[1] - 1)
-        x2 = int(move_tot[2] - 1)
-        y2 = int(move_tot[3] - 1)
+        x1 = int(move_tot[0])
+        y1 = int(move_tot[1])
+        x2 = int(move_tot[2])
+        y2 = int(move_tot[3])
         rating = move_tot[4]
         samples = int(move_tot[5])
 
-        if x1 == -1:
+        if x1 == -5:
             return None, None, None, None, None
 
         if samples == -2:

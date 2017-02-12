@@ -49,12 +49,12 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
             else:
                 raise ValueError("visibility array is broken")
         return numpy.asarray(temp, dtype = "float")
+    def decode_xy(x, y):
+        return [x + y * (board_size)]
 
-    print(results[counter:counter+100])
 
     turn = 0
     moves_this_game = results[1]
-
     board_arr, visible_arr, owner_arr, movement_arr, move_from_arr, move_to_arr, move_from_arr_one_hot, move_to_arr_one_hot, move_data = [], [], [], [], [], [], [], [], []
     while True:
         if renderer != None:
@@ -66,9 +66,9 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         if done == None:
             break
 
+        monte_moves = []
         # read monte move
         if move_type != 1:
-            monte_moves = []
             while True:
                 monte_moves.append((tot_move, rating, sample))
 
@@ -83,6 +83,9 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         engine.move(tot_move)
 
         if track == 1 and turn == 1:
+            move_from = decode_xy(tot_move[0], tot_move[1])
+            move_to = decode_xy(tot_move[2], tot_move[3])
+
             board_arr.append(deepcopy(engine.board))
             visible_arr.append(deepcopy(engine.visible))
             owned = fix_owner(engine.owner)
@@ -90,12 +93,15 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
             movement_arr.append(deepcopy(engine.movement))
 
             move_from_arr_one_hot.append(one_hot(move_from))
-            move_to_arr_one_hot.append(one_hot(move_to))
+            move_to_arr_one_hot.append(one_hot(move_to)) 
 
             move_from_arr.append(move_from)
             move_to_arr.append(move_to)
 
-            move_data.append(monte_moves)
+            if len(monte_moves) == 0:
+                move_data.append(None)
+            else:
+                move_data.append(monte_moves)
 
         counter += 6
         turn = 1- turn
@@ -115,14 +121,11 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         df.to_pickle("games")
         print('Tracking game', game_iter)
 
-    if renderer != None:
-        input()
-
 
 
 def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 50000, board_size)
+    results = c_bindings.play_game(0, 1, 5000, board_size)
     end = time.perf_counter()
 
     return results, end-start
