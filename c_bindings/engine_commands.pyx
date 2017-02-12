@@ -470,7 +470,7 @@ cdef void get_unknown_flag_loc(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visib
 cdef int get_bombs_left(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size):
     cdef int i = 0
     cdef int counter = 1
-    for i in range(board_size*4):
+    for i in range(board_size*2):
         if owner[i] == (1-player) and visible[i] == 0 and board[i] == 10:
             counter += 1
     return counter
