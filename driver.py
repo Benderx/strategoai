@@ -136,7 +136,6 @@ def game_start(args):
     re = None
     num_games = int(args.number)
 
-
     for i in range(num_games):
         results, time = play_c_game(engine, FIRST_AI, SECOND_AI, int(args.size))
         print('game ', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
