@@ -125,7 +125,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
 
 def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 50000, board_size)
+    results = c_bindings.play_game(0, 1, 10000, board_size)
     end = time.perf_counter()
 
     return results, end-start

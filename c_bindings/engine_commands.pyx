@@ -566,7 +566,7 @@ cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, i
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, DTYPE_t *sample_movement, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, DTYPE_t *sample_moves, int move_size, int *write_counter, float *return_stuff):
-    cdef int i, j, max_move, move
+    cdef int i, j, max_move
     cdef int max_index
     cdef int value = 0      
     cdef int flag_store = 0
@@ -586,22 +586,20 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
     for i in range(all_moves[0]):
         confidence[i] = 0
 
-    i = 0
-    # moves_copy = all_moves.copy()
-    while i < monte_samples:
+    for i in range(0, monte_samples):
         # SAMPLE HIGHEST CONFIDENCE BRANCH
-        max_move = 0
-        max_confidence = confidence[0]
-        for j in range(1, all_moves[0]):
-            if confidence[j] > max_confidence:
-                max_move = j
-                max_confidence = confidence[j]
+        # max_move = 0
+        # max_confidence = confidence[0]
+        # for j in range(1, all_moves[0]):
+        #     if confidence[j] > max_confidence:
+        #         max_move = j
+        #         max_confidence = confidence[j]
 
-        move = max_move
+        # move = max_move
 
 
         # SAMPLE ALL BRANCHES EVENLY
-        # move = i % all_moves[0]
+        move = i % all_moves[0]
 
 
          # print(move)
@@ -627,12 +625,11 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
             move_samples[move] += 1
         else:
             move_ratings[move] = value   
-        i+=1
 
-        if value == 1:
-            confidence[move] += sqrt((2 * log(i))/(move_samples[move]))
-        else:
-            confidence[move] -= sqrt((2 * log(i))/(move_samples[move]))
+        # if value == 1:
+        #     confidence[move] += sqrt((2 * log(i))/(move_samples[move]))
+        # else:
+        #     confidence[move] -= sqrt((2 * log(i))/(move_samples[move]))
         # print("move:", move, "confidence:", confidence[move], "value:", value)
 
 
