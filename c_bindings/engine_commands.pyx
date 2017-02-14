@@ -633,7 +633,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
             confidence[move] += sqrt((2 * log(i))/(move_samples[move]))
         else:
             confidence[move] -= sqrt((2 * log(i))/(move_samples[move]))
-        print("move:", move, "confidence:", confidence[move], "value:", value)
+        # print("move:", move, "confidence:", confidence[move], "value:", value)
 
 
     cdef float max_num = move_ratings[0]
