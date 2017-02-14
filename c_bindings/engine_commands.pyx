@@ -567,6 +567,7 @@ cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, i
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, DTYPE_t *sample_movement, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, DTYPE_t *sample_moves, int move_size, int *write_counter, float *return_stuff):
     cdef int i, j, max_move, move
+    cdef int max_index
     cdef int value = 0      
     cdef int flag_store = 0
     cdef int new_flag = 0
@@ -588,18 +589,23 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
     i = 0
     # moves_copy = all_moves.copy()
     while i < monte_samples:
-        # max_move = 0
-        # max_confidence = confidence[0]
-        # for j in range(1, all_moves[0]):
-        #     if confidence[j] > max_confidence:
-        #         max_move = j
-        #         max_confidence = confidence[j]
+        # SAMPLE HIGHEST CONFIDENCE BRANCH
+        max_move = 0
+        max_confidence = confidence[0]
+        for j in range(1, all_moves[0]):
+            if confidence[j] > max_confidence:
+                max_move = j
+                max_confidence = confidence[j]
 
-        # move = max_move
-        # print(move)
+        move = max_move
+
+
+        # SAMPLE ALL BRANCHES EVENLY
+        # move = i % all_moves[0]
+
+
+         # print(move)
         # time.sleep(.1)
-
-        move = i % all_moves[0]
 
         # Does visibility matter?
         new_flag = get_randomized_board(sample_board, board, visible, owner, movement, board_size, turn, unknowns, unknown_mixed)
@@ -623,15 +629,15 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
             move_ratings[move] = value   
         i+=1
 
-        # if value == 1:
-        #     confidence[move] += sqrt((2 * log(i))/(move_samples[move]))
-        # else:
-        #     confidence[move] -= sqrt((2 * log(i))/(move_samples[move]))
-        # print("move:", move, "confidence:", confidence[move], "value:", value)
+        if value == 1:
+            confidence[move] += sqrt((2 * log(i))/(move_samples[move]))
+        else:
+            confidence[move] -= sqrt((2 * log(i))/(move_samples[move]))
+        print("move:", move, "confidence:", confidence[move], "value:", value)
 
-    i = 0
+
     cdef float max_num = move_ratings[0]
-    cdef int max_index = 0
+    max_index = 0
     for i in range(1, all_moves[0]):
         if move_ratings[i] > max_num:
             max_num = move_ratings[i]
@@ -644,6 +650,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
     #     if confidence[j] > max_confidence:
     #         max_move = j
     #         max_confidence = confidence[j]
+    # max_index = max_move
 
 
     free(move_ratings)
