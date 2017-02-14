@@ -580,9 +580,9 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 
 
     for i in range(all_moves[0]):
-        move_ratings[i] = -1
+        move_ratings[i] = 0
     for i in range(all_moves[0]):
-        move_samples[i] = 1
+        move_samples[i] = 0
     for i in range(all_moves[0]):
         confidence[i] = 0
 
@@ -602,7 +602,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
         move = i % all_moves[0]
 
 
-         # print(move)
+        # print(move)
         # time.sleep(.1)
 
         # Does visibility matter?
@@ -620,11 +620,8 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 
         flags[1-turn] = flag_store
 
-        if move_ratings[move] != -1:
-            move_ratings[move] = move_ratings[move]*move_samples[move]/(move_samples[move]+1) + value / (move_samples[move] + 1)
-            move_samples[move] += 1
-        else:
-            move_ratings[move] = value   
+        move_ratings[move] += value
+        move_samples[move] += 1   
 
         # if value == 1:
         #     confidence[move] += sqrt((2 * log(i))/(move_samples[move]))
@@ -632,6 +629,8 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
         #     confidence[move] -= sqrt((2 * log(i))/(move_samples[move]))
         # print("move:", move, "confidence:", confidence[move], "value:", value)
 
+    for i in range(0, all_moves[0]):
+        move_ratings[i] = move_ratings[i]/move_samples[i]
 
     cdef float max_num = move_ratings[0]
     max_index = 0
