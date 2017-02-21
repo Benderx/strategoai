@@ -31,7 +31,7 @@ def print_moves_per_second(thread_name, delay, c):
 
 
 
-def play_back_game(engine, results, renderer, board_size, track, game_iter, monte_samples):
+def play_back_game(engine, results, renderer, board_size, track, monte_samples, game_id):
     counter = engine.board_setup(results, board_size)
     def one_hot(val):
         temp = numpy.zeros(36, dtype = "float")
@@ -49,8 +49,8 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter, mont
             else:
                 raise ValueError("visibility array is broken")
         return numpy.asarray(temp, dtype = "float")
-    def decode_xy(x, y):
-        return [x + y * (board_size)]
+    def flatten_xy(x, y):
+        return x + y * (board_size)
 
 
     turn = 0
@@ -81,11 +81,9 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter, mont
                 if move_type == 1:
                     break
 
-        engine.move(tot_move)
-
         if track == 1 and turn == 1:
-            move_from = decode_xy(tot_move[0], tot_move[1])
-            move_to = decode_xy(tot_move[2], tot_move[3])
+            move_from = flatten_xy(tot_move[0], tot_move[1])
+            move_to = flatten_xy(tot_move[2], tot_move[3])
 
             board_arr.append(deepcopy(engine.board))
             visible_arr.append(deepcopy(engine.visible))
@@ -99,28 +97,33 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter, mont
             move_from_arr.append(move_from)
             move_to_arr.append(move_to)
 
+
             if len(monte_moves) == 0:
                 move_data.append(None)
             else:
                 move_data.append(monte_moves)
 
+        engine.move(tot_move)
+
         counter += 6
         turn = 1- turn
         if renderer != None:
             time.sleep(.5)
+
     if track == 1:
         # print(len(board_arr[0]))
         df = pandas.DataFrame.from_dict({'board':board_arr, 'visible': visible_arr,
                            'owner': owner_arr, 'movement': movement_arr,
                            'move_from': move_from_arr, 'move_to': move_to_arr,
                            'move_from_one_hot': move_from_arr_one_hot, 'move_to_one_hot': move_to_arr_one_hot,
-                           'move_data': move_data, 'board_size': board_size, 'samples': monte_samples})
+                           'move_data': move_data, 'board_size': board_size, 'samples': monte_samples, 'game_id': game_id})
         if os.path.isfile("games"):
             old = pandas.read_pickle("games")
-            df = pandas.concat([df, old], ignore_index=True, axis=0)
+            df = pandas.concat([old, df], ignore_index=True, axis=0)
+            # os.remove("games")
 
         df.to_pickle("games")
-        print('Tracking game', game_iter)
+        print('Tracking game_id', game_id)
 
 
 
@@ -139,16 +142,25 @@ def game_start(args):
 
     monte_samples = 25000
 
+
+    game_id = 0
+    if os.path.isfile("games"):
+        old = [pandas.read_pickle("games")]
+        game_id = old[0]['game_id'].iloc[-1] + 1
+        del old  #frees memory
+
+    print('Starting tracking from:', game_id)
+
     for i in range(num_games):
         results, time = play_c_game(engine, FIRST_AI, SECOND_AI, int(args.size), monte_samples)
-        print('game ', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
+        print('game (this iteration)', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
 
         if int(args.graphical) == 1 or int(args.track) == 1:
             if int(args.graphical) == 1:
                 re = r.Renderer(engine)
                 re.window_setup(500, 500)
 
-            play_back_game(engine, results, re, int(args.size), int(args.track), i, monte_samples)
+            play_back_game(engine, results, re, int(args.size), int(args.track), monte_samples, game_id + i)
 
 
 
