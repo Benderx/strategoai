@@ -70,6 +70,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         # read monte move
         if move_type != 1:
             while True:
+                print('lol')
                 monte_moves.append((tot_move, rating, sample))
 
                 counter += 6
@@ -79,6 +80,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
                     raise Exception("this should never happen")
                 if move_type == 1:
                     break
+            exit()
 
         engine.move(tot_move)
 
@@ -117,6 +119,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         if os.path.isfile("games"):
             old = pandas.read_pickle("games")
             df = pandas.concat([df, old], ignore_index=True, axis=0)
+        print(df['move_data'][0])
 
         df.to_pickle("games")
         print('Tracking game', game_iter)
@@ -125,7 +128,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
 
 def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 10000, board_size)
+    results = c_bindings.play_game(0, 1, 1000, board_size)
     end = time.perf_counter()
 
     return results, end-start
