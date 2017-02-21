@@ -31,7 +31,7 @@ def print_moves_per_second(thread_name, delay, c):
 
 
 
-def play_back_game(engine, results, renderer, board_size, track, game_iter):
+def play_back_game(engine, results, renderer, board_size, track, game_iter, monte_samples):
     counter = engine.board_setup(results, board_size)
     def one_hot(val):
         temp = numpy.zeros(36, dtype = "float")
@@ -114,20 +114,19 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
                            'owner': owner_arr, 'movement': movement_arr,
                            'move_from': move_from_arr, 'move_to': move_to_arr,
                            'move_from_one_hot': move_from_arr_one_hot, 'move_to_one_hot': move_to_arr_one_hot,
-                           'move_data': move_data, 'board_size': board_size})
+                           'move_data': move_data, 'board_size': board_size, 'samples': monte_samples})
         if os.path.isfile("games"):
             old = pandas.read_pickle("games")
             df = pandas.concat([df, old], ignore_index=True, axis=0)
-        print(df['move_data'][0])
 
         df.to_pickle("games")
         print('Tracking game', game_iter)
 
 
 
-def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10):
+def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10, monte_samples):
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, 1000, board_size)
+    results = c_bindings.play_game(0, 1, monte_samples, board_size)
     end = time.perf_counter()
 
     return results, end-start
@@ -138,8 +137,10 @@ def game_start(args):
     re = None
     num_games = int(args.number)
 
+    monte_samples = 10000
+
     for i in range(num_games):
-        results, time = play_c_game(engine, FIRST_AI, SECOND_AI, int(args.size))
+        results, time = play_c_game(engine, FIRST_AI, SECOND_AI, int(args.size), monte_samples)
         print('game ', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
 
         if int(args.graphical) == 1 or int(args.track) == 1:
@@ -147,7 +148,7 @@ def game_start(args):
                 re = r.Renderer(engine)
                 re.window_setup(500, 500)
 
-            play_back_game(engine, results, re, int(args.size), int(args.track), i)
+            play_back_game(engine, results, re, int(args.size), int(args.track), i, monte_samples)
 
 
 
