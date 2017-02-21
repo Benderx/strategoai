@@ -124,7 +124,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter, mont
 
 
 
-def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10, monte_samples):
+def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10, monte_samples = 1):
     start = time.perf_counter()
     results = c_bindings.play_game(0, 1, monte_samples, board_size)
     end = time.perf_counter()
@@ -137,7 +137,7 @@ def game_start(args):
     re = None
     num_games = int(args.number)
 
-    monte_samples = 10000
+    monte_samples = 25000
 
     for i in range(num_games):
         results, time = play_c_game(engine, FIRST_AI, SECOND_AI, int(args.size), monte_samples)
