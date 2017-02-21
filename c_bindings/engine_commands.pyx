@@ -632,6 +632,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
     for i in range(0, all_moves[0]):
         move_ratings[i] = move_ratings[i]/move_samples[i]
 
+    write_return_move(return_stuff, all_moves, 0, write_counter, move_ratings[0], move_samples[0])
     cdef float max_num = move_ratings[0]
     max_index = 0
     for i in range(1, all_moves[0]):

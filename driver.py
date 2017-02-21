@@ -63,6 +63,7 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
 
 
         done, tot_move, move_type, rating, sample = engine.examine_move(move)
+        print('outer', tot_move)
         if done == None:
             break
 
@@ -70,17 +71,19 @@ def play_back_game(engine, results, renderer, board_size, track, game_iter):
         # read monte move
         if move_type != 1:
             while True:
-                print('lol')
+                print(tot_move)
                 monte_moves.append((tot_move, rating, sample))
-
-                if done == None:
-                    raise Exception("this should never happen")
-                if move_type == 1:
-                    break
 
                 counter += 6
                 move = results[counter:counter+6]
                 done, tot_move, move_type, rating, sample = engine.examine_move(move)
+
+                if done == None:
+                    raise Exception("this should never happen")
+                if move_type == 1:
+                    print('its over', tot_move)
+                    break
+
             time.sleep(1000)
 
         engine.move(tot_move)
