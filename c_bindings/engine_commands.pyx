@@ -638,9 +638,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
         if move_ratings[i] > max_num:
             max_num = move_ratings[i]
             max_index = i
-        print('writing monte move')
         write_return_move(return_stuff, all_moves, i, write_counter, move_ratings[i], move_samples[i])
-    time.sleep(1000)
 
     # max_move = 0
     # max_confidence = confidence[0]
