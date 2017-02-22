@@ -9,6 +9,7 @@ import c_bindings.engine_commands as c_bindings
 import pandas
 import numpy
 from copy import deepcopy
+from multiprocessing import Pool
 
 
 FIRST_AI = 0 #RANDOM
