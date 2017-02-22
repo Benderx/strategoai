@@ -15,7 +15,7 @@ from multiprocessing import Pool
 FIRST_AI = 0 #RANDOM
 SECOND_AI = 1 #MONTE
 
-GAMES_FILEPATH = 'games.csv'
+GAMES_FILEPATH = 'games'
 
 
 def print_moves_per_second(thread_name, delay, c):
@@ -142,7 +142,7 @@ def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10, monte_samples =
     results = c_bindings.play_game(0, 1, monte_samples, board_size)
     end = time.perf_counter()
 
-    return results, end-start
+    return (results, end-start)
 
 
 def game_start(args):
@@ -152,6 +152,7 @@ def game_start(args):
 
     monte_samples = 25000
 
+    p = Pool(processes=6)
 
     game_id = 0
     if os.path.isfile("games"):
@@ -162,15 +163,23 @@ def game_start(args):
     print('Starting tracking from:', game_id)
 
     for i in range(num_games):
-        results, time = play_c_game(engine, FIRST_AI, SECOND_AI, int(args.size), monte_samples)
-        print('game (this iteration)', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
+        # result_tuple = play_c_game(FIRST_AI, SECOND_AI, int(args.size), monte_samples)
+        # results = result_tuple[0]
+        # time = result_tuple[1]
+        result_tuple_arr = p.map(play_c_game, [(FIRST_AI, SECOND_AI, int(args.size), monte_samples), (FIRST_AI, SECOND_AI, int(args.size), monte_samples)])
 
-        if int(args.graphical) == 1 or int(args.track) == 1:
-            if int(args.graphical) == 1:
-                re = r.Renderer(engine)
-                re.window_setup(500, 500)
+        for index, j in enumerate(result_tuple_arr):
+            print('THREAD', str(index))
+            results = j[0]
+            time = j[1]
+            print('game (this iteration)', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
 
-            play_back_game(engine, results, re, int(args.size), int(args.track), monte_samples, game_id + i)
+            if int(args.graphical) == 1 or int(args.track) == 1:
+                if int(args.graphical) == 1:
+                    re = r.Renderer(engine)
+                    re.window_setup(500, 500)
+
+                play_back_game(engine, results, re, int(args.size), int(args.track), monte_samples, game_id + i)
 
 
 
