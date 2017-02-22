@@ -55,7 +55,7 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
 
     turn = 0
     moves_this_game = results[1]
-    board_arr, visible_arr, owner_arr, movement_arr, move_from_arr, move_to_arr, move_from_arr_one_hot, move_to_arr_one_hot, move_data = [], [], [], [], [], [], [], [], []
+    board_arr, visible_arr, owner_arr, movement_arr, move_from_arr, move_to_arr, move_from_arr_one_hot, move_to_arr_one_hot, move_data, taken_rating, taken_samples = [], [], [], [], [], [], [], [], [], [], []
     while True:
         if renderer != None:
             renderer.draw_board()
@@ -102,6 +102,14 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
                 move_data.append(None)
             else:
                 move_data.append(monte_moves)
+                for k in monte_moves:
+                    if k[0] == (tot_move[0], tot_move[1], tot_move[2], tot_move[3]):
+                        print(k)
+                        taken_rating.append(k[1])
+                        taken_samples.append(k[2])
+                        break
+
+
 
         engine.move(tot_move)
 
@@ -116,7 +124,8 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
                            'owner': owner_arr, 'movement': movement_arr,
                            'move_from': move_from_arr, 'move_to': move_to_arr,
                            'move_from_one_hot': move_from_arr_one_hot, 'move_to_one_hot': move_to_arr_one_hot,
-                           'move_data': move_data, 'board_size': board_size, 'samples': monte_samples, 'game_id': game_id})
+                           'move_data': move_data, 'board_size': board_size, 'samples': monte_samples, 'game_id': game_id,
+                           'move_rating': taken_rating, 'move_samples': taken_samples})
         if os.path.isfile("games"):
             old = pandas.read_pickle("games")
             df = pandas.concat([old, df], ignore_index=True, axis=0)

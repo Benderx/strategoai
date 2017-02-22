@@ -572,19 +572,19 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
     cdef int flag_store = 0
     cdef int new_flag = 0
 
-    cdef float max_confidence
+    # cdef float max_confidence
 
     cdef float *move_ratings = <float *>malloc(all_moves[0] * sizeof(float))
     cdef float *move_samples = <float *>malloc(all_moves[0] * sizeof(float))
-    cdef float *confidence = <float *>malloc(all_moves[0] * sizeof(float))
+    # cdef float *confidence = <float *>malloc(all_moves[0] * sizeof(float))
 
 
     for i in range(all_moves[0]):
         move_ratings[i] = 0
     for i in range(all_moves[0]):
         move_samples[i] = 0
-    for i in range(all_moves[0]):
-        confidence[i] = 0
+    # for i in range(all_moves[0]):
+    #     confidence[i] = 0
 
     for i in range(0, monte_samples):
         # SAMPLE HIGHEST CONFIDENCE BRANCH
@@ -652,7 +652,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 
     free(move_ratings)
     free(move_samples)
-    free(confidence)
+    # free(confidence)
     return max_index
 
 
