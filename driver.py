@@ -104,7 +104,7 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
                 move_data.append(monte_moves)
                 for k in monte_moves:
                     if k[0] == (tot_move[0], tot_move[1], tot_move[2], tot_move[3]):
-                        print(k)
+                        # print(k)
                         taken_rating.append(k[1])
                         taken_samples.append(k[2])
                         break
