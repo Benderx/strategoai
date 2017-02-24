@@ -837,47 +837,55 @@ def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_ga
 
             cdef int total_write_counter = num_games
             tmp = np.zeros([max_return_size*8], dtype=np.float)
-            tmp[0] = -1
-            tmp[1] = -1
-            tmp[2] = -1
-            tmp[3] = -1
-            tmp[4] = -1
-            tmp[5] = -1
-            tmp[6] = -1
-            tmp[7] = -1
+            tmp[0] = write_counter1 + total_write_counter
+            tmp[1] = write_counter1 + total_write_counter
+            tmp[2] = write_counter1 + total_write_counter
+            tmp[3] = write_counter1 + total_write_counter
+            tmp[4] = write_counter1 + total_write_counter
+            tmp[5] = write_counter1 + total_write_counter
+            tmp[6] = write_counter1 + total_write_counter
+            tmp[7] = write_counter1 + total_write_counter
 
 
             tmp[0] = write_counter1[total_write_counter]
             for a in range(0, write_counter1[0]):
-                tmp[a] = return_stuff1[a]
+                tmp[a + total_write_counter] = return_stuff1[a]
+            total_write_counter += write_counter1
 
             tmp[1] = write_counter1[total_write_counter]
-            for a in range(0, write_counter1[0]):
-                tmp[a] = return_stuff1[a]
+            for a in range(0, write_counter2[0]):
+                tmp[a + total_write_counter] = return_stuff2[a]
+            total_write_counter += write_counter2
 
             tmp[2] = write_counter1[total_write_counter]
-            for a in range(0, write_counter1[0]):
-                tmp[a] = return_stuff1[a]
+            for a in range(0, write_counter3[0]):
+                tmp[a + total_write_counter] = return_stuff3[a]
+            total_write_counter += write_counter3
 
             tmp[3] = write_counter1[total_write_counter]
-            for a in range(0, write_counter1[0]):
-                tmp[a] = return_stuff1[a]
+            for a in range(0, write_counter4[0]):
+                tmp[a + total_write_counter] = return_stuff4[a]
+            total_write_counter += write_counter4
 
             tmp[4] = write_counter1[total_write_counter]
-            for a in range(0, write_counter1[0]):
-                tmp[a] = return_stuff1[a]
+            for a in range(0, write_counter5[0]):
+                tmp[a + total_write_counter] = return_stuff5[a]
+            total_write_counter += write_counter5
 
             tmp[5] = write_counter1[total_write_counter]
-            for a in range(0, write_counter1[0]):
-                tmp[a] = return_stuff1[a]
+            for a in range(0, write_counter6[0]):
+                tmp[a + total_write_counter] = return_stuff6[a]
+            total_write_counter += write_counter6
 
             tmp[6] = write_counter1[total_write_counter]
-            for a in range(0, write_counter1[0]):
-                tmp[a] = return_stuff1[a]
+            for a in range(0, write_counter7[0]):
+                tmp[a + total_write_counter] = return_stuff7[a]
+            total_write_counter += write_counter7
 
             tmp[7] = write_counter1[total_write_counter]
-            for a in range(0, write_counter1[0]):
-                tmp[a] = return_stuff1[a]
+            for a in range(0, write_counter8[0]):
+                tmp[a + total_write_counter] = return_stuff8[a]
+            total_write_counter += write_counter8
 
 
             tmp[write_counter[0]] = -5
