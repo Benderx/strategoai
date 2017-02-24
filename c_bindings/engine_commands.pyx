@@ -1,4 +1,5 @@
 from libc.stdlib cimport malloc, free, rand, srand, RAND_MAX
+from cython.parallel import parallel, prange
 from libc.math cimport sqrt, log
 cimport cython
 cimport numpy as np
@@ -552,6 +553,9 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, int *write_counter, float rating, float samples):
+    if write_counter[0] > 4000000:
+        print('This is bad, write_return_move')
+        time.sleep(1000000)
     return_stuff[write_counter[0]] = all_moves[(move*4) + 1]
     return_stuff[write_counter[0]+1] = all_moves[(move*4) + 2]
     return_stuff[write_counter[0]+2] = all_moves[(move*4) + 3]
@@ -661,15 +665,12 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-def play_game(int AI1, int AI2, int monte_samples, int board_size):
-
-    srand(int(np.random.rand()*100000))
+cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *return_stuff, int *write_counter):
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
     players[0] = AI1
     players[1] = AI2
 
     cdef int move_size = 10001 # (number of possible moves (1000) * 4) + 1
-    cdef int max_return_size = 4000002 # (max moves in a game (5000) * 4) + 2
 
     # MONTE STUFF
     cdef int unknown_size = 6001
@@ -688,10 +689,10 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
 
 
     # Initilizing return_stuff
-    cdef float *return_stuff = <float *>malloc(max_return_size * sizeof(float))
-    cdef int i = 0
-    for i in range(max_return_size):
-        return_stuff[i] = 0
+    # cdef float *return_stuff = <float *>malloc(max_return_size * sizeof(float))
+    # cdef int i = 0
+    # for i in range(max_return_size):
+    #     return_stuff[i] = 0
 
 
     # ONLY FOR MONTE
@@ -715,9 +716,9 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
 
     write_init_return_board(return_stuff, board, visible, owner, movement, board_size, max_return_size)
 
-    cdef int *write_counter = <int *>malloc(sizeof(int))
+    # cdef int *write_counter = <int *>malloc(sizeof(int))
 
-    write_counter[0] = (board_size * board_size * 4) + 2
+    # write_counter[0] = (board_size * board_size * 4) + 2
 
     cdef int move = 0
     cdef int turn = 0
@@ -766,17 +767,137 @@ def play_game(int AI1, int AI2, int monte_samples, int board_size):
     return_stuff[0] = winner
     return_stuff[1] = num_moves
 
-    cdef int a = 0
-    tmp = np.zeros([max_return_size], dtype=np.float)
 
-    for a in range(max_return_size):
-        if a == write_counter[0]:
-            break
-        tmp[a] = return_stuff[a]
+def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_games):
+    with nogil, parallel():
+        srand(int(np.random.rand()*100000))
 
-    tmp[write_counter[0]] = -5
+        cdef int i
+        cdef int max_return_size = 4000002 # (max moves in a game (5000) * 4) + 2
 
-    free(write_counter)
-    free(return_stuff)
-    return tmp
+        cdef float *return_stuff1 = <float *>malloc(max_return_size * sizeof(float))
+        cdef int *write_counter1 = <int *>malloc(sizeof(int))
+        cdef float *return_stuff2 = <float *>malloc(max_return_size * sizeof(float))
+        cdef int *write_counter2 = <int *>malloc(sizeof(int))
+        cdef float *return_stuff3 = <float *>malloc(max_return_size * sizeof(float))
+        cdef int *write_counter3 = <int *>malloc(sizeof(int))
+        cdef float *return_stuff4 = <float *>malloc(max_return_size * sizeof(float))
+        cdef int *write_counter4 = <int *>malloc(sizeof(int))
+        cdef float *return_stuff5 = <float *>malloc(max_return_size * sizeof(float))
+        cdef int *write_counter5 = <int *>malloc(sizeof(int))
+        cdef float *return_stuff6 = <float *>malloc(max_return_size * sizeof(float))
+        cdef int *write_counter6 = <int *>malloc(sizeof(int))
+        cdef float *return_stuff7 = <float *>malloc(max_return_size * sizeof(float))
+        cdef int *write_counter7 = <int *>malloc(sizeof(int))
+        cdef float *return_stuff8 = <float *>malloc(max_return_size * sizeof(float))
+        cdef int *write_counter8 = <int *>malloc(sizeof(int))
 
+        write_counter1[0] = (board_size * board_size * 4) + 2
+        write_counter2[0] = (board_size * board_size * 4) + 2
+        write_counter3[0] = (board_size * board_size * 4) + 2
+        write_counter4[0] = (board_size * board_size * 4) + 2
+        write_counter5[0] = (board_size * board_size * 4) + 2
+        write_counter6[0] = (board_size * board_size * 4) + 2
+        write_counter7[0] = (board_size * board_size * 4) + 2
+        write_counter8[0] = (board_size * board_size * 4) + 2
+
+
+        for i in range(0, max_return_size):
+            return_stuff1[i] = 0
+            return_stuff2[i] = 0
+            return_stuff3[i] = 0
+            return_stuff4[i] = 0
+            return_stuff5[i] = 0
+            return_stuff6[i] = 0
+            return_stuff7[i] = 0
+            return_stuff8[i] = 0
+
+
+        for i in prange(0, num_games):
+            if(i % num_games == 0):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff1, write_counter1)
+            elif(i % num_games == 1):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff2, write_counter2)
+            elif(i % num_games == 2):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff3, write_counter3)
+            elif(i % num_games == 3):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff4, write_counter4)
+            elif(i % num_games == 4):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff5, write_counter5)
+            elif(i % num_games == 5):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff6, write_counter6)
+            elif(i % num_games == 6):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff7, write_counter7)
+            elif(i % num_games == 7):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff8, write_counter8)
+
+
+
+
+
+            cdef int total_write_counter = num_games
+            tmp = np.zeros([max_return_size*8], dtype=np.float)
+            tmp[0] = -1
+            tmp[1] = -1
+            tmp[2] = -1
+            tmp[3] = -1
+            tmp[4] = -1
+            tmp[5] = -1
+            tmp[6] = -1
+            tmp[7] = -1
+
+
+            tmp[0] = write_counter1[total_write_counter]
+            for a in range(0, write_counter1[0]):
+                tmp[a] = return_stuff1[a]
+
+            tmp[1] = write_counter1[total_write_counter]
+            for a in range(0, write_counter1[0]):
+                tmp[a] = return_stuff1[a]
+
+            tmp[2] = write_counter1[total_write_counter]
+            for a in range(0, write_counter1[0]):
+                tmp[a] = return_stuff1[a]
+
+            tmp[3] = write_counter1[total_write_counter]
+            for a in range(0, write_counter1[0]):
+                tmp[a] = return_stuff1[a]
+
+            tmp[4] = write_counter1[total_write_counter]
+            for a in range(0, write_counter1[0]):
+                tmp[a] = return_stuff1[a]
+
+            tmp[5] = write_counter1[total_write_counter]
+            for a in range(0, write_counter1[0]):
+                tmp[a] = return_stuff1[a]
+
+            tmp[6] = write_counter1[total_write_counter]
+            for a in range(0, write_counter1[0]):
+                tmp[a] = return_stuff1[a]
+
+            tmp[7] = write_counter1[total_write_counter]
+            for a in range(0, write_counter1[0]):
+                tmp[a] = return_stuff1[a]
+
+
+            tmp[write_counter[0]] = -5
+
+
+            free(return_stuff1)
+            free(write_counter1)
+            free(return_stuff2)
+            free(write_counter2)
+            free(return_stuff3)
+            free(write_counter3)
+            free(return_stuff4)
+            free(write_counter4)
+            free(return_stuff5)
+            free(write_counter5)
+            free(return_stuff6)
+            free(write_counter6)
+            free(return_stuff7)
+            free(write_counter7)
+            free(return_stuff8)
+            free(write_counter8)
+
+            return tmp

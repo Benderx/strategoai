@@ -9,7 +9,6 @@ import c_bindings.engine_commands as c_bindings
 import pandas
 import numpy
 from copy import deepcopy
-from multiprocessing import Pool
 
 
 FIRST_AI = 0 #RANDOM
@@ -139,20 +138,18 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
 
 def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10, monte_samples = 1):
     start = time.perf_counter()
-    results = c_bindings.play_game(0, 1, monte_samples, board_size)
+    results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 2)
     end = time.perf_counter()
 
-    return (results, end-start)
+    tot_time = start-end
+    return (results, tot_time)
 
 
 def game_start(args):
     engine = g.GameEngine(int(args.size))
     re = None
     num_games = int(args.number)
-
-    monte_samples = 25000
-
-    p = Pool(processes=6)
+    monte_samples = int()
 
     game_id = 0
     if os.path.isfile("games"):
@@ -163,32 +160,25 @@ def game_start(args):
     print('Starting tracking from:', game_id)
 
     for i in range(num_games):
-        # result_tuple = play_c_game(FIRST_AI, SECOND_AI, int(args.size), monte_samples)
-        # results = result_tuple[0]
-        # time = result_tuple[1]
-        result_tuple_arr = p.map(play_c_game, [(FIRST_AI, SECOND_AI, int(args.size), monte_samples), (FIRST_AI, SECOND_AI, int(args.size), monte_samples)])
+        result_tuple = play_c_games(FIRST_AI, SECOND_AI, int(args.size), monte_samples)
+        print('game (this iteration)', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
 
-        for index, j in enumerate(result_tuple_arr):
-            print('THREAD', str(index))
-            results = j[0]
-            time = j[1]
-            print('game (this iteration)', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
+        if int(args.graphical) == 1 or int(args.track) == 1:
+            if int(args.graphical) == 1:
+                re = r.Renderer(engine)
+                re.window_setup(500, 500)
 
-            if int(args.graphical) == 1 or int(args.track) == 1:
-                if int(args.graphical) == 1:
-                    re = r.Renderer(engine)
-                    re.window_setup(500, 500)
-
-                play_back_game(engine, results, re, int(args.size), int(args.track), monte_samples, game_id + i)
+            play_back_game(engine, results, re, int(args.size), int(args.track), monte_samples, game_id + i)
 
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('graphical', default=1, help='whether or not to show the gui')
-    parser.add_argument('number', default=1, help='How many games to play')
-    parser.add_argument('size', default=10, help='How big the board is')
-    parser.add_argument('track', default=1, help='If database tracking happens')
+    parser.add_argument('--graphical', default=1, help='whether or not to show the gui')
+    parser.add_argument('--number', default=1, help='How many games to play')
+    parser.add_argument('--size', default=6, help='How big the board is')
+    parser.add_argument('--track', default=0, help='If game tracking happens')
+    parser.add_argument('--samples', default=1000, help='How many times to sample per move')
     args = parser.parse_args()
 
     game_start(args)
