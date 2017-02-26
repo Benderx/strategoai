@@ -33,7 +33,7 @@ cdef extern from "numpy/arrayobject.h":
 @cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int old_x, int old_y, int new_x, int new_y, int player, DTYPE_t *moves, int *counter, int speed):
+cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int old_x, int old_y, int new_x, int new_y, int player, DTYPE_t *moves, int *counter, int speed) nogil:
     cdef int new_board_pos = new_x + size*new_y
     if board[new_board_pos] == 0:
         moves[counter[0]] = old_x
@@ -58,7 +58,7 @@ cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int va
 @cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int *counter):
+cdef void legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int *counter) nogil:
     # if val == 13 or val == 0:
     #     return counter
     if player != owner[x + size*y]: # handles if board == 0 and board == 13
@@ -116,7 +116,7 @@ cdef void legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int va
 @cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size):
+cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size) nogil:
     cdef int g = 0
     # for g in range(move_size):
     #     moves[g] = 0
@@ -146,7 +146,7 @@ cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *m
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int battle(int v1, int v2):
+cdef int battle(int v1, int v2) nogil:
     if v2 == 0:
         return 0
     if v2 == 10:
@@ -171,7 +171,7 @@ cdef int battle(int v1, int v2):
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size, DTYPE_t *movement):
+cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size, DTYPE_t *movement) nogil:
     cdef int x1 = all_moves[(move*4)+1]
     cdef int y1 = all_moves[(move*4)+2]
     cdef int x2 = all_moves[(move*4)+3]
@@ -213,7 +213,7 @@ cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visi
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size):
+cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size) nogil:
     if not board[flags[0]] == 12:
         return 1
     if not board[flags[1]] == 12:
@@ -231,7 +231,7 @@ cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *f
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void set_to(DTYPE_t *to_set, int size, int to):
+cdef void set_to(DTYPE_t *to_set, int size, int to) nogil:
     cdef int i = 0
     for i in range(size):
         to_set[i] = to
@@ -240,7 +240,7 @@ cdef void set_to(DTYPE_t *to_set, int size, int to):
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):
+cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size) nogil:
     # Rivers
 
     if board_size == 10:
@@ -286,13 +286,19 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
     # print(pos0, pos1, rander1, rander2)
 
-    i = 0
+    cdef int n, k
+    cdef int max_board_size = (rows * board_size) - 1
+    cdef DTYPE_t *arr = <DTYPE_t *>malloc(max_board_size * sizeof(DTYPE_t))
+    cdef DTYPE_t *rand_arr = <DTYPE_t *>malloc(max_board_size * sizeof(DTYPE_t))
+
     for i in range(0, 2):
+        for i in range(0, max_board_size):
+            arr[i] = 0
         # All piece but flag
         
         if board_size == 10:
             rows = 4
-            arr = np.empty([(rows * board_size) - 1], dtype=DTYPE)
+            # arr = np.empty([(rows * board_size) - 1], dtype=DTYPE)
             arr[0] = 11
             arr[1] = 10
             arr[2] = 10
@@ -335,7 +341,6 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
             # starting_pieces = [[[11, 'Spy Y', 1], [10, 'Bomb B', 6], [9, 'Scout S', 8], [8, 'Miner R', 5], [7, 'Sergeant T', 4], [6, 'Lieutenent L', 4], [5, 'Captain C', 4], [4, 'Major J', 3], [3, 'Colonel O', 2], [2, 'General G', 1], [1, 'Marshall M', 1]]
         elif board_size == 6:
             rows = 2
-            arr = np.empty([(rows * board_size) - 1], dtype=DTYPE)
             arr[0] = 11
             arr[1] = 10
             arr[2] = 9
@@ -352,7 +357,19 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
         x = 0
         y = 0
 
-        rand_arr = np.random.permutation(arr)
+
+        n = max_board_size
+        while n > 0:
+            # use rand to generate a random number k in the range 0..n-1
+            k = (rand() % n)
+            # add source_array[k] to the result list
+            rand_arr[max_board_size-n] = arr[k]
+            # source_array[k] = source_array[n-1]; // replace number just used with last value
+            arr[k] = arr[n]
+            n -= 1
+
+
+        # rand_arr = np.random.permutation(arr)
         piece_counter = 0
 
         for x in range(0, board_size):
@@ -366,19 +383,22 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
                 owner[calc_num] = i
                 piece_counter += 1
 
+    free(arr)
+    free(rand_arr)
+
 
 
 @cython.cdivision(True)
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int get_random_move(DTYPE_t *all_moves, int move_size):
+cdef int get_random_move(DTYPE_t *all_moves, int move_size) nogil:
     return rand() % all_moves[0]
 
 
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void write_init_return_board(float *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int max_return_size):
+cdef void write_init_return_board(float *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int max_return_size) nogil:
     cdef int i = 2
     for i in range(2, (board_size*board_size) + 2):
         return_stuff[(i*4)-6] = board[i-2]
@@ -391,7 +411,7 @@ cdef void write_init_return_board(float *return_stuff, DTYPE_t *board, DTYPE_t *
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, DTYPE_t *flags, DTYPE_t *parent_moves, int parent_move, int turn_parent, DTYPE_t *sample_moves, int move_size):
+cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, DTYPE_t *flags, DTYPE_t *parent_moves, int parent_move, int turn_parent, DTYPE_t *sample_moves, int move_size) nogil:
     move_piece(parent_move, parent_moves, board, visible, owner, board_size, movement) 
 
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
@@ -446,7 +466,7 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size):
+cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size) nogil:
     cdef int i = 0
     for i in range(size):
         arr_empty[i] = arr_copy[i]
@@ -455,7 +475,7 @@ cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size):
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False) 
-cdef void get_unknown_flag_loc(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int player, int board_size):
+cdef void get_unknown_flag_loc(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int player, int board_size) nogil:
     cdef int i = 0
     cdef int counter = 1
     for i in range(board_size):
@@ -468,7 +488,7 @@ cdef void get_unknown_flag_loc(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visib
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False) 
-cdef int get_bombs_left(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size):
+cdef int get_bombs_left(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size) nogil:
     cdef int i = 0
     cdef int counter = 1
     for i in range(board_size*2):
@@ -480,7 +500,7 @@ cdef int get_bombs_left(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int pl
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False) 
-cdef void get_unknown_pieces(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size, int new_flag_loc):
+cdef void get_unknown_pieces(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size, int new_flag_loc) nogil:
     cdef int i = 0
     cdef int counter = 1
     for i in range(0, board_size * board_size):
@@ -495,19 +515,19 @@ cdef void get_unknown_pieces(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visible
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False) 
-cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int player, DTYPE_t *unknowns, DTYPE_t *unknown_mixed):
+cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int player, DTYPE_t *unknowns, DTYPE_t *unknown_mixed) nogil:
     cdef int i = 0
     cdef int counter = 1
     cdef int new_flag_loc = 0
 
     get_unknown_flag_loc(unknowns, board, visible, owner, movement, player, board_size)
-    if unknowns[0] == 0:
-        for i in range(board_size*board_size):
-            print("board", board[i])
-            print("own", owner[i])
-            print("vis", visible[i])
-            print("movement", movement[i])
-        print("something went terribly wrong, get_randomized_board()")
+    # if unknowns[0] == 0:
+    #     for i in range(board_size*board_size):
+    #         print("board", board[i])
+    #         print("own", owner[i])
+    #         print("vis", visible[i])
+    #         print("movement", movement[i])
+    #     print("something went terribly wrong, get_randomized_board()")
 
     new_flag_loc = unknowns[(rand() % unknowns[0])+1]
 
@@ -552,10 +572,9 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, int *write_counter, float rating, float samples):
-    if write_counter[0] > 4000000:
-        print('This is bad, write_return_move')
-        time.sleep(1000000)
+cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, int *write_counter, float rating, float samples) nogil:
+    # if write_counter[0] > 4000000:
+    #     print('This is bad, write_return_move')
     return_stuff[write_counter[0]] = all_moves[(move*4) + 1]
     return_stuff[write_counter[0]+1] = all_moves[(move*4) + 2]
     return_stuff[write_counter[0]+2] = all_moves[(move*4) + 3]
@@ -569,7 +588,7 @@ cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, i
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, DTYPE_t *sample_movement, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, DTYPE_t *sample_moves, int move_size, int *write_counter, float *return_stuff):
+cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, DTYPE_t *sample_movement, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, DTYPE_t *sample_moves, int move_size, int *write_counter, float *return_stuff) nogil:
     cdef int i, j, max_move
     cdef int max_index
     cdef int value = 0      
@@ -665,7 +684,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *return_stuff, int *write_counter):
+cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *return_stuff, int *write_counter, int max_return_size) nogil:
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
     players[0] = AI1
     players[1] = AI2
@@ -769,143 +788,141 @@ cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *
 
 
 def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_games):
+    srand(int(np.random.rand()*100000))
+
+
+    cdef int i
+    cdef int max_return_size = 4000002 # (max moves in a game (5000) * 4) + 2
+
+    cdef float *return_stuff1 = <float *>malloc(max_return_size * sizeof(float))
+    cdef int *write_counter1 = <int *>malloc(sizeof(int))
+    cdef float *return_stuff2 = <float *>malloc(max_return_size * sizeof(float))
+    cdef int *write_counter2 = <int *>malloc(sizeof(int))
+    cdef float *return_stuff3 = <float *>malloc(max_return_size * sizeof(float))
+    cdef int *write_counter3 = <int *>malloc(sizeof(int))
+    cdef float *return_stuff4 = <float *>malloc(max_return_size * sizeof(float))
+    cdef int *write_counter4 = <int *>malloc(sizeof(int))
+    cdef float *return_stuff5 = <float *>malloc(max_return_size * sizeof(float))
+    cdef int *write_counter5 = <int *>malloc(sizeof(int))
+    cdef float *return_stuff6 = <float *>malloc(max_return_size * sizeof(float))
+    cdef int *write_counter6 = <int *>malloc(sizeof(int))
+    cdef float *return_stuff7 = <float *>malloc(max_return_size * sizeof(float))
+    cdef int *write_counter7 = <int *>malloc(sizeof(int))
+    cdef float *return_stuff8 = <float *>malloc(max_return_size * sizeof(float))
+    cdef int *write_counter8 = <int *>malloc(sizeof(int))
+
+
+    write_counter1[0] = (board_size * board_size * 4) + 2
+    write_counter2[0] = (board_size * board_size * 4) + 2
+    write_counter3[0] = (board_size * board_size * 4) + 2
+    write_counter4[0] = (board_size * board_size * 4) + 2
+    write_counter5[0] = (board_size * board_size * 4) + 2
+    write_counter6[0] = (board_size * board_size * 4) + 2
+    write_counter7[0] = (board_size * board_size * 4) + 2
+    write_counter8[0] = (board_size * board_size * 4) + 2
+
+    for i in range(0, max_return_size):
+        return_stuff1[i] = 0
+        return_stuff2[i] = 0
+        return_stuff3[i] = 0
+        return_stuff4[i] = 0
+        return_stuff5[i] = 0
+        return_stuff6[i] = 0
+        return_stuff7[i] = 0
+        return_stuff8[i] = 0
+
+
     with nogil, parallel():
-        srand(int(np.random.rand()*100000))
-
-        cdef int i
-        cdef int max_return_size = 4000002 # (max moves in a game (5000) * 4) + 2
-
-        cdef float *return_stuff1 = <float *>malloc(max_return_size * sizeof(float))
-        cdef int *write_counter1 = <int *>malloc(sizeof(int))
-        cdef float *return_stuff2 = <float *>malloc(max_return_size * sizeof(float))
-        cdef int *write_counter2 = <int *>malloc(sizeof(int))
-        cdef float *return_stuff3 = <float *>malloc(max_return_size * sizeof(float))
-        cdef int *write_counter3 = <int *>malloc(sizeof(int))
-        cdef float *return_stuff4 = <float *>malloc(max_return_size * sizeof(float))
-        cdef int *write_counter4 = <int *>malloc(sizeof(int))
-        cdef float *return_stuff5 = <float *>malloc(max_return_size * sizeof(float))
-        cdef int *write_counter5 = <int *>malloc(sizeof(int))
-        cdef float *return_stuff6 = <float *>malloc(max_return_size * sizeof(float))
-        cdef int *write_counter6 = <int *>malloc(sizeof(int))
-        cdef float *return_stuff7 = <float *>malloc(max_return_size * sizeof(float))
-        cdef int *write_counter7 = <int *>malloc(sizeof(int))
-        cdef float *return_stuff8 = <float *>malloc(max_return_size * sizeof(float))
-        cdef int *write_counter8 = <int *>malloc(sizeof(int))
-
-        write_counter1[0] = (board_size * board_size * 4) + 2
-        write_counter2[0] = (board_size * board_size * 4) + 2
-        write_counter3[0] = (board_size * board_size * 4) + 2
-        write_counter4[0] = (board_size * board_size * 4) + 2
-        write_counter5[0] = (board_size * board_size * 4) + 2
-        write_counter6[0] = (board_size * board_size * 4) + 2
-        write_counter7[0] = (board_size * board_size * 4) + 2
-        write_counter8[0] = (board_size * board_size * 4) + 2
-
-
-        for i in range(0, max_return_size):
-            return_stuff1[i] = 0
-            return_stuff2[i] = 0
-            return_stuff3[i] = 0
-            return_stuff4[i] = 0
-            return_stuff5[i] = 0
-            return_stuff6[i] = 0
-            return_stuff7[i] = 0
-            return_stuff8[i] = 0
-
-
         for i in prange(0, num_games):
             if(i % num_games == 0):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff1, write_counter1)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff1, write_counter1, max_return_size)
             elif(i % num_games == 1):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff2, write_counter2)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff2, write_counter2, max_return_size)
             elif(i % num_games == 2):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff3, write_counter3)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff3, write_counter3, max_return_size)
             elif(i % num_games == 3):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff4, write_counter4)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff4, write_counter4, max_return_size)
             elif(i % num_games == 4):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff5, write_counter5)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff5, write_counter5, max_return_size)
             elif(i % num_games == 5):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff6, write_counter6)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff6, write_counter6, max_return_size)
             elif(i % num_games == 6):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff7, write_counter7)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff7, write_counter7, max_return_size)
             elif(i % num_games == 7):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff8, write_counter8)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff8, write_counter8, max_return_size)
 
 
+    cdef int total_write_counter = num_games
+    tmp = np.zeros([max_return_size*8], dtype=np.float)
+    tmp[0] = write_counter1[0] + total_write_counter
+    tmp[1] = write_counter2[0] + total_write_counter
+    tmp[2] = write_counter3[0] + total_write_counter
+    tmp[3] = write_counter4[0] + total_write_counter
+    tmp[4] = write_counter5[0] + total_write_counter
+    tmp[5] = write_counter6[0] + total_write_counter
+    tmp[6] = write_counter7[0] + total_write_counter
+    tmp[7] = write_counter8[0] + total_write_counter
 
 
+    tmp[0] = write_counter1[total_write_counter]
+    for a in range(0, write_counter1[0]):
+        tmp[a + total_write_counter] = return_stuff1[a]
+    total_write_counter += write_counter1[0]
 
-            cdef int total_write_counter = num_games
-            tmp = np.zeros([max_return_size*8], dtype=np.float)
-            tmp[0] = write_counter1 + total_write_counter
-            tmp[1] = write_counter1 + total_write_counter
-            tmp[2] = write_counter1 + total_write_counter
-            tmp[3] = write_counter1 + total_write_counter
-            tmp[4] = write_counter1 + total_write_counter
-            tmp[5] = write_counter1 + total_write_counter
-            tmp[6] = write_counter1 + total_write_counter
-            tmp[7] = write_counter1 + total_write_counter
+    tmp[1] = write_counter1[total_write_counter]
+    for a in range(0, write_counter2[0]):
+        tmp[a + total_write_counter] = return_stuff2[a]
+    total_write_counter += write_counter2[0]
 
+    tmp[2] = write_counter1[total_write_counter]
+    for a in range(0, write_counter3[0]):
+        tmp[a + total_write_counter] = return_stuff3[a]
+    total_write_counter += write_counter3[0]
 
-            tmp[0] = write_counter1[total_write_counter]
-            for a in range(0, write_counter1[0]):
-                tmp[a + total_write_counter] = return_stuff1[a]
-            total_write_counter += write_counter1
+    tmp[3] = write_counter1[total_write_counter]
+    for a in range(0, write_counter4[0]):
+        tmp[a + total_write_counter] = return_stuff4[a]
+    total_write_counter += write_counter4[0]
 
-            tmp[1] = write_counter1[total_write_counter]
-            for a in range(0, write_counter2[0]):
-                tmp[a + total_write_counter] = return_stuff2[a]
-            total_write_counter += write_counter2
+    tmp[4] = write_counter1[total_write_counter]
+    for a in range(0, write_counter5[0]):
+        tmp[a + total_write_counter] = return_stuff5[a]
+    total_write_counter += write_counter5[0]
 
-            tmp[2] = write_counter1[total_write_counter]
-            for a in range(0, write_counter3[0]):
-                tmp[a + total_write_counter] = return_stuff3[a]
-            total_write_counter += write_counter3
+    tmp[5] = write_counter1[total_write_counter]
+    for a in range(0, write_counter6[0]):
+        tmp[a + total_write_counter] = return_stuff6[a]
+    total_write_counter += write_counter6[0]
 
-            tmp[3] = write_counter1[total_write_counter]
-            for a in range(0, write_counter4[0]):
-                tmp[a + total_write_counter] = return_stuff4[a]
-            total_write_counter += write_counter4
+    tmp[6] = write_counter1[total_write_counter]
+    for a in range(0, write_counter7[0]):
+        tmp[a + total_write_counter] = return_stuff7[a]
+    total_write_counter += write_counter7[0]
 
-            tmp[4] = write_counter1[total_write_counter]
-            for a in range(0, write_counter5[0]):
-                tmp[a + total_write_counter] = return_stuff5[a]
-            total_write_counter += write_counter5
-
-            tmp[5] = write_counter1[total_write_counter]
-            for a in range(0, write_counter6[0]):
-                tmp[a + total_write_counter] = return_stuff6[a]
-            total_write_counter += write_counter6
-
-            tmp[6] = write_counter1[total_write_counter]
-            for a in range(0, write_counter7[0]):
-                tmp[a + total_write_counter] = return_stuff7[a]
-            total_write_counter += write_counter7
-
-            tmp[7] = write_counter1[total_write_counter]
-            for a in range(0, write_counter8[0]):
-                tmp[a + total_write_counter] = return_stuff8[a]
-            total_write_counter += write_counter8
+    tmp[7] = write_counter1[total_write_counter]
+    for a in range(0, write_counter8[0]):
+        tmp[a + total_write_counter] = return_stuff8[a]
+    total_write_counter += write_counter8[0]
 
 
-            tmp[write_counter[0]] = -5
+    tmp[total_write_counter] = -5
 
 
-            free(return_stuff1)
-            free(write_counter1)
-            free(return_stuff2)
-            free(write_counter2)
-            free(return_stuff3)
-            free(write_counter3)
-            free(return_stuff4)
-            free(write_counter4)
-            free(return_stuff5)
-            free(write_counter5)
-            free(return_stuff6)
-            free(write_counter6)
-            free(return_stuff7)
-            free(write_counter7)
-            free(return_stuff8)
-            free(write_counter8)
+    free(return_stuff1)
+    free(write_counter1)
+    free(return_stuff2)
+    free(write_counter2)
+    free(return_stuff3)
+    free(write_counter3)
+    free(return_stuff4)
+    free(write_counter4)
+    free(return_stuff5)
+    free(write_counter5)
+    free(return_stuff6)
+    free(write_counter6)
+    free(return_stuff7)
+    free(write_counter7)
+    free(return_stuff8)
+    free(write_counter8)
 
-            return tmp
+    return tmp
