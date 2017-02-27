@@ -136,9 +136,20 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
 
 
 
-def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10, monte_samples = 1):
+# def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10, monte_samples = 1):
+#     start = time.perf_counter()
+#     results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 2)
+#     end = time.perf_counter()
+
+#     tot_time = start-end
+#     return (results, tot_time)
+
+
+def play_c_games(engine, AI1 = None, AI2 = None, board_size = 10, monte_samples = 1):
     start = time.perf_counter()
+    print('ayy')
     results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 2)
+    print('ayy2')
     end = time.perf_counter()
 
     tot_time = start-end
