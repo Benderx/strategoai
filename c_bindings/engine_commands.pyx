@@ -240,7 +240,7 @@ cdef void set_to(DTYPE_t *to_set, int size, int to) nogil:
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size) nogil:
+cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):
     # Rivers
 
     if board_size == 10:
@@ -277,7 +277,6 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
     visible[pos1 + board_size*(board_size-1)] = 0
     owner[pos1 + board_size*(board_size-1)] = 1
 
-
     flags[0] = pos0
     flags[1] = pos1 + board_size*(board_size-1)
 
@@ -287,11 +286,14 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
     # print(pos0, pos1, rander1, rander2)
 
     cdef int n, k
-    cdef int max_board_size = (rows * board_size) - 1
+    cdef int max_board_size = (2 * board_size) - 1
     cdef DTYPE_t *arr = <DTYPE_t *>malloc(max_board_size * sizeof(DTYPE_t))
     cdef DTYPE_t *rand_arr = <DTYPE_t *>malloc(max_board_size * sizeof(DTYPE_t))
 
+
     for i in range(0, 2):
+        # print('iter', i, board_size)
+
         for i in range(0, max_board_size):
             arr[i] = 0
         # All piece but flag
@@ -684,7 +686,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *return_stuff, int *write_counter, int max_return_size) nogil:
+cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *return_stuff, int *write_counter, int max_return_size):
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
     players[0] = AI1
     players[1] = AI2
@@ -743,6 +745,7 @@ cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *
     cdef int turn = 0
     cdef int winner = 0
     cdef int num_moves = 0
+
     while True:
         all_legal_moves(turn, board, owner, all_moves, move_size, board_size)
 
@@ -831,26 +834,28 @@ def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_ga
         return_stuff7[i] = 0
         return_stuff8[i] = 0
 
+    print("Playing games")
+    # with nogil, parallel():
+    for i in range(0, num_games):
+        print(i)
+        if(i % num_games == 0):
+            play_game(AI1, AI2, monte_samples, board_size, return_stuff1, write_counter1, max_return_size)
+        elif(i % num_games == 1):
+            play_game(AI1, AI2, monte_samples, board_size, return_stuff2, write_counter2, max_return_size)
+        elif(i % num_games == 2):
+            play_game(AI1, AI2, monte_samples, board_size, return_stuff3, write_counter3, max_return_size)
+        elif(i % num_games == 3):
+            play_game(AI1, AI2, monte_samples, board_size, return_stuff4, write_counter4, max_return_size)
+        elif(i % num_games == 4):
+            play_game(AI1, AI2, monte_samples, board_size, return_stuff5, write_counter5, max_return_size)
+        elif(i % num_games == 5):
+            play_game(AI1, AI2, monte_samples, board_size, return_stuff6, write_counter6, max_return_size)
+        elif(i % num_games == 6):
+            play_game(AI1, AI2, monte_samples, board_size, return_stuff7, write_counter7, max_return_size)
+        elif(i % num_games == 7):
+            play_game(AI1, AI2, monte_samples, board_size, return_stuff8, write_counter8, max_return_size)
 
-    with nogil, parallel():
-        for i in prange(0, num_games):
-            if(i % num_games == 0):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff1, write_counter1, max_return_size)
-            elif(i % num_games == 1):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff2, write_counter2, max_return_size)
-            elif(i % num_games == 2):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff3, write_counter3, max_return_size)
-            elif(i % num_games == 3):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff4, write_counter4, max_return_size)
-            elif(i % num_games == 4):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff5, write_counter5, max_return_size)
-            elif(i % num_games == 5):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff6, write_counter6, max_return_size)
-            elif(i % num_games == 6):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff7, write_counter7, max_return_size)
-            elif(i % num_games == 7):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff8, write_counter8, max_return_size)
-
+    print("Finished playing games")
 
     cdef int total_write_counter = num_games
     tmp = np.zeros([max_return_size*8], dtype=np.float)

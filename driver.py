@@ -145,11 +145,9 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
 #     return (results, tot_time)
 
 
-def play_c_games(engine, AI1 = None, AI2 = None, board_size = 10, monte_samples = 1):
+def play_c_games(AI1 = None, AI2 = None, board_size = 10, monte_samples = 1):
     start = time.perf_counter()
-    print('ayy')
-    results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 2)
-    print('ayy2')
+    results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 8)
     end = time.perf_counter()
 
     tot_time = start-end
@@ -172,7 +170,12 @@ def game_start(args):
 
     for i in range(num_games):
         result_tuple = play_c_games(FIRST_AI, SECOND_AI, int(args.size), monte_samples)
-        print('game (this iteration)', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/time)
+        results = result_tuple[0]
+        timer = result_tuple[1]
+
+        print(results[0:8])
+
+        print('game (this iteration)', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/timer)
 
         if int(args.graphical) == 1 or int(args.track) == 1:
             if int(args.graphical) == 1:
