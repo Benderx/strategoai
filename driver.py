@@ -150,7 +150,7 @@ def play_c_games(AI1 = None, AI2 = None, board_size = 10, monte_samples = 1):
     results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 8)
     end = time.perf_counter()
 
-    tot_time = start-end
+    tot_time = end-start
     return (results, tot_time)
 
 
@@ -168,21 +168,27 @@ def game_start(args):
 
     print('Starting tracking from:', game_id)
 
-    for i in range(num_games):
+    i = 0
+    while i < num_games:
         result_tuple = play_c_games(FIRST_AI, SECOND_AI, int(args.size), monte_samples)
         results = result_tuple[0]
         timer = result_tuple[1]
 
-        print(results[0:8])
+        print('game_ends:', results[0:8])
+        start_point = 8
 
-        print('game (this iteration)', i, ': ', results[0], ' won in', results[1], 'moves', 'MP_PC:', float(results[1])/timer)
+        for p in range(0, 8):
+            print('game', (int(i/8)*8)+p, ': ', results[int(start_point)], ' won in', results[int(start_point+1)], 'moves', 'MP_PC:', (timer/8.0))
 
-        if int(args.graphical) == 1 or int(args.track) == 1:
-            if int(args.graphical) == 1:
-                re = r.Renderer(engine)
-                re.window_setup(500, 500)
+            # if int(args.graphical) == 1 or int(args.track) == 1:
+            #     if int(args.graphical) == 1:
+            #         re = r.Renderer(engine)
+            #         re.window_setup(500, 500)
 
-            play_back_game(engine, results, re, int(args.size), int(args.track), monte_samples, game_id + i)
+            #     play_back_game(engine, results, re, int(args.size), int(args.track), monte_samples, game_id + i)
+
+            start_point = results[p]
+            i += 1
 
 
 
