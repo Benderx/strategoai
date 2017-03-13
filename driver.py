@@ -141,11 +141,11 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
 
 
 
-def play_c_games(AI1 = None, AI2 = None, board_size = 6, monte_samples = 1):
+def play_c_games(AI1 = None, AI2 = None, board_size = 6, monte_samples = 1, threads = 8):
     start = time.perf_counter()
     # AI1, AI2, number of samples per move, board_size, number of games to play (has to be 8 right now), number of threads (1-8)
     # Stay in the bounds for number of threads, more threads than 8 probably will crash the program, or yield terible results.
-    results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 8, 8)
+    results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 8, threads)
     end = time.perf_counter()
 
     tot_time = end-start
@@ -173,7 +173,7 @@ def game_start(args):
 
     i = 0
     while i < num_games:
-        result_tuple = play_c_games(FIRST_AI, SECOND_AI, int(args.size), int(args.samples))
+        result_tuple = play_c_games(FIRST_AI, SECOND_AI, int(args.size), int(args.samples), int(args.threads))
         results = result_tuple[0]
         timer = result_tuple[1]
 
