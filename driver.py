@@ -204,7 +204,7 @@ def main():
     parser.add_argument('--threads', default=8, help='How many threads to use')
     args = parser.parse_args()
 
-    if int(arge.threads) <= 0 or int(args.threads) >= 9:
+    if int(args.threads) <= 0 or int(args.threads) >= 9:
         raise Exception('Invalid number of threads. Please use a number 1-8.')
         exit()
 
