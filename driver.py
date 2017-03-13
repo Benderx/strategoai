@@ -143,7 +143,7 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
 
 def play_c_games(AI1 = None, AI2 = None, board_size = 6, monte_samples = 1):
     start = time.perf_counter()
-    results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 8)
+    results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 8, 8)
     end = time.perf_counter()
 
     tot_time = end-start
@@ -164,7 +164,7 @@ def game_start(args):
 
     print("Playing", int(math.ceil(int(args.number)/8.0)*8), 'games (rounding up to the nearest 8)')
 
-    if int(args.track) != 0:
+    if int(args.track) == 1:
         print('Starting tracking from:', game_id)
     else:
         print("WARNING TRACKING NOT ON")
@@ -175,16 +175,17 @@ def game_start(args):
         results = result_tuple[0]
         timer = result_tuple[1]
 
+        if int(args.graphical) == 1 or int(args.track) == 1:
+            if int(args.graphical) == 1:
+                re = r.Renderer(engine)
+                re.window_setup(500, 500)
+
         start_point = 8
         for p in range(0, 8):
             print('game', (int(i/8)*8)+p, ': ', results[int(start_point)], ' won in', results[int(start_point+1)], 'moves', 'MP_PC:', (timer/8.0))
+            print('game ends at', results[p])
 
-            # if int(args.graphical) == 1 or int(args.track) == 1:
-            #     if int(args.graphical) == 1:
-            #         re = r.Renderer(engine)
-            #         re.window_setup(500, 500)
-
-            #     play_back_game(engine, results, re, int(args.size), int(args.track), monte_samples, game_id + i)
+            # play_back_game(engine, results, re, int(args.size), int(args.track), monte_samples, game_id + i)
 
             start_point = results[p]
             i += 1
@@ -193,7 +194,7 @@ def game_start(args):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--graphical', default=1, help='whether or not to show the gui')
+    parser.add_argument('--graphical', default=0, help='whether or not to show the gui')
     parser.add_argument('--number', default=1, help='How many games to play')
     parser.add_argument('--size', default=6, help='How big the board is')
     parser.add_argument('--track', default=0, help='If game tracking happens')

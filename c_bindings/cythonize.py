@@ -6,8 +6,8 @@ import numpy
 extensions = [Extension(
                 "engine_commands",
                 sources=["engine_commands.pyx"],
-                extra_compile_args=["-fopenmp"],
-                extra_link_args=["/openmp"]
+                extra_compile_args=["/openmp"],   # THIS FLAG CHANGES TO -fopenmp for GCC compilers
+                # extra_link_args=["-fopenmp"]  ONLY REQUIRED FOR GCC
             )]
 
 

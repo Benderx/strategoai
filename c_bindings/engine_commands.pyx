@@ -263,12 +263,9 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
     cdef int i
     cdef int x, y, calc_num
 
-    cdef int rander1 = rand()
-    cdef int rander2 = rand()
-
     # places flags on backrank
-    cdef int pos0 = rander1 % board_size
-    cdef int pos1 = rander2 % board_size
+    cdef int pos0 = get_random_num(board_size)
+    cdef int pos1 = get_random_num(board_size)
 
     board[pos0] = 12
     visible[pos0] = 0
@@ -394,8 +391,8 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int get_random_move(DTYPE_t *all_moves, int move_size) nogil:
-    return rand() % all_moves[0]
+cdef int get_random_num(int max_num) nogil:
+    return rand() % max_num
 
 
 @cython.cdivision(True)
@@ -445,7 +442,7 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
             break
 
         # RandomAI
-        move = get_random_move(sample_moves, move_size)
+        move = get_random_num(sample_moves[0])
 
         move_piece(move, sample_moves, board, visible, owner, board_size, movement) 
 
@@ -532,7 +529,7 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
     #         print("movement", movement[i])
     #     print("something went terribly wrong, get_randomized_board()")
 
-    new_flag_loc = unknowns[(rand() % unknowns[0])+1]
+    new_flag_loc = unknowns[get_random_num(unknowns[0])+1]
 
 
     cdef int num_bombs = get_bombs_left(board, visible, owner, player, board_size)
@@ -543,7 +540,7 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
     cdef int n = unknowns[0]
     while n > 0:
         # use rand to generate a random number x in the range 0..n-1
-        x = (rand() % n)+1
+        x = (get_random_num(n)+1)
         # add source_array[x] to the result list
         unknown_mixed[unknowns[0]-n+1] = unknowns[x]
         # source_array[x] = source_array[n-1]; // replace number just used with last value
@@ -758,7 +755,7 @@ cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *
 
         # RandomAI
         if players[turn] == 0:
-            move = get_random_move(all_moves, move_size)
+            move = get_random_num(all_moves[0])
         elif players[turn] == 1:
             move = get_monte_move(board, visible, owner, movement, sample_board, sample_visible, sample_owner, sample_movement, monte_samples, board_size, all_moves, flags, turn, unknowns, unknown_mixed, sample_moves, move_size, write_counter, return_stuff)
             # print('moved for real')
@@ -796,7 +793,7 @@ cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False) 
-def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_games):
+def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_games, int thread_count):
     # srand(int(np.random.rand()*100000))
     srand(time(NULL))
 
@@ -843,7 +840,7 @@ def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_ga
         return_stuff8[i] = 0
 
     with nogil:
-        for i in prange(num_games, schedule='guided', num_threads=8):
+        for i in prange(num_games, schedule='guided', num_threads=thread_count):
             if(i == 0):
                 play_game(AI1, AI2, monte_samples, board_size, return_stuff1, write_counter1, max_return_size)
             elif(i == 1):
