@@ -9,6 +9,7 @@ import c_bindings.engine_commands as c_bindings
 import pandas
 import numpy
 from copy import deepcopy
+import math
 
 
 FIRST_AI = 0 #RANDOM
@@ -140,15 +141,6 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
 
 
 
-# def play_c_game(engine, AI1 = None, AI2 = None, board_size = 10, monte_samples = 1):
-#     start = time.perf_counter()
-#     results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 2)
-#     end = time.perf_counter()
-
-#     tot_time = start-end
-#     return (results, tot_time)
-
-
 def play_c_games(AI1 = None, AI2 = None, board_size = 6, monte_samples = 1):
     start = time.perf_counter()
     results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 8)
@@ -170,7 +162,12 @@ def game_start(args):
         game_id = old[0]['game_id'].iloc[-1] + 1
         del old  #frees memory
 
-    print('Starting tracking from:', game_id)
+    print("Playing", int(math.ceil(int(args.number)/8.0)*8), 'games (rounding up to the nearest 8)')
+
+    if int(args.track) != 0:
+        print('Starting tracking from:', game_id)
+    else:
+        print("WARNING TRACKING NOT ON")
 
     i = 0
     while i < num_games:
