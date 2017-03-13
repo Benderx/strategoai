@@ -2,13 +2,14 @@ from libc.stdlib cimport malloc, free, rand, srand, RAND_MAX
 from cython.parallel import parallel, prange
 from libc.math cimport sqrt, log
 cimport cython
+from libc.time cimport time,time_t
 cimport numpy as np
 
 import numpy as np
-import time
+# import time
 
 
-DTYPE = np.int16
+DTYPE = int
 np.import_array()
 
 ctypedef np.int16_t DTYPE_t
@@ -31,7 +32,7 @@ cdef extern from "numpy/arrayobject.h":
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True) # turn off bounds-checking for entire function
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int old_x, int old_y, int new_x, int new_y, int player, DTYPE_t *moves, int *counter, int speed) nogil:
     cdef int new_board_pos = new_x + size*new_y
@@ -56,7 +57,7 @@ cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int va
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True) # turn off bounds-checking for entire function
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int val, int x, int y, int player, DTYPE_t *moves, int *counter) nogil:
     # if val == 13 or val == 0:
@@ -114,7 +115,7 @@ cdef void legal_moves_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int va
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True) # turn off bounds-checking for entire function
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *moves, int move_size, int board_size) nogil:
     cdef int g = 0
@@ -144,7 +145,7 @@ cdef void all_legal_moves(int player, DTYPE_t *board, DTYPE_t *owner, DTYPE_t *m
 
 
 
-@cython.boundscheck(True) # turn off bounds-checking for entire function
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int battle(int v1, int v2) nogil:
     if v2 == 0:
@@ -169,7 +170,7 @@ cdef int battle(int v1, int v2) nogil:
 
 
 
-@cython.boundscheck(True) # turn off bounds-checking for entire function
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int size, DTYPE_t *movement) nogil:
     cdef int x1 = all_moves[(move*4)+1]
@@ -211,7 +212,7 @@ cdef void move_piece(int move, DTYPE_t *all_moves, DTYPE_t *board, DTYPE_t *visi
 
 
 
-@cython.boundscheck(True) # turn off bounds-checking for entire function
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *flags, int player, int move_size, int board_size) nogil:
     if not board[flags[0]] == 12:
@@ -229,7 +230,7 @@ cdef int check_winner(DTYPE_t *board, DTYPE_t *moves, DTYPE_t *owner, DTYPE_t *f
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void set_to(DTYPE_t *to_set, int size, int to) nogil:
     cdef int i = 0
@@ -238,9 +239,9 @@ cdef void set_to(DTYPE_t *to_set, int size, int to) nogil:
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size):
+cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size) nogil:
     # Rivers
 
     if board_size == 10:
@@ -391,14 +392,14 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True) # turn off bounds-checking for entire function
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int get_random_move(DTYPE_t *all_moves, int move_size) nogil:
     return rand() % all_moves[0]
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void write_init_return_board(float *return_stuff, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int max_return_size) nogil:
     cdef int i = 2
@@ -411,7 +412,7 @@ cdef void write_init_return_board(float *return_stuff, DTYPE_t *board, DTYPE_t *
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, DTYPE_t *flags, DTYPE_t *parent_moves, int parent_move, int turn_parent, DTYPE_t *sample_moves, int move_size) nogil:
     move_piece(parent_move, parent_moves, board, visible, owner, board_size, movement) 
@@ -466,7 +467,7 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size) nogil:
     cdef int i = 0
@@ -475,7 +476,7 @@ cdef void copy_arr(DTYPE_t *arr_empty, DTYPE_t *arr_copy, int size) nogil:
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False) 
 cdef void get_unknown_flag_loc(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int player, int board_size) nogil:
     cdef int i = 0
@@ -488,7 +489,7 @@ cdef void get_unknown_flag_loc(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visib
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False) 
 cdef int get_bombs_left(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size) nogil:
     cdef int i = 0
@@ -500,7 +501,7 @@ cdef int get_bombs_left(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int pl
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False) 
 cdef void get_unknown_pieces(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, int player, int board_size, int new_flag_loc) nogil:
     cdef int i = 0
@@ -515,7 +516,7 @@ cdef void get_unknown_pieces(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visible
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False) 
 cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int player, DTYPE_t *unknowns, DTYPE_t *unknown_mixed) nogil:
     cdef int i = 0
@@ -572,11 +573,11 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, int *write_counter, float rating, float samples):
-    if write_counter[0] > 4000000:
-        print('This is bad, write_return_move')
+cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, int *write_counter, float rating, float samples) nogil:
+    # if write_counter[0] > 4000000:
+    #     print('This is bad, write_return_move')
     return_stuff[write_counter[0]] = all_moves[(move*4) + 1]
     return_stuff[write_counter[0]+1] = all_moves[(move*4) + 2]
     return_stuff[write_counter[0]+2] = all_moves[(move*4) + 3]
@@ -588,9 +589,9 @@ cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, i
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, DTYPE_t *sample_movement, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, DTYPE_t *sample_moves, int move_size, int *write_counter, float *return_stuff):
+cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, DTYPE_t *sample_movement, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, DTYPE_t *sample_moves, int move_size, int *write_counter, float *return_stuff) nogil:
     cdef int i, j, max_move
     cdef int max_index
     cdef int value = 0      
@@ -684,9 +685,9 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 
 
 @cython.cdivision(True)
-@cython.boundscheck(True)
+@cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *return_stuff, int *write_counter, int max_return_size):
+cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *return_stuff, int *write_counter, int max_return_size) nogil:
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
     players[0] = AI1
     players[1] = AI2
@@ -792,8 +793,13 @@ cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *
     return_stuff[1] = num_moves
 
 
+@cython.cdivision(True)
+@cython.boundscheck(False)
+@cython.wraparound(False) 
 def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_games):
-    srand(int(np.random.rand()*100000))
+    # srand(int(np.random.rand()*100000))
+    srand(time(NULL))
+
 
 
     cdef int i
@@ -836,28 +842,24 @@ def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_ga
         return_stuff7[i] = 0
         return_stuff8[i] = 0
 
-    print("Playing games")
-    # with nogil, parallel():
-    for i in range(0, num_games):
-        print(i)
-        if(i % num_games == 0):
-            play_game(AI1, AI2, monte_samples, board_size, return_stuff1, write_counter1, max_return_size)
-        elif(i % num_games == 1):
-            play_game(AI1, AI2, monte_samples, board_size, return_stuff2, write_counter2, max_return_size)
-        elif(i % num_games == 2):
-            play_game(AI1, AI2, monte_samples, board_size, return_stuff3, write_counter3, max_return_size)
-        elif(i % num_games == 3):
-            play_game(AI1, AI2, monte_samples, board_size, return_stuff4, write_counter4, max_return_size)
-        elif(i % num_games == 4):
-            play_game(AI1, AI2, monte_samples, board_size, return_stuff5, write_counter5, max_return_size)
-        elif(i % num_games == 5):
-            play_game(AI1, AI2, monte_samples, board_size, return_stuff6, write_counter6, max_return_size)
-        elif(i % num_games == 6):
-            play_game(AI1, AI2, monte_samples, board_size, return_stuff7, write_counter7, max_return_size)
-        elif(i % num_games == 7):
-            play_game(AI1, AI2, monte_samples, board_size, return_stuff8, write_counter8, max_return_size)
-
-    print("Finished playing games")
+    with nogil:
+        for i in prange(num_games, schedule='guided', num_threads=8):
+            if(i == 0):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff1, write_counter1, max_return_size)
+            elif(i == 1):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff2, write_counter2, max_return_size)
+            elif(i == 2):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff3, write_counter3, max_return_size)
+            elif(i == 3):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff4, write_counter4, max_return_size)
+            elif(i == 4):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff5, write_counter5, max_return_size)
+            elif(i == 5):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff6, write_counter6, max_return_size)
+            elif(i == 6):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff7, write_counter7, max_return_size)
+            elif(i == 7):
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff8, write_counter8, max_return_size)
 
     cdef int total_write_counter = num_games
     tmp = np.zeros([max_return_size*8], dtype=np.float)

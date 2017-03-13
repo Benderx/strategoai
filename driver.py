@@ -145,7 +145,7 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
 #     return (results, tot_time)
 
 
-def play_c_games(AI1 = None, AI2 = None, board_size = 10, monte_samples = 1):
+def play_c_games(AI1 = None, AI2 = None, board_size = 6, monte_samples = 1):
     start = time.perf_counter()
     results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 8)
     end = time.perf_counter()
@@ -170,13 +170,11 @@ def game_start(args):
 
     i = 0
     while i < num_games:
-        result_tuple = play_c_games(FIRST_AI, SECOND_AI, int(args.size), monte_samples)
+        result_tuple = play_c_games(FIRST_AI, SECOND_AI, int(args.size), int(args.samples))
         results = result_tuple[0]
         timer = result_tuple[1]
 
-        print('game_ends:', results[0:8])
         start_point = 8
-
         for p in range(0, 8):
             print('game', (int(i/8)*8)+p, ': ', results[int(start_point)], ' won in', results[int(start_point+1)], 'moves', 'MP_PC:', (timer/8.0))
 
