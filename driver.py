@@ -143,7 +143,9 @@ def play_back_game(engine, results, renderer, board_size, track, monte_samples, 
 
 def play_c_games(AI1 = None, AI2 = None, board_size = 6, monte_samples = 1):
     start = time.perf_counter()
-    results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 8, 8)
+    # AI1, AI2, number of samples per move, board_size, number of games to play (has to be 8 right now), number of threads (1-8)
+    # Stay in the bounds for number of threads, more threads than 8 probably will crash the program, or yield terible results.
+    results = c_bindings.game_wrapper(0, 1, monte_samples, board_size, 8, 1)
     end = time.perf_counter()
 
     tot_time = end-start
