@@ -201,7 +201,12 @@ def main():
     parser.add_argument('--size', default=6, help='How big the board is')
     parser.add_argument('--track', default=0, help='If game tracking happens')
     parser.add_argument('--samples', default=1000, help='How many times to sample per move')
+    parser.add_argument('--threads', default=8, help='How many threads to use')
     args = parser.parse_args()
+
+    if int(arge.threads) <= 0 or int(args.threads) >= 9:
+        raise Exception('Invalid number of threads. Please use a number 1-8.')
+        exit()
 
     game_start(args)
 
