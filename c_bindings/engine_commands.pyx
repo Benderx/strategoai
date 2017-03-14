@@ -1,15 +1,17 @@
 from libc.stdlib cimport malloc, free, rand, srand, RAND_MAX
 from cython.parallel import parallel, prange
 from libc.math cimport sqrt, log
-cimport cython
 from libc.time cimport time,time_t
+import numpy as np
+
+cimport cython
+
 cimport numpy as np
 
-import numpy as np
 # import time
 
-
 DTYPE = int
+
 np.import_array()
 
 ctypedef np.int16_t DTYPE_t
@@ -21,14 +23,12 @@ cdef extern from "numpy/arrayobject.h":
     void PyArray_ENABLEFLAGS(np.ndarray arr, int flags)
 
 
-
 # @cython.boundscheck(False) # turn off bounds-checking for entire function
 # @cython.wraparound(False)  # turn off negative index wrapping for entire function
 # cdef int check_legal(DTYPE_t *board, DTYPE_t *owner, int size, int x, int y, int player, DTYPE_t *moves):
 #     if player == owner[x + size*y]:
 #         return 0
 #     return 1
-
 
 
 @cython.cdivision(True)
@@ -53,7 +53,6 @@ cdef int legal_square_for_piece(DTYPE_t *board, DTYPE_t *owner, int size, int va
             counter[0] += 4
             # return 2 # break proccess increment
     return 1
-
 
 
 @cython.cdivision(True)

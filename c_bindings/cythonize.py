@@ -1,6 +1,6 @@
 from distutils.core import setup, Extension
 from Cython.Build import cythonize
-import numpy
+# import numpy.random.mtrand
 
 
 extensions = [Extension(
