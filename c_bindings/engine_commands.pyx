@@ -388,11 +388,20 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
 
 
+# Implementing my own random number generator, how did it come to this?
+@cython.cdivision(True)
+cdef int my_rand(int seed) nogil:
+    cdef int r = (1103515245 * seed[0] + 12345) % (1<<31)  # Behold magic numbers
+    seed[0] = r
+    return r
+
+
+
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int get_random_num(int max_num) nogil:
-    return rand() % max_num
+cdef int get_random_num(int max_num, int *seed) nogil:
+    return my_rand(seed) % max_num
 
 
 @cython.cdivision(True)
@@ -411,7 +420,7 @@ cdef void write_init_return_board(float *return_stuff, DTYPE_t *board, DTYPE_t *
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, DTYPE_t *flags, DTYPE_t *parent_moves, int parent_move, int turn_parent, DTYPE_t *sample_moves, int move_size) nogil:
+cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, DTYPE_t *flags, DTYPE_t *parent_moves, int parent_move, int turn_parent, DTYPE_t *sample_moves, int move_size, int *seed) nogil:
     move_piece(parent_move, parent_moves, board, visible, owner, board_size, movement) 
 
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
@@ -442,7 +451,7 @@ cdef int monte_sample(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
             break
 
         # RandomAI
-        move = get_random_num(sample_moves[0])
+        move = get_random_num(sample_moves[0], seed)
 
         move_piece(move, sample_moves, board, visible, owner, board_size, movement) 
 
@@ -588,7 +597,7 @@ cdef void write_return_move(float *return_stuff, DTYPE_t *all_moves, int move, i
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, DTYPE_t *sample_movement, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, DTYPE_t *sample_moves, int move_size, int *write_counter, float *return_stuff) nogil:
+cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, DTYPE_t *sample_board, DTYPE_t *sample_visible, DTYPE_t *sample_owner, DTYPE_t *sample_movement, int monte_samples, int board_size, DTYPE_t *all_moves, DTYPE_t *flags, int turn, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, DTYPE_t *sample_moves, int move_size, int *write_counter, float *return_stuff, int *seed) nogil:
     cdef int i, j, max_move
     cdef int max_index
     cdef int value = 0      
@@ -637,7 +646,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
         flag_store = flags[1-turn]
         flags[1-turn] = new_flag
         # start = time.perf_counter()
-        value = monte_sample(sample_board, sample_visible, sample_owner, sample_movement, board_size, flags, all_moves, move, turn, sample_moves, move_size)
+        value = monte_sample(sample_board, sample_visible, sample_owner, sample_movement, board_size, flags, all_moves, move, turn, sample_moves, move_size, seed)
         # end = time.perf_counter()
         # print('Time:', end - start)
 
@@ -685,6 +694,8 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
 cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *return_stuff, int *write_counter, int max_return_size) nogil:
+    cdef int *seed = <int *>malloc(sizeof(int))
+
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
     players[0] = AI1
     players[1] = AI2
@@ -757,7 +768,7 @@ cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *
         if players[turn] == 0:
             move = get_random_num(all_moves[0])
         elif players[turn] == 1:
-            move = get_monte_move(board, visible, owner, movement, sample_board, sample_visible, sample_owner, sample_movement, monte_samples, board_size, all_moves, flags, turn, unknowns, unknown_mixed, sample_moves, move_size, write_counter, return_stuff)
+            move = get_monte_move(board, visible, owner, movement, sample_board, sample_visible, sample_owner, sample_movement, monte_samples, board_size, all_moves, flags, turn, unknowns, unknown_mixed, sample_moves, move_size, write_counter, return_stuff, seed)
             # print('moved for real')
             # time.sleep(100)
 
