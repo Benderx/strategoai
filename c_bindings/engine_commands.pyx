@@ -241,7 +241,7 @@ cdef void set_to(DTYPE_t *to_set, int size, int to) nogil:
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size) nogil:
+cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *flags, int board_size, int *seed) nogil:
     # Rivers
 
     if board_size == 10:
@@ -264,8 +264,8 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
     cdef int x, y, calc_num
 
     # places flags on backrank
-    cdef int pos0 = get_random_num(board_size)
-    cdef int pos1 = get_random_num(board_size)
+    cdef int pos0 = get_random_num(board_size, seed)
+    cdef int pos1 = get_random_num(board_size, seed)
 
     board[pos0] = 12
     visible[pos0] = 0
@@ -390,8 +390,11 @@ cdef void fill_boards(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t 
 
 # Implementing my own random number generator, how did it come to this?
 @cython.cdivision(True)
-cdef int my_rand(int seed) nogil:
-    cdef int r = (1103515245 * seed[0] + 12345) % (1<<31)  # Behold magic numbers
+@cython.boundscheck(False)
+@cython.wraparound(False)
+cdef int my_rand(int *seed) nogil:
+    cdef int bitshift = 1<<31
+    cdef int r = 1103515245 * seed[0] + 12345 % bitshift  # Behold magic numbers
     seed[0] = r
     return r
 
@@ -524,7 +527,7 @@ cdef void get_unknown_pieces(DTYPE_t *unknowns, DTYPE_t *board, DTYPE_t *visible
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False) 
-cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int player, DTYPE_t *unknowns, DTYPE_t *unknown_mixed) nogil:
+cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_t *movement, int board_size, int player, DTYPE_t *unknowns, DTYPE_t *unknown_mixed, int *seed) nogil:
     cdef int i = 0
     cdef int counter = 1
     cdef int new_flag_loc = 0
@@ -538,7 +541,7 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
     #         print("movement", movement[i])
     #     print("something went terribly wrong, get_randomized_board()")
 
-    new_flag_loc = unknowns[get_random_num(unknowns[0])+1]
+    new_flag_loc = unknowns[get_random_num(unknowns[0], seed)+1]
 
 
     cdef int num_bombs = get_bombs_left(board, visible, owner, player, board_size)
@@ -549,7 +552,7 @@ cdef int get_randomized_board(DTYPE_t *sample_board, DTYPE_t *board, DTYPE_t *vi
     cdef int n = unknowns[0]
     while n > 0:
         # use rand to generate a random number x in the range 0..n-1
-        x = (get_random_num(n)+1)
+        x = (get_random_num(n, seed)+1)
         # add source_array[x] to the result list
         unknown_mixed[unknowns[0]-n+1] = unknowns[x]
         # source_array[x] = source_array[n-1]; // replace number just used with last value
@@ -638,7 +641,7 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
         # time.sleep(.1)
 
         # Does visibility matter?
-        new_flag = get_randomized_board(sample_board, board, visible, owner, movement, board_size, turn, unknowns, unknown_mixed)
+        new_flag = get_randomized_board(sample_board, board, visible, owner, movement, board_size, turn, unknowns, unknown_mixed, seed)
         copy_arr(sample_visible, visible, board_size * board_size)
         copy_arr(sample_owner, owner, board_size * board_size)
         copy_arr(sample_movement, movement, board_size * board_size)
@@ -693,8 +696,9 @@ cdef int get_monte_move(DTYPE_t *board, DTYPE_t *visible, DTYPE_t *owner, DTYPE_
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *return_stuff, int *write_counter, int max_return_size) nogil:
+cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *return_stuff, int *write_counter, int max_return_size, int thread_num) nogil:
     cdef int *seed = <int *>malloc(sizeof(int))
+    seed[0] = thread_num
 
     cdef DTYPE_t *players = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
     players[0] = AI1
@@ -744,7 +748,7 @@ cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *
     
 
     cdef  DTYPE_t *flags = <DTYPE_t *>malloc(2 * sizeof(DTYPE_t))
-    fill_boards(board, visible, owner, flags, board_size)
+    fill_boards(board, visible, owner, flags, board_size, seed)
 
     write_init_return_board(return_stuff, board, visible, owner, movement, board_size, max_return_size)
 
@@ -766,7 +770,7 @@ cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *
 
         # RandomAI
         if players[turn] == 0:
-            move = get_random_num(all_moves[0])
+            move = get_random_num(all_moves[0], seed)
         elif players[turn] == 1:
             move = get_monte_move(board, visible, owner, movement, sample_board, sample_visible, sample_owner, sample_movement, monte_samples, board_size, all_moves, flags, turn, unknowns, unknown_mixed, sample_moves, move_size, write_counter, return_stuff, seed)
             # print('moved for real')
@@ -796,6 +800,7 @@ cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *
 
     free(unknowns)
     free(unknown_mixed)
+    free(seed)
 
     return_stuff[0] = winner
     return_stuff[1] = num_moves
@@ -806,7 +811,7 @@ cdef void play_game(int AI1, int AI2, int monte_samples, int board_size, float *
 @cython.wraparound(False) 
 def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_games, int thread_count):
     # srand(int(np.random.rand()*100000))
-    srand(time(NULL))
+    # srand(time(NULL))
 
 
 
@@ -853,21 +858,21 @@ def game_wrapper(int AI1, int AI2, int monte_samples, int board_size, int num_ga
     with nogil:
         for i in prange(num_games, schedule='guided', num_threads=thread_count):
             if(i == 0):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff1, write_counter1, max_return_size)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff1, write_counter1, max_return_size, 0 * time(NULL))
             elif(i == 1):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff2, write_counter2, max_return_size)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff2, write_counter2, max_return_size, 1 * time(NULL))
             elif(i == 2):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff3, write_counter3, max_return_size)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff3, write_counter3, max_return_size, 2 * time(NULL))
             elif(i == 3):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff4, write_counter4, max_return_size)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff4, write_counter4, max_return_size, 3 * time(NULL))
             elif(i == 4):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff5, write_counter5, max_return_size)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff5, write_counter5, max_return_size, 4 * time(NULL))
             elif(i == 5):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff6, write_counter6, max_return_size)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff6, write_counter6, max_return_size, 5 * time(NULL))
             elif(i == 6):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff7, write_counter7, max_return_size)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff7, write_counter7, max_return_size, 6 * time(NULL))
             elif(i == 7):
-                play_game(AI1, AI2, monte_samples, board_size, return_stuff8, write_counter8, max_return_size)
+                play_game(AI1, AI2, monte_samples, board_size, return_stuff8, write_counter8, max_return_size, 7 * time(NULL))
 
     cdef int total_write_counter = num_games
     tmp = np.zeros([max_return_size*8], dtype=np.float)
